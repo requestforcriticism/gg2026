@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="gg2026"
+run/main_scene="uid://c8a07el6difci"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [global_group]
 

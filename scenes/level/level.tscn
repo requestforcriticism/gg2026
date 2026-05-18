@@ -3,6 +3,8 @@
 [ext_resource type="MeshLibrary" uid="uid://dxtlm066yuee8" path="res://mesh_libraries/space_library.tres" id="1_h3e3j"]
 [ext_resource type="PackedScene" uid="uid://11dm46vkohnw" path="res://scenes/ray_picker_camera/ray_picker_camera.tscn" id="1_nbgty"]
 [ext_resource type="PackedScene" uid="uid://bvfj4a27tv5xe" path="res://scenes/gold_mine_base/gold_mine.tscn" id="3_i166f"]
+[ext_resource type="PackedScene" uid="uid://cugt4d6rr2yi5" path="res://scenes/enemies/base_enemy.tscn" id="4_hnne4"]
+[ext_resource type="Script" uid="uid://6e5tpvsii3tm" path="res://scenes/level/enemy_manager.gd" id="4_qkmgm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nbgty"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -51,8 +53,17 @@ data = {
 "cells": PackedInt32Array(65534, 65534, 458752, 65535, 65534, 458752, 0, 65534, 458752, 1, 65535, 458752, 1, 65534, 458752, 65534, 1, 1310720, 65535, 1, 1310720, 65534, 0, 1310720, 0, 1, 1310720, 1, 1, 1310720, 1, 0, 1310720, 65535, 0, 1310720, 0, 0, 1310721, 65534, 65535, 1310721, 65535, 65535, 1310721, 0, 65535, 1310721, 65533, 65535, 1310721)
 }
 
-[node name="Path3D" type="Path3D" parent="." unique_id=1501812363]
+[node name="EnemyPath" type="Path3D" parent="." unique_id=1501812363]
 curve = SubResource("Curve3D_h3e3j")
+
+[node name="EnemyManager" type="Node3D" parent="EnemyPath" unique_id=1942602387]
+script = ExtResource("4_qkmgm")
+base_enemy_scene = ExtResource("4_hnne4")
+
+[node name="BaseEnemySpawnTimer" type="Timer" parent="EnemyPath/EnemyManager" unique_id=373320757]
+autostart = true
 
 [node name="GoldMine" parent="." unique_id=532182191 instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[connection signal="timeout" from="EnemyPath/EnemyManager/BaseEnemySpawnTimer" to="EnemyPath/EnemyManager" method="spawn_base_enemy"]
