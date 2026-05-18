@@ -2,6 +2,7 @@
 
 [ext_resource type="MeshLibrary" uid="uid://dxtlm066yuee8" path="res://mesh_libraries/space_library.tres" id="1_h3e3j"]
 [ext_resource type="PackedScene" uid="uid://11dm46vkohnw" path="res://scenes/ray_picker_camera/ray_picker_camera.tscn" id="1_nbgty"]
+[ext_resource type="Script" uid="uid://c73uxswnb38ot" path="res://scenes/level/bank.gd" id="1_vpf64"]
 [ext_resource type="PackedScene" uid="uid://bvfj4a27tv5xe" path="res://scenes/gold_mine_base/gold_mine.tscn" id="3_i166f"]
 [ext_resource type="PackedScene" uid="uid://cugt4d6rr2yi5" path="res://scenes/enemies/base_enemy.tscn" id="4_hnne4"]
 [ext_resource type="Script" uid="uid://6e5tpvsii3tm" path="res://scenes/level/enemy_manager.gd" id="4_qkmgm"]
@@ -38,19 +39,24 @@ environment = SubResource("Environment_qkmgm")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
+[node name="Bank" type="Node" parent="." unique_id=1521444107 groups=["bank"]]
+script = ExtResource("1_vpf64")
+
+[node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("gridmap") instance=ExtResource("1_nbgty")]
+transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 10, 22.5, 10)
+gridmap = NodePath("../GridMap")
+
 [node name="Floor" type="CSGBox3D" parent="." unique_id=32398721]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 size = Vector3(8, 1, 8)
 material = SubResource("StandardMaterial3D_nrgbg")
 
-[node name="RayPickerCamera" parent="." unique_id=607457684 instance=ExtResource("1_nbgty")]
-transform = Transform3D(0.70710677, -0.59966063, 0.3747095, 0, 0.5299193, 0.8480481, -0.70710677, -0.59966063, 0.3747095, 10, 22.5, 10)
-
 [node name="GridMap" type="GridMap" parent="." unique_id=480385863]
 mesh_library = ExtResource("1_h3e3j")
 cell_center_y = false
+collision_layer = 3
 data = {
-"cells": PackedInt32Array(65534, 65534, 458752, 65535, 65534, 458752, 0, 65534, 458752, 1, 65535, 458752, 1, 65534, 458752, 65534, 1, 1310720, 65535, 1, 1310720, 65534, 0, 1310720, 0, 1, 1310720, 1, 1, 1310720, 1, 0, 1310720, 65535, 0, 1310720, 0, 0, 1310721, 65534, 65535, 1310721, 65535, 65535, 1310721, 0, 65535, 1310721, 65533, 65535, 1310721)
+"cells": PackedInt32Array(0, 0, 0, 0, 65535, 0, 65535, 65535, 0, 65534, 65535, 0, 65533, 65535, 0, 65534, 0, 1, 65535, 0, 1, 65535, 1, 1, 0, 1, 1, 65534, 1, 1, 1, 1, 1, 1, 0, 1, 1, 65535, 1, 1, 65534, 1, 0, 65534, 1, 65535, 65534, 1, 65534, 65534, 1)
 }
 
 [node name="EnemyPath" type="Path3D" parent="." unique_id=1501812363]
