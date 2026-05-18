@@ -14,6 +14,14 @@ config/name="gg2026"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "green",
+"res://mesh_libraries/": "red",
+"res://scenes/": "blue"
+}
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
