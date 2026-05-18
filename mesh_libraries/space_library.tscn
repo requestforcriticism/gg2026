@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://diu2mff40o7cu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nrgbg"]
+albedo_color = Color(0.28782284, 0.124400906, 0.0030474707, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nrgbg"]
+material = SubResource("StandardMaterial3D_nrgbg")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tewsj"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7ys2"]
+albedo_color = Color(0.46818912, 0.2216559, 0.010786727, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_s7ys2"]
+material = SubResource("StandardMaterial3D_s7ys2")
+size = Vector3(2, 0.01, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s7ys2"]
+size = Vector3(2, 0.01, 2)
+
+[node name="SpaceLibrary" type="Node3D" unique_id=1324846478]
+
+[node name="CaveTerrain" type="MeshInstance3D" parent="." unique_id=959077959 groups=["environment"]]
+mesh = SubResource("BoxMesh_nrgbg")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CaveTerrain" unique_id=2119864913]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CaveTerrain/StaticBody3D" unique_id=379895929]
+shape = SubResource("BoxShape3D_tewsj")
+
+[node name="CavePath" type="MeshInstance3D" parent="." unique_id=442960369]
+mesh = SubResource("BoxMesh_s7ys2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CavePath" unique_id=1780406394]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CavePath/StaticBody3D" unique_id=1109266093]
+shape = SubResource("BoxShape3D_s7ys2")

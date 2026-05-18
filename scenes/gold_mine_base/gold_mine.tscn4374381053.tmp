@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bvfj4a27tv5xe"]
+
+[ext_resource type="Script" uid="uid://n12eq4segd0l" path="res://scenes/gold_mine_base/gold_mine.gd" id="1_ybl65"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x2ff0"]
+albedo_color = Color(0.9254902, 0.6156863, 0, 1)
+
+[node name="GoldMine" type="Node3D" unique_id=532182191 groups=["environment"]]
+script = ExtResource("1_ybl65")
+max_health = null
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=371313065]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+use_collision = true
+radius = 0.4
+height = 1.0
+material = SubResource("StandardMaterial3D_x2ff0")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=472663612]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0038360357, 1.2113186, 0)
+billboard = 1
+text = "Gold: 99999"
+uppercase = true

@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://c8a07el6difci"]
+
+[ext_resource type="MeshLibrary" uid="uid://dxtlm066yuee8" path="res://mesh_libraries/space_library.tres" id="1_h3e3j"]
+[ext_resource type="PackedScene" uid="uid://11dm46vkohnw" path="res://scenes/ray_picker_camera/ray_picker_camera.tscn" id="1_nbgty"]
+[ext_resource type="PackedScene" uid="uid://bvfj4a27tv5xe" path="res://scenes/gold_mine_base/gold_mine.tscn" id="3_i166f"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nbgty"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_i166f"]
+sky_material = SubResource("ProceduralSkyMaterial_nbgty")
+
+[sub_resource type="Environment" id="Environment_qkmgm"]
+background_mode = 2
+sky = SubResource("Sky_i166f")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nrgbg"]
+albedo_color = Color(0.28782284, 0.124400906, 0.0030474707, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_h3e3j"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5, 0.5, -1, 0, 0, 0, 0, 0, 0, 1, 0.5, -1, 0, 0, 0, 0, 0, 0, 1, 0.5, 1),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[node name="Level" type="Node3D" unique_id=746977155]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=451302705]
+environment = SubResource("Environment_qkmgm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1458936150]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="CSGBox3D" parent="." unique_id=32398721]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+size = Vector3(8, 1, 8)
+material = SubResource("StandardMaterial3D_nrgbg")
+
+[node name="RayPickerCamera" parent="." unique_id=607457684 instance=ExtResource("1_nbgty")]
+transform = Transform3D(0.70710677, -0.59966063, 0.3747095, 0, 0.5299193, 0.8480481, -0.70710677, -0.59966063, 0.3747095, 10, 22.5, 10)
+
+[node name="GridMap" type="GridMap" parent="." unique_id=480385863]
+mesh_library = ExtResource("1_h3e3j")
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65534, 65534, 458752, 65535, 65534, 458752, 0, 65534, 458752, 1, 65535, 458752, 1, 65534, 458752, 65534, 1, 1310720, 65535, 1, 1310720, 65534, 0, 1310720, 0, 1, 1310720, 1, 1, 1310720, 1, 0, 1310720, 65535, 0, 1310720, 0, 0, 1310721, 65534, 65535, 1310721, 65535, 65535, 1310721, 0, 65535, 1310721, 65533, 65535, 1310721)
+}
+
+[node name="Path3D" type="Path3D" parent="." unique_id=1501812363]
+curve = SubResource("Curve3D_h3e3j")
+
+[node name="GoldMine" parent="." unique_id=532182191 instance=ExtResource("3_i166f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
