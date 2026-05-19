@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://dsiwbdnhgcd6t"]
+
+[ext_resource type="Texture2D" uid="uid://h5p7g00vui5a" path="res://assets/visual/spike_trap_placeholder.png" id="1_eugoy"]
+[ext_resource type="Script" uid="uid://ix702goahwvv" path="res://scenes/userinterface/ui.gd" id="1_yqs5y"]
+[ext_resource type="PackedScene" uid="uid://babrtpxq67wy3" path="res://scenes/traps/spike_trap/spike_trap.tscn" id="2_jsawn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yqs5y"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_eugoy"]
+font_size = 32
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[node name="UI" type="MarginContainer" unique_id=1166578692]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("1_yqs5y")
+spike_trap = ExtResource("2_jsawn")
+
+[node name="TrapOptions" type="HBoxContainer" parent="." unique_id=1145244194]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="SpikeTrap" type="VBoxContainer" parent="TrapOptions" unique_id=1790221442]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TrapOptions/SpikeTrap" unique_id=1616566831]
+layout_mode = 2
+text = "Spike Trap"
+label_settings = SubResource("LabelSettings_yqs5y")
+horizontal_alignment = 1
+
+[node name="SpikeTrap" type="Button" parent="TrapOptions/SpikeTrap" unique_id=1164616605]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("1_eugoy")
+icon_alignment = 1
+
+[node name="Gold_Quota" type="VBoxContainer" parent="." unique_id=2029725124]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="GoldLabel" type="Label" parent="Gold_Quota" unique_id=954255190]
+layout_mode = 2
+text = "Gold: 99999"
+label_settings = SubResource("LabelSettings_eugoy")
+
+[node name="QuotaLabel" type="Label" parent="Gold_Quota" unique_id=1822100698]
+layout_mode = 2
+text = "Quota: 0/99999"
+label_settings = SubResource("LabelSettings_eugoy")
+
+[connection signal="toggled" from="TrapOptions/SpikeTrap/SpikeTrap" to="." method="_on_spike_trap_toggled"]

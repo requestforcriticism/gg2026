@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cugt4d6rr2yi5" path="res://scenes/enemies/base_enemy.tscn" id="4_hnne4"]
 [ext_resource type="Script" uid="uid://6e5tpvsii3tm" path="res://scenes/level/enemy_manager.gd" id="4_qkmgm"]
 [ext_resource type="Script" uid="uid://do1n7nro3atrt" path="res://scenes/level/trap_magager.gd" id="7_wcngd"]
-[ext_resource type="PackedScene" uid="uid://babrtpxq67wy3" path="res://scenes/traps/spike_trap/spike_trap.tscn" id="8_xv074"]
+[ext_resource type="PackedScene" uid="uid://dsiwbdnhgcd6t" path="res://scenes/userinterface/ui.tscn" id="9_sytrn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nbgty"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -79,6 +79,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="TrapManager" type="Node3D" parent="." unique_id=556410210]
 script = ExtResource("7_wcngd")
-spike_trap = ExtResource("8_xv074")
+
+[node name="UI" parent="." unique_id=1166578692 instance=ExtResource("9_sytrn")]
 
 [connection signal="timeout" from="EnemyPath/EnemyManager/BaseEnemySpawnTimer" to="EnemyPath/EnemyManager" method="spawn_base_enemy"]

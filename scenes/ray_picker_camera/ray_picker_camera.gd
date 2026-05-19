@@ -5,9 +5,14 @@ extends Camera3D
 
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
 @onready var bank = get_tree().get_first_node_in_group("bank")
+@onready var ui: MarginContainer = $"../UI"
 
-var trap_cost := 99999 #Get this from the trap selected from UI
+var trap_cost := 20 #Get this from the trap selected from UI
 var ray_extend := 100.0 #Distance for Raycast to reach level
+var selected_Trap :Object
+
+func _ready() -> void:
+	ui.trap_select.connect(select_trap)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -31,13 +36,15 @@ func _process(delta: float) -> void:
 			if gridmap.get_cell_item(cell) == 0:
 				Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
 				if Input.is_action_pressed("click"):  #&& trap selected from UI.
-					if bank.gold >= trap_cost:
+					if selected_Trap:
 						gridmap.set_cell_item(cell, 1)
 						var tile_position = gridmap.map_to_local(cell)
-						#print("placing a trap!")
-						trap_manager.build_trap(tile_position)
+						trap_manager.build_trap(selected_Trap,tile_position)
 						#bank.gold -= trap_cost
 			else:
 				Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	else:
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+
+func select_trap(trap: Object):
+	selected_Trap = trap

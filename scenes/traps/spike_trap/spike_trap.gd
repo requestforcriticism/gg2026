@@ -33,7 +33,6 @@ func spike_buildup_passive_damage() -> void:
 	for i in enemies_on_trap:
 		if i:
 			i.get_parent().current_health -= passive_spike_buildup_damage
-			print(i.get_parent().current_health)
 		else:
 			enemies_on_trap.erase(i)
 
@@ -45,7 +44,6 @@ func spike_thrust() -> void:
 			enemies_on_trap.erase(i)
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	#print("finished :", anim_name )
 	if anim_name == "spike_buildup":
 		spike_buildup_timer.stop()
 		animation_player.play("spike_thrust")
