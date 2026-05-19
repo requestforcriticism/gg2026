@@ -1,6 +1,6 @@
 extends PathFollow3D
 
-@export var speed := 5.0
+@export var speed := 2.0
 @export var max_health := 50
 @export var mine_rate := 1.0
 @export var max_gold_capacity := 25

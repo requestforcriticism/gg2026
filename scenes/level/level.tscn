@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bvfj4a27tv5xe" path="res://scenes/gold_mine_base/gold_mine.tscn" id="3_i166f"]
 [ext_resource type="PackedScene" uid="uid://cugt4d6rr2yi5" path="res://scenes/enemies/base_enemy.tscn" id="4_hnne4"]
 [ext_resource type="Script" uid="uid://6e5tpvsii3tm" path="res://scenes/level/enemy_manager.gd" id="4_qkmgm"]
+[ext_resource type="Script" uid="uid://do1n7nro3atrt" path="res://scenes/level/trap_magager.gd" id="7_wcngd"]
+[ext_resource type="PackedScene" uid="uid://babrtpxq67wy3" path="res://scenes/traps/spike_trap/spike_trap.tscn" id="8_xv074"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nbgty"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -24,6 +26,7 @@ glow_enabled = true
 albedo_color = Color(0.28782284, 0.124400906, 0.0030474707, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_h3e3j"]
+bake_interval = 0.01
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5, 0.5, -1, 0, 0, 0, 0, 0, 0, 1, 0.5, -1, 0, 0, 0, 0, 0, 0, 1, 0.5, 1),
 "tilts": PackedFloat32Array(0, 0, 0)
@@ -42,9 +45,10 @@ shadow_enabled = true
 [node name="Bank" type="Node" parent="." unique_id=1521444107 groups=["bank"]]
 script = ExtResource("1_vpf64")
 
-[node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("gridmap") instance=ExtResource("1_nbgty")]
+[node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("gridmap", "trap_manager") instance=ExtResource("1_nbgty")]
 transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 10, 22.5, 10)
 gridmap = NodePath("../GridMap")
+trap_manager = NodePath("../TrapManager")
 
 [node name="Floor" type="CSGBox3D" parent="." unique_id=32398721]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -56,7 +60,7 @@ mesh_library = ExtResource("1_h3e3j")
 cell_center_y = false
 collision_layer = 3
 data = {
-"cells": PackedInt32Array(0, 0, 2, 0, 65535, 0, 65535, 65535, 0, 65534, 65535, 0, 65533, 65535, 0, 65534, 0, 1, 65535, 0, 1, 65535, 1, 1, 0, 1, 1, 65534, 1, 1, 1, 1, 1, 1, 0, 1, 1, 65535, 1, 1, 65534, 1, 0, 65534, 1, 65535, 65534, 1, 65534, 65534, 1)
+"cells": PackedInt32Array(65533, 65535, 1, 65534, 65535, 0, 65535, 65535, 0, 0, 65535, 0, 0, 0, 3, 65534, 0, 2, 65535, 0, 2, 65534, 1, 2, 65535, 1, 2, 0, 1, 2, 1, 1, 2, 1, 0, 2, 1, 65535, 2, 1, 65534, 2, 0, 65534, 2, 65535, 65534, 2, 65534, 65534, 2)
 }
 
 [node name="EnemyPath" type="Path3D" parent="." unique_id=1501812363]
@@ -67,9 +71,14 @@ script = ExtResource("4_qkmgm")
 base_enemy_scene = ExtResource("4_hnne4")
 
 [node name="BaseEnemySpawnTimer" type="Timer" parent="EnemyPath/EnemyManager" unique_id=373320757]
+wait_time = 0.5
 autostart = true
 
 [node name="GoldMine" parent="." unique_id=532182191 instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="TrapManager" type="Node3D" parent="." unique_id=556410210]
+script = ExtResource("7_wcngd")
+spike_trap = ExtResource("8_xv074")
 
 [connection signal="timeout" from="EnemyPath/EnemyManager/BaseEnemySpawnTimer" to="EnemyPath/EnemyManager" method="spawn_base_enemy"]

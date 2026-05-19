@@ -22,21 +22,20 @@ func _process(delta: float) -> void:
 	ray_cast_3d.target_position = project_local_ray_normal(mouse_position) * ray_extend
 	
 	ray_cast_3d.force_raycast_update()
-	#printt(mouse_position,ray_cast_3d.global_position,ray_cast_3d.target_position)
 	
 	if ray_cast_3d.is_colliding():
 		var collider = ray_cast_3d.get_collider()
 		if collider is GridMap:
 			var collision_point = ray_cast_3d.get_collision_point()
 			var cell = gridmap.local_to_map(collision_point)
-			print(gridmap.get_cell_item(cell))
 			if gridmap.get_cell_item(cell) == 0:
 				Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
 				if Input.is_action_pressed("click"):  #&& trap selected from UI.
 					if bank.gold >= trap_cost:
+						gridmap.set_cell_item(cell, 1)
 						var tile_position = gridmap.map_to_local(cell)
-						print("placing a trap!")
-						#trap_manager.build_turret(tile_position)
+						#print("placing a trap!")
+						trap_manager.build_trap(tile_position)
 						#bank.gold -= trap_cost
 			else:
 				Input.set_default_cursor_shape(Input.CURSOR_ARROW)

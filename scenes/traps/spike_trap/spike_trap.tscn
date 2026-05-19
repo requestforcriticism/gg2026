@@ -1,0 +1,240 @@
+[gd_scene format=3 uid="uid://babrtpxq67wy3"]
+
+[ext_resource type="Script" uid="uid://8yrnaxkrw600" path="res://scenes/traps/spike_trap/spike_trap.gd" id="1_mxevx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7jaht"]
+albedo_color = Color(0.27752772, 0.27752772, 0.27752772, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mxevx"]
+material = SubResource("StandardMaterial3D_7jaht")
+size = Vector2(1.75, 1.75)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b67sa"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bngrn"]
+material = SubResource("StandardMaterial3D_b67sa")
+top_radius = 0.15
+bottom_radius = 0.15
+height = 0.001
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsnpp"]
+albedo_color = Color(0.30323282, 0.30323282, 0.30323282, 1)
+metallic = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_c10yb"]
+material = SubResource("StandardMaterial3D_fsnpp")
+top_radius = 0.0
+bottom_radius = 0.1
+height = 1.0
+
+[sub_resource type="Animation" id="Animation_mxevx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Floor/Spikes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7jaht"]
+resource_name = "spike_buildup"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Floor/Spikes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -1, 0), Vector3(0, -0.8, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_b67sa"]
+resource_name = "spike_thrust"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Floor/Spikes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.8, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mxevx"]
+_data = {
+&"RESET": SubResource("Animation_mxevx"),
+&"spike_buildup": SubResource("Animation_7jaht"),
+&"spike_thrust": SubResource("Animation_b67sa")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7jaht"]
+size = Vector3(2, 2, 2)
+
+[node name="SpikeTrap" type="Node3D" unique_id=1269147494]
+script = ExtResource("1_mxevx")
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=2102070784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("PlaneMesh_mxevx")
+
+[node name="SpikeHoles" type="Node3D" parent="Floor" unique_id=1595592693]
+
+[node name="Hole" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=283782914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0.6)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole2" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=1552609213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0.6)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole3" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=237561510]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0.6)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole4" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=1229221334]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0, 0.6)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole5" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=1757453820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0.2)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole6" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=243491697]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0.2)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole7" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=542158468]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0.2)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole8" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=864934570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0, 0.2)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole9" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=1666911988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, -0.2)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole10" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=135495006]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, -0.2)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole11" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=266993511]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, -0.2)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole12" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=1584038709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0, -0.2)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole13" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=896245373]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, -0.6)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole14" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=489329775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, -0.6)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole15" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=758340248]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, -0.6)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Hole16" type="MeshInstance3D" parent="Floor/SpikeHoles" unique_id=2069857772]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0, -0.6)
+mesh = SubResource("CylinderMesh_bngrn")
+
+[node name="Spikes" type="Node3D" parent="Floor" unique_id=1952486113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Spike" type="MeshInstance3D" parent="Floor/Spikes" unique_id=317748505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.5, 0.6)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike2" type="MeshInstance3D" parent="Floor/Spikes" unique_id=698516083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.5, 0.6)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike3" type="MeshInstance3D" parent="Floor/Spikes" unique_id=1900910688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.5, 0.6)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike4" type="MeshInstance3D" parent="Floor/Spikes" unique_id=378354494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.5, 0.6)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike5" type="MeshInstance3D" parent="Floor/Spikes" unique_id=1323554324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.5, 0.2)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike6" type="MeshInstance3D" parent="Floor/Spikes" unique_id=2055888988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.5, 0.2)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike7" type="MeshInstance3D" parent="Floor/Spikes" unique_id=1501739526]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.5, 0.2)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike8" type="MeshInstance3D" parent="Floor/Spikes" unique_id=502636662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.5, 0.2)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike9" type="MeshInstance3D" parent="Floor/Spikes" unique_id=1188780388]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.5, -0.2)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike10" type="MeshInstance3D" parent="Floor/Spikes" unique_id=321421494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.5, -0.2)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike11" type="MeshInstance3D" parent="Floor/Spikes" unique_id=1997999098]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.5, -0.2)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike12" type="MeshInstance3D" parent="Floor/Spikes" unique_id=1309550817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.5, -0.2)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike13" type="MeshInstance3D" parent="Floor/Spikes" unique_id=529632027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.5, -0.6)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike14" type="MeshInstance3D" parent="Floor/Spikes" unique_id=39006855]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.5, -0.6)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike15" type="MeshInstance3D" parent="Floor/Spikes" unique_id=1198976353]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.5, -0.6)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="Spike16" type="MeshInstance3D" parent="Floor/Spikes" unique_id=811828178]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.5, -0.6)
+mesh = SubResource("CylinderMesh_c10yb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1441874661]
+libraries/ = SubResource("AnimationLibrary_mxevx")
+autoplay = &"RESET"
+
+[node name="InitialdetectArea3D" type="Area3D" parent="." unique_id=1843298355]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InitialdetectArea3D" unique_id=294820398]
+shape = SubResource("BoxShape3D_7jaht")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_shape_entered" from="InitialdetectArea3D" to="." method="_on_area_3d_area_shape_entered"]
+[connection signal="area_shape_exited" from="InitialdetectArea3D" to="." method="_on_area_3d_area_shape_exited"]

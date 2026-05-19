@@ -38,6 +38,15 @@ mesh = SubResource("BoxMesh_s7ys2")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CavePath/StaticBody3D" unique_id=1109266093]
 shape = SubResource("BoxShape3D_s7ys2")
 
+[node name="CavePathwTrap" type="MeshInstance3D" parent="." unique_id=16169656]
+layers = 2
+mesh = SubResource("BoxMesh_s7ys2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CavePathwTrap" unique_id=1704436792]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CavePathwTrap/StaticBody3D" unique_id=1430529511]
+shape = SubResource("BoxShape3D_s7ys2")
+
 [node name="CaveTerrain" type="MeshInstance3D" parent="." unique_id=959077959 groups=["environment"]]
 mesh = SubResource("BoxMesh_nrgbg")
 

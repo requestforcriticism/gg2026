@@ -36,8 +36,12 @@ click={
 3d_render/layer_1="Cave Terrain"
 3d_render/layer_2="Cave Floor"
 3d_render/layer_3="Enemy"
+3d_physics/layer_1="Cave Terrain"
 3d_navigation/layer_1="CaveTerrain"
+3d_physics/layer_2="Cave Floor"
 3d_navigation/layer_2="CaveFloor"
+3d_physics/layer_3="Enemy"
+3d_physics/layer_4="Gold Mine"
 
 [physics]
 
