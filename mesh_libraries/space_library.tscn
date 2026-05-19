@@ -20,6 +20,13 @@ size = Vector3(2, 2, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_tewsj"]
 size = Vector3(2, 0.5, 2)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tewsj"]
+albedo_color = Color(0.69803923, 0.38039216, 0.03137255, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_58nyu"]
+material = SubResource("StandardMaterial3D_tewsj")
+size = Vector3(2, 0.01, 2)
+
 [node name="SpaceLibrary" type="Node3D" unique_id=1324846478]
 
 [node name="CavePath" type="MeshInstance3D" parent="." unique_id=442960369]
@@ -38,3 +45,12 @@ mesh = SubResource("BoxMesh_nrgbg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CaveTerrain/StaticBody3D" unique_id=379895929]
 shape = SubResource("BoxShape3D_tewsj")
+
+[node name="CaveMineSpot" type="MeshInstance3D" parent="." unique_id=312124515]
+layers = 2
+mesh = SubResource("BoxMesh_58nyu")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CaveMineSpot" unique_id=86205062]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CaveMineSpot/StaticBody3D" unique_id=1370030912]
+shape = SubResource("BoxShape3D_s7ys2")
