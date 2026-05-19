@@ -13,7 +13,7 @@ height = 1.0
 radius = 0.2
 height = 1.0
 
-[node name="BaseEnemy" type="PathFollow3D" unique_id=1227583054]
+[node name="BaseEnemy" type="PathFollow3D" unique_id=1227583054 groups=["enemy"]]
 script = ExtResource("1_r5xb8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1252783565]
