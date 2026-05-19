@@ -1,6 +1,7 @@
 extends Node3D
 
 @export var spike_trap: PackedScene
+@export var arrow_trap: PackedScene
 
 func build_trap(trap_position:Vector3) -> void:
 	var new_trap = spike_trap.instantiate()
