@@ -11,6 +11,7 @@ extends Node3D
 var enemies_on_trap: Array = []
 var spikes_active := false
 
+
 func _process(delta: float) -> void:
 	#if animation_player.is_playing()
 	pass

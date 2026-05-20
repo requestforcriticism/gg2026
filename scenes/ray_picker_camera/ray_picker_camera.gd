@@ -11,16 +11,19 @@ extends Camera3D
 var trap_cost := 20 #Get this from the trap selected from UI
 var ray_extend := 100.0 #Distance for Raycast to reach level
 var selected_Trap :Object
+var mouse_position_3d
 
 func _ready() -> void:
 	ui.trap_select.connect(select_trap)
 
-
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("CancelSelection"):
-		end_selest_trap_check()
+		end_select_trap_check()
+	
 	
 	mouse_raycast()
+	if selected_Trap:
+		pass
 	
 	if ray_cast_3d.is_colliding():
 		var collider = ray_cast_3d.get_collider()
@@ -34,8 +37,7 @@ func _process(delta: float) -> void:
 						gridmap.set_cell_item(cell, 1)
 						var tile_position = gridmap.map_to_local(cell)
 						trap_manager.build_trap(selected_Trap,tile_position)
-						end_selest_trap_check()
-						
+						end_select_trap_check()
 			else:
 				Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	else:
@@ -43,27 +45,28 @@ func _process(delta: float) -> void:
 
 func select_trap(new_trap: Object) -> void:
 	selected_Trap = new_trap
-	add_trap_options()
+	add_trap_placement_options()
 
-func add_trap_options() -> void:
+func add_trap_placement_options() -> void:
 	var gridmap_list = gridmap.get_used_cells_by_item(0)  #Item 0 is CavePath
 	if selected_Trap:
 		for i in gridmap_list:
 			var new_spike_avail_spot = spike_trap_avail.instantiate()
 			new_spike_avail_spot.position = gridmap.map_to_local(i)
 			gridmap.add_child(new_spike_avail_spot)
+		#print(selected_Trap)
 
-func remove_trap_options() ->void:
-		for i in gridmap.get_children():
-			gridmap.remove_child(i)
+func remove_trap_placement_options() ->void:
+	for i in gridmap.get_children():
+		gridmap.remove_child(i)
 
-func end_selest_trap_check() -> void:
+func end_select_trap_check() -> void:
 	selected_Trap = null
-	remove_trap_options()
+	remove_trap_placement_options()
 
 func mouse_raycast() -> void:
 	var mouse_position: Vector2 = get_viewport().get_mouse_position()
-	var mouse_position_3d = project_position (mouse_position, 0)
+	mouse_position_3d = project_position (mouse_position, 0)
 	ray_cast_3d.global_position = mouse_position_3d
 	ray_cast_3d.target_position = project_local_ray_normal(mouse_position) * ray_extend
 	ray_cast_3d.force_raycast_update()
