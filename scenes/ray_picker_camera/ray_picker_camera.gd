@@ -1,5 +1,6 @@
 extends Camera3D
 
+@export var spike_trap_avail: PackedScene
 @export var gridmap: GridMap
 @export var trap_manager: Node3D
 
@@ -14,19 +15,12 @@ var selected_Trap :Object
 func _ready() -> void:
 	ui.trap_select.connect(select_trap)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta: float) -> void:
-	var mouse_position: Vector2 = get_viewport().get_mouse_position()
-	#ray_cast_3d.target_position = project_local_ray_normal(mouse_position) * ray_extend
+	if Input.is_action_just_pressed("CancelSelection"):
+		end_selest_trap_check()
 	
-	# converted that 2d mouse position, into 3d global space, ith a z depth of 0
-	var mouse_position_3d = project_position (mouse_position, 0)
-	# move the raycast object to that position
-	ray_cast_3d.global_position = mouse_position_3d
-	# then cast from where the raycast3d object is, then along the normal
-	ray_cast_3d.target_position = project_local_ray_normal(mouse_position) * ray_extend
-	
-	ray_cast_3d.force_raycast_update()
+	mouse_raycast()
 	
 	if ray_cast_3d.is_colliding():
 		var collider = ray_cast_3d.get_collider()
@@ -40,11 +34,36 @@ func _process(delta: float) -> void:
 						gridmap.set_cell_item(cell, 1)
 						var tile_position = gridmap.map_to_local(cell)
 						trap_manager.build_trap(selected_Trap,tile_position)
-						#bank.gold -= trap_cost
+						end_selest_trap_check()
+						
 			else:
 				Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	else:
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
-func select_trap(trap: Object):
-	selected_Trap = trap
+func select_trap(new_trap: Object) -> void:
+	selected_Trap = new_trap
+	add_trap_options()
+
+func add_trap_options() -> void:
+	var gridmap_list = gridmap.get_used_cells_by_item(0)  #Item 0 is CavePath
+	if selected_Trap:
+		for i in gridmap_list:
+			var new_spike_avail_spot = spike_trap_avail.instantiate()
+			new_spike_avail_spot.position = gridmap.map_to_local(i)
+			gridmap.add_child(new_spike_avail_spot)
+
+func remove_trap_options() ->void:
+		for i in gridmap.get_children():
+			gridmap.remove_child(i)
+
+func end_selest_trap_check() -> void:
+	selected_Trap = null
+	remove_trap_options()
+
+func mouse_raycast() -> void:
+	var mouse_position: Vector2 = get_viewport().get_mouse_position()
+	var mouse_position_3d = project_position (mouse_position, 0)
+	ray_cast_3d.global_position = mouse_position_3d
+	ray_cast_3d.target_position = project_local_ray_normal(mouse_position) * ray_extend
+	ray_cast_3d.force_raycast_update()

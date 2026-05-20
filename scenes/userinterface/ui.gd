@@ -17,8 +17,5 @@ func _ready() -> void:
 func set_gold_label(gold) -> void:
 	$Gold_Quota/GoldLabel.text = "Gold: " + str(gold)
 
-func _on_spike_trap_toggled(toggled_on: bool) -> void:
-	if toggled_on:
-		trap_select.emit(spike_trap)
-	else:
-		trap_select.emit(null)
+func _on_spike_trap_pressed() -> void:
+	trap_select.emit(spike_trap)

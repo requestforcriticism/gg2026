@@ -43,7 +43,6 @@ horizontal_alignment = 1
 
 [node name="SpikeTrap" type="Button" parent="TrapOptions/SpikeTrap" unique_id=1164616605]
 layout_mode = 2
-toggle_mode = true
 icon = ExtResource("1_eugoy")
 icon_alignment = 1
 
@@ -62,4 +61,4 @@ layout_mode = 2
 text = "Quota: 0/99999"
 label_settings = SubResource("LabelSettings_eugoy")
 
-[connection signal="toggled" from="TrapOptions/SpikeTrap/SpikeTrap" to="." method="_on_spike_trap_toggled"]
+[connection signal="pressed" from="TrapOptions/SpikeTrap/SpikeTrap" to="." method="_on_spike_trap_pressed"]

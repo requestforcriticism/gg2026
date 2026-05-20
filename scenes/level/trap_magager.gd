@@ -11,7 +11,3 @@ func build_trap(trap2Build: Object, trap_position:Vector3) -> void:
 		bank.gold -= new_trap.trap_cost
 		add_child(new_trap)
 		new_trap.global_position = trap_position
-
-func get_trap_cost() -> int:
-	var cost
-	return cost
