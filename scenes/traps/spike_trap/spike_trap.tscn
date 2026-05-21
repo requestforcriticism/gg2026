@@ -43,6 +43,22 @@ tracks/0/keys = {
 "values": [Vector3(0, -1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_bngrn"]
+resource_name = "holder"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Floor/Spikes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_7jaht"]
 resource_name = "spike_buildup"
 length = 0.75
@@ -77,6 +93,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mxevx"]
 _data = {
 &"RESET": SubResource("Animation_mxevx"),
+&"holder": SubResource("Animation_bngrn"),
 &"spike_buildup": SubResource("Animation_7jaht"),
 &"spike_thrust": SubResource("Animation_b67sa")
 }
@@ -86,9 +103,7 @@ size = Vector3(2, 2, 2)
 
 [node name="SpikeTrap" type="Node3D" unique_id=1269147494]
 script = ExtResource("1_mxevx")
-trap_cost = null
-passive_spike_buildup_damage = null
-spike_thrust_damage = null
+metadata/SpikeTrap = false
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=2102070784]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

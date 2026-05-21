@@ -13,4 +13,4 @@ spike_trap_avail = ExtResource("2_x4lu3")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=1424627951]
 
-[node name="PlacementHolder" type="Node3D" parent="." unique_id=1576014920]
+[node name="PlacementHolder" type="GridMap" parent="." unique_id=1209041454]

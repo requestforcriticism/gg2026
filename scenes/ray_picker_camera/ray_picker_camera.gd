@@ -20,10 +20,9 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("CancelSelection"):
 		end_select_trap_check()
 	
-	
 	mouse_raycast()
 	if selected_Trap:
-		pass
+		move_selected_trap_holder()
 	
 	if ray_cast_3d.is_colliding():
 		var collider = ray_cast_3d.get_collider()
@@ -45,7 +44,23 @@ func _process(delta: float) -> void:
 
 func select_trap(new_trap: Object) -> void:
 	selected_Trap = new_trap
-	add_trap_placement_options()
+	if !gridmap.get_children():
+		add_trap_placement_options()
+		create_selected_trap_holder()
+
+func create_selected_trap_holder() ->void:
+	mouse_position_3d = project_position (get_viewport().get_mouse_position(), 1)
+	var new_spike_holder = selected_Trap.instantiate()
+	new_spike_holder.position = mouse_position_3d
+	new_spike_holder.holder = true
+	gridmap.add_child(new_spike_holder)
+
+func move_selected_trap_holder() ->void:
+	var selected_trap_holder = gridmap.get_children()
+	print(selected_Trap)    #Figure out how to check if selected_trap is the same name as the holder.
+	for i in selected_trap_holder:
+		if i.name == "SpikeTrap":
+			i.position = project_position(get_viewport().get_mouse_position(), 1)
 
 func add_trap_placement_options() -> void:
 	var gridmap_list = gridmap.get_used_cells_by_item(0)  #Item 0 is CavePath
@@ -54,7 +69,6 @@ func add_trap_placement_options() -> void:
 			var new_spike_avail_spot = spike_trap_avail.instantiate()
 			new_spike_avail_spot.position = gridmap.map_to_local(i)
 			gridmap.add_child(new_spike_avail_spot)
-		#print(selected_Trap)
 
 func remove_trap_placement_options() ->void:
 	for i in gridmap.get_children():

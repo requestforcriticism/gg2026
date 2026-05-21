@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://uhv7mmho1shb"]
+
+[ext_resource type="PackedScene" uid="uid://babrtpxq67wy3" path="res://scenes/traps/spike_trap/spike_trap.tscn" id="1_1yi0f"]
+
+[node name="SpikeTrapSelected" unique_id=1269147494 instance=ExtResource("1_1yi0f")]
+
+[node name="InitialdetectArea3D" parent="." index="2" unique_id=1843298355]
+collision_mask = 0
