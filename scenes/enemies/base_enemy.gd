@@ -17,5 +17,5 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	progress += delta * speed
 	if progress_ratio == 1.0:
-		queue_free()
+		self.get_parent().move_me()
 		# Need logic for mining at a vein if progress reaches 1.0

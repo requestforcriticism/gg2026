@@ -2,23 +2,32 @@
 
 [ext_resource type="Script" uid="uid://n12eq4segd0l" path="res://scenes/gold_mine_base/gold_mine.gd" id="1_ybl65"]
 
+[sub_resource type="Curve3D" id="Curve3D_ybl65"]
+_data = {
+"points": PackedVector3Array(-0.011217415, 0, -0.57926154, 0, 0, 0.4, -0.6, 0.5, 0, -0.4, 0, 0, 0.4, 0, 0, -0.002, 0.5, 0.6, 0, 0, 0.4, 0, 0, -0.4, 0.6, 0.5, -0.008, 0.4, 0, 0, -0.5264613, 0, -0.0069161654, 0, 0.5, -0.6),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x2ff0"]
 albedo_color = Color(0.9254902, 0.6156863, 0, 1)
 
-[node name="GoldMine" type="Node3D" unique_id=532182191 groups=["environment"]]
+[node name="GoldMine" type="Path3D" unique_id=430811579 groups=["environment"]]
+curve = SubResource("Curve3D_ybl65")
 script = ExtResource("1_ybl65")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=371313065]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 use_collision = true
-radius = 0.4
-height = 1.0
+radius = 0.25
+height = 0.7
 material = SubResource("StandardMaterial3D_x2ff0")
 
 [node name="Label3D" type="Label3D" parent="." unique_id=472663612]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0038360357, 1.2113186, 0)
+visible = false
 billboard = 1
 text = "Gold: 99999"
-font_size = 100
-outline_size = 30
+font_size = 80
+outline_size = 20
 uppercase = true

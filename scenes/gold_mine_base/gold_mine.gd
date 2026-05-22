@@ -1,4 +1,6 @@
-extends Node3D
+extends Path3D
+
+@export var my_path3d :Path3D
 
 @export var max_gold: int = 1000
 

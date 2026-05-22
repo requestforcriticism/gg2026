@@ -4,8 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://11dm46vkohnw" path="res://scenes/ray_picker_camera/ray_picker_camera.tscn" id="1_nbgty"]
 [ext_resource type="Script" uid="uid://c73uxswnb38ot" path="res://scenes/level/bank.gd" id="1_vpf64"]
 [ext_resource type="PackedScene" uid="uid://bvfj4a27tv5xe" path="res://scenes/gold_mine_base/gold_mine.tscn" id="3_i166f"]
-[ext_resource type="PackedScene" uid="uid://cugt4d6rr2yi5" path="res://scenes/enemies/base_enemy.tscn" id="4_hnne4"]
-[ext_resource type="Script" uid="uid://6e5tpvsii3tm" path="res://scenes/level/enemy_manager.gd" id="4_qkmgm"]
+[ext_resource type="PackedScene" uid="uid://c1njedt1gde63" path="res://scenes/level/enemy_path.tscn" id="4_wcngd"]
 [ext_resource type="Script" uid="uid://do1n7nro3atrt" path="res://scenes/level/trap_magager.gd" id="7_wcngd"]
 [ext_resource type="PackedScene" uid="uid://dsiwbdnhgcd6t" path="res://scenes/userinterface/ui.tscn" id="9_sytrn"]
 
@@ -24,14 +23,6 @@ glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nrgbg"]
 albedo_color = Color(0.28782284, 0.124400906, 0.0030474707, 1)
-
-[sub_resource type="Curve3D" id="Curve3D_h3e3j"]
-bake_interval = 0.01
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5, 0.5, -1, 0, 0, 0, 0, 0, 0, 1, 0.5, -1, 0, 0, 0, 0, 0, 0, 1, 0.5, 1),
-"tilts": PackedFloat32Array(0, 0, 0)
-}
-point_count = 3
 
 [node name="Level" type="Node3D" unique_id=746977155]
 
@@ -63,16 +54,8 @@ data = {
 "cells": PackedInt32Array(65533, 65535, 1, 65534, 65535, 0, 65535, 65535, 0, 0, 65535, 0, 0, 0, 3, 65534, 0, 2, 65535, 0, 2, 65534, 1, 2, 65535, 1, 2, 0, 1, 2, 1, 1, 2, 1, 0, 2, 1, 65535, 2, 1, 65534, 2, 0, 65534, 2, 65535, 65534, 2, 65534, 65534, 2)
 }
 
-[node name="EnemyPath" type="Path3D" parent="." unique_id=1501812363]
-curve = SubResource("Curve3D_h3e3j")
-
-[node name="EnemyManager" type="Node3D" parent="EnemyPath" unique_id=1942602387]
-script = ExtResource("4_qkmgm")
-base_enemy_scene = ExtResource("4_hnne4")
-
-[node name="BaseEnemySpawnTimer" type="Timer" parent="EnemyPath/EnemyManager" unique_id=373320757]
-wait_time = 0.5
-autostart = true
+[node name="EnemyPath" parent="." unique_id=1922126716 node_paths=PackedStringArray("my_goldmine") instance=ExtResource("4_wcngd")]
+my_goldmine = NodePath("../GoldMine")
 
 [node name="GoldMine" parent="." unique_id=532182191 instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
@@ -82,4 +65,4 @@ script = ExtResource("7_wcngd")
 
 [node name="UI" parent="." unique_id=1166578692 instance=ExtResource("9_sytrn")]
 
-[connection signal="timeout" from="EnemyPath/EnemyManager/BaseEnemySpawnTimer" to="EnemyPath/EnemyManager" method="spawn_base_enemy"]
+[editable path="EnemyPath"]

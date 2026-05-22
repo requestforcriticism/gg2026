@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://c1njedt1gde63"]
+
+[ext_resource type="Script" uid="uid://bar8hctirwkhi" path="res://scenes/level/enemy_path.gd" id="1_7xpfd"]
+[ext_resource type="Script" uid="uid://6e5tpvsii3tm" path="res://scenes/level/enemy_manager.gd" id="2_xhthc"]
+[ext_resource type="PackedScene" uid="uid://cugt4d6rr2yi5" path="res://scenes/enemies/base_enemy.tscn" id="3_ia4qa"]
+
+[sub_resource type="Curve3D" id="Curve3D_h3e3j"]
+bake_interval = 0.01
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5, 0.5, -1, 0, 0, 0, 0, 0, 0, 1, 0.5, -1, 0, 0, 0, 0, 0, 0, 1, 0.5, 1),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[node name="EnemyPath" type="Path3D" unique_id=1922126716 node_paths=PackedStringArray("my_goldmine")]
+curve = SubResource("Curve3D_h3e3j")
+script = ExtResource("1_7xpfd")
+my_goldmine = NodePath("")
+
+[node name="EnemyManager" type="Node3D" parent="." unique_id=495787817]
+script = ExtResource("2_xhthc")
+base_enemy_scene = ExtResource("3_ia4qa")
+
+[node name="BaseEnemySpawnTimer" type="Timer" parent="EnemyManager" unique_id=1663667012]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="EnemyManager/BaseEnemySpawnTimer" to="EnemyManager" method="spawn_base_enemy"]

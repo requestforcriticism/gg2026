@@ -15,6 +15,10 @@ run/main_scene="uid://c8a07el6difci"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SignalBus="*uid://bai41lrcr8nny"
+
 [display]
 
 window/stretch/mode="canvas_items"
@@ -24,7 +28,8 @@ window/stretch/mode="canvas_items"
 folder_colors={
 "res://assets/": "green",
 "res://mesh_libraries/": "red",
-"res://scenes/": "blue"
+"res://scenes/": "blue",
+"res://signalbus/": "orange"
 }
 
 [input]

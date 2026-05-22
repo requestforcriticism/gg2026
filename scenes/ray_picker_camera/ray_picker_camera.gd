@@ -57,7 +57,7 @@ func create_selected_trap_holder() ->void:
 
 func move_selected_trap_holder() ->void:
 	var selected_trap_holder = gridmap.get_children()
-	print(selected_Trap)    #Figure out how to check if selected_trap is the same name as the holder.
+	#print(selected_Trap)    #Figure out how to check if selected_trap is the same name as the holder.
 	for i in selected_trap_holder:
 		if i.name == "SpikeTrap":
 			i.position = project_position(get_viewport().get_mouse_position(), 1)
