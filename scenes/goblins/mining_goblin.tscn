@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dqyjlngoh1e5p"]
+
+[ext_resource type="Script" uid="uid://ctodyaipauj70" path="res://scenes/goblins/mining_goblin.gd" id="1_dmqem"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywrp0"]
+albedo_color = Color(0, 0.6431373, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dmqem"]
+material = SubResource("StandardMaterial3D_ywrp0")
+radius = 0.2
+height = 0.75
+
+[node name="MiningGoblin" type="PathFollow3D" unique_id=402463534]
+script = ExtResource("1_dmqem")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=345885214]
+mesh = SubResource("CapsuleMesh_dmqem")
+
+[node name="MiningTimer" type="Timer" parent="." unique_id=1393551348]
+autostart = true
+
+[connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]

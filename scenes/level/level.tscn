@@ -35,6 +35,7 @@ shadow_enabled = true
 
 [node name="Bank" type="Node" parent="." unique_id=1521444107 groups=["bank"]]
 script = ExtResource("1_vpf64")
+starting_gold = 100
 
 [node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("gridmap", "trap_manager") instance=ExtResource("1_nbgty")]
 transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 10, 22.5, 10)
@@ -57,8 +58,14 @@ data = {
 [node name="EnemyPath" parent="." unique_id=1922126716 node_paths=PackedStringArray("my_goldmine") instance=ExtResource("4_wcngd")]
 my_goldmine = NodePath("../GoldMine")
 
-[node name="GoldMine" parent="." unique_id=532182191 instance=ExtResource("3_i166f")]
+[node name="BaseEnemySpawnTimer" parent="EnemyPath/EnemyManager" parent_id_path=PackedInt32Array(1922126716, 495787817) index="0" unique_id=1663667012]
+wait_time = 1.0
+one_shot = true
+
+[node name="GoldMine" parent="." unique_id=532182191 node_paths=PackedStringArray("my_path3d") instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+my_path3d = NodePath("../EnemyPath")
+max_gold = 100
 
 [node name="TrapManager" type="Node3D" parent="." unique_id=556410210]
 script = ExtResource("7_wcngd")
