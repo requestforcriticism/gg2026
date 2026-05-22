@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cugt4d6rr2yi5"]
 
 [ext_resource type="Script" uid="uid://co3i2ogh52d8o" path="res://scenes/enemies/base_enemy.gd" id="1_r5xb8"]
+[ext_resource type="PackedScene" uid="uid://rna1bxx4rh4b" path="res://scenes/minegold/mine_gold.tscn" id="2_qf3h2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c1rwf"]
 
@@ -16,11 +17,6 @@ height = 1.0
 [node name="BaseEnemy" type="PathFollow3D" unique_id=1227583054 groups=["enemy"]]
 loop = false
 script = ExtResource("1_r5xb8")
-speed = null
-max_health = null
-mining_rate = null
-mining_amount_per_tick = null
-max_gold_capacity = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1252783565]
 mesh = SubResource("CapsuleMesh_c1rwf")
@@ -33,5 +29,7 @@ collision_mask = 8
 shape = SubResource("CapsuleShape3D_c1rwf")
 
 [node name="MiningTimer" type="Timer" parent="." unique_id=1662640569]
+
+[node name="MineGold" parent="." unique_id=914139052 instance=ExtResource("2_qf3h2")]
 
 [connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]

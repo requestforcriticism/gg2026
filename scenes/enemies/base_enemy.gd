@@ -12,6 +12,7 @@ var rdy_to_leave := false
 enum ENEMY_STATE {TRAVEL_IN, TRAVEL_OUT, MINING}
 var state := ENEMY_STATE.TRAVEL_IN
 
+@onready var mine_gold: Node3D = $MineGold
 @onready var mining_timer: Timer = $MiningTimer
 
 var current_health: int:
@@ -50,6 +51,7 @@ func _on_mining_timer_timeout() -> void:
 	if gold_in_bag < max_gold_capacity:
 		get_parent().lose_gold(mining_amount_per_tick)
 		gold_in_bag += 1
+		mine_gold.mine_gold()
 	else:
 		mining_timer.stop()
 		rdy_to_leave = true

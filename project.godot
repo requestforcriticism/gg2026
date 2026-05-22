@@ -29,7 +29,8 @@ folder_colors={
 "res://assets/": "green",
 "res://mesh_libraries/": "red",
 "res://scenes/": "blue",
-"res://signalbus/": "orange"
+"res://signalbus/": "orange",
+"res://sprite_mesh/": "purple"
 }
 
 [input]
