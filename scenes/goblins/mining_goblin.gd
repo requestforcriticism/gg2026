@@ -11,6 +11,9 @@ func _ready() -> void:
 	$MiningTimer.wait_time = mining_rate
 
 func _on_mining_timer_timeout() -> void:
-	bank.gold += mining_amount_per_tick
-	get_parent().lose_gold(mining_amount_per_tick)
-	mine_gold.mine_gold()
+	if get_parent().current_gold > mining_amount_per_tick:
+		bank.gold += mining_amount_per_tick
+		get_parent().lose_gold(mining_amount_per_tick)
+		mine_gold.mine_gold()
+	else:
+		queue_free()

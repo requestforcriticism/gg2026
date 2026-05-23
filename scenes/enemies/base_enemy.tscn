@@ -17,6 +17,7 @@ height = 1.0
 [node name="BaseEnemy" type="PathFollow3D" unique_id=1227583054 groups=["enemy"]]
 loop = false
 script = ExtResource("1_r5xb8")
+base_speed = 5.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1252783565]
 mesh = SubResource("CapsuleMesh_c1rwf")

@@ -61,4 +61,14 @@ layout_mode = 2
 text = "Quota: 0/99999"
 label_settings = SubResource("LabelSettings_eugoy")
 
+[node name="HumanStole" type="VBoxContainer" parent="." unique_id=707950647]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="StolenLabel" type="Label" parent="HumanStole" unique_id=249605056]
+layout_mode = 2
+text = "Stolen from Humans: 0"
+label_settings = SubResource("LabelSettings_eugoy")
+
 [connection signal="pressed" from="TrapOptions/SpikeTrap/SpikeTrap" to="." method="_on_spike_trap_pressed"]

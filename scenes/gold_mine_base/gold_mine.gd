@@ -15,7 +15,7 @@ var current_gold: int:
 		label_3d.modulate = red.lerp(white,float(current_gold)/float(max_gold))
 		if current_gold < 1:
 			pass
-			#Logic to create hold and start next layer 
+			#Logic to create hold and start next layer
 
 @onready var label_3d: Label3D = $Label3D
 

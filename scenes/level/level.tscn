@@ -3,6 +3,7 @@
 [ext_resource type="MeshLibrary" uid="uid://dxtlm066yuee8" path="res://mesh_libraries/space_library.tres" id="1_h3e3j"]
 [ext_resource type="PackedScene" uid="uid://11dm46vkohnw" path="res://scenes/ray_picker_camera/ray_picker_camera.tscn" id="1_nbgty"]
 [ext_resource type="Script" uid="uid://c73uxswnb38ot" path="res://scenes/level/bank.gd" id="1_vpf64"]
+[ext_resource type="Script" uid="uid://bsdc2crekl2hf" path="res://scenes/level/stolen.gd" id="2_xv074"]
 [ext_resource type="PackedScene" uid="uid://bvfj4a27tv5xe" path="res://scenes/gold_mine_base/gold_mine.tscn" id="3_i166f"]
 [ext_resource type="PackedScene" uid="uid://c1njedt1gde63" path="res://scenes/level/enemy_path.tscn" id="4_wcngd"]
 [ext_resource type="Script" uid="uid://do1n7nro3atrt" path="res://scenes/level/trap_magager.gd" id="7_wcngd"]
@@ -37,6 +38,14 @@ shadow_enabled = true
 script = ExtResource("1_vpf64")
 starting_gold = 100
 
+[node name="Stolen" type="Node" parent="." unique_id=1590127708 groups=["stolen"]]
+script = ExtResource("2_xv074")
+
+[node name="UI" parent="." unique_id=1166578692 instance=ExtResource("9_sytrn")]
+
+[node name="TrapManager" type="Node3D" parent="." unique_id=556410210]
+script = ExtResource("7_wcngd")
+
 [node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("gridmap", "trap_manager") instance=ExtResource("1_nbgty")]
 transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 10, 22.5, 10)
 gridmap = NodePath("../GridMap")
@@ -58,18 +67,15 @@ data = {
 [node name="EnemyPath" parent="." unique_id=1922126716 node_paths=PackedStringArray("my_goldmine") instance=ExtResource("4_wcngd")]
 my_goldmine = NodePath("../GoldMine")
 
-[node name="BaseEnemySpawnTimer" parent="EnemyPath/EnemyManager" parent_id_path=PackedInt32Array(1922126716, 495787817) index="0" unique_id=1663667012]
-wait_time = 1.0
-one_shot = true
+[node name="EnemyManager" parent="EnemyPath" index="0" unique_id=495787817]
+spawn_rate = 0.5
+
+[node name="BaseEnemySpawnTimer" parent="EnemyPath/EnemyManager" index="0" unique_id=1663667012]
+wait_time = 0.5
 
 [node name="GoldMine" parent="." unique_id=532182191 node_paths=PackedStringArray("my_path3d") instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 my_path3d = NodePath("../EnemyPath")
 max_gold = 100
-
-[node name="TrapManager" type="Node3D" parent="." unique_id=556410210]
-script = ExtResource("7_wcngd")
-
-[node name="UI" parent="." unique_id=1166578692 instance=ExtResource("9_sytrn")]
 
 [editable path="EnemyPath"]
