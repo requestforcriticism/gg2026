@@ -1,5 +1,7 @@
 extends PathFollow3D
 
+@export var bag_to_drop_scene: PackedScene
+
 @export var base_speed := 2.0
 @export var max_health := 50
 @export var mining_rate := 1 #Number of seconds
@@ -23,6 +25,8 @@ var current_health: int:
 	set(health_in):
 		current_health = health_in
 		if current_health < 1:
+			if gold_in_bag != 0:
+				create_bag_to_drop()
 			queue_free()
 
 func _ready() -> void:
@@ -65,6 +69,18 @@ func to_return_gold() -> void:
 
 func back_to_path() -> void:
 	self.get_parent().move_me_to_path()
+
+func leave() -> void:
+	print(state)
+	if state == ENEMY_STATE.TRAVEL_IN || state == ENEMY_STATE.TRAVEL_OUT:
+		state = ENEMY_STATE.TRAVEL_OUT
+		rdy_to_leave = true
+
+func create_bag_to_drop() -> void:
+	var new_bag = bag_to_drop_scene.instantiate()
+	new_bag.global_position = global_position
+	new_bag.Gold_in_Bag = gold_in_bag
+	get_parent().add_sibling(new_bag)
 
 func _on_mining_timer_timeout() -> void:
 	if gold_in_bag < max_gold_capacity && get_parent().current_gold > 0:

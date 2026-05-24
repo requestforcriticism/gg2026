@@ -40,7 +40,7 @@ my_going_forward_first_path = NodePath("../EnemyPath")
 
 [node name="Bank" type="Node" parent="." unique_id=1521444107 groups=["bank"]]
 script = ExtResource("1_vpf64")
-starting_gold = 100
+starting_gold = 150
 
 [node name="UI" parent="." unique_id=1166578692 instance=ExtResource("9_sytrn")]
 
@@ -70,11 +70,10 @@ my_going_forward_mine = NodePath("../GoldMine")
 my_going_back = NodePath("../EnemyCamp")
 
 [node name="EnemyManager" parent="EnemyPath" index="0" unique_id=495787817]
-spawn_rate = 0.5
+spawn_rate = 1.0
 
 [node name="BaseEnemySpawnTimer" parent="EnemyPath/EnemyManager" index="0" unique_id=1663667012]
-wait_time = 0.5
-one_shot = true
+wait_time = 1.0
 
 [node name="GoldMine" parent="." unique_id=532182191 node_paths=PackedStringArray("my_going_back") instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)

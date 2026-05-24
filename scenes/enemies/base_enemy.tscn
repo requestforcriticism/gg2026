@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cugt4d6rr2yi5"]
 
 [ext_resource type="Script" uid="uid://co3i2ogh52d8o" path="res://scenes/enemies/base_enemy.gd" id="1_r5xb8"]
+[ext_resource type="PackedScene" uid="uid://bunsf7ir4ep0o" path="res://scenes/dropped_gold_bag/dropped_gold_bag.tscn" id="2_lkvl6"]
 [ext_resource type="PackedScene" uid="uid://rna1bxx4rh4b" path="res://scenes/minegold/mine_gold.tscn" id="2_qf3h2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c1rwf"]
@@ -17,7 +18,7 @@ height = 1.0
 [node name="BaseEnemy" type="PathFollow3D" unique_id=1227583054 groups=["enemy"]]
 loop = false
 script = ExtResource("1_r5xb8")
-base_speed = 5.0
+bag_to_drop_scene = ExtResource("2_lkvl6")
 return_gold_rate = 1.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1252783565]
