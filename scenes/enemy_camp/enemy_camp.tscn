@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://1psanef3pwka"]
+
+[ext_resource type="Script" uid="uid://dnexk725jstl3" path="res://scenes/enemy_camp/enemy_camp.gd" id="1_b0f8m"]
+
+[sub_resource type="Curve3D" id="Curve3D_07yku"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.75, 0, -0.5, 0, 0, 0, 0, 0, 0, 0.75, 0, -0.5),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07yku"]
+albedo_color = Color(0.29529676, 0.22349435, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_07yku"]
+material = SubResource("StandardMaterial3D_07yku")
+size = Vector3(1.5, 1, 0.15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b0f8m"]
+albedo_color = Color(0, 0, 0.24705882, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_p13cj"]
+material = SubResource("StandardMaterial3D_b0f8m")
+size = Vector3(1.5, 0.02, 0.75)
+
+[node name="EnemyCamp" type="Path3D" unique_id=1840097758 groups=["stolen"]]
+curve = SubResource("Curve3D_07yku")
+script = ExtResource("1_b0f8m")
+
+[node name="Back" type="MeshInstance3D" parent="." unique_id=1527386934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.8)
+mesh = SubResource("BoxMesh_07yku")
+
+[node name="Top" type="MeshInstance3D" parent="Back" unique_id=1939981645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, -0.30005682)
+mesh = SubResource("BoxMesh_p13cj")

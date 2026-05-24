@@ -1,4 +1,4 @@
-extends Node
+extends Path3D
 
 @export var starting_stolen_gold := 0
 
