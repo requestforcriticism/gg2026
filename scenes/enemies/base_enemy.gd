@@ -51,7 +51,6 @@ func do_state_stuff(delta) -> void:
 			speed = 0.0
 			state = ENEMY_STATE.RETURN_GOLD
 			to_return_gold()
-			
 	elif state == ENEMY_STATE.RETURN_GOLD:
 		if return_gold_timer.is_stopped():
 			return_gold_timer.start()
@@ -62,21 +61,20 @@ func to_goldmine() -> void:
 	self.get_parent().move_me_to_goldmine()
 
 func to_return_gold() -> void:
-	#Add stuff here
-	pass
+	self.get_parent().move_me_to_return()
 
-func back_up_path() -> void:
+func back_to_path() -> void:
 	self.get_parent().move_me_to_path()
 
 func _on_mining_timer_timeout() -> void:
 	if gold_in_bag < max_gold_capacity && get_parent().current_gold > 0:
 		get_parent().lose_gold(mining_amount_per_tick)
 		gold_in_bag += 1
-		mine_gold.mine_gold()
+		mine_gold.mine_gold() #play animation
 	else:
 		mining_timer.stop()
 		rdy_to_leave = true
-		back_up_path()
+		back_to_path()
 		state = ENEMY_STATE.TRAVEL_OUT
 		progress_ratio = 1.0
 		speed = base_speed * 1.25
@@ -85,10 +83,11 @@ func _on_return_gold_timer_timeout() -> void:
 	if gold_in_bag > 0:
 		stolen.stolen_gold += 1
 		gold_in_bag -= 1
-		mine_gold.mine_gold()
+		mine_gold.mine_gold() #play animation
 	else:
 		return_gold_timer.stop()
 		rdy_to_leave = false
 		state = ENEMY_STATE.TRAVEL_IN
 		progress_ratio = 0.0
 		speed = base_speed
+		back_to_path()

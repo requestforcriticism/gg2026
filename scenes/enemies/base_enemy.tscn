@@ -18,7 +18,7 @@ height = 1.0
 loop = false
 script = ExtResource("1_r5xb8")
 base_speed = 5.0
-max_gold_capacity = 1
+return_gold_rate = 1.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1252783565]
 mesh = SubResource("CapsuleMesh_c1rwf")
@@ -35,7 +35,6 @@ shape = SubResource("CapsuleShape3D_c1rwf")
 [node name="MineGold" parent="." unique_id=914139052 instance=ExtResource("2_qf3h2")]
 
 [node name="ReturnGoldTimer" type="Timer" parent="." unique_id=1372039354]
-wait_time = 0.5
 
 [connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]
 [connection signal="timeout" from="ReturnGoldTimer" to="." method="_on_return_gold_timer_timeout"]

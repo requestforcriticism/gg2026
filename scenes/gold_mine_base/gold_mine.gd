@@ -1,6 +1,6 @@
 extends Path3D
 
-@export var my_path3d :Path3D
+@export var my_going_back :Path3D
 
 @export var mining_goblin_scene: PackedScene
 
@@ -30,7 +30,7 @@ func move_me_to_path() -> void:
 	for i in get_children():
 		if i.is_in_group("enemy"):
 			if i.rdy_to_leave:
-				i.reparent(my_path3d)
+				i.reparent(my_going_back)
 				#Check stuff from here
 
 func place_mining_gob()-> void:
@@ -41,9 +41,10 @@ func lose_gold(mining_amount) -> void:
 	current_gold -= mining_amount
 
 func reorg_children()-> void:
-	var path_children :Array[PathFollow3D] = []
-	for i in get_children():
-		if i.get_class() == "PathFollow3D":
-			path_children.append(i)
-	for i in path_children:
-		i.progress_ratio = float(path_children.find(i)) / path_children.size() + (1.0/path_children.size())/2.0
+	if get_children():
+		var path_children :Array[PathFollow3D] = []
+		for i in get_children():
+			if i.get_class() == "PathFollow3D":
+				path_children.append(i)
+		for i in path_children:
+			i.progress_ratio = float(path_children.find(i)) / path_children.size() + (1.0/path_children.size())/2.0
