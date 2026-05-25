@@ -11,4 +11,5 @@ func _ready() -> void:
 
 func spawn_base_enemy() -> void:
 	var new_enemy = base_enemy_scene.instantiate()
+	new_enemy.offset_value = randf_range(-0.3,0.3)
 	add_sibling(new_enemy)

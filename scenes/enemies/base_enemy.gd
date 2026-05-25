@@ -3,6 +3,7 @@ extends PathFollow3D
 @export var bag_to_drop_scene: PackedScene
 
 @export var base_speed := 2.0
+@export var offset_value := 0.0
 @export var max_health := 50
 @export var mining_rate := 1 #Number of seconds
 @export var return_gold_rate := .5 #Number of seconds
@@ -29,7 +30,6 @@ var state := ENEMY_STATE.TRAVEL_IN
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
 @onready var collision_shape_3d: CollisionShape3D = $EnemyArea3D/CollisionShape3D
 
-
 var current_health: int:
 	set(health_in):
 		current_health = health_in
@@ -50,13 +50,14 @@ func _ready() -> void:
 	mining_timer.wait_time = mining_rate
 	return_gold_timer.wait_time = return_gold_rate
 
-	
 func _physics_process(delta: float) -> void:
 	do_state_stuff(delta)
+	
 
 func do_state_stuff(delta) -> void:
 	if state == ENEMY_STATE.TRAVEL_IN:
 		progress += delta * speed
+		h_offset = offset_value
 		figure_out_travel_animation()
 		animated_sprite_3d.visible = true
 		if progress_ratio == 1.0:
@@ -64,11 +65,13 @@ func do_state_stuff(delta) -> void:
 			state = ENEMY_STATE.MINING
 			to_goldmine()
 	elif state == ENEMY_STATE.MINING:
+		h_offset = 0.0
 		figure_out_mining_animation()
 		if mining_timer.is_stopped():
 			mining_timer.start()
 	elif state == ENEMY_STATE.TRAVEL_OUT:
 		progress -= delta * speed
+		h_offset = offset_value
 		figure_out_travel_animation()
 		animated_sprite_3d.visible = true
 		if progress_ratio == 0.0:
@@ -77,6 +80,7 @@ func do_state_stuff(delta) -> void:
 			state = ENEMY_STATE.RETURN_GOLD
 			to_return_gold()
 	elif state == ENEMY_STATE.RETURN_GOLD:
+		h_offset = 0.0
 		animated_sprite_3d.play("return_gold")
 		if return_gold_timer.is_stopped():
 			return_gold_timer.start()
@@ -125,6 +129,9 @@ func create_bag_to_drop() -> void:
 	var new_bag = bag_to_drop_scene.instantiate()
 	new_bag.global_position = global_position
 	new_bag.Gold_in_Bag = gold_in_bag
+	forward = -global_transform.basis.z
+	travel_angle = atan2(forward.x, forward.z)
+	new_bag.rotation.y = travel_angle + PI/2 #degrees keeps the bag collision correct.
 	get_parent().add_sibling(new_bag)
 
 func _on_mining_timer_timeout() -> void:
@@ -158,7 +165,6 @@ func _on_return_gold_timer_timeout() -> void:
 		animated_sprite_3d.visible = false
 		progress_ratio = 0.0
 		back_to_path()
-
 
 func _on_death_timer_timeout() -> void:
 	queue_free()

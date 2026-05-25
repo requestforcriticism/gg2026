@@ -29,7 +29,7 @@ meshes = Array[ArrayMesh]([SubResource("ArrayMesh_o013s")])
 material = SubResource("StandardMaterial3D_ei1s1")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2phv4"]
-size = Vector3(0.3, 0.3, 0.3)
+size = Vector3(0.3, 0.3, 1.8)
 
 [node name="DroppedGoldBag" type="Node3D" unique_id=1273920364]
 script = ExtResource("1_2qyce")
