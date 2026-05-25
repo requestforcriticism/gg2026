@@ -3,17 +3,219 @@
 [ext_resource type="Script" uid="uid://co3i2ogh52d8o" path="res://scenes/enemies/base_enemy.gd" id="1_r5xb8"]
 [ext_resource type="PackedScene" uid="uid://bunsf7ir4ep0o" path="res://scenes/dropped_gold_bag/dropped_gold_bag.tscn" id="2_lkvl6"]
 [ext_resource type="PackedScene" uid="uid://rna1bxx4rh4b" path="res://scenes/minegold/mine_gold.tscn" id="2_qf3h2"]
+[ext_resource type="Texture2D" uid="uid://b7i4bp11w7dtr" path="res://assets/visual/enemies/Character11_sheet.png" id="6_2t7ph"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c1rwf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_72b2c"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(0, 768, 32, 32)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_c1rwf"]
-material = SubResource("StandardMaterial3D_c1rwf")
-radius = 0.2
-height = 1.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4c3k"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(0, 672, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tofne"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(32, 672, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fdu5"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(64, 672, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xyj2r"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(96, 672, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixvfu"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(0, 704, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5y3e0"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(32, 704, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iict3"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(64, 704, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvknn"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(96, 704, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47p8s"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(0, 736, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v3s4"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(32, 736, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0iou"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(64, 736, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sut2u"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(96, 736, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gml38"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xaogp"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahw5l"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_saudc"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v35a0"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrxh2"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2t7ph"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2ebm"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1su5"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwcqj"]
+atlas = ExtResource("6_2t7ph")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tofne"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72b2c")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4c3k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tofne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fdu5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xyj2r")
+}],
+"loop": true,
+"name": &"mining_left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixvfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5y3e0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iict3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvknn")
+}],
+"loop": true,
+"name": &"mining_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47p8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1v3s4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0iou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sut2u")
+}],
+"loop": true,
+"name": &"mining_up",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gml38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xaogp")
+}],
+"loop": true,
+"name": &"return_gold",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahw5l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_saudc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v35a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrxh2")
+}],
+"loop": true,
+"name": &"walking_left",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2t7ph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2ebm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1su5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwcqj")
+}],
+"loop": true,
+"name": &"walking_right",
+"speed": 6.0
+}]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c1rwf"]
-radius = 0.2
-height = 1.0
+radius = 0.2529297
+height = 0.6437988
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n763p"]
+bg_color = Color(0, 0, 0, 0.47058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ylyo2"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_n763p"]
+viewport_path = NodePath("SubViewport")
 
 [node name="BaseEnemy" type="PathFollow3D" unique_id=1227583054 groups=["enemy"]]
 loop = false
@@ -21,21 +223,60 @@ script = ExtResource("1_r5xb8")
 bag_to_drop_scene = ExtResource("2_lkvl6")
 return_gold_rate = 1.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1252783565]
-mesh = SubResource("CapsuleMesh_c1rwf")
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1343125477]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.25, 0)
+billboard = 1
+alpha_cut = 2
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_tofne")
+animation = &"mining_right"
+autoplay = "mining_right"
 
 [node name="EnemyArea3D" type="Area3D" parent="." unique_id=1372344398 groups=["enemy"]]
 collision_layer = 4
 collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyArea3D" unique_id=121936041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.328, 0)
 shape = SubResource("CapsuleShape3D_c1rwf")
 
 [node name="MiningTimer" type="Timer" parent="." unique_id=1662640569]
 
 [node name="MineGold" parent="." unique_id=914139052 instance=ExtResource("2_qf3h2")]
+visible = false
 
 [node name="ReturnGoldTimer" type="Timer" parent="." unique_id=1372039354]
 
+[node name="DeathTimer" type="Timer" parent="." unique_id=354328863]
+one_shot = true
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=464531038]
+transparent_bg = true
+
+[node name="ProgressBar" type="ProgressBar" parent="SubViewport" unique_id=1657462488]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -5.0
+offset_right = 25.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_n763p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ylyo2")
+value = 50.0
+show_percentage = false
+
+[node name="ShowProgressBar" type="Sprite3D" parent="." unique_id=1948879998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73560935, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_n763p")
+
 [connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]
 [connection signal="timeout" from="ReturnGoldTimer" to="." method="_on_return_gold_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

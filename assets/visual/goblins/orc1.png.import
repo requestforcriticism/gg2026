@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yhiddvqxmshb"
-path.s3tc="res://.godot/imported/coin.png-701d27c7e70691b6d7c2d5e5bbd22f87.s3tc.ctex"
+uid="uid://tyekb0332dhn"
+path.s3tc="res://.godot/imported/orc1.png-5b2bb4bdebd8c2d07c64edc6c204a32e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/visual/coin.png"
-dest_files=["res://.godot/imported/coin.png-701d27c7e70691b6d7c2d5e5bbd22f87.s3tc.ctex"]
+source_file="res://assets/visual/goblins/orc1.png"
+dest_files=["res://.godot/imported/orc1.png-5b2bb4bdebd8c2d07c64edc6c204a32e.s3tc.ctex"]
 
 [params]
 

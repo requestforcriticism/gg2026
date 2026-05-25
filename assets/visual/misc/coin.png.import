@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://h5p7g00vui5a"
-path.s3tc="res://.godot/imported/spike_trap_placeholder.png-014d6c2a021946a1a8709a768b6a3e0a.s3tc.ctex"
+uid="uid://yhiddvqxmshb"
+path.s3tc="res://.godot/imported/coin.png-d8fb7bcd07fa9c807b26ee01c755530d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/visual/spike_trap_placeholder.png"
-dest_files=["res://.godot/imported/spike_trap_placeholder.png-014d6c2a021946a1a8709a768b6a3e0a.s3tc.ctex"]
+source_file="res://assets/visual/misc/coin.png"
+dest_files=["res://.godot/imported/coin.png-d8fb7bcd07fa9c807b26ee01c755530d.s3tc.ctex"]
 
 [params]
 
