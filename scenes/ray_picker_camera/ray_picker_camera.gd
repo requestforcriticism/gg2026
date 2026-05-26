@@ -11,9 +11,13 @@ var trap_cost := 20 #Get this from the trap selected from UI
 var ray_extend := 100.0 #Distance for Raycast to reach level
 var selected_Trap :Object
 var mouse_position_3d
-var camera_moving := false
+var camera_moving_pos := false
+var camera_moving_zoom := false
+var camera_eps := .001
 var camera_moving_to :Vector3
 var camera_size_to :float
+var zoom_value := 3.0
+var zoom_end_value: float
 
 var Layer_pos := [Vector3(10,22.5,10),Vector3(2.5,-14.5,2.5)]
 var Layer_size := [11.0,16.0]
@@ -27,7 +31,7 @@ func _process(delta: float) -> void:
 	if Input.is_anything_pressed():
 		check_cancel_select()
 		check_change_layer()
-	if camera_moving:
+	if camera_moving_pos || camera_moving_zoom:
 		move_camera()
 	
 	mouse_raycast()
@@ -52,16 +56,26 @@ func _process(delta: float) -> void:
 	else:
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			zoom("in")
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			zoom("out")
+
 func check_cancel_select() -> void:
 	if Input.is_action_just_pressed("CancelSelection"):
 			end_select_trap_check()
 
 func check_change_layer() -> void:
 	if Input.is_action_just_pressed("Layer_1"):
+		camera_moving_zoom = false
+		camera_moving_pos = true
 		camera_moving_to = Layer_pos[0]
 		camera_size_to = Layer_size[0]
 	elif Input.is_action_just_pressed("Layer_2"):
-		camera_moving = true
+		camera_moving_zoom = false
+		camera_moving_pos = true
 		camera_moving_to = Layer_pos[1]
 		camera_size_to = Layer_size[1]
 	elif Input.is_action_just_pressed("Layer_3"):
@@ -72,10 +86,25 @@ func check_change_layer() -> void:
 		pass
 
 func move_camera() -> void:
-	position = position.lerp(camera_moving_to,.1)
-	size = lerp(size,camera_size_to,.1)
-	if position == camera_moving_to:
-		camera_moving = false
+	if camera_moving_pos:
+		position = position.lerp(camera_moving_to,.1)
+		if !camera_moving_zoom:
+			size = lerp(size,camera_size_to,.2)
+		if position.is_equal_approx(camera_moving_to):
+			camera_moving_pos = false
+	if camera_moving_zoom:
+		size = lerp(size,zoom_end_value,.1)
+		if is_equal_approx(size, zoom_end_value):
+			camera_moving_zoom = false
+
+func zoom(direction:String) -> void:
+	camera_moving_zoom = true
+	if direction == "in":
+		zoom_end_value = size - zoom_value
+	elif direction == "out":
+		zoom_end_value = size + zoom_value
+	else:
+		print("error when zooming")
 
 func select_trap(new_trap: Object) -> void:
 	selected_Trap = new_trap
