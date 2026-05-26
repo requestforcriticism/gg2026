@@ -271,7 +271,7 @@ show_percentage = false
 script = ExtResource("6_n2ebm")
 
 [node name="ProgressBar" type="ProgressBar" parent="SubViewport" unique_id=2023555805]
-modulate = Color(0.7833333, 1, 0, 1)
+modulate = Color(0, 1, 0.01666665, 1)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -294,18 +294,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73560935, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_n763p")
 
-[node name="DroppedGoldBag" parent="." unique_id=1273920364 instance=ExtResource("2_lkvl6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.77746016, 0)
-visible = false
-
-[node name="SpriteMeshInstance" parent="DroppedGoldBag" index="0" unique_id=666550001]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27698857, 0)
-
-[node name="CollisionShape3D" parent="DroppedGoldBag/DroppedBagArea3D" parent_id_path=PackedInt32Array(1273920364, 61300440) index="0" unique_id=1416957759]
-disabled = true
-
 [connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]
 [connection signal="timeout" from="ReturnGoldTimer" to="." method="_on_return_gold_timer_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
-
-[editable path="DroppedGoldBag"]

@@ -29,12 +29,15 @@ var state := ENEMY_STATE.TRAVEL_IN
 @onready var progress_bar: ProgressBar = $SubViewport/ProgressBar
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
 @onready var collision_shape_3d: CollisionShape3D = $EnemyArea3D/CollisionShape3D
+@onready var dropped_gold_bag: Node3D = $DroppedGoldBag
 
 var current_health: int:
 	set(health_in):
 		current_health = health_in
 		progress_bar.value = current_health
+		progress_bar.modulate.h = (progress_bar.value/progress_bar.max_value)*130.0/360.0
 		if current_health < 1:
+			dropped_gold_bag.visible = false
 			if gold_in_bag != 0:
 				create_bag_to_drop()
 			animated_sprite_3d.play("die")
@@ -44,8 +47,8 @@ var current_health: int:
 
 func _ready() -> void:
 	speed = base_speed
-	current_health = max_health
 	progress_bar.max_value = max_health
+	current_health = max_health
 	progress_bar.value = current_health
 	mining_timer.wait_time = mining_rate
 	return_gold_timer.wait_time = return_gold_rate
@@ -74,10 +77,13 @@ func do_state_stuff(delta) -> void:
 		h_offset = offset_value
 		figure_out_travel_animation()
 		animated_sprite_3d.visible = true
+		if !dropped_gold_bag.visible:
+			dropped_gold_bag.visible = true
 		if progress_ratio == 0.0:
 			#check if on 1st floor. if not, go to floor n-1.  else:
 			speed = 0.0
 			state = ENEMY_STATE.RETURN_GOLD
+			dropped_gold_bag.visible = false
 			to_return_gold()
 	elif state == ENEMY_STATE.RETURN_GOLD:
 		h_offset = 0.0
@@ -97,7 +103,6 @@ func back_to_path() -> void:
 	self.get_parent().move_me_to_path()
 
 func leave() -> void:
-	print(state)
 	if state == ENEMY_STATE.TRAVEL_IN || state == ENEMY_STATE.TRAVEL_OUT:
 		state = ENEMY_STATE.TRAVEL_OUT
 		rdy_to_leave = true

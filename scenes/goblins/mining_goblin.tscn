@@ -1,7 +1,110 @@
 [gd_scene format=3 uid="uid://dqyjlngoh1e5p"]
 
 [ext_resource type="Script" uid="uid://ctodyaipauj70" path="res://scenes/goblins/mining_goblin.gd" id="1_dmqem"]
+[ext_resource type="Texture2D" uid="uid://ddqgf0ubeyn7g" path="res://assets/visual/goblins/orc1modified.png" id="2_0yrdr"]
 [ext_resource type="PackedScene" uid="uid://rna1bxx4rh4b" path="res://scenes/minegold/mine_gold.tscn" id="2_3ucd4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tudm2"]
+atlas = ExtResource("2_0yrdr")
+region = Rect2(0, 0, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mplth"]
+atlas = ExtResource("2_0yrdr")
+region = Rect2(26, 0, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdeax"]
+atlas = ExtResource("2_0yrdr")
+region = Rect2(52, 0, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idir4"]
+atlas = ExtResource("2_0yrdr")
+region = Rect2(78, 0, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0yrdr"]
+atlas = ExtResource("2_0yrdr")
+region = Rect2(0, 36, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qb2dx"]
+atlas = ExtResource("2_0yrdr")
+region = Rect2(26, 36, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubne8"]
+atlas = ExtResource("2_0yrdr")
+region = Rect2(52, 36, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edmqt"]
+atlas = ExtResource("2_0yrdr")
+region = Rect2(78, 36, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mm7cl"]
+atlas = ExtResource("2_0yrdr")
+region = Rect2(0, 72, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8xbe"]
+atlas = ExtResource("2_0yrdr")
+region = Rect2(26, 72, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpr7i"]
+atlas = ExtResource("2_0yrdr")
+region = Rect2(52, 72, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejjxt"]
+atlas = ExtResource("2_0yrdr")
+region = Rect2(78, 72, 26, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3ucd4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tudm2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mplth")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdeax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idir4")
+}],
+"loop": true,
+"name": &"mining_left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0yrdr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qb2dx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubne8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edmqt")
+}],
+"loop": true,
+"name": &"mining_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mm7cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8xbe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpr7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejjxt")
+}],
+"loop": true,
+"name": &"mining_up",
+"speed": 8.0
+}]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywrp0"]
 albedo_color = Color(0, 0.6431373, 0, 1)
@@ -14,12 +117,23 @@ height = 0.75
 [node name="MiningGoblin" type="PathFollow3D" unique_id=402463534]
 script = ExtResource("1_dmqem")
 
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=138348483]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.5, 0)
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_3ucd4")
+animation = &"mining_up"
+autoplay = "mining_up"
+frame_progress = 0.29027724
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=345885214]
+visible = false
 mesh = SubResource("CapsuleMesh_dmqem")
 
 [node name="MiningTimer" type="Timer" parent="." unique_id=1393551348]
 autostart = true
 
 [node name="MineGold" parent="." unique_id=914139052 instance=ExtResource("2_3ucd4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.60353076, 0)
 
 [connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]

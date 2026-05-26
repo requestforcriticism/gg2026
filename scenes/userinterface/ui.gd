@@ -14,18 +14,18 @@ signal trap_select(A3d)
 @onready var stolen_label: Label = $HumanStole/StolenLabel
 
 func _ready() -> void:
-    set_gold_label(bankquota.gold)
-    set_stolen_label(stolen.stolen_gold)
-    set_quota_label(bankquota.earned_for_quota, bankquota.current_quota)
+	set_gold_label(bankquota.gold)
+	set_stolen_label(stolen.stolen_gold)
+	set_quota_label(bankquota.earned_for_quota, bankquota.current_quota)
 
 func set_gold_label(gold) -> void:
-    $Gold_Quota/GoldLabel.text = "Gold: " + str(gold)
+	$Gold_Quota/GoldLabel.text = "Gold: " + str(gold)
 
 func set_quota_label(earned_for_quota, current_quota) -> void:
-    $Gold_Quota/QuotaLabel.text = "Quota: " + str(earned_for_quota) + "/" + str(current_quota)
+	$Gold_Quota/QuotaLabel.text = "Quota: " + str(earned_for_quota) + "/" + str(current_quota)
 
 func set_stolen_label(gold) -> void:
-    $HumanStole/StolenLabel.text  = "Stolen from Humans: " + str(gold)
+	$HumanStole/StolenLabel.text  = "Stolen from Humans: " + str(gold)
 
 func _on_spike_trap_pressed() -> void:
-    trap_select.emit(spike_trap)
+	trap_select.emit(spike_trap)
