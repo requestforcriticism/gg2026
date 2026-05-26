@@ -23,7 +23,7 @@ albedo_color = Color(0, 0, 0.24705882, 1)
 material = SubResource("StandardMaterial3D_b0f8m")
 size = Vector3(1.5, 0.02, 0.75)
 
-[node name="EnemyCamp" type="Path3D" unique_id=1840097758 groups=["stolen"]]
+[node name="EnemyCamp" type="Path3D" unique_id=1840097758 groups=["enemy_camp"]]
 curve = SubResource("Curve3D_07yku")
 script = ExtResource("1_b0f8m")
 

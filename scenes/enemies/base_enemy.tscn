@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://rna1bxx4rh4b" path="res://scenes/minegold/mine_gold.tscn" id="2_qf3h2"]
 [ext_resource type="Texture2D" uid="uid://b28mjhy7el2jr" path="res://assets/visual/enemies/humanmodified.png" id="4_ylyo2"]
 [ext_resource type="Texture2D" uid="uid://b7i4bp11w7dtr" path="res://assets/visual/enemies/Character11_sheet.png" id="6_2t7ph"]
-[ext_resource type="Script" path="res://scenes/enemies/progress_bar.gd" id="6_n2ebm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_72b2c"]
 atlas = ExtResource("6_2t7ph")
@@ -206,6 +205,13 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylyo2"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ylyo2"]
+material = SubResource("StandardMaterial3D_ylyo2")
+radius = 0.075
+height = 0.5
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c1rwf"]
 radius = 0.2529297
 height = 0.6437988
@@ -230,6 +236,11 @@ sprite_frames = SubResource("SpriteFrames_tofne")
 animation = &"mining_up"
 autoplay = "mining_right"
 frame_progress = 0.04391356
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=492678186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.34514385, 0)
+cast_shadow = 3
+mesh = SubResource("CapsuleMesh_ylyo2")
 
 [node name="EnemyArea3D" type="Area3D" parent="." unique_id=1372344398 groups=["enemy"]]
 collision_layer = 4
@@ -268,7 +279,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_n763p")
 show_percentage = false
-script = ExtResource("6_n2ebm")
 
 [node name="ProgressBar" type="ProgressBar" parent="SubViewport" unique_id=2023555805]
 modulate = Color(0.7833333, 1, 0, 1)
@@ -287,7 +297,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 value = 100.0
 show_percentage = false
-script = ExtResource("6_n2ebm")
 
 [node name="ShowProgressBar" type="Sprite3D" parent="." unique_id=1948879998]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73560935, 0)
@@ -303,6 +312,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27698857, 0)
 
 [node name="CollisionShape3D" parent="DroppedGoldBag/DroppedBagArea3D" parent_id_path=PackedInt32Array(1273920364, 61300440) index="0" unique_id=1416957759]
 disabled = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1862150887]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90769273, 0)
+light_energy = 0.5
+shadow_enabled = true
 
 [connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]
 [connection signal="timeout" from="ReturnGoldTimer" to="." method="_on_return_gold_timer_timeout"]

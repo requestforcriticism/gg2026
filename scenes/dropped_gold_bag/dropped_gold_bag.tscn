@@ -19,6 +19,7 @@ _surfaces = [{
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ei1s1"]
+shading_mode = 0
 albedo_texture = ExtResource("2_ly1ie")
 texture_filter = 0
 billboard_mode = 1

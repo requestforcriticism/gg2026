@@ -15,12 +15,13 @@ func _physics_process(delta: float) -> void:
 	figure_out_mining_animation()
 
 func _on_mining_timer_timeout() -> void:
-	if get_parent().current_gold > mining_amount_per_tick:
+	if get_parent().current_gold >= mining_amount_per_tick:
+		get_parent().lose_gold(mining_amount_per_tick)
 		bankandquota.gold += mining_amount_per_tick
 		bankandquota.earned_for_quota += mining_amount_per_tick
-		get_parent().lose_gold(mining_amount_per_tick)
 		mine_gold.mine_gold()
 	else:
+		get_parent().mine_empty()
 		queue_free()
 
 func figure_out_mining_animation() -> void:

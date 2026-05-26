@@ -1,10 +1,12 @@
 extends Path3D
 
-@export var my_going_back :Path3D
+@export var my_going_back :Array[Path3D]
 
 @export var mining_goblin_scene: PackedScene
 
 @export var max_gold: int = 1000
+
+var closing := true 
 
 var current_gold: int:
 	set(gold_in):
@@ -13,9 +15,6 @@ var current_gold: int:
 		var red: Color = Color.RED
 		var white: Color = Color.WHITE
 		label_3d.modulate = red.lerp(white,float(current_gold)/float(max_gold))
-		if current_gold < 1:
-			pass
-			#Logic to create hold and start next layer
 
 @onready var label_3d: Label3D = $Label3D
 
@@ -26,12 +25,17 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	reorg_children()
 
-func move_me_to_path() -> void:
+func mine_empty():
+	$goldnode.visible = false
+	$Hole.visible = true
+	$Label3D.visible = false
+	closing = false
+	
+func move_me_to_next_path() -> void:
 	for i in get_children():
 		if i.is_in_group("enemy"):
 			if i.rdy_to_leave:
-				i.reparent(my_going_back)
-				#Check stuff from here
+				i.reparent(my_going_back.pick_random())
 
 func place_mining_gob()-> void:
 	var new_mine_gob = mining_goblin_scene.instantiate()

@@ -107,12 +107,12 @@ animations = [{
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywrp0"]
-albedo_color = Color(0, 0.6392157, 0, 0)
+albedo_color = Color(0, 0.6431373, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dmqem"]
 material = SubResource("StandardMaterial3D_ywrp0")
-radius = 0.75
-height = 1.5
+radius = 0.2
+height = 0.75
 
 [node name="MiningGoblin" type="PathFollow3D" unique_id=402463534]
 script = ExtResource("1_dmqem")
@@ -127,8 +127,7 @@ autoplay = "mining_up"
 frame_progress = 0.29027724
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=345885214]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
-cast_shadow = 3
+visible = false
 mesh = SubResource("CapsuleMesh_dmqem")
 
 [node name="MiningTimer" type="Timer" parent="." unique_id=1393551348]
@@ -136,10 +135,5 @@ autostart = true
 
 [node name="MineGold" parent="." unique_id=914139052 instance=ExtResource("2_3ucd4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.60353076, 0)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=471701578]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9675306, 0)
-light_energy = 0.75
-shadow_enabled = true
 
 [connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]

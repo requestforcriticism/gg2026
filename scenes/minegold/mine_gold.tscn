@@ -104,6 +104,7 @@ _surfaces = [{
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ri4xc"]
+shading_mode = 0
 albedo_texture = ExtResource("4_ri4xc")
 texture_filter = 0
 billboard_mode = 1
@@ -125,6 +126,7 @@ autoplay = &"RESET"
 [node name="Coin" type="MeshInstance3D" parent="." unique_id=1686946219]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0.193667, 0)
 visible = false
+cast_shadow = 0
 mesh = SubResource("ArrayMesh_lrl3d")
 surface_material_override/0 = SubResource("StandardMaterial3D_ri4xc")
 script = ExtResource("2_lrl3d")

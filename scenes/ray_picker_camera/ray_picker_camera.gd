@@ -11,13 +11,24 @@ var trap_cost := 20 #Get this from the trap selected from UI
 var ray_extend := 100.0 #Distance for Raycast to reach level
 var selected_Trap :Object
 var mouse_position_3d
+var camera_moving := false
+var camera_moving_to :Vector3
+var camera_size_to :float
+
+var Layer_pos := [Vector3(10,22.5,10),Vector3(2.5,-14.5,2.5)]
+var Layer_size := [11.0,16.0]
 
 func _ready() -> void:
 	ui.trap_select.connect(select_trap)
+	position = Layer_pos[0]
+	size = Layer_size[0]
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("CancelSelection"):
-		end_select_trap_check()
+	if Input.is_anything_pressed():
+		check_cancel_select()
+		check_change_layer()
+	if camera_moving:
+		move_camera()
 	
 	mouse_raycast()
 	if selected_Trap:
@@ -40,6 +51,31 @@ func _process(delta: float) -> void:
 				Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	else:
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+
+func check_cancel_select() -> void:
+	if Input.is_action_just_pressed("CancelSelection"):
+			end_select_trap_check()
+
+func check_change_layer() -> void:
+	if Input.is_action_just_pressed("Layer_1"):
+		camera_moving_to = Layer_pos[0]
+		camera_size_to = Layer_size[0]
+	elif Input.is_action_just_pressed("Layer_2"):
+		camera_moving = true
+		camera_moving_to = Layer_pos[1]
+		camera_size_to = Layer_size[1]
+	elif Input.is_action_just_pressed("Layer_3"):
+		pass
+	elif Input.is_action_just_pressed("Layer_4"):
+		pass
+	elif Input.is_action_just_pressed("Layer_5"):
+		pass
+
+func move_camera() -> void:
+	position = position.lerp(camera_moving_to,.1)
+	size = lerp(size,camera_size_to,.1)
+	if position == camera_moving_to:
+		camera_moving = false
 
 func select_trap(new_trap: Object) -> void:
 	selected_Trap = new_trap

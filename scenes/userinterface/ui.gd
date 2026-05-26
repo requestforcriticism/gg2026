@@ -7,7 +7,7 @@ signal trap_select(A3d)
 
 @onready var bankquota = get_tree().get_first_node_in_group("bankandquota")
 @onready var quota = get_tree().get_first_node_in_group("quota")
-@onready var stolen = get_tree().get_first_node_in_group("stolen")
+@onready var stolen = get_tree().get_first_node_in_group("enemy_camp")
 
 @onready var gold_label: Label = $Gold_Quota/GoldLabel
 @onready var quota_label: Label = $Gold_Quota/QuotaLabel

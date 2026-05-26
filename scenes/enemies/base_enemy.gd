@@ -21,7 +21,7 @@ var animate_direction :String
 enum ENEMY_STATE {TRAVEL_IN, TRAVEL_OUT, MINING, RETURN_GOLD}
 var state := ENEMY_STATE.TRAVEL_IN
 
-@onready var stolen = get_tree().get_first_node_in_group("stolen")
+@onready var stolen = get_tree().get_first_node_in_group("enemy_camp")
 @onready var mine_gold: Node3D = $MineGold
 @onready var mining_timer: Timer = $MiningTimer
 @onready var return_gold_timer: Timer = $ReturnGoldTimer
@@ -64,9 +64,18 @@ func do_state_stuff(delta) -> void:
 		figure_out_travel_animation()
 		animated_sprite_3d.visible = true
 		if progress_ratio == 1.0:
-			speed = 0.0
-			state = ENEMY_STATE.MINING
-			to_goldmine()
+			if get_parent().my_going_forward_mine.current_gold > 0:
+				speed = 0.0
+				state = ENEMY_STATE.MINING
+				to_next_goldmine()
+			elif get_parent().my_going_forward_mine.current_gold == 0:
+				if get_parent().my_going_forward_mine.closing:
+					return
+				else:
+					to_next_path()
+					progress_ratio = 0.0
+			else:
+				print("Something went wrong switching to next layer")
 	elif state == ENEMY_STATE.MINING:
 		h_offset = 0.0
 		figure_out_mining_animation()
@@ -77,14 +86,19 @@ func do_state_stuff(delta) -> void:
 		h_offset = offset_value
 		figure_out_travel_animation()
 		animated_sprite_3d.visible = true
-		if !dropped_gold_bag.visible:
+		if !dropped_gold_bag.visible && gold_in_bag > 0:
 			dropped_gold_bag.visible = true
 		if progress_ratio == 0.0:
-			#check if on 1st floor. if not, go to floor n-1.  else:
-			speed = 0.0
-			state = ENEMY_STATE.RETURN_GOLD
-			dropped_gold_bag.visible = false
-			to_return_gold()
+			if get_parent().my_going_back[0].is_in_group("enemy_camp"):
+				speed = 0.0
+				state = ENEMY_STATE.RETURN_GOLD
+				dropped_gold_bag.visible = false
+				to_next_path()
+				print("trying to get to camp")
+			else:
+				to_next_path()
+				progress_ratio = 1.0
+				print("trying to go back up")
 	elif state == ENEMY_STATE.RETURN_GOLD:
 		h_offset = 0.0
 		animated_sprite_3d.play("return_gold")
@@ -93,14 +107,11 @@ func do_state_stuff(delta) -> void:
 	else:
 		print("Something messed up.")
 
-func to_goldmine() -> void:
+func to_next_path() -> void:
+	self.get_parent().move_me_to_next_path()
+
+func to_next_goldmine() -> void:
 	self.get_parent().move_me_to_goldmine()
-
-func to_return_gold() -> void:
-	self.get_parent().move_me_to_return()
-
-func back_to_path() -> void:
-	self.get_parent().move_me_to_path()
 
 func leave() -> void:
 	if state == ENEMY_STATE.TRAVEL_IN || state == ENEMY_STATE.TRAVEL_OUT:
@@ -150,7 +161,7 @@ func _on_mining_timer_timeout() -> void:
 		mining_timer.stop()
 		rdy_to_leave = true
 		animated_sprite_3d.visible = false
-		back_to_path() 
+		to_next_path()
 		state = ENEMY_STATE.TRAVEL_OUT
 		progress_ratio = 1.0
 		speed = base_speed * 1.25
@@ -169,7 +180,7 @@ func _on_return_gold_timer_timeout() -> void:
 		speed = base_speed
 		animated_sprite_3d.visible = false
 		progress_ratio = 0.0
-		back_to_path()
+		to_next_path()
 
 func _on_death_timer_timeout() -> void:
 	queue_free()
