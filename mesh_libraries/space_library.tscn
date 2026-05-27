@@ -1,7 +1,28 @@
 [gd_scene format=3 uid="uid://diu2mff40o7cu"]
 
+[ext_resource type="Texture2D" uid="uid://48vrwbn4ri53" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_Color.png" id="1_frnmm"]
+[ext_resource type="Texture2D" uid="uid://cmr6h28af6v13" path="res://assets/visual/mesh_assets/Ground067_1K-PNG/Ground067_1K-PNG_Color.png" id="1_iexgm"]
+[ext_resource type="Texture2D" uid="uid://blbqx55xab87m" path="res://assets/visual/mesh_assets/Ground067_1K-PNG/Ground067_1K-PNG_AmbientOcclusion.png" id="2_kqaj6"]
+[ext_resource type="Texture2D" uid="uid://c8dunaso4gl3q" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_AmbientOcclusion.png" id="2_uhb8r"]
+[ext_resource type="Texture2D" uid="uid://bn0wo2r4ubrny" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_NormalGL.png" id="3_iexgm"]
+[ext_resource type="Texture2D" uid="uid://2qj2yqjjs7mq" path="res://assets/visual/mesh_assets/Ground067_1K-PNG/Ground067_1K-PNG_Displacement.png" id="3_qvj8d"]
+[ext_resource type="Texture2D" uid="uid://dqpjhhum47bc2" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_Displacement.png" id="3_uhb8r"]
+[ext_resource type="Texture2D" uid="uid://tl35hxfmccim" path="res://assets/visual/mesh_assets/Ground067_1K-PNG/Ground067_1K-PNG_NormalGL.png" id="4_27qqf"]
+[ext_resource type="Texture2D" uid="uid://w5ssho7804a0" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_Roughness.png" id="4_bg6xx"]
+[ext_resource type="Texture2D" uid="uid://c88j3iyltawep" path="res://assets/visual/mesh_assets/Ground067_1K-PNG/Ground067_1K-PNG_Roughness.png" id="5_fflnc"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7ys2"]
-albedo_color = Color(0.46818912, 0.2216559, 0.010786727, 1)
+albedo_color = Color(0.52156866, 0.26666668, 0, 1)
+albedo_texture = ExtResource("1_iexgm")
+roughness_texture = ExtResource("5_fflnc")
+normal_enabled = true
+normal_texture = ExtResource("4_27qqf")
+ao_enabled = true
+ao_texture = ExtResource("2_kqaj6")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_qvj8d")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_s7ys2"]
 material = SubResource("StandardMaterial3D_s7ys2")
@@ -12,6 +33,16 @@ size = Vector3(2, 0.01, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nrgbg"]
 albedo_color = Color(0.28782284, 0.124400906, 0.0030474707, 1)
+albedo_texture = ExtResource("1_frnmm")
+roughness_texture = ExtResource("4_bg6xx")
+normal_enabled = true
+normal_texture = ExtResource("3_iexgm")
+ao_enabled = true
+ao_texture = ExtResource("2_uhb8r")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_uhb8r")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_nrgbg"]
 material = SubResource("StandardMaterial3D_nrgbg")
@@ -22,6 +53,16 @@ size = Vector3(2, 0.5, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tewsj"]
 albedo_color = Color(0.69803923, 0.38039216, 0.03137255, 1)
+albedo_texture = ExtResource("1_iexgm")
+roughness_texture = ExtResource("5_fflnc")
+normal_enabled = true
+normal_texture = ExtResource("4_27qqf")
+ao_enabled = true
+ao_texture = ExtResource("2_kqaj6")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_qvj8d")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_58nyu"]
 material = SubResource("StandardMaterial3D_tewsj")
@@ -30,6 +71,7 @@ size = Vector3(2, 0.01, 2)
 [node name="SpaceLibrary" type="Node3D" unique_id=1324846478]
 
 [node name="CavePath" type="MeshInstance3D" parent="." unique_id=442960369]
+visible = false
 layers = 2
 mesh = SubResource("BoxMesh_s7ys2")
 
@@ -48,6 +90,7 @@ mesh = SubResource("BoxMesh_s7ys2")
 shape = SubResource("BoxShape3D_s7ys2")
 
 [node name="CaveTerrain" type="MeshInstance3D" parent="." unique_id=959077959 groups=["environment"]]
+visible = false
 mesh = SubResource("BoxMesh_nrgbg")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CaveTerrain" unique_id=2119864913]
@@ -56,6 +99,7 @@ mesh = SubResource("BoxMesh_nrgbg")
 shape = SubResource("BoxShape3D_tewsj")
 
 [node name="CaveMineSpot" type="MeshInstance3D" parent="." unique_id=312124515]
+visible = false
 layers = 2
 mesh = SubResource("BoxMesh_58nyu")
 

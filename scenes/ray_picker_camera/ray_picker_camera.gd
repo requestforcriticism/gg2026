@@ -1,9 +1,10 @@
 extends Camera3D
 
 @export var spike_trap_avail: PackedScene
-@export var gridmap: GridMap
 @export var trap_manager: Node3D
 
+@onready var gridmap = get_tree().get_first_node_in_group("gridmap")
+@onready var level: Node3D = $".."
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
 @onready var ui: MarginContainer = $"../UI"
 
@@ -17,6 +18,12 @@ var camera_moving_zoom := false
 var camera_eps := .001
 var camera_moving_to :Vector3
 var camera_size_to :float
+var camera_move_speed := 10.0
+										#[min_x,max_x,min_z,max_z]
+var camera_strafe_values :Array[Array] = [[6.0,14.0,6.0,14.0]
+										,[-3.5,8.5,-3.5,8.5]]
+var size_min := 3.0
+var size_max := 20.0
 var zoom_value := 3.0
 var zoom_end_value: float
 
@@ -50,9 +57,8 @@ func _process(delta: float) -> void:
 				Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
 				if Input.is_action_pressed("click"):  #&& trap selected from UI.
 					if selected_Trap:
-						gridmap.set_cell_item(cell, 1)
 						var tile_position = gridmap.map_to_local(cell)
-						trap_manager.build_trap(selected_Trap,tile_position)
+						trap_manager.build_trap(selected_Trap,tile_position,cell)
 						end_select_trap_check()
 			else:
 				Input.set_default_cursor_shape(Input.CURSOR_ARROW)
@@ -77,15 +83,15 @@ func check_change_layer() -> void:
 		camera_moving_pos = true
 		camera_moving_to = Layer_pos[0]
 		camera_size_to = Layer_size[0]
-	elif Input.is_action_just_pressed("Layer_2"):
+	elif level.layer_unlocked >=2 && Input.is_action_just_pressed("Layer_2"):
 		camera_on_layer = 2
 		camera_moving_zoom = false
 		camera_moving_pos = true
 		camera_moving_to = Layer_pos[1]
 		camera_size_to = Layer_size[1]
-	elif Input.is_action_just_pressed("Layer_3"):
+	elif level.layer_unlocked >=3 && Input.is_action_just_pressed("Layer_3"):
 		pass
-	elif Input.is_action_just_pressed("Layer_4"):
+	elif level.layer_unlocked >=4 && Input.is_action_just_pressed("Layer_4"):
 		pass
 	elif Input.is_action_just_pressed("Layer_5"):
 		pass
@@ -103,11 +109,6 @@ func move_camera() -> void:
 			camera_moving_zoom = false
 			print(size)
 
-var camera_move_speed := 10.0
-										#[min_x,max_x,min_z,max_z]
-var camera_strafe_values :Array[Array] = [[6.0,14.0,6.0,14.0]
-										,[-3.5,8.5,-3.5,8.5]]
-
 func strafe_camera(delta) ->void:
 	camera_move_speed = max(5,20/size)
 	var input_dir: Vector2 = Input.get_vector("camera_left", "camera_right", "camera_up", "camera_down")
@@ -118,9 +119,6 @@ func strafe_camera(delta) ->void:
 		global_position.x = clamp(global_position.x, camera_strafe_values[camera_on_layer-1][0], camera_strafe_values[camera_on_layer-1][1])
 		global_position.z = clamp(global_position.z, camera_strafe_values[camera_on_layer-1][2], camera_strafe_values[camera_on_layer-1][3])
 		printt(global_position.x, global_position.z)
-
-var size_min := 3.0
-var size_max := 20.0
 
 func zoom(direction:String) -> void:
 	camera_moving_zoom = true

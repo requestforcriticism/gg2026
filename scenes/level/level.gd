@@ -30,7 +30,6 @@ func _ready() -> void:
 				floor_all_items[i-1].append(gridmap.get_cell_item(cell))
 	hide_floor()
 	show_floor(layer_unlocked)
-	
 
 func hide_floor() -> void:
 	for i in floor_all_cells.size():
@@ -41,11 +40,16 @@ func show_floor(layer) -> void:
 	for i in range(floor_all_cells[layer-1].size()):
 		gridmap.set_cell_item(floor_all_cells[layer-1][i], floor_all_items[layer-1][i])
 
+func show_unlocked_mines() -> void:
+	for i in all_mines[layer_unlocked-1]:
+		i.visible = true
+
 func check_layer_complete() -> void:
 	for i in all_mines[layer_unlocked-1]:
 		if i.current_gold > 0:
 			return
 	layer_unlocked += 1
+	show_unlocked_mines()
 	show_floor(layer_unlocked)
 	place_mining_goblins()
 	printt("layer_unlocked:", layer_unlocked)
