@@ -11,6 +11,7 @@ var trap_cost := 20 #Get this from the trap selected from UI
 var ray_extend := 100.0 #Distance for Raycast to reach level
 var selected_Trap :Object
 var mouse_position_3d
+var camera_on_layer := 1
 var camera_moving_pos := false
 var camera_moving_zoom := false
 var camera_eps := .001
@@ -33,6 +34,8 @@ func _process(delta: float) -> void:
 		check_change_layer()
 	if camera_moving_pos || camera_moving_zoom:
 		move_camera()
+	
+	strafe_camera(delta)
 	
 	mouse_raycast()
 	if selected_Trap:
@@ -69,11 +72,13 @@ func check_cancel_select() -> void:
 
 func check_change_layer() -> void:
 	if Input.is_action_just_pressed("Layer_1"):
+		camera_on_layer = 1
 		camera_moving_zoom = false
 		camera_moving_pos = true
 		camera_moving_to = Layer_pos[0]
 		camera_size_to = Layer_size[0]
 	elif Input.is_action_just_pressed("Layer_2"):
+		camera_on_layer = 2
 		camera_moving_zoom = false
 		camera_moving_pos = true
 		camera_moving_to = Layer_pos[1]
@@ -97,6 +102,22 @@ func move_camera() -> void:
 		if is_equal_approx(size, zoom_end_value):
 			camera_moving_zoom = false
 			print(size)
+
+var camera_move_speed := 10.0
+										#[min_x,max_x,min_z,max_z]
+var camera_strafe_values :Array[Array] = [[6.0,14.0,6.0,14.0]
+										,[-3.5,8.5,-3.5,8.5]]
+
+func strafe_camera(delta) ->void:
+	camera_move_speed = max(5,20/size)
+	var input_dir: Vector2 = Input.get_vector("camera_left", "camera_right", "camera_up", "camera_down")
+	var direction: Vector3 = Vector3(input_dir.x, 0, input_dir.y).rotated(Vector3.UP, PI/4).normalized()
+	if direction != Vector3.ZERO:
+		camera_moving_pos = false
+		global_translate(direction * camera_move_speed * delta)
+		global_position.x = clamp(global_position.x, camera_strafe_values[camera_on_layer-1][0], camera_strafe_values[camera_on_layer-1][1])
+		global_position.z = clamp(global_position.z, camera_strafe_values[camera_on_layer-1][2], camera_strafe_values[camera_on_layer-1][3])
+		printt(global_position.x, global_position.z)
 
 var size_min := 3.0
 var size_max := 20.0

@@ -6,6 +6,9 @@ extends Path3D
 
 @export var max_gold: int = 1000
 
+@onready var level: Node3D = $".."
+
+
 var closing := true 
 
 var current_gold: int:
@@ -20,7 +23,6 @@ var current_gold: int:
 
 func _ready() -> void:
 	current_gold = max_gold
-	place_mining_gob()
 
 func _physics_process(delta: float) -> void:
 	reorg_children()
@@ -30,6 +32,7 @@ func mine_empty():
 	$Hole.visible = true
 	$Label3D.visible = false
 	closing = false
+	level.check_layer_complete()
 	
 func move_me_to_next_path() -> void:
 	for i in get_children():
