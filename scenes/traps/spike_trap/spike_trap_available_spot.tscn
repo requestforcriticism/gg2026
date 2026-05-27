@@ -1,13 +1,18 @@
 [gd_scene format=3 uid="uid://bw7q1sdr8w8fe"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1d20i"]
+shading_mode = 0
 albedo_color = Color(0.83889705, 0.83889705, 0.838897, 0.38431373)
 
 [sub_resource type="BoxMesh" id="BoxMesh_1d20i"]
 material = SubResource("StandardMaterial3D_1d20i")
 size = Vector3(1.6, 0.1, 1.6)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ewh0p"]
+shading_mode = 0
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_1d20i"]
+material = SubResource("StandardMaterial3D_ewh0p")
 top_radius = 0.7
 height = 0.11
 

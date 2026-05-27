@@ -10,3 +10,11 @@ func build_trap(trap2Build: Object, trap_position: Vector3,cell: Vector3) -> voi
 		add_child(new_trap)
 		new_trap.global_position = trap_position
 		gridmap.set_cell_item(cell, 1)
+
+func activate_ability(ability2activate: Object, progress_ratio: float, Path2place: Path3D) -> void:
+	var new_ability = ability2activate.instantiate()
+	if bankandquota.gold >= new_ability.trap_cost:
+		bankandquota.gold -= new_ability.trap_cost
+		new_ability.progress_ratio = progress_ratio
+		Path2place.add_child(new_ability)
+		

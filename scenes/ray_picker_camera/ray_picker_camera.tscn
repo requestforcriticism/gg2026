@@ -11,6 +11,6 @@ far = 834.52
 script = ExtResource("1_gtjps")
 spike_trap_avail = ExtResource("2_x4lu3")
 
-[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1424627951]
+[node name="TerrainRayCast3D" type="RayCast3D" parent="." unique_id=1424627951]
 
-[node name="PlacementHolder" type="GridMap" parent="." unique_id=1209041454]
+[node name="Path3DRayCast3D2" type="RayCast3D" parent="." unique_id=1088386254]

@@ -1,9 +1,11 @@
 extends MarginContainer
 
-signal trap_select(A3d)
+signal trap_select(T2d)
+signal ability_select(A2d)
 
 @export var spike_trap: PackedScene
 @export var arrow_trap: PackedScene
+@export var boulder_ability: PackedScene
 
 @onready var bankquota = get_tree().get_first_node_in_group("bankandquota")
 @onready var quota = get_tree().get_first_node_in_group("quota")
@@ -29,3 +31,6 @@ func set_stolen_label(gold) -> void:
 
 func _on_spike_trap_pressed() -> void:
 	trap_select.emit(spike_trap)
+
+func _on_boulder_ability_button_pressed() -> void:
+	ability_select.emit(boulder_ability)

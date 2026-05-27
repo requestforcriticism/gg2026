@@ -16,11 +16,7 @@ func _ready() -> void:
 	if holder:
 		$AnimationPlayer.play("holder")
 
-func _process(delta: float) -> void:
-	#if animation_player.is_playing()
-	pass
-
-func _on_area_3d_area_shape_entered(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
+func _on_initialdetect_area_3d_area_entered(area: Area3D) -> void:
 	if area:
 		if area.is_in_group("enemy"):
 			enemies_on_trap.append(area)
@@ -28,8 +24,8 @@ func _on_area_3d_area_shape_entered(area_rid: RID, area: Area3D, area_shape_inde
 				animation_player.play("spike_buildup")
 				spike_buildup_timer.start()
 				spikes_active = true
-	
-func _on_area_3d_area_shape_exited(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
+
+func _on_initialdetect_area_3d_area_exited(area: Area3D) -> void:
 	if area:
 		if area.is_in_group("enemy"):
 			enemies_on_trap.erase(area)

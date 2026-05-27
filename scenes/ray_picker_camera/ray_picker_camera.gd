@@ -5,12 +5,16 @@ extends Camera3D
 
 @onready var gridmap = get_tree().get_first_node_in_group("gridmap")
 @onready var level: Node3D = $".."
-@onready var ray_cast_3d: RayCast3D = $RayCast3D
+@onready var terrain_ray_cast_3d: RayCast3D = $TerrainRayCast3D
+
+#@onready var ray_cast_3d: RayCast3D = $RayCast3D
+
 @onready var ui: MarginContainer = $"../UI"
 
 var trap_cost := 20 #Get this from the trap selected from UI
 var ray_extend := 100.0 #Distance for Raycast to reach level
 var selected_Trap :Object
+var selected_Ability :Object
 var mouse_position_3d
 var camera_on_layer := 1
 var camera_moving_pos := false
@@ -32,6 +36,7 @@ var Layer_size := [11.0,16.0]
 
 func _ready() -> void:
 	ui.trap_select.connect(select_trap)
+	ui.ability_select.connect(select_ability)
 	position = Layer_pos[0]
 	size = Layer_size[0]
 
@@ -48,10 +53,10 @@ func _process(delta: float) -> void:
 	if selected_Trap:
 		move_selected_trap_holder()
 	
-	if ray_cast_3d.is_colliding():
-		var collider = ray_cast_3d.get_collider()
+	if terrain_ray_cast_3d.is_colliding():
+		var collider = terrain_ray_cast_3d.get_collider()
 		if collider is GridMap:
-			var collision_point = ray_cast_3d.get_collision_point()
+			var collision_point = terrain_ray_cast_3d.get_collision_point()
 			var cell = gridmap.local_to_map(collision_point)
 			if gridmap.get_cell_item(cell) == 0:
 				Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
@@ -129,6 +134,12 @@ func zoom(direction:String) -> void:
 	else:
 		print("error when zooming")
 
+func select_ability(new_ability: Object) -> void:
+	selected_Ability = new_ability
+	#if !gridmap.get_children():
+		#add_trap_placement_options()
+		#create_selected_trap_holder()
+
 func select_trap(new_trap: Object) -> void:
 	selected_Trap = new_trap
 	if !gridmap.get_children():
@@ -168,6 +179,6 @@ func end_select_trap_check() -> void:
 func mouse_raycast() -> void:
 	var mouse_position: Vector2 = get_viewport().get_mouse_position()
 	mouse_position_3d = project_position (mouse_position, 0)
-	ray_cast_3d.global_position = mouse_position_3d
-	ray_cast_3d.target_position = project_local_ray_normal(mouse_position) * ray_extend
-	ray_cast_3d.force_raycast_update()
+	terrain_ray_cast_3d.global_position = mouse_position_3d
+	terrain_ray_cast_3d.target_position = project_local_ray_normal(mouse_position) * ray_extend
+	terrain_ray_cast_3d.force_raycast_update()

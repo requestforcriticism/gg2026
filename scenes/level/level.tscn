@@ -83,13 +83,13 @@ starting_gold = 100
 
 [node name="UI" parent="." unique_id=1166578692 instance=ExtResource("9_sytrn")]
 
-[node name="TrapManager" type="Node3D" parent="." unique_id=556410210]
+[node name="TrapAbilityManager" type="Node3D" parent="." unique_id=556410210]
 script = ExtResource("7_wcngd")
 
 [node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("trap_manager") instance=ExtResource("1_nbgty")]
 transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 2.5, -14.5, 2.5)
 size = 16.0
-trap_manager = NodePath("../TrapManager")
+trap_manager = NodePath("../TrapAbilityManager")
 
 [node name="GridMap" type="GridMap" parent="." unique_id=480385863 groups=["gridmap"]]
 mesh_library = ExtResource("1_h3e3j")
