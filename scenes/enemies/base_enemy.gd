@@ -94,11 +94,9 @@ func do_state_stuff(delta) -> void:
 				state = ENEMY_STATE.RETURN_GOLD
 				dropped_gold_bag.visible = false
 				to_next_path()
-				print("trying to get to camp")
 			else:
 				to_next_path()
 				progress_ratio = 1.0
-				print("trying to go back up")
 	elif state == ENEMY_STATE.RETURN_GOLD:
 		h_offset = 0.0
 		animated_sprite_3d.play("return_gold")

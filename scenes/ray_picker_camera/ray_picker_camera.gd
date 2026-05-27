@@ -96,13 +96,17 @@ func move_camera() -> void:
 		size = lerp(size,zoom_end_value,.1)
 		if is_equal_approx(size, zoom_end_value):
 			camera_moving_zoom = false
+			print(size)
+
+var size_min := 3.0
+var size_max := 20.0
 
 func zoom(direction:String) -> void:
 	camera_moving_zoom = true
 	if direction == "in":
-		zoom_end_value = size - zoom_value
+		zoom_end_value = max(size - zoom_value, size_min)
 	elif direction == "out":
-		zoom_end_value = size + zoom_value
+		zoom_end_value = min(size + zoom_value, size_max)
 	else:
 		print("error when zooming")
 
