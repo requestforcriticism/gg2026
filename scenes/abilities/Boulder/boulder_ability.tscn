@@ -29,17 +29,166 @@ rings = 5
 [sub_resource type="SphereShape3D" id="SphereShape3D_q4cqp"]
 radius = 0.8
 
-[node name="BoulderAbility" type="PathFollow3D" unique_id=1459297515]
+[sub_resource type="Animation" id="Animation_p65li"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BoulderMeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BoulderMeshInstance3D:mesh:material:shading_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OmniLight3D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("OmniLight3D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2, -2)]
+}
+
+[sub_resource type="Animation" id="Animation_ufqqk"]
+resource_name = "holder"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BoulderMeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OmniLight3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 2, -2), Vector3(1.4, 2, -1.4), Vector3(2, 2, 0), Vector3(1.4, 2, 1.4), Vector3(0, 2, 2), Vector3(-1.4, 2, 1.4), Vector3(-2, 2, 0), Vector3(-1.4, 2, -1.4)]
+}
+
+[sub_resource type="Animation" id="Animation_q4cqp"]
+resource_name = "spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BoulderMeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(6.2831855, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BoulderMeshInstance3D:mesh:material:shading_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OmniLight3D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p65li"]
+_data = {
+&"RESET": SubResource("Animation_p65li"),
+&"holder": SubResource("Animation_ufqqk"),
+&"spin": SubResource("Animation_q4cqp")
+}
+
+[node name="BoulderAbility" type="PathFollow3D" unique_id=1459297515 groups=["ability"]]
+loop = false
 script = ExtResource("1_f8e30")
 
 [node name="BoulderMeshInstance3D" type="MeshInstance3D" parent="." unique_id=1137553629]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 mesh = SubResource("SphereMesh_f8e30")
 
-[node name="Area3D" type="Area3D" parent="." unique_id=797376955]
+[node name="Area3D" type="Area3D" parent="BoulderMeshInstance3D" unique_id=797376955]
 collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1826870149]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoulderMeshInstance3D/Area3D" unique_id=1826870149]
 shape = SubResource("SphereShape3D_q4cqp")
 
-[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=335818422]
+libraries/ = SubResource("AnimationLibrary_p65li")
+autoplay = &"spin"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1032062008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2)
+visible = false
+
+[connection signal="area_entered" from="BoulderMeshInstance3D/Area3D" to="." method="_on_area_3d_area_entered"]

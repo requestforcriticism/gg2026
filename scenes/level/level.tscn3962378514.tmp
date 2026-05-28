@@ -91,7 +91,7 @@ script = ExtResource("5_pe1ox")
 transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 2.5, -14.5, 2.5)
 size = 16.0
 trap_ability_manager = NodePath("../TrapAbilityManager")
-single_point = ExtResource("7_m0bv2")
+Single_point_path3d = ExtResource("7_m0bv2")
 
 [node name="GridMap" type="GridMap" parent="." unique_id=480385863 groups=["gridmap"]]
 mesh_library = ExtResource("1_h3e3j")

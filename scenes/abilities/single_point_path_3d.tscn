@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dh8lyi6jubehl"]
+
+[sub_resource type="Curve3D" id="Curve3D_10hu3"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.01, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[node name="SinglePointPath3D" type="Path3D" unique_id=1139135948 groups=["ability"]]
+curve = SubResource("Curve3D_10hu3")

@@ -12,8 +12,9 @@ var enemies_on_trap: Array = []
 var spikes_active := false
 var holder = false
 
-func _ready() -> void:
-	if holder:
+func _physics_process(delta: float) -> void:
+	if holder && !$AnimationPlayer.current_animation == "holder":
+		$AnimationPlayer.stop()
 		$AnimationPlayer.play("holder")
 
 func _on_initialdetect_area_3d_area_entered(area: Area3D) -> void:

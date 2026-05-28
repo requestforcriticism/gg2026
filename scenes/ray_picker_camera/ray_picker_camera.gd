@@ -1,13 +1,13 @@
 extends Camera3D
 
 @export var spike_trap_avail: PackedScene
-@export var trap_manager: Node3D
+@export var trap_ability_manager: Node3D
+@export var single_point: PackedScene
+
 
 @onready var gridmap = get_tree().get_first_node_in_group("gridmap")
 @onready var level: Node3D = $".."
-@onready var terrain_ray_cast_3d: RayCast3D = $TerrainRayCast3D
-
-#@onready var ray_cast_3d: RayCast3D = $RayCast3D
+@onready var ray_cast_3d: RayCast3D = $RayCast3D
 
 @onready var ui: MarginContainer = $"../UI"
 
@@ -31,6 +31,10 @@ var size_max := 20.0
 var zoom_value := 3.0
 var zoom_end_value: float
 
+var mask_reset = 0
+var mask_Traps = 1
+var mask_Ability = 5
+
 var Layer_pos := [Vector3(10,22.5,10),Vector3(2.5,-14.5,2.5)]
 var Layer_size := [11.0,16.0]
 
@@ -50,23 +54,15 @@ func _process(delta: float) -> void:
 	strafe_camera(delta)
 	
 	mouse_raycast()
-	if selected_Trap:
-		move_selected_trap_holder()
+	if selected_Trap || selected_Ability:
+		move_selected_trap_ability_holder()
 	
-	if terrain_ray_cast_3d.is_colliding():
-		var collider = terrain_ray_cast_3d.get_collider()
+	if ray_cast_3d.is_colliding():
+		var collider = ray_cast_3d.get_collider()
 		if collider is GridMap:
-			var collision_point = terrain_ray_cast_3d.get_collision_point()
-			var cell = gridmap.local_to_map(collision_point)
-			if gridmap.get_cell_item(cell) == 0:
-				Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
-				if Input.is_action_pressed("click"):  #&& trap selected from UI.
-					if selected_Trap:
-						var tile_position = gridmap.map_to_local(cell)
-						trap_manager.build_trap(selected_Trap,tile_position,cell)
-						end_select_trap_check()
-			else:
-				Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+			gridmap_collision()
+		elif collider is CSGPolygon3D:
+			csgpoly3d_collision(collider)
 	else:
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
@@ -76,6 +72,29 @@ func _input(event: InputEvent) -> void:
 			zoom("in")
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			zoom("out")
+
+func csgpoly3d_collision(collider) -> void:
+	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+	if Input.is_action_pressed("click"):  #&& trap selected from UI.
+		if selected_Ability:
+			var collision_point = ray_cast_3d.get_collision_point()
+			var local_pos = collider.get_parent().to_local(collision_point)
+			var Path3Doffset = collider.get_parent().curve.get_closest_offset(local_pos)
+			trap_ability_manager.activate_ability(selected_Ability,Path3Doffset,collider.get_parent())
+			end_select_trap_check()
+
+func gridmap_collision() -> void:
+	var collision_point = ray_cast_3d.get_collision_point()
+	var cell = gridmap.local_to_map(collision_point)
+	if gridmap.get_cell_item(cell) == 0:
+		Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+		if Input.is_action_pressed("click"):  #&& trap selected from UI.
+			if selected_Trap:
+				var tile_position = gridmap.map_to_local(cell)
+				trap_ability_manager.build_trap(selected_Trap,tile_position,cell)
+				end_select_trap_check()
+	else:
+		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
 func check_cancel_select() -> void:
 	if Input.is_action_just_pressed("CancelSelection"):
@@ -112,7 +131,6 @@ func move_camera() -> void:
 		size = lerp(size,zoom_end_value,.1)
 		if is_equal_approx(size, zoom_end_value):
 			camera_moving_zoom = false
-			print(size)
 
 func strafe_camera(delta) ->void:
 	camera_move_speed = max(5,20/size)
@@ -123,7 +141,6 @@ func strafe_camera(delta) ->void:
 		global_translate(direction * camera_move_speed * delta)
 		global_position.x = clamp(global_position.x, camera_strafe_values[camera_on_layer-1][0], camera_strafe_values[camera_on_layer-1][1])
 		global_position.z = clamp(global_position.z, camera_strafe_values[camera_on_layer-1][2], camera_strafe_values[camera_on_layer-1][3])
-		printt(global_position.x, global_position.z)
 
 func zoom(direction:String) -> void:
 	camera_moving_zoom = true
@@ -135,30 +152,43 @@ func zoom(direction:String) -> void:
 		print("error when zooming")
 
 func select_ability(new_ability: Object) -> void:
+	end_select_trap_check()
+	ray_cast_3d.set_collision_mask_value(mask_Ability,true)
 	selected_Ability = new_ability
-	#if !gridmap.get_children():
+	if !gridmap.get_children():
 		#add_trap_placement_options()
-		#create_selected_trap_holder()
+		create_selected_ability_holder()
 
 func select_trap(new_trap: Object) -> void:
+	end_select_trap_check()
+	ray_cast_3d.set_collision_mask_value(mask_Traps,true)
 	selected_Trap = new_trap
 	if !gridmap.get_children():
-		add_trap_placement_options()
 		create_selected_trap_holder()
+		add_trap_placement_options()
+	
+
+func create_selected_ability_holder() ->void:
+	mouse_position_3d = project_position(get_viewport().get_mouse_position(), 1)
+	var new_ability_holder = selected_Ability.instantiate()
+	new_ability_holder.holder = true
+	new_ability_holder.speed = 0.0
+	new_ability_holder.scale = Vector3(.75,.75,.75)
+	gridmap.add_child(single_point.instantiate())
+	gridmap.get_child(0).add_child(new_ability_holder)
 
 func create_selected_trap_holder() ->void:
-	mouse_position_3d = project_position (get_viewport().get_mouse_position(), 1)
-	var new_spike_holder = selected_Trap.instantiate()
-	new_spike_holder.position = mouse_position_3d
-	new_spike_holder.holder = true
-	gridmap.add_child(new_spike_holder)
+	mouse_position_3d = project_position(get_viewport().get_mouse_position(), 1)
+	var new_trap_holder = selected_Trap.instantiate()
+	new_trap_holder.holder = true
+	new_trap_holder.scale = Vector3(.75,.75,.75)
+	gridmap.add_child(new_trap_holder)
 
-func move_selected_trap_holder() ->void:
-	var selected_trap_holder = gridmap.get_children()
-	#print(selected_Trap)    #Figure out how to check if selected_trap is the same name as the holder.
-	for i in selected_trap_holder:
-		if i.name == "SpikeTrap":
-			i.position = project_position(get_viewport().get_mouse_position(), 1)
+func move_selected_trap_ability_holder() ->void:
+	var selected_holder = gridmap.get_children()
+	for i in selected_holder:
+		if i.is_in_group("trap") || i.is_in_group("ability"):
+			i.position = project_position(get_viewport().get_mouse_position(), 5)
 
 func add_trap_placement_options() -> void:
 	var gridmap_list = gridmap.get_used_cells_by_item(0)  #Item 0 is CavePath
@@ -174,11 +204,12 @@ func remove_trap_placement_options() ->void:
 
 func end_select_trap_check() -> void:
 	selected_Trap = null
+	ray_cast_3d.collision_mask = mask_reset
 	remove_trap_placement_options()
 
 func mouse_raycast() -> void:
 	var mouse_position: Vector2 = get_viewport().get_mouse_position()
 	mouse_position_3d = project_position (mouse_position, 0)
-	terrain_ray_cast_3d.global_position = mouse_position_3d
-	terrain_ray_cast_3d.target_position = project_local_ray_normal(mouse_position) * ray_extend
-	terrain_ray_cast_3d.force_raycast_update()
+	ray_cast_3d.global_position = mouse_position_3d
+	ray_cast_3d.target_position = project_local_ray_normal(mouse_position) * ray_extend
+	ray_cast_3d.force_raycast_update()
