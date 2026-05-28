@@ -20,6 +20,13 @@ func _ready() -> void:
 	set_stolen_label(stolen.stolen_gold)
 	set_quota_label(bankquota.earned_for_quota, bankquota.current_quota)
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if Input.is_action_just_pressed("num1"):
+			_on_spike_trap_pressed()
+		elif Input.is_action_just_pressed("num4"):
+			_on_boulder_ability_button_pressed()
+
 func set_gold_label(gold) -> void:
 	$Gold_Quota/GoldLabel.text = "Gold: " + str(gold)
 

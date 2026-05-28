@@ -3,7 +3,7 @@ extends Camera3D
 @export var spike_trap_avail: PackedScene
 @export var trap_ability_manager: Node3D
 @export var single_point: PackedScene
-
+@export var layer_nodes : Array[Node3D]
 
 @onready var gridmap = get_tree().get_first_node_in_group("gridmap")
 @onready var level: Node3D = $".."
@@ -45,9 +45,6 @@ func _ready() -> void:
 	size = Layer_size[0]
 
 func _process(delta: float) -> void:
-	if Input.is_anything_pressed():
-		check_cancel_select()
-		check_change_layer()
 	if camera_moving_pos || camera_moving_zoom:
 		move_camera()
 	
@@ -72,6 +69,11 @@ func _input(event: InputEvent) -> void:
 			zoom("in")
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			zoom("out")
+		elif Input.is_action_just_pressed("CancelSelection"):
+			check_cancel_select()
+	elif event is InputEventKey:
+		check_cancel_select()
+		check_change_layer()
 
 func csgpoly3d_collision(collider) -> void:
 	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
@@ -81,7 +83,8 @@ func csgpoly3d_collision(collider) -> void:
 			var local_pos = collider.get_parent().to_local(collision_point)
 			var Path3Doffset = collider.get_parent().curve.get_closest_offset(local_pos)
 			trap_ability_manager.activate_ability(selected_Ability,Path3Doffset,collider.get_parent())
-			end_select_trap_check()
+			print(collider.get_parent())
+			end_select_trap_ability_check()
 
 func gridmap_collision() -> void:
 	var collision_point = ray_cast_3d.get_collision_point()
@@ -92,27 +95,21 @@ func gridmap_collision() -> void:
 			if selected_Trap:
 				var tile_position = gridmap.map_to_local(cell)
 				trap_ability_manager.build_trap(selected_Trap,tile_position,cell)
-				end_select_trap_check()
+				end_select_trap_ability_check()
 	else:
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
 func check_cancel_select() -> void:
 	if Input.is_action_just_pressed("CancelSelection"):
-			end_select_trap_check()
+			end_select_trap_ability_check()
 
 func check_change_layer() -> void:
 	if Input.is_action_just_pressed("Layer_1"):
 		camera_on_layer = 1
-		camera_moving_zoom = false
-		camera_moving_pos = true
-		camera_moving_to = Layer_pos[0]
-		camera_size_to = Layer_size[0]
+		change_layer_stuff()
 	elif level.layer_unlocked >=2 && Input.is_action_just_pressed("Layer_2"):
 		camera_on_layer = 2
-		camera_moving_zoom = false
-		camera_moving_pos = true
-		camera_moving_to = Layer_pos[1]
-		camera_size_to = Layer_size[1]
+		change_layer_stuff()
 	elif level.layer_unlocked >=3 && Input.is_action_just_pressed("Layer_3"):
 		pass
 	elif level.layer_unlocked >=4 && Input.is_action_just_pressed("Layer_4"):
@@ -120,12 +117,19 @@ func check_change_layer() -> void:
 	elif Input.is_action_just_pressed("Layer_5"):
 		pass
 
+func change_layer_stuff() -> void:
+	camera_moving_zoom = false
+	camera_moving_pos = true
+	camera_moving_to = Layer_pos[camera_on_layer-1]
+	camera_size_to = Layer_size[camera_on_layer-1]
+	end_select_trap_ability_check()
+
 func move_camera() -> void:
 	if camera_moving_pos:
 		position = position.lerp(camera_moving_to,.1)
 		if !camera_moving_zoom:
 			size = lerp(size,camera_size_to,.2)
-		if position.is_equal_approx(camera_moving_to):
+		elif position.is_equal_approx(camera_moving_to):
 			camera_moving_pos = false
 	if camera_moving_zoom:
 		size = lerp(size,zoom_end_value,.1)
@@ -152,33 +156,32 @@ func zoom(direction:String) -> void:
 		print("error when zooming")
 
 func select_ability(new_ability: Object) -> void:
-	end_select_trap_check()
+	end_select_trap_ability_check()
 	ray_cast_3d.set_collision_mask_value(mask_Ability,true)
 	selected_Ability = new_ability
 	if !gridmap.get_children():
-		#add_trap_placement_options()
+		add_abilty_placement_options()
 		create_selected_ability_holder()
 
 func select_trap(new_trap: Object) -> void:
-	end_select_trap_check()
+	end_select_trap_ability_check()
 	ray_cast_3d.set_collision_mask_value(mask_Traps,true)
 	selected_Trap = new_trap
 	if !gridmap.get_children():
 		create_selected_trap_holder()
 		add_trap_placement_options()
-	
 
 func create_selected_ability_holder() ->void:
-	mouse_position_3d = project_position(get_viewport().get_mouse_position(), 1)
 	var new_ability_holder = selected_Ability.instantiate()
 	new_ability_holder.holder = true
 	new_ability_holder.speed = 0.0
 	new_ability_holder.scale = Vector3(.75,.75,.75)
 	gridmap.add_child(single_point.instantiate())
-	gridmap.get_child(0).add_child(new_ability_holder)
+	for i in gridmap.get_children():
+		if i.is_in_group("abilityholder"):
+			i.add_child(new_ability_holder)
 
 func create_selected_trap_holder() ->void:
-	mouse_position_3d = project_position(get_viewport().get_mouse_position(), 1)
 	var new_trap_holder = selected_Trap.instantiate()
 	new_trap_holder.holder = true
 	new_trap_holder.scale = Vector3(.75,.75,.75)
@@ -187,22 +190,43 @@ func create_selected_trap_holder() ->void:
 func move_selected_trap_ability_holder() ->void:
 	var selected_holder = gridmap.get_children()
 	for i in selected_holder:
-		if i.is_in_group("trap") || i.is_in_group("ability"):
-			i.position = project_position(get_viewport().get_mouse_position(), 5)
+		if i.is_in_group("trap") || i.is_in_group("abilityholder"):
+			if camera_on_layer == 1:
+				i.position = project_position(get_viewport().get_mouse_position(), 2)
+			elif camera_on_layer == 2:
+				i.position = project_position(get_viewport().get_mouse_position(), 1.2)
+
+func add_abilty_placement_options() -> void:
+	if selected_Ability:
+		for i in layer_nodes[camera_on_layer-1].get_children():
+			if i.is_in_group("enemypath"):
+				var doop_path_node = i.duplicate()
+				for j in doop_path_node.get_children():
+					j.queue_free()
+				gridmap.add_child(doop_path_node)
+		for i in gridmap.get_children():
+			var new_ability_avail_spot = selected_Ability.instantiate()
+			new_ability_avail_spot.spot_avail = true
+			new_ability_avail_spot.active = false
+			new_ability_avail_spot.remove_from_group("ability")
+			i.add_child(new_ability_avail_spot)
 
 func add_trap_placement_options() -> void:
 	var gridmap_list = gridmap.get_used_cells_by_item(0)  #Item 0 is CavePath
 	if selected_Trap:
 		for i in gridmap_list:
-			var new_spike_avail_spot = spike_trap_avail.instantiate()
-			new_spike_avail_spot.position = gridmap.map_to_local(i)
-			gridmap.add_child(new_spike_avail_spot)
+			if i.y == (camera_on_layer-1)*-10:
+				var new_trap_avail_spot = selected_Trap.instantiate()
+				new_trap_avail_spot.spot_avail = true
+				new_trap_avail_spot.position = gridmap.map_to_local(i)
+				new_trap_avail_spot.remove_from_group("trap")
+				gridmap.add_child(new_trap_avail_spot)
 
 func remove_trap_placement_options() ->void:
 	for i in gridmap.get_children():
 		gridmap.remove_child(i)
 
-func end_select_trap_check() -> void:
+func end_select_trap_ability_check() -> void:
 	selected_Trap = null
 	ray_cast_3d.collision_mask = mask_reset
 	remove_trap_placement_options()

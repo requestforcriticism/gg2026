@@ -7,5 +7,5 @@ _data = {
 }
 point_count = 2
 
-[node name="SinglePointPath3D" type="Path3D" unique_id=1139135948 groups=["ability"]]
+[node name="SinglePointPath3D" type="Path3D" unique_id=1139135948 groups=["abilityholder"]]
 curve = SubResource("Curve3D_10hu3")

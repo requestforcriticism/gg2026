@@ -51,8 +51,8 @@ point_count = 5
 [node name="Level" type="Node3D" unique_id=746977155 node_paths=PackedStringArray("gridmap", "mines_L1", "mines_L2")]
 script = ExtResource("1_pe1ox")
 gridmap = NodePath("GridMap")
-mines_L1 = [NodePath("GoldMineL1")]
-mines_L2 = [NodePath("GoldMineL2")]
+mines_L1 = [NodePath("Layer1/GoldMineL1")]
+mines_L2 = [NodePath("Layer2/GoldMineL2")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=451302705]
 environment = SubResource("Environment_qkmgm")
@@ -76,7 +76,7 @@ shadow_enabled = true
 
 [node name="EnemyCamp" parent="." unique_id=1840097758 node_paths=PackedStringArray("my_going_forward_first_path") instance=ExtResource("1_sytrn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0734577, 0, 0.9155083)
-my_going_forward_first_path = NodePath("../EnemyPathL1")
+my_going_forward_first_path = NodePath("../Layer1/EnemyPathL1")
 
 [node name="BankandQuota" type="Node" parent="." unique_id=1521444107 groups=["bankandquota"]]
 script = ExtResource("1_vpf64")
@@ -87,11 +87,12 @@ starting_gold = 100
 [node name="TrapAbilityManager" type="Node3D" parent="." unique_id=556410210]
 script = ExtResource("5_pe1ox")
 
-[node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("trap_ability_manager") instance=ExtResource("1_nbgty")]
+[node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("trap_ability_manager", "layer_nodes") instance=ExtResource("1_nbgty")]
 transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 2.5, -14.5, 2.5)
 size = 16.0
 trap_ability_manager = NodePath("../TrapAbilityManager")
 single_point = ExtResource("7_m0bv2")
+layer_nodes = [NodePath("../Layer1"), NodePath("../Layer2")]
 
 [node name="GridMap" type="GridMap" parent="." unique_id=480385863 groups=["gridmap"]]
 mesh_library = ExtResource("1_h3e3j")
@@ -105,21 +106,23 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="EnemyManager" type="Node3D" parent="." unique_id=495787817 node_paths=PackedStringArray("enemy_path_l_1")]
 script = ExtResource("8_pe1ox")
 base_enemy_scene = ExtResource("9_m0bv2")
-enemy_path_l_1 = NodePath("../EnemyPathL1")
+enemy_path_l_1 = NodePath("../Layer1/EnemyPathL1")
 spawn_rate = 1.0
 
 [node name="BaseEnemySpawnTimer" type="Timer" parent="EnemyManager" unique_id=1663667012]
 wait_time = 0.5
 autostart = true
 
-[node name="EnemyPathL1" type="Path3D" parent="." unique_id=1922126716 node_paths=PackedStringArray("my_going_forward_mine", "my_going_forward_nextpath", "my_going_back")]
+[node name="Layer1" type="Node3D" parent="." unique_id=1436843826]
+
+[node name="EnemyPathL1" type="Path3D" parent="Layer1" unique_id=1922126716 node_paths=PackedStringArray("my_going_forward_mine", "my_going_forward_nextpath", "my_going_back") groups=["enemypath"]]
 curve = SubResource("Curve3D_pe1ox")
 script = ExtResource("7_tf2q7")
 my_going_forward_mine = NodePath("../GoldMineL1")
-my_going_forward_nextpath = [NodePath("../EnemyPathL2a"), NodePath("../EnemyPathL2b")]
-my_going_back = [NodePath("../EnemyCamp")]
+my_going_forward_nextpath = [NodePath("../../Layer2/EnemyPathL2a"), NodePath("../../Layer2/EnemyPathL2b")]
+my_going_back = [NodePath("../../EnemyCamp")]
 
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="EnemyPathL1" unique_id=693697845]
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Layer1/EnemyPathL1" unique_id=693697845]
 visible = false
 use_collision = true
 collision_layer = 16
@@ -137,18 +140,20 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="GoldMineL1" parent="." unique_id=532182191 node_paths=PackedStringArray("my_going_back") instance=ExtResource("3_i166f")]
+[node name="GoldMineL1" parent="Layer1" unique_id=532182191 node_paths=PackedStringArray("my_going_back") instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 my_going_back = [NodePath("../EnemyPathL1")]
-max_gold = 50
+max_gold = 10
 
-[node name="EnemyPathL2a" type="Path3D" parent="." unique_id=113470198 node_paths=PackedStringArray("my_going_forward_mine", "my_going_back")]
+[node name="Layer2" type="Node3D" parent="." unique_id=1683890271]
+
+[node name="EnemyPathL2a" type="Path3D" parent="Layer2" unique_id=113470198 node_paths=PackedStringArray("my_going_forward_mine", "my_going_back") groups=["enemypath"]]
 curve = SubResource("Curve3D_tf2q7")
 script = ExtResource("7_tf2q7")
 my_going_forward_mine = NodePath("../GoldMineL2")
-my_going_back = [NodePath("../EnemyPathL1")]
+my_going_back = [NodePath("../../Layer1/EnemyPathL1")]
 
-[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="EnemyPathL2a" unique_id=387342241]
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="Layer2/EnemyPathL2a" unique_id=387342241]
 visible = false
 use_collision = true
 collision_layer = 16
@@ -166,13 +171,13 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="EnemyPathL2b" type="Path3D" parent="." unique_id=754322899 node_paths=PackedStringArray("my_going_forward_mine", "my_going_back")]
+[node name="EnemyPathL2b" type="Path3D" parent="Layer2" unique_id=754322899 node_paths=PackedStringArray("my_going_forward_mine", "my_going_back") groups=["enemypath"]]
 curve = SubResource("Curve3D_h3e3j")
 script = ExtResource("7_tf2q7")
 my_going_forward_mine = NodePath("../GoldMineL2")
-my_going_back = [NodePath("../EnemyPathL1")]
+my_going_back = [NodePath("../../Layer1/EnemyPathL1")]
 
-[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="EnemyPathL2b" unique_id=1137960949]
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="Layer2/EnemyPathL2b" unique_id=1137960949]
 visible = false
 use_collision = true
 collision_layer = 16
@@ -190,7 +195,7 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="GoldMineL2" parent="." unique_id=430811579 node_paths=PackedStringArray("my_going_back") instance=ExtResource("3_i166f")]
+[node name="GoldMineL2" parent="Layer2" unique_id=430811579 node_paths=PackedStringArray("my_going_back") instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -20, -3)
 visible = false
 my_going_back = [NodePath("../EnemyPathL2a"), NodePath("../EnemyPathL2b")]

@@ -6,8 +6,7 @@ extends Path3D
 
 @export var max_gold: int = 1000
 
-@onready var level: Node3D = $".."
-
+@onready var level: Node3D = $"../.."
 
 var closing := true 
 

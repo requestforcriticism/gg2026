@@ -7,15 +7,25 @@ extends Node3D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var spike_buildup_timer: Timer = $SpikeBuildupTimer
+@onready var collision_shape_3d: CollisionShape3D = $InitialdetectArea3D/CollisionShape3D
+
 
 var enemies_on_trap: Array = []
 var spikes_active := false
-var holder = false
+var holder := false
+var spot_avail := false
+
+func _ready() -> void:
+	if spot_avail:
+		collision_shape_3d.disabled = true
 
 func _physics_process(delta: float) -> void:
 	if holder && !$AnimationPlayer.current_animation == "holder":
 		$AnimationPlayer.stop()
 		$AnimationPlayer.play("holder")
+	elif spot_avail && !$AnimationPlayer.current_animation == "spot_avail":
+		$AnimationPlayer.stop()
+		$AnimationPlayer.play("spot_avail")
 
 func _on_initialdetect_area_3d_area_entered(area: Area3D) -> void:
 	if area:
