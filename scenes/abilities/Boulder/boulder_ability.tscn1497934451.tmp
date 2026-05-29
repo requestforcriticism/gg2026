@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cchlnwmd6m3h3"]
+
+[ext_resource type="PackedScene" uid="uid://bh5belcht22a2" path="res://scenes/abilities/Boulder/boulder_ability_base.tscn" id="1_f8e30"]
+[ext_resource type="Script" uid="uid://blylo1ibpcden" path="res://scenes/abilities/Boulder/boulder_ability.gd" id="2_jcx31"]
+
+[node name="BoulderAbilityBase" unique_id=1459297515 instance=ExtResource("1_f8e30")]
+script = ExtResource("2_jcx31")
+ability_cost = null
+damage = null
+speed = null
+
+[node name="Area3D" parent="BoulderMeshInstance3D" parent_id_path=PackedInt32Array(1137553629) index="0" unique_id=797376955]
+monitoring = true
+
+[node name="CollisionShape3D" parent="BoulderMeshInstance3D/Area3D" index="0" unique_id=1826870149]
+disabled = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=1434121508]

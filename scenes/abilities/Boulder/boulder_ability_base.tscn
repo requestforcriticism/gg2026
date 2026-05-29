@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bh5belcht22a2"]
+
+[ext_resource type="Script" uid="uid://buoqyxkln2lsk" path="res://scenes/abilities/Boulder/boulder_ability_base.gd" id="1_eli21"]
+[ext_resource type="Texture2D" uid="uid://48vrwbn4ri53" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_Color.png" id="2_eolnb"]
+[ext_resource type="Texture2D" uid="uid://c8dunaso4gl3q" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_AmbientOcclusion.png" id="3_elfqs"]
+[ext_resource type="Texture2D" uid="uid://dqpjhhum47bc2" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_Displacement.png" id="4_ih5jo"]
+[ext_resource type="Texture2D" uid="uid://bn0wo2r4ubrny" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_NormalGL.png" id="5_gv5wl"]
+[ext_resource type="Texture2D" uid="uid://w5ssho7804a0" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_Roughness.png" id="6_5wl33"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8e30"]
+albedo_texture = ExtResource("2_eolnb")
+roughness_texture = ExtResource("6_5wl33")
+normal_enabled = true
+normal_texture = ExtResource("5_gv5wl")
+ao_enabled = true
+ao_texture = ExtResource("3_elfqs")
+heightmap_texture = ExtResource("4_ih5jo")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_f8e30"]
+material = SubResource("StandardMaterial3D_f8e30")
+radius = 0.8
+height = 1.6
+radial_segments = 16
+rings = 5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q4cqp"]
+radius = 0.8
+
+[node name="BoulderAbilityBase" type="PathFollow3D" unique_id=1459297515 groups=["ability"]]
+loop = false
+script = ExtResource("1_eli21")
+
+[node name="BoulderMeshInstance3D" type="MeshInstance3D" parent="." unique_id=1137553629]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+mesh = SubResource("SphereMesh_f8e30")
+
+[node name="Area3D" type="Area3D" parent="BoulderMeshInstance3D" unique_id=797376955]
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoulderMeshInstance3D/Area3D" unique_id=1826870149]
+shape = SubResource("SphereShape3D_q4cqp")
+disabled = true
+
+[connection signal="area_entered" from="BoulderMeshInstance3D/Area3D" to="." method="_on_area_3d_area_entered"]

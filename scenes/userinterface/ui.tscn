@@ -3,7 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://h5p7g00vui5a" path="res://assets/visual/traps/spike_trap_placeholder.png" id="1_eugoy"]
 [ext_resource type="Script" uid="uid://ix702goahwvv" path="res://scenes/userinterface/ui.gd" id="1_yqs5y"]
 [ext_resource type="PackedScene" uid="uid://babrtpxq67wy3" path="res://scenes/traps/spike_trap/spike_trap.tscn" id="2_jsawn"]
+[ext_resource type="PackedScene" uid="uid://bo8fb3cpa4ctv" path="res://scenes/traps/spike_trap/spike_trap_example.tscn" id="3_8pgxs"]
 [ext_resource type="PackedScene" uid="uid://cchlnwmd6m3h3" path="res://scenes/abilities/Boulder/boulder_ability.tscn" id="3_n3j8f"]
+[ext_resource type="PackedScene" uid="uid://bregrm2e4ueyx" path="res://scenes/abilities/Boulder/boulder_ability_example.tscn" id="4_bbqyl"]
 [ext_resource type="Texture2D" uid="uid://7yjwb2g5o7r6" path="res://assets/visual/abilities/boulder.png" id="4_kj22y"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jsawn"]
@@ -32,7 +34,9 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 script = ExtResource("1_yqs5y")
 spike_trap = ExtResource("2_jsawn")
+spike_trap_example = ExtResource("3_8pgxs")
 boulder_ability = ExtResource("3_n3j8f")
+boulder_ability_example = ExtResource("4_bbqyl")
 
 [node name="TrapAbilityOption" type="VBoxContainer" parent="." unique_id=536935284]
 layout_mode = 2

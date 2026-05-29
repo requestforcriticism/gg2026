@@ -32,7 +32,7 @@ material = SubResource("StandardMaterial3D_ei1s1")
 [sub_resource type="BoxShape3D" id="BoxShape3D_2phv4"]
 size = Vector3(0.3, 0.3, 1.8)
 
-[node name="DroppedGoldBag" type="Node3D" unique_id=1273920364]
+[node name="DroppedGoldBag" type="Node3D" unique_id=1273920364 groups=["bag"]]
 script = ExtResource("1_2qyce")
 
 [node name="SpriteMeshInstance" type="MeshInstance3D" parent="." unique_id=666550001]

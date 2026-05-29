@@ -13,6 +13,7 @@ extends PathFollow3D
 var gold_in_bag := 0
 var rdy_to_leave := false
 var speed :float
+var not_dead := true
 
 var forward :Vector3
 var travel_angle :float
@@ -33,10 +34,11 @@ var state := ENEMY_STATE.TRAVEL_IN
 
 var current_health: int:
 	set(health_in):
-		current_health = health_in
+		current_health = max(health_in,0)
 		progress_bar.value = current_health
 		progress_bar.modulate.h = (progress_bar.value/progress_bar.max_value)*130.0/360.0
-		if current_health < 1:
+		if current_health < 1 && not_dead:
+			not_dead = false
 			dropped_gold_bag.visible = false
 			if gold_in_bag != 0:
 				create_bag_to_drop()
@@ -140,13 +142,14 @@ func figure_out_mining_animation() -> void:
 		animated_sprite_3d.play("mining_up")
 
 func create_bag_to_drop() -> void:
-	var new_bag = bag_to_drop_scene.instantiate()
-	new_bag.global_position = global_position
-	new_bag.Gold_in_Bag = gold_in_bag
-	forward = -global_transform.basis.z
-	travel_angle = atan2(forward.x, forward.z)
-	new_bag.rotation.y = travel_angle + PI/2 #degrees keeps the bag collision correct.
-	get_parent().add_sibling(new_bag)
+	#var new_bag = bag_to_drop_scene.instantiate()
+	#new_bag.global_position = global_position
+	#new_bag.Gold_in_Bag = gold_in_bag
+	#gold_in_bag = 0
+	#forward = -global_transform.basis.z
+	#travel_angle = atan2(forward.x, forward.z)
+	#new_bag.rotation.y = travel_angle + PI/2 #degrees keeps the bag collision correct.
+	get_parent().create_bag_to_drop(gold_in_bag,position,forward)
 
 func _on_mining_timer_timeout() -> void:
 	if gold_in_bag < max_gold_capacity && get_parent().current_gold > 0:
@@ -181,4 +184,4 @@ func _on_return_gold_timer_timeout() -> void:
 		to_next_path()
 
 func _on_death_timer_timeout() -> void:
-	queue_free()
+	call_deferred("queue_free")

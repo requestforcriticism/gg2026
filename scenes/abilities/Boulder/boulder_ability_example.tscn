@@ -1,0 +1,201 @@
+[gd_scene format=3 uid="uid://bregrm2e4ueyx"]
+
+[ext_resource type="PackedScene" uid="uid://bh5belcht22a2" path="res://scenes/abilities/Boulder/boulder_ability_base.tscn" id="1_ntnjq"]
+[ext_resource type="Script" uid="uid://pnqcuv3oci1t" path="res://scenes/abilities/Boulder/boulder_ability_example.gd" id="2_4gwwy"]
+
+[sub_resource type="Animation" id="Animation_p65li"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BoulderMeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BoulderMeshInstance3D:mesh:material:shading_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BoulderMeshInstance3D:transparency")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BoulderMeshInstance3D:cast_shadow")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OmniLight3D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ufqqk"]
+resource_name = "holder"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BoulderMeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OmniLight3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 2, -2), Vector3(1.4, 2, -1.4), Vector3(2, 2, 0), Vector3(1.4, 2, 1.4), Vector3(0, 2, 2), Vector3(-1.4, 2, 1.4), Vector3(-2, 2, 0), Vector3(-1.4, 2, -1.4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BoulderMeshInstance3D:transparency")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BoulderMeshInstance3D:cast_shadow")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BoulderMeshInstance3D:mesh:material:shading_mode")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_4gwwy"]
+resource_name = "spot_avail"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BoulderMeshInstance3D:transparency")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BoulderMeshInstance3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(6.2831855, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ntnjq"]
+_data = {
+&"RESET": SubResource("Animation_p65li"),
+&"holder": SubResource("Animation_ufqqk"),
+&"spot_avail": SubResource("Animation_4gwwy")
+}
+
+[node name="BoulderAbilityExample" unique_id=1459297515 groups=["example"] instance=ExtResource("1_ntnjq")]
+loop = true
+script = ExtResource("2_4gwwy")
+
+[node name="BoulderMeshInstance3D" parent="." index="0" unique_id=1137553629]
+cast_shadow = 0
+
+[node name="Area3D" parent="BoulderMeshInstance3D" index="0" unique_id=797376955]
+visible = false
+collision_mask = 0
+monitorable = false
+
+[node name="CollisionShape3D" parent="BoulderMeshInstance3D/Area3D" index="0" unique_id=1826870149]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=2111009551]
+libraries/ = SubResource("AnimationLibrary_ntnjq")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="2" unique_id=1708739117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -2)
+visible = false

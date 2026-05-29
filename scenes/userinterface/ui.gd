@@ -4,8 +4,10 @@ signal trap_select(T2d)
 signal ability_select(A2d)
 
 @export var spike_trap: PackedScene
+@export var spike_trap_example: PackedScene
 @export var arrow_trap: PackedScene
 @export var boulder_ability: PackedScene
+@export var boulder_ability_example: PackedScene
 
 @onready var bankquota = get_tree().get_first_node_in_group("bankandquota")
 @onready var quota = get_tree().get_first_node_in_group("quota")
@@ -37,7 +39,7 @@ func set_stolen_label(gold) -> void:
 	$HumanStole/StolenLabel.text  = "Stolen from Humans: " + str(gold)
 
 func _on_spike_trap_pressed() -> void:
-	trap_select.emit(spike_trap)
+	trap_select.emit(spike_trap, spike_trap_example)
 
 func _on_boulder_ability_button_pressed() -> void:
-	ability_select.emit(boulder_ability)
+	ability_select.emit(boulder_ability, boulder_ability_example)

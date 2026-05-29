@@ -14,7 +14,9 @@ extends Camera3D
 var trap_cost := 20 #Get this from the trap selected from UI
 var ray_extend := 100.0 #Distance for Raycast to reach level
 var selected_Trap :Object
+var selected_Trap_example :Object
 var selected_Ability :Object
+var selected_Ability_example :Object
 var mouse_position_3d
 var camera_on_layer := 1
 var camera_moving_pos := false
@@ -155,34 +157,34 @@ func zoom(direction:String) -> void:
 	else:
 		print("error when zooming")
 
-func select_ability(new_ability: Object) -> void:
+func select_ability(new_ability: Object, new_ability_example: Object) -> void:
 	end_select_trap_ability_check()
 	ray_cast_3d.set_collision_mask_value(mask_Ability,true)
 	selected_Ability = new_ability
-	if !gridmap.get_children():
-		add_abilty_placement_options()
-		create_selected_ability_holder()
+	selected_Ability_example = new_ability_example
+	add_abilty_placement_options()
+	create_selected_ability_holder()
 
-func select_trap(new_trap: Object) -> void:
+func select_trap(new_trap: Object,new_trap_example: Object) -> void:
 	end_select_trap_ability_check()
 	ray_cast_3d.set_collision_mask_value(mask_Traps,true)
 	selected_Trap = new_trap
-	if !gridmap.get_children():
-		create_selected_trap_holder()
-		add_trap_placement_options()
+	selected_Trap_example = new_trap_example
+	create_selected_trap_holder()
+	add_trap_placement_options()
+
+@onready var single_point_path_3d: Path3D = $"../GridMap/SinglePointPath3D"
+
 
 func create_selected_ability_holder() ->void:
-	var new_ability_holder = selected_Ability.instantiate()
+	var new_ability_holder = selected_Ability_example.instantiate()
 	new_ability_holder.holder = true
 	new_ability_holder.speed = 0.0
 	new_ability_holder.scale = Vector3(.75,.75,.75)
-	gridmap.add_child(single_point.instantiate())
-	for i in gridmap.get_children():
-		if i.is_in_group("abilityholder"):
-			i.add_child(new_ability_holder)
+	single_point_path_3d.add_child(new_ability_holder)
 
 func create_selected_trap_holder() ->void:
-	var new_trap_holder = selected_Trap.instantiate()
+	var new_trap_holder = selected_Trap_example.instantiate()
 	new_trap_holder.holder = true
 	new_trap_holder.scale = Vector3(.75,.75,.75)
 	gridmap.add_child(new_trap_holder)
@@ -197,39 +199,28 @@ func move_selected_trap_ability_holder() ->void:
 				i.position = project_position(get_viewport().get_mouse_position(), 1.2)
 
 func add_abilty_placement_options() -> void:
-	if selected_Ability:
+	if selected_Ability_example:
 		for i in layer_nodes[camera_on_layer-1].get_children():
 			if i.is_in_group("enemypath"):
-				var doop_path_node = i.duplicate()
-				for j in doop_path_node.get_children():
-					j.queue_free()
-				gridmap.add_child(doop_path_node)
-		for i in gridmap.get_children():
-			var new_ability_avail_spot = selected_Ability.instantiate()
-			new_ability_avail_spot.spot_avail = true
-			new_ability_avail_spot.active = false
-			new_ability_avail_spot.remove_from_group("ability")
-			i.add_child(new_ability_avail_spot)
+				var new_ability_avail_spot = selected_Ability_example.instantiate()
+				new_ability_avail_spot.spot_avail = true
+				i.add_child(new_ability_avail_spot)
 
 func add_trap_placement_options() -> void:
 	var gridmap_list = gridmap.get_used_cells_by_item(0)  #Item 0 is CavePath
 	if selected_Trap:
 		for i in gridmap_list:
 			if i.y == (camera_on_layer-1)*-10:
-				var new_trap_avail_spot = selected_Trap.instantiate()
+				var new_trap_avail_spot = selected_Trap_example.instantiate()
 				new_trap_avail_spot.spot_avail = true
 				new_trap_avail_spot.position = gridmap.map_to_local(i)
 				new_trap_avail_spot.remove_from_group("trap")
 				gridmap.add_child(new_trap_avail_spot)
 
-func remove_trap_placement_options() ->void:
-	for i in gridmap.get_children():
-		gridmap.remove_child(i)
-
 func end_select_trap_ability_check() -> void:
 	selected_Trap = null
 	ray_cast_3d.collision_mask = mask_reset
-	remove_trap_placement_options()
+	get_tree().call_group("example", "queue_free")
 
 func mouse_raycast() -> void:
 	var mouse_position: Vector2 = get_viewport().get_mouse_position()
