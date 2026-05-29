@@ -7,7 +7,6 @@ var spot_avail := false
 
 func _ready() -> void:
 	progress_ratio = 1.0
-	printt(holder,spot_avail)
 
 	if holder:
 		animation_player.play("holder")

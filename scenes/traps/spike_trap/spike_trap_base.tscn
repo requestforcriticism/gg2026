@@ -31,7 +31,7 @@ height = 1.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_7jaht"]
 size = Vector3(2, 2, 2)
 
-[node name="SpikeTrapBase" type="Node3D" unique_id=1269147494 groups=["trap"]]
+[node name="SpikeTrapBase" type="Node3D" unique_id=1269147494 groups=["spike", "trap"]]
 script = ExtResource("1_x5mce")
 metadata/SpikeTrap = false
 

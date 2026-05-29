@@ -49,7 +49,7 @@ material = SubResource("StandardMaterial3D_nrgbg")
 size = Vector3(2, 2, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tewsj"]
-size = Vector3(2, 0.5, 2)
+size = Vector3(2, 2, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tewsj"]
 albedo_color = Color(0.69803923, 0.38039216, 0.03137255, 1)
@@ -71,39 +71,40 @@ size = Vector3(2, 0.01, 2)
 [node name="SpaceLibrary" type="Node3D" unique_id=1324846478]
 
 [node name="CavePath" type="MeshInstance3D" parent="." unique_id=442960369]
-visible = false
-layers = 2
 mesh = SubResource("BoxMesh_s7ys2")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CavePath" unique_id=1780406394]
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CavePath/StaticBody3D" unique_id=1109266093]
 shape = SubResource("BoxShape3D_s7ys2")
 
 [node name="CavePathwTrap" type="MeshInstance3D" parent="." unique_id=16169656]
-layers = 2
 mesh = SubResource("BoxMesh_s7ys2")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CavePathwTrap" unique_id=1704436792]
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CavePathwTrap/StaticBody3D" unique_id=1430529511]
 shape = SubResource("BoxShape3D_s7ys2")
 
 [node name="CaveTerrain" type="MeshInstance3D" parent="." unique_id=959077959 groups=["environment"]]
-visible = false
 mesh = SubResource("BoxMesh_nrgbg")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CaveTerrain" unique_id=2119864913]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CaveTerrain/StaticBody3D" unique_id=379895929]
 shape = SubResource("BoxShape3D_tewsj")
 
 [node name="CaveMineSpot" type="MeshInstance3D" parent="." unique_id=312124515]
-visible = false
-layers = 2
 mesh = SubResource("BoxMesh_58nyu")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CaveMineSpot" unique_id=86205062]
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CaveMineSpot/StaticBody3D" unique_id=1370030912]
 shape = SubResource("BoxShape3D_s7ys2")

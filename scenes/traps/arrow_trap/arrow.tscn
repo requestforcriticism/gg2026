@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cfuk5j54l73fs"]
+
+[ext_resource type="Script" uid="uid://cytmav32cjccj" path="res://scenes/traps/arrow_trap/arrow.gd" id="1_nko60"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nko60"]
+size = Vector3(0.4382763, 0.559, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nko60"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8ygeb"]
+material = SubResource("StandardMaterial3D_nko60")
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v154r"]
+albedo_color = Color(0.2, 1, 0.2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jkv4t"]
+material = SubResource("StandardMaterial3D_v154r")
+top_radius = 0.0
+bottom_radius = 0.02
+height = 0.1
+
+[node name="Arrow" type="Area3D" unique_id=439116130]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+collision_layer = 0
+collision_mask = 5
+script = ExtResource("1_nko60")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1017777734]
+transform = Transform3D(-4.3711385e-08, -1, 4.371139e-08, 1, -4.371139e-08, -4.371139e-08, 4.371139e-08, 4.371139e-08, 1, 0.021942137, 0.05384159, 1.39437e-09)
+shape = SubResource("BoxShape3D_nko60")
+
+[node name="stick" type="MeshInstance3D" parent="." unique_id=1206906461]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_8ygeb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="stick" unique_id=2010185549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7228699e-07, 0.29948568, 7.460195e-08)
+mesh = SubResource("CylinderMesh_jkv4t")
+
+[node name="SelfKillTimer" type="Timer" parent="." unique_id=698646384]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

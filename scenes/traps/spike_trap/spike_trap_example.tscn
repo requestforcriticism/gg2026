@@ -1733,52 +1733,54 @@ cast_shadow = 0
 [node name="Hole16" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="15" unique_id=2069857772]
 cast_shadow = 0
 
-[node name="Spike" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="0" unique_id=317748505]
+[node name="Spikes" parent="Floor" index="1" unique_id=1952486113 groups=["example", "spike", "trap"]]
+
+[node name="Spike" parent="Floor/Spikes" index="0" unique_id=317748505]
 cast_shadow = 0
 
-[node name="Spike2" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="1" unique_id=698516083]
+[node name="Spike2" parent="Floor/Spikes" index="1" unique_id=698516083]
 cast_shadow = 0
 
-[node name="Spike3" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="2" unique_id=1900910688]
+[node name="Spike3" parent="Floor/Spikes" index="2" unique_id=1900910688]
 cast_shadow = 0
 
-[node name="Spike4" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="3" unique_id=378354494]
+[node name="Spike4" parent="Floor/Spikes" index="3" unique_id=378354494]
 cast_shadow = 0
 
-[node name="Spike5" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="4" unique_id=1323554324]
+[node name="Spike5" parent="Floor/Spikes" index="4" unique_id=1323554324]
 cast_shadow = 0
 
-[node name="Spike6" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="5" unique_id=2055888988]
+[node name="Spike6" parent="Floor/Spikes" index="5" unique_id=2055888988]
 cast_shadow = 0
 
-[node name="Spike7" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="6" unique_id=1501739526]
+[node name="Spike7" parent="Floor/Spikes" index="6" unique_id=1501739526]
 cast_shadow = 0
 
-[node name="Spike8" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="7" unique_id=502636662]
+[node name="Spike8" parent="Floor/Spikes" index="7" unique_id=502636662]
 cast_shadow = 0
 
-[node name="Spike9" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="8" unique_id=1188780388]
+[node name="Spike9" parent="Floor/Spikes" index="8" unique_id=1188780388]
 cast_shadow = 0
 
-[node name="Spike10" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="9" unique_id=321421494]
+[node name="Spike10" parent="Floor/Spikes" index="9" unique_id=321421494]
 cast_shadow = 0
 
-[node name="Spike11" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="10" unique_id=1997999098]
+[node name="Spike11" parent="Floor/Spikes" index="10" unique_id=1997999098]
 cast_shadow = 0
 
-[node name="Spike12" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="11" unique_id=1309550817]
+[node name="Spike12" parent="Floor/Spikes" index="11" unique_id=1309550817]
 cast_shadow = 0
 
-[node name="Spike13" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="12" unique_id=529632027]
+[node name="Spike13" parent="Floor/Spikes" index="12" unique_id=529632027]
 cast_shadow = 0
 
-[node name="Spike14" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="13" unique_id=39006855]
+[node name="Spike14" parent="Floor/Spikes" index="13" unique_id=39006855]
 cast_shadow = 0
 
-[node name="Spike15" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="14" unique_id=1198976353]
+[node name="Spike15" parent="Floor/Spikes" index="14" unique_id=1198976353]
 cast_shadow = 0
 
-[node name="Spike16" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="15" unique_id=811828178]
+[node name="Spike16" parent="Floor/Spikes" index="15" unique_id=811828178]
 cast_shadow = 0
 
 [node name="InitialdetectArea3D" parent="." index="1" unique_id=1843298355]
@@ -1789,9 +1791,9 @@ monitorable = false
 [node name="CollisionShape3D" parent="InitialdetectArea3D" index="0" unique_id=294820398]
 disabled = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3" unique_id=1718179460]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2" unique_id=1718179460]
 libraries/ = SubResource("AnimationLibrary_g4xuw")
 autoplay = &"RESET"
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." index="4" unique_id=2040288291]
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="3" unique_id=2040288291]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)

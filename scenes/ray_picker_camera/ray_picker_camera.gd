@@ -8,7 +8,7 @@ extends Camera3D
 @onready var gridmap = get_tree().get_first_node_in_group("gridmap")
 @onready var level: Node3D = $".."
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
-
+@onready var single_point_path_3d: Path3D = $"../GridMap/SinglePointPath3D"
 @onready var ui: MarginContainer = $"../UI"
 
 var trap_cost := 20 #Get this from the trap selected from UI
@@ -85,21 +85,49 @@ func csgpoly3d_collision(collider) -> void:
 			var local_pos = collider.get_parent().to_local(collision_point)
 			var Path3Doffset = collider.get_parent().curve.get_closest_offset(local_pos)
 			trap_ability_manager.activate_ability(selected_Ability,Path3Doffset,collider.get_parent())
-			print(collider.get_parent())
 			end_select_trap_ability_check()
 
 func gridmap_collision() -> void:
 	var collision_point = ray_cast_3d.get_collision_point()
 	var cell = gridmap.local_to_map(collision_point)
 	if gridmap.get_cell_item(cell) == 0:
+		var temp_instance  = selected_Trap.instantiate()
+		var groups = temp_instance.get_groups()
+		var trap_rotation = 0
+		if groups.has("arrow"):
+			trap_rotation = check_for_arrow_trap(cell)[0] #[rotaion,viable]
+			if !check_for_arrow_trap(cell)[1]:
+				temp_instance.queue_free()
+				return
+		temp_instance.queue_free()
 		Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
 		if Input.is_action_pressed("click"):  #&& trap selected from UI.
 			if selected_Trap:
 				var tile_position = gridmap.map_to_local(cell)
-				trap_ability_manager.build_trap(selected_Trap,tile_position,cell)
+				trap_ability_manager.build_trap(selected_Trap,tile_position,cell,trap_rotation)
 				end_select_trap_ability_check()
+		temp_instance.queue_free()
 	else:
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+
+func check_for_arrow_trap(cell) -> Array:
+	var arrow_rotation :float
+	var viable := true
+	var x_plus :int = gridmap.get_cell_item(cell+Vector3i(1,0,0))
+	var x_minus :int = gridmap.get_cell_item(cell-Vector3i(1,0,0))
+	var z_plus :int = gridmap.get_cell_item(cell+Vector3i(0,0,1))
+	var z_minus :int = gridmap.get_cell_item(cell-Vector3i(0,0,1))
+	if z_minus == 2 && x_plus == 2:
+		arrow_rotation = 0.0
+	elif x_plus == 2 && z_plus == 2:
+		arrow_rotation = 3*PI/2
+	elif z_plus == 2 && x_minus == 2:
+		arrow_rotation = PI
+	elif x_minus == 2 && z_minus == 2:
+		arrow_rotation = PI/2
+	else:
+		viable = false
+	return [arrow_rotation,viable]
 
 func check_cancel_select() -> void:
 	if Input.is_action_just_pressed("CancelSelection"):
@@ -172,9 +200,6 @@ func select_trap(new_trap: Object,new_trap_example: Object) -> void:
 	selected_Trap_example = new_trap_example
 	create_selected_trap_holder()
 	add_trap_placement_options()
-
-@onready var single_point_path_3d: Path3D = $"../GridMap/SinglePointPath3D"
-
 
 func create_selected_ability_holder() ->void:
 	var new_ability_holder = selected_Ability_example.instantiate()

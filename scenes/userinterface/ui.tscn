@@ -5,8 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://babrtpxq67wy3" path="res://scenes/traps/spike_trap/spike_trap.tscn" id="2_jsawn"]
 [ext_resource type="PackedScene" uid="uid://bo8fb3cpa4ctv" path="res://scenes/traps/spike_trap/spike_trap_example.tscn" id="3_8pgxs"]
 [ext_resource type="PackedScene" uid="uid://cchlnwmd6m3h3" path="res://scenes/abilities/Boulder/boulder_ability.tscn" id="3_n3j8f"]
+[ext_resource type="PackedScene" uid="uid://05c0m4to0bjb" path="res://scenes/traps/arrow_trap/arrow_trap.tscn" id="4_1w675"]
 [ext_resource type="PackedScene" uid="uid://bregrm2e4ueyx" path="res://scenes/abilities/Boulder/boulder_ability_example.tscn" id="4_bbqyl"]
 [ext_resource type="Texture2D" uid="uid://7yjwb2g5o7r6" path="res://assets/visual/abilities/boulder.png" id="4_kj22y"]
+[ext_resource type="PackedScene" uid="uid://cgpwcn0dgut8a" path="res://scenes/traps/arrow_trap/arrow_trap_example.tscn" id="5_skj6d"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jsawn"]
 outline_size = 5
@@ -35,6 +37,8 @@ theme_override_constants/margin_bottom = 16
 script = ExtResource("1_yqs5y")
 spike_trap = ExtResource("2_jsawn")
 spike_trap_example = ExtResource("3_8pgxs")
+arrow_trap = ExtResource("4_1w675")
+arrow_trap_example = ExtResource("5_skj6d")
 boulder_ability = ExtResource("3_n3j8f")
 boulder_ability_example = ExtResource("4_bbqyl")
 
@@ -67,6 +71,9 @@ text = "Wall"
 
 [node name="WallAbilityButton" type="Button" parent="TrapAbilityOption/AbilityOptions/WallAbility" unique_id=39977316]
 layout_mode = 2
+text = "Picture
+for Wall
+Ability"
 
 [node name="GasAbility" type="VBoxContainer" parent="TrapAbilityOption/AbilityOptions" unique_id=1191650205]
 layout_mode = 2
@@ -77,6 +84,9 @@ text = "Gas"
 
 [node name="GasAbilityButton" type="Button" parent="TrapAbilityOption/AbilityOptions/GasAbility" unique_id=1390182298]
 layout_mode = 2
+text = "Picture
+for Gas
+Ability"
 
 [node name="TrapOptions" type="HBoxContainer" parent="TrapAbilityOption" unique_id=1145244194]
 layout_mode = 2
@@ -106,6 +116,9 @@ text = "Arrow Trap"
 
 [node name="ArrowTrapButton" type="Button" parent="TrapAbilityOption/TrapOptions/ArrowTrap" unique_id=1664267741]
 layout_mode = 2
+text = "Picture
+for Arrow
+Trap"
 
 [node name="MudTrap" type="VBoxContainer" parent="TrapAbilityOption/TrapOptions" unique_id=1676996586]
 layout_mode = 2
@@ -116,6 +129,9 @@ text = "Mud Trap"
 
 [node name="MudTrapButton" type="Button" parent="TrapAbilityOption/TrapOptions/MudTrap" unique_id=957133769]
 layout_mode = 2
+text = "Picture 
+for Mud
+Trap"
 
 [node name="Gold_Quota" type="VBoxContainer" parent="." unique_id=2029725124]
 layout_mode = 2
@@ -143,4 +159,8 @@ text = "Stolen from Humans: 0"
 label_settings = SubResource("LabelSettings_eugoy")
 
 [connection signal="pressed" from="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton" to="." method="_on_boulder_ability_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton" to="." method="_on_wall_ability_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/AbilityOptions/GasAbility/GasAbilityButton" to="." method="_on_gas_ability_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton" to="." method="_on_spike_trap_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton" to="." method="_on_arrow_trap_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton" to="." method="_on_mud_trap_button_pressed"]

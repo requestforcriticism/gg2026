@@ -13,6 +13,4 @@ func _ready() -> void:
 func spawn_base_enemy() -> void:
 	var new_enemy = base_enemy_scene.instantiate()
 	new_enemy.offset_value = randf_range(-0.3,0.3)
-	print(new_enemy)
-	print(enemy_path_l_1)
 	enemy_path_l_1.add_child(new_enemy)

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://05c0m4to0bjb"]
+
+[ext_resource type="PackedScene" uid="uid://dax8c54rgnld1" path="res://scenes/traps/arrow_trap/arrow_trap_base.tscn" id="1_plpxn"]
+[ext_resource type="Script" uid="uid://py2ww8m8ihgi" path="res://scenes/traps/arrow_trap/arrow_trap.gd" id="2_ixn2o"]
+
+[node name="ArrowTrap" unique_id=1486655462 instance=ExtResource("1_plpxn")]
+script = ExtResource("2_ixn2o")

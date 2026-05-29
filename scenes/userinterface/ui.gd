@@ -6,6 +6,7 @@ signal ability_select(A2d)
 @export var spike_trap: PackedScene
 @export var spike_trap_example: PackedScene
 @export var arrow_trap: PackedScene
+@export var arrow_trap_example: PackedScene
 @export var boulder_ability: PackedScene
 @export var boulder_ability_example: PackedScene
 
@@ -26,8 +27,16 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if Input.is_action_just_pressed("num1"):
 			_on_spike_trap_pressed()
+		elif Input.is_action_just_pressed("num2"):
+			_on_arrow_trap_button_pressed()
+		elif Input.is_action_just_pressed("num3"):
+			_on_mud_trap_button_pressed()
 		elif Input.is_action_just_pressed("num4"):
 			_on_boulder_ability_button_pressed()
+		elif Input.is_action_just_pressed("num5"):
+			_on_wall_ability_button_pressed()
+		elif Input.is_action_just_pressed("num6"):
+			_on_gas_ability_button_pressed()
 
 func set_gold_label(gold) -> void:
 	$Gold_Quota/GoldLabel.text = "Gold: " + str(gold)
@@ -41,5 +50,17 @@ func set_stolen_label(gold) -> void:
 func _on_spike_trap_pressed() -> void:
 	trap_select.emit(spike_trap, spike_trap_example)
 
+func _on_arrow_trap_button_pressed() -> void:
+	trap_select.emit(arrow_trap, arrow_trap_example)
+
+func _on_mud_trap_button_pressed() -> void:
+	pass # Replace with function body.
+
 func _on_boulder_ability_button_pressed() -> void:
 	ability_select.emit(boulder_ability, boulder_ability_example)
+
+func _on_wall_ability_button_pressed() -> void:
+	pass # Replace with function body.
+
+func _on_gas_ability_button_pressed() -> void:
+	pass # Replace with function body.

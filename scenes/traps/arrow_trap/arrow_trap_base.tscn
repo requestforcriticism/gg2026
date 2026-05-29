@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://dax8c54rgnld1"]
+
+[ext_resource type="Script" uid="uid://81ienyduojbv" path="res://scenes/traps/arrow_trap/arrow_trap_base.gd" id="1_x4lbm"]
+[ext_resource type="PackedScene" uid="uid://cfuk5j54l73fs" path="res://scenes/traps/arrow_trap/arrow.tscn" id="2_x4lbm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqtbt"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_fb0e0"]
+material = SubResource("StandardMaterial3D_qqtbt")
+size = Vector3(2, 1, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qqtbt"]
+size = Vector3(2, 0.01, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fb0e0"]
+albedo_color = Color(0.29586664, 0.29586646, 0.29586664, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qqtbt"]
+material = SubResource("StandardMaterial3D_fb0e0")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.02
+
+[node name="ArrowTrapBase" type="Node3D" unique_id=1486655462 groups=["arrow", "trap"]]
+script = ExtResource("1_x4lbm")
+arrow_scene = ExtResource("2_x4lbm")
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=271001784]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.005, -0.5)
+mesh = SubResource("PrismMesh_fb0e0")
+
+[node name="Wall" type="MeshInstance3D" parent="." unique_id=1416405043]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.49548107, -0.999)
+mesh = SubResource("BoxMesh_qqtbt")
+
+[node name="hole" type="MeshInstance3D" parent="Wall" unique_id=2069812880]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0.050000012, 0.099999994)
+mesh = SubResource("CylinderMesh_qqtbt")
+
+[node name="Marker3D" type="Marker3D" parent="Wall/hole" unique_id=1248501277]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.35, 0.395, -0.8)
+top_level = true
+
+[node name="hole2" type="MeshInstance3D" parent="Wall" unique_id=112885963]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0.05, 0.1)
+mesh = SubResource("CylinderMesh_qqtbt")
+
+[node name="Marker3D" type="Marker3D" parent="Wall/hole2" unique_id=104869932]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.35, 0.395, -0.8)
+top_level = true
+
+[node name="hole3" type="MeshInstance3D" parent="Wall" unique_id=938054113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.1)
+mesh = SubResource("CylinderMesh_qqtbt")
+
+[node name="Marker3D" type="Marker3D" parent="Wall/hole3" unique_id=441231480]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.395, -0.8)
+top_level = true
+
+[node name="hole4" type="MeshInstance3D" parent="Wall" unique_id=549712122]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.175, 0.05, -0.2)
+mesh = SubResource("CylinderMesh_qqtbt")
+
+[node name="Marker3D" type="Marker3D" parent="Wall/hole4" unique_id=2018868494]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.175, 0.695, -0.8)
+top_level = true
+
+[node name="hole5" type="MeshInstance3D" parent="Wall" unique_id=981069617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.175, 0.05, -0.2)
+mesh = SubResource("CylinderMesh_qqtbt")
+
+[node name="Marker3D" type="Marker3D" parent="Wall/hole5" unique_id=1955538144]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.175, 0.695, -0.8)
+top_level = true
+
+[node name="Floor2" type="MeshInstance3D" parent="." unique_id=2104960317]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.5, 0.005, 0)
+mesh = SubResource("PrismMesh_fb0e0")
+
+[node name="Wall2" type="MeshInstance3D" parent="." unique_id=1820150813]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.99899995, 0.4954811, 2.1811982e-08)
+mesh = SubResource("BoxMesh_qqtbt")
+
+[node name="hole" type="MeshInstance3D" parent="Wall2" unique_id=1343719336]
+transform = Transform3D(1, 0, 0, 0, 1, -8.351872e-23, 0, -8.351872e-23, 1, 0.35, 0.05, 0.1)
+mesh = SubResource("CylinderMesh_qqtbt")
+
+[node name="Marker3D" type="Marker3D" parent="Wall2/hole" unique_id=1424099761]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.8, 0.395, 0.35000002)
+top_level = true
+
+[node name="hole2" type="MeshInstance3D" parent="Wall2" unique_id=1305962874]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0.05, 0.1)
+mesh = SubResource("CylinderMesh_qqtbt")
+
+[node name="Marker3D" type="Marker3D" parent="Wall2/hole2" unique_id=997544199]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.8, 0.395, -0.34999996)
+top_level = true
+
+[node name="hole3" type="MeshInstance3D" parent="Wall2" unique_id=218061548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.1)
+mesh = SubResource("CylinderMesh_qqtbt")
+
+[node name="Marker3D" type="Marker3D" parent="Wall2/hole3" unique_id=1584383257]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.8, 0.395, 0)
+top_level = true
+
+[node name="hole4" type="MeshInstance3D" parent="Wall2" unique_id=1627665278]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.175, 0.05, -0.2)
+mesh = SubResource("CylinderMesh_qqtbt")
+
+[node name="Marker3D" type="Marker3D" parent="Wall2/hole4" unique_id=1218926366]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.8, 0.695, 0.17499998)
+top_level = true
+
+[node name="hole5" type="MeshInstance3D" parent="Wall2" unique_id=1787079917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.175, 0.05, -0.2)
+mesh = SubResource("CylinderMesh_qqtbt")
+
+[node name="Marker3D" type="Marker3D" parent="Wall2/hole5" unique_id=1246770433]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.8, 0.695, -0.17500001)
+top_level = true
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=1942908146]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

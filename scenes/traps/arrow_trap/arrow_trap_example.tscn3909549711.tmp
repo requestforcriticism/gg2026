@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://cgpwcn0dgut8a"]
+
+[ext_resource type="PackedScene" uid="uid://dax8c54rgnld1" path="res://scenes/traps/arrow_trap/arrow_trap_base.tscn" id="1_6e368"]
+[ext_resource type="Script" uid="uid://c1pko3ciqyfkf" path="res://scenes/traps/arrow_trap/arrow_trap_example.gd" id="2_wtewg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqtbt"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_fb0e0"]
+material = SubResource("StandardMaterial3D_qqtbt")
+size = Vector3(2, 1, 0.01)
+
+[sub_resource type="Animation" id="Animation_wtewg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Floor:mesh")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("PrismMesh_fb0e0")]
+}
+
+[sub_resource type="Animation" id="Animation_ovvey"]
+resource_name = "holder"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Floor:mesh")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("PrismMesh_fb0e0")]
+}
+
+[sub_resource type="Animation" id="Animation_l8674"]
+resource_name = "spot_avail"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Floor:mesh")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("PrismMesh_fb0e0")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l8674"]
+_data = {
+&"RESET": SubResource("Animation_wtewg"),
+&"holder": SubResource("Animation_ovvey"),
+&"spot_avail": SubResource("Animation_l8674")
+}
+
+[node name="ArrowTrapExample" unique_id=1486655462 groups=["example"] instance=ExtResource("1_6e368")]
+script = ExtResource("2_wtewg")
+
+[node name="Floor" parent="." index="0" unique_id=271001784]
+transparency = 0.7
+
+[node name="Wall" parent="." index="1" unique_id=1416405043]
+transparency = 0.7
+
+[node name="hole" parent="Wall" index="0" unique_id=2069812880]
+transparency = 0.7
+
+[node name="hole2" parent="Wall" index="1" unique_id=112885963]
+transparency = 0.7
+
+[node name="hole3" parent="Wall" index="2" unique_id=938054113]
+transparency = 0.7
+
+[node name="hole4" parent="Wall" index="3" unique_id=549712122]
+transparency = 0.7
+
+[node name="hole5" parent="Wall" index="4" unique_id=981069617]
+transparency = 0.7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2" unique_id=1889903425]
+libraries/ = SubResource("AnimationLibrary_l8674")
