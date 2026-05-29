@@ -8,11 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://bvfj4a27tv5xe" path="res://scenes/gold_mine_base/gold_mine.tscn" id="3_i166f"]
 [ext_resource type="Script" uid="uid://do1n7nro3atrt" path="res://scenes/level/trap_ability_manager.gd" id="5_pe1ox"]
 [ext_resource type="PackedScene" uid="uid://dh8lyi6jubehl" path="res://scenes/abilities/single_point_path_3d.tscn" id="7_m0bv2"]
-[ext_resource type="Script" uid="uid://bar8hctirwkhi" path="res://scenes/level/enemy_path.gd" id="7_tf2q7"]
 [ext_resource type="Script" uid="uid://6e5tpvsii3tm" path="res://scenes/level/enemy_manager.gd" id="8_pe1ox"]
 [ext_resource type="PackedScene" uid="uid://cugt4d6rr2yi5" path="res://scenes/enemies/base_enemy.tscn" id="9_m0bv2"]
 [ext_resource type="PackedScene" uid="uid://dsiwbdnhgcd6t" path="res://scenes/userinterface/ui.tscn" id="9_sytrn"]
-[ext_resource type="PackedScene" uid="uid://d4bsq7oek6aom" path="res://scenes/level/enemy_path_l_1.tscn" id="11_b7m21"]
+[ext_resource type="PackedScene" uid="uid://d4bsq7oek6aom" path="res://scenes/level/enemy_path.tscn" id="13_pm6rs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nbgty"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -68,14 +67,21 @@ transform = Transform3D(-0.020942576, 0.52684027, -0.84970623, 0, 0.8498927, 0.5
 visible = false
 shadow_enabled = true
 
-[node name="EnemyCamp" parent="." unique_id=1840097758 instance=ExtResource("1_sytrn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0734577, 0, 0.9155083)
-
 [node name="BankandQuota" type="Node" parent="." unique_id=1521444107 groups=["bankandquota"]]
 script = ExtResource("1_vpf64")
 starting_gold = 100
 
 [node name="UI" parent="." unique_id=1166578692 instance=ExtResource("9_sytrn")]
+
+[node name="EnemyManager" type="Node3D" parent="." unique_id=495787817 node_paths=PackedStringArray("enemy_path_l_1")]
+script = ExtResource("8_pe1ox")
+base_enemy_scene = ExtResource("9_m0bv2")
+enemy_path_l_1 = NodePath("../Layer1/EnemyPathL1")
+spawn_rate = 1.0
+
+[node name="BaseEnemySpawnTimer" type="Timer" parent="EnemyManager" unique_id=1663667012]
+wait_time = 0.5
+autostart = true
 
 [node name="TrapAbilityManager" type="Node3D" parent="." unique_id=556410210]
 script = ExtResource("5_pe1ox")
@@ -98,20 +104,13 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="SinglePointPath3D" parent="GridMap" unique_id=1139135948 instance=ExtResource("7_m0bv2")]
 
-[node name="EnemyManager" type="Node3D" parent="." unique_id=495787817 node_paths=PackedStringArray("enemy_path_l_1")]
-script = ExtResource("8_pe1ox")
-base_enemy_scene = ExtResource("9_m0bv2")
-enemy_path_l_1 = NodePath("../Layer1/EnemyPathL1")
-spawn_rate = 1.0
-
-[node name="BaseEnemySpawnTimer" type="Timer" parent="EnemyManager" unique_id=1663667012]
-wait_time = 0.5
-one_shot = true
-autostart = true
+[node name="EnemyCamp" parent="." unique_id=1840097758 node_paths=PackedStringArray("my_going_forward_first_path") instance=ExtResource("1_sytrn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0734577, 0, 0.9155083)
+my_going_forward_first_path = NodePath("../Layer1/EnemyPathL1")
 
 [node name="Layer1" type="Node3D" parent="." unique_id=1436843826]
 
-[node name="EnemyPathL1" parent="Layer1" unique_id=1086139139 node_paths=PackedStringArray("my_going_forward_mine", "my_going_forward_nextpath", "my_going_back") instance=ExtResource("11_b7m21")]
+[node name="EnemyPathL1" parent="Layer1" unique_id=1086139139 node_paths=PackedStringArray("my_going_forward_mine", "my_going_forward_nextpath", "my_going_back") instance=ExtResource("13_pm6rs")]
 my_going_forward_mine = NodePath("../GoldMineL1")
 my_going_forward_nextpath = [NodePath("../../Layer2/EnemyPathL2a"), NodePath("../../Layer2/EnemyPathL2b")]
 my_going_back = [NodePath("../../EnemyCamp")]
@@ -123,53 +122,15 @@ max_gold = 50
 
 [node name="Layer2" type="Node3D" parent="." unique_id=1683890271]
 
-[node name="EnemyPathL2a" type="Path3D" parent="Layer2" unique_id=113470198 node_paths=PackedStringArray("my_going_forward_mine", "my_going_back") groups=["enemypath"]]
+[node name="EnemyPathL2a" parent="Layer2" unique_id=1922126716 node_paths=PackedStringArray("my_going_forward_mine", "my_going_back") instance=ExtResource("13_pm6rs")]
 curve = SubResource("Curve3D_tf2q7")
-script = ExtResource("7_tf2q7")
 my_going_forward_mine = NodePath("../GoldMineL2")
-my_going_back = [null]
+my_going_back = [NodePath("../../Layer1/EnemyPathL1")]
 
-[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="Layer2/EnemyPathL2a" unique_id=387342241]
-visible = false
-use_collision = true
-collision_layer = 16
-collision_mask = 0
-polygon = PackedVector2Array(-0.9, 0, -0.9, 0.1, 1, 0.1, 1, 0)
-mode = 2
-path_node = NodePath("..")
-path_interval_type = 0
-path_interval = 0.75
-path_simplify_angle = 0.0
-path_rotation = 2
-path_rotation_accurate = false
-path_local = true
-path_continuous_u = true
-path_u_distance = 1.0
-path_joined = false
-
-[node name="EnemyPathL2b" type="Path3D" parent="Layer2" unique_id=754322899 node_paths=PackedStringArray("my_going_forward_mine", "my_going_back") groups=["enemypath"]]
+[node name="EnemyPathL2b" parent="Layer2" unique_id=284922337 node_paths=PackedStringArray("my_going_forward_mine", "my_going_back") instance=ExtResource("13_pm6rs")]
 curve = SubResource("Curve3D_h3e3j")
-script = ExtResource("7_tf2q7")
 my_going_forward_mine = NodePath("../GoldMineL2")
-my_going_back = [null]
-
-[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="Layer2/EnemyPathL2b" unique_id=1137960949]
-visible = false
-use_collision = true
-collision_layer = 16
-collision_mask = 0
-polygon = PackedVector2Array(-0.9, 0, -0.9, 0.1, 1, 0.1, 1, 0)
-mode = 2
-path_node = NodePath("..")
-path_interval_type = 0
-path_interval = 0.75
-path_simplify_angle = 0.0
-path_rotation = 2
-path_rotation_accurate = false
-path_local = true
-path_continuous_u = true
-path_u_distance = 1.0
-path_joined = false
+my_going_back = [NodePath("../../Layer1/EnemyPathL1")]
 
 [node name="GoldMineL2" parent="Layer2" unique_id=430811579 node_paths=PackedStringArray("my_going_back") instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -20, -3)

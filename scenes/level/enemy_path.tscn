@@ -1,28 +1,34 @@
-[gd_scene format=3 uid="uid://c1njedt1gde63"]
+[gd_scene format=3 uid="uid://d4bsq7oek6aom"]
 
-[ext_resource type="Script" uid="uid://bar8hctirwkhi" path="res://scenes/level/enemy_path.gd" id="1_7xpfd"]
-[ext_resource type="Script" uid="uid://6e5tpvsii3tm" path="res://scenes/level/enemy_manager.gd" id="2_xhthc"]
-[ext_resource type="PackedScene" uid="uid://cugt4d6rr2yi5" path="res://scenes/enemies/base_enemy.tscn" id="3_ia4qa"]
+[ext_resource type="Script" uid="uid://bar8hctirwkhi" path="res://scenes/level/enemy_path.gd" id="1_cdhoi"]
 
-[sub_resource type="Curve3D" id="Curve3D_h3e3j"]
-bake_interval = 0.01
+[sub_resource type="Curve3D" id="Curve3D_pe1ox"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5, 0.5, -1, 0, 0, 0, 0, 0, 0, 1, 0.5, -1, 0, 0, 0, 0, 0, 0, 1, 0.5, 1),
-"tilts": PackedFloat32Array(0, 0, 0)
+"points": PackedVector3Array(0.12543058, 0.008441696, 0.42986894, -0.25, 0, -0.25, -5, 0.01, 0, -0.25, 0, 0.25, 0.25, 0, -0.25, -5, 0.01, -1, -0.25, 0, -0.25, 0.25, 0, 0.25, 1, 0.01, -1, 0.25, 0, -0.25, -0.1594907, -0.08496641, 0.091860116, 1, 0.01, 0.25),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
 }
-point_count = 3
+point_count = 4
 
-[node name="EnemyPath" type="Path3D" unique_id=1922126716 node_paths=PackedStringArray("my_goldmine")]
-curve = SubResource("Curve3D_h3e3j")
-script = ExtResource("1_7xpfd")
-my_goldmine = NodePath("")
+[node name="EnemyPath" type="Path3D" unique_id=1086139139 node_paths=PackedStringArray("my_going_forward_nextpath", "my_going_back") groups=["enemypath"]]
+curve = SubResource("Curve3D_pe1ox")
+script = ExtResource("1_cdhoi")
+my_going_forward_nextpath = [null, null]
+my_going_back = [null]
 
-[node name="EnemyManager" type="Node3D" parent="." unique_id=495787817]
-script = ExtResource("2_xhthc")
-base_enemy_scene = ExtResource("3_ia4qa")
-
-[node name="BaseEnemySpawnTimer" type="Timer" parent="EnemyManager" unique_id=1663667012]
-wait_time = 2.0
-autostart = true
-
-[connection signal="timeout" from="EnemyManager/BaseEnemySpawnTimer" to="EnemyManager" method="spawn_base_enemy"]
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="." unique_id=970710392]
+visible = false
+use_collision = true
+collision_layer = 16
+collision_mask = 0
+polygon = PackedVector2Array(-0.9, 0, -0.9, 0.1, 1, 0.1, 1, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.75
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = true
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false

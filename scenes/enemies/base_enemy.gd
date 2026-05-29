@@ -142,14 +142,14 @@ func figure_out_mining_animation() -> void:
 		animated_sprite_3d.play("mining_up")
 
 func create_bag_to_drop() -> void:
-	#var new_bag = bag_to_drop_scene.instantiate()
-	#new_bag.global_position = global_position
-	#new_bag.Gold_in_Bag = gold_in_bag
-	#gold_in_bag = 0
-	#forward = -global_transform.basis.z
-	#travel_angle = atan2(forward.x, forward.z)
-	#new_bag.rotation.y = travel_angle + PI/2 #degrees keeps the bag collision correct.
-	get_parent().create_bag_to_drop(gold_in_bag,position,forward)
+	var new_bag = bag_to_drop_scene.instantiate()
+	new_bag.position = position
+	new_bag.Gold_in_Bag = gold_in_bag
+	gold_in_bag = 0
+	forward = -global_transform.basis.z
+	travel_angle = atan2(forward.x, forward.z)
+	new_bag.rotation.y = travel_angle + PI/2 #degrees keeps the bag collision correct.
+	get_parent().add_child(new_bag)
 
 func _on_mining_timer_timeout() -> void:
 	if gold_in_bag < max_gold_capacity && get_parent().current_gold > 0:

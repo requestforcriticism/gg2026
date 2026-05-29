@@ -7,7 +7,7 @@ func build_trap(trap2Build: Object, trap_position: Vector3,cell: Vector3) -> voi
 	var new_trap = trap2Build.instantiate()
 	if bankandquota.gold >= new_trap.trap_cost:
 		bankandquota.gold -= new_trap.trap_cost
-		new_trap.global_position = trap_position
+		new_trap.position = trap_position
 		add_child(new_trap)
 		gridmap.set_cell_item(cell, 1)
 
