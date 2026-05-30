@@ -3,11 +3,16 @@
 [ext_resource type="Script" uid="uid://81ienyduojbv" path="res://scenes/traps/arrow_trap/arrow_trap_base.gd" id="1_x4lbm"]
 [ext_resource type="PackedScene" uid="uid://cfuk5j54l73fs" path="res://scenes/traps/arrow_trap/arrow.tscn" id="2_x4lbm"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqtbt"]
+[sub_resource type="BoxMesh" id="BoxMesh_x4lbm"]
+size = Vector3(1.59, 0.01, 0.2)
 
-[sub_resource type="PrismMesh" id="PrismMesh_fb0e0"]
-material = SubResource("StandardMaterial3D_qqtbt")
-size = Vector3(2, 1, 0.01)
+[sub_resource type="PrismMesh" id="PrismMesh_eagye"]
+left_to_right = 1.0
+size = Vector3(0.2, 0.2, 0.01)
+
+[sub_resource type="PrismMesh" id="PrismMesh_5si11"]
+left_to_right = 0.0
+size = Vector3(0.2, 0.2, 0.01)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qqtbt"]
 size = Vector3(2, 0.01, 1)
@@ -26,11 +31,19 @@ script = ExtResource("1_x4lbm")
 arrow_scene = ExtResource("2_x4lbm")
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=271001784]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.005, -0.5)
-mesh = SubResource("PrismMesh_fb0e0")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005, 0.005, -0.89)
+mesh = SubResource("BoxMesh_x4lbm")
+
+[node name="corner" type="MeshInstance3D" parent="Floor" unique_id=233286253]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.895, 0, 0)
+mesh = SubResource("PrismMesh_eagye")
+
+[node name="corner2" type="MeshInstance3D" parent="Floor" unique_id=1122683231]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.89182943, 0, 0)
+mesh = SubResource("PrismMesh_5si11")
 
 [node name="Wall" type="MeshInstance3D" parent="." unique_id=1416405043]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.49548107, -0.999)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.495, -0.995)
 mesh = SubResource("BoxMesh_qqtbt")
 
 [node name="hole" type="MeshInstance3D" parent="Wall" unique_id=2069812880]
@@ -73,12 +86,20 @@ mesh = SubResource("CylinderMesh_qqtbt")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.175, 0.695, -0.8)
 top_level = true
 
-[node name="Floor2" type="MeshInstance3D" parent="." unique_id=2104960317]
-transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.5, 0.005, 0)
-mesh = SubResource("PrismMesh_fb0e0")
+[node name="Floor2" type="MeshInstance3D" parent="." unique_id=360902052]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.889, 0.005, 0.005)
+mesh = SubResource("BoxMesh_x4lbm")
+
+[node name="corner" type="MeshInstance3D" parent="Floor2" unique_id=1146067220]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.895, 0, 0)
+mesh = SubResource("PrismMesh_eagye")
+
+[node name="corner2" type="MeshInstance3D" parent="Floor2" unique_id=1000365977]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.89182943, 0, 0)
+mesh = SubResource("PrismMesh_5si11")
 
 [node name="Wall2" type="MeshInstance3D" parent="." unique_id=1820150813]
-transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.99899995, 0.4954811, 2.1811982e-08)
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0.995, 0.495, 0)
 mesh = SubResource("BoxMesh_qqtbt")
 
 [node name="hole" type="MeshInstance3D" parent="Wall2" unique_id=1343719336]
@@ -123,6 +144,5 @@ top_level = true
 
 [node name="ShootTimer" type="Timer" parent="." unique_id=1942908146]
 wait_time = 0.5
-autostart = true
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

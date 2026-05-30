@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ixkjg8d2l2rc"]
+
+[ext_resource type="PackedScene" uid="uid://cfuk5j54l73fs" path="res://scenes/traps/arrow_trap/arrow.tscn" id="1_ctd5k"]
+
+[node name="Arrowexample" unique_id=439116130 instance=ExtResource("1_ctd5k")]
+collision_mask = 1

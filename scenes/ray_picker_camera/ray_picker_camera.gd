@@ -1,6 +1,5 @@
 extends Camera3D
 
-@export var spike_trap_avail: PackedScene
 @export var trap_ability_manager: Node3D
 @export var single_point: PackedScene
 @export var layer_nodes : Array[Node3D]
@@ -236,11 +235,28 @@ func add_trap_placement_options() -> void:
 	if selected_Trap:
 		for i in gridmap_list:
 			if i.y == (camera_on_layer-1)*-10:
+				#var collision_point = ray_cast_3d.get_collision_point()
+				#var cell = i.local_to_map(collision_point)
 				var new_trap_avail_spot = selected_Trap_example.instantiate()
-				new_trap_avail_spot.spot_avail = true
-				new_trap_avail_spot.position = gridmap.map_to_local(i)
-				new_trap_avail_spot.remove_from_group("trap")
-				gridmap.add_child(new_trap_avail_spot)
+				var groups = new_trap_avail_spot.get_groups()
+				var trap_rotation = 0
+				print(i)
+				if groups.has("arrow"):
+					trap_rotation = check_for_arrow_trap(i)[0] #[rotaion,viable]
+					if !check_for_arrow_trap(i)[1]:
+						new_trap_avail_spot.queue_free()
+					else:
+						new_trap_avail_spot.spot_avail = true
+						new_trap_avail_spot.position = gridmap.map_to_local(i)
+						new_trap_avail_spot.rotation.y = trap_rotation
+						new_trap_avail_spot.remove_from_group("trap")
+						gridmap.add_child(new_trap_avail_spot)
+				else:
+					new_trap_avail_spot.spot_avail = true
+					new_trap_avail_spot.position = gridmap.map_to_local(i)
+					new_trap_avail_spot.rotation.y = trap_rotation
+					new_trap_avail_spot.remove_from_group("trap")
+					gridmap.add_child(new_trap_avail_spot)
 
 func end_select_trap_ability_check() -> void:
 	selected_Trap = null

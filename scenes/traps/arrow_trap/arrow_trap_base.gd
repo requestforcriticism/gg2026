@@ -14,8 +14,6 @@ var mark_options_size
 func _ready() -> void:
 	mark_options = [$Wall/hole/Marker3D,$Wall/hole2/Marker3D,$Wall/hole3/Marker3D,$Wall/hole4/Marker3D,$Wall/hole5/Marker3D,$Wall2/hole/Marker3D,$Wall2/hole2/Marker3D,$Wall2/hole3/Marker3D,$Wall2/hole4/Marker3D,$Wall2/hole5/Marker3D] 
 	mark_options.shuffle()
-	#mark_options = [$Wall/hole/Marker3D,$Wall2/hole/Marker3D] 
-
 	mark_options_size = mark_options.size()
 	shoot_timer.start()
 
@@ -26,5 +24,4 @@ func _on_shoot_timer_timeout() -> void:
 	new_arrow.rotation.y += mark_options[i].rotation.y
 	add_child(new_arrow)
 	i = posmod(i+1,mark_options_size)
-	#print(i)
 	

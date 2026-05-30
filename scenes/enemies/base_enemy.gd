@@ -31,12 +31,16 @@ var state := ENEMY_STATE.TRAVEL_IN
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
 @onready var collision_shape_3d: CollisionShape3D = $EnemyArea3D/CollisionShape3D
 @onready var dropped_gold_bag: Node3D = $DroppedGoldBag
+@onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
 
 var current_health: int:
 	set(health_in):
+		gpu_particles_3d.amount = current_health - health_in
 		current_health = max(health_in,0)
 		progress_bar.value = current_health
 		progress_bar.modulate.h = (progress_bar.value/progress_bar.max_value)*130.0/360.0
+		if current_health != max_health:
+			gpu_particles_3d.emitting = true
 		if current_health < 1 && not_dead:
 			not_dead = false
 			dropped_gold_bag.visible = false
