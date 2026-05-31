@@ -2,23 +2,77 @@
 
 [ext_resource type="Script" uid="uid://81ienyduojbv" path="res://scenes/traps/arrow_trap/arrow_trap_base.gd" id="1_x4lbm"]
 [ext_resource type="PackedScene" uid="uid://cfuk5j54l73fs" path="res://scenes/traps/arrow_trap/arrow.tscn" id="2_x4lbm"]
+[ext_resource type="Texture2D" uid="uid://bvsaj86d2sgku" path="res://assets/visual/mesh_assets/Metal052C_1K-PNG/Metal052C_1K-PNG_Color.png" id="3_evlf7"]
+[ext_resource type="Texture2D" uid="uid://nu2a7cljn16t" path="res://assets/visual/mesh_assets/Metal052C_1K-PNG/Metal052C_1K-PNG_Displacement.png" id="4_7rap0"]
+[ext_resource type="Texture2D" uid="uid://dgepflxo8l2u4" path="res://assets/visual/mesh_assets/Metal052C_1K-PNG/Metal052C_1K-PNG_Metalness.png" id="5_7hdry"]
+[ext_resource type="Texture2D" uid="uid://bsyabkghmn6kx" path="res://assets/visual/mesh_assets/Metal052C_1K-PNG/Metal052C_1K-PNG_NormalGL.png" id="6_2tc88"]
+[ext_resource type="Texture2D" uid="uid://cnhbvrka0g7s5" path="res://assets/visual/mesh_assets/Metal052C_1K-PNG/Metal052C_1K-PNG_Roughness.png" id="7_xkwjn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ga2ha"]
+albedo_color = Color(0.5882353, 0.5882353, 0.5882353, 1)
+albedo_texture = ExtResource("3_evlf7")
+metallic = 1.0
+metallic_texture = ExtResource("5_7hdry")
+roughness_texture = ExtResource("7_xkwjn")
+normal_enabled = true
+normal_texture = ExtResource("6_2tc88")
+heightmap_enabled = true
+heightmap_texture = ExtResource("4_7rap0")
+uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_x4lbm"]
+material = SubResource("StandardMaterial3D_ga2ha")
 size = Vector3(1.59, 0.01, 0.2)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gda5w"]
+albedo_color = Color(0.5882353, 0.5882353, 0.5882353, 1)
+albedo_texture = ExtResource("3_evlf7")
+metallic = 1.0
+metallic_texture = ExtResource("5_7hdry")
+roughness_texture = ExtResource("7_xkwjn")
+normal_enabled = true
+normal_texture = ExtResource("6_2tc88")
+heightmap_enabled = true
+heightmap_texture = ExtResource("4_7rap0")
+uv1_triplanar = true
+
 [sub_resource type="PrismMesh" id="PrismMesh_eagye"]
+material = SubResource("StandardMaterial3D_gda5w")
 left_to_right = 1.0
 size = Vector3(0.2, 0.2, 0.01)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_73ly5"]
+albedo_color = Color(0.5890956, 0.5890956, 0.5890956, 1)
+albedo_texture = ExtResource("3_evlf7")
+metallic = 1.0
+metallic_texture = ExtResource("5_7hdry")
+roughness_texture = ExtResource("7_xkwjn")
+normal_enabled = true
+normal_texture = ExtResource("6_2tc88")
+heightmap_enabled = true
+heightmap_texture = ExtResource("4_7rap0")
+uv1_triplanar = true
+
 [sub_resource type="PrismMesh" id="PrismMesh_5si11"]
+material = SubResource("StandardMaterial3D_73ly5")
 left_to_right = 0.0
 size = Vector3(0.2, 0.2, 0.01)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qqtbt"]
+material = SubResource("StandardMaterial3D_ga2ha")
 size = Vector3(2, 0.01, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fb0e0"]
 albedo_color = Color(0.29586664, 0.29586646, 0.29586664, 1)
+albedo_texture = ExtResource("3_evlf7")
+metallic = 1.0
+metallic_texture = ExtResource("5_7hdry")
+roughness_texture = ExtResource("7_xkwjn")
+normal_enabled = true
+normal_texture = ExtResource("6_2tc88")
+heightmap_enabled = true
+heightmap_texture = ExtResource("4_7rap0")
+uv1_triplanar = true
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_qqtbt"]
 material = SubResource("StandardMaterial3D_fb0e0")

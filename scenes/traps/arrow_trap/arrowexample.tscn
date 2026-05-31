@@ -4,3 +4,6 @@
 
 [node name="Arrowexample" unique_id=439116130 instance=ExtResource("1_ctd5k")]
 collision_mask = 1
+
+[node name="stick" parent="." index="1" unique_id=1206906461]
+cast_shadow = 0
