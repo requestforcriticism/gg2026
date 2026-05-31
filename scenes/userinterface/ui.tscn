@@ -4,11 +4,13 @@
 [ext_resource type="Script" uid="uid://ix702goahwvv" path="res://scenes/userinterface/ui.gd" id="1_yqs5y"]
 [ext_resource type="PackedScene" uid="uid://babrtpxq67wy3" path="res://scenes/traps/spike_trap/spike_trap.tscn" id="2_jsawn"]
 [ext_resource type="PackedScene" uid="uid://bo8fb3cpa4ctv" path="res://scenes/traps/spike_trap/spike_trap_example.tscn" id="3_8pgxs"]
-[ext_resource type="PackedScene" uid="uid://cchlnwmd6m3h3" path="res://scenes/abilities/Boulder/boulder_ability.tscn" id="3_n3j8f"]
+[ext_resource type="PackedScene" uid="uid://cchlnwmd6m3h3" path="res://scenes/abilities/boulder/boulder_ability.tscn" id="3_n3j8f"]
 [ext_resource type="PackedScene" uid="uid://05c0m4to0bjb" path="res://scenes/traps/arrow_trap/arrow_trap.tscn" id="4_1w675"]
-[ext_resource type="PackedScene" uid="uid://bregrm2e4ueyx" path="res://scenes/abilities/Boulder/boulder_ability_example.tscn" id="4_bbqyl"]
+[ext_resource type="PackedScene" uid="uid://bregrm2e4ueyx" path="res://scenes/abilities/boulder/boulder_ability_example.tscn" id="4_bbqyl"]
 [ext_resource type="Texture2D" uid="uid://7yjwb2g5o7r6" path="res://assets/visual/abilities/boulder.png" id="4_kj22y"]
 [ext_resource type="PackedScene" uid="uid://cgpwcn0dgut8a" path="res://scenes/traps/arrow_trap/arrow_trap_example.tscn" id="5_skj6d"]
+[ext_resource type="PackedScene" uid="uid://bekowun0qq86y" path="res://scenes/abilities/dirkblock/dirt_block_ability_base.tscn" id="8_750pv"]
+[ext_resource type="PackedScene" uid="uid://cyaegfakaq4pr" path="res://scenes/abilities/dirkblock/dirt_block_ability_base_example.tscn" id="9_xo44p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jsawn"]
 outline_size = 5
@@ -41,6 +43,8 @@ arrow_trap = ExtResource("4_1w675")
 arrow_trap_example = ExtResource("5_skj6d")
 boulder_ability = ExtResource("3_n3j8f")
 boulder_ability_example = ExtResource("4_bbqyl")
+dirt_wall_ability = ExtResource("8_750pv")
+dirt_wall_ability_example = ExtResource("9_xo44p")
 
 [node name="TrapAbilityOption" type="VBoxContainer" parent="." unique_id=536935284]
 layout_mode = 2

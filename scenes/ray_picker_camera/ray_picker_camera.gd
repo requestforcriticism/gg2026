@@ -13,6 +13,7 @@ extends Camera3D
 var trap_cost := 20 #Get this from the trap selected from UI
 var ray_extend := 100.0 #Distance for Raycast to reach level
 var selected_Trap :Object
+var trap_rotation :float
 var selected_Trap_example :Object
 var selected_Ability :Object
 var selected_Ability_example :Object
@@ -89,25 +90,69 @@ func csgpoly3d_collision(collider) -> void:
 func gridmap_collision() -> void:
 	var collision_point = ray_cast_3d.get_collision_point()
 	var cell = gridmap.local_to_map(collision_point)
-	if gridmap.get_cell_item(cell) == 0:
+	if gridmap.get_cell_item(cell) == 0 || gridmap.get_cell_item(cell) == 1 || gridmap.get_cell_item(cell) == 3:
 		var temp_instance  = selected_Trap.instantiate()
 		var groups = temp_instance.get_groups()
-		var trap_rotation = 0
-		if groups.has("arrow"):
-			trap_rotation = check_for_arrow_trap(cell)[0] #[rotaion,viable]
-			if !check_for_arrow_trap(cell)[1]:
+		trap_rotation = 0
+		var tile_position = gridmap.map_to_local(cell)
+		if groups.has("dirtblock"):
+			var dirt_results = check_dirk_block_stuff(collision_point, cell)
+			if !dirt_results[1]:
 				temp_instance.queue_free()
 				return
-		temp_instance.queue_free()
-		Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
-		if Input.is_action_pressed("click"):  #&& trap selected from UI.
-			if selected_Trap:
-				var tile_position = gridmap.map_to_local(cell)
-				trap_ability_manager.build_trap(selected_Trap,tile_position,cell,trap_rotation)
-				end_select_trap_ability_check()
-		temp_instance.queue_free()
+			else:
+				trap_rotation = dirt_results[0]
+				tile_position = dirt_results[2]
+				temp_instance.queue_free()
+				put_the_trap(tile_position,cell)
+		elif gridmap.get_cell_item(cell) == 0:
+			if groups.has("arrow"):
+				trap_rotation = check_for_arrow_trap(cell)[0] #[rotaion,viable]
+				if !check_for_arrow_trap(cell)[1]:
+					temp_instance.queue_free()
+					return
+			temp_instance.queue_free()
+			put_the_trap(tile_position,cell)
+		else:
+			Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+
+func put_the_trap(tile_position,cell) -> void:
+	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+	if Input.is_action_pressed("click"):  #&& trap selected from UI.
+		if selected_Trap:
+			trap_ability_manager.build_trap(selected_Trap,tile_position,cell,trap_rotation)
+			end_select_trap_ability_check()
+
+func check_dirk_block_stuff(new_collision_point, cell) -> Array:
+	var diff:Vector3 = gridmap.map_to_local(cell)-new_collision_point
+	var viable = true
+	var tile_position
+	var dirt_trap_rotation := 0.0
+	if abs(diff.x) > abs(diff.z):
+		if diff.x > 0:
+			if gridmap.get_cell_item(cell-Vector3i(1,0,0)) != 2 && gridmap.get_cell_item(cell-Vector3i(1,0,0)) >= 0:
+				tile_position = gridmap.map_to_local(cell)-Vector3(1,0,0)
+			else:
+				viable = false
+		else:
+			if gridmap.get_cell_item(cell+Vector3i(1,0,0)) != 2 && gridmap.get_cell_item(cell+Vector3i(1,0,0)) >= 0:
+				tile_position = gridmap.map_to_local(cell)+Vector3(1,0,0)
+			else:
+				viable = false
 	else:
-		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+		if diff.z > 0:
+			if gridmap.get_cell_item(cell-Vector3i(0,0,1)) != 2 && gridmap.get_cell_item(cell-Vector3i(0,0,1)) >= 0:
+				tile_position = gridmap.map_to_local(cell)-Vector3(0,0,1)
+				dirt_trap_rotation = PI/2
+			else:
+				viable = false
+		else:
+			if gridmap.get_cell_item(cell+Vector3i(0,0,1)) != 2 && gridmap.get_cell_item(cell+Vector3i(0,0,1)) >= 0:
+				tile_position = gridmap.map_to_local(cell)+Vector3(0,0,1)
+				dirt_trap_rotation = PI/2
+			else:
+				viable = false
+	return [dirt_trap_rotation,viable,tile_position]
 
 func check_for_arrow_trap(cell) -> Array:
 	var arrow_rotation :float
@@ -231,32 +276,55 @@ func add_abilty_placement_options() -> void:
 				i.add_child(new_ability_avail_spot)
 
 func add_trap_placement_options() -> void:
-	var gridmap_list = gridmap.get_used_cells_by_item(0)  #Item 0 is CavePath
 	if selected_Trap:
+		var new_trap_avail_spot = selected_Trap_example.instantiate()
+		var groups = new_trap_avail_spot.get_groups()
+		new_trap_avail_spot.queue_free()
+		var rotations := 1
+		var gridmap_list
+		var trap_position
+		var offset_4_dirt := [Vector3(0.5,0,0),Vector3(-0.5,0,0),Vector3(0,0,0.5),Vector3(0,0,-0.5)]
+		if groups.has("dirtblock"):
+			gridmap_list = gridmap.get_used_cells_by_item(0)  #Item 0 is CavePath
+			for i in gridmap.get_used_cells_by_item(1):
+				gridmap_list.append(i)
+			for i in gridmap.get_used_cells_by_item(3):
+				gridmap_list.append(i)
+			rotations = 4
+		else:
+			gridmap_list = gridmap.get_used_cells_by_item(0)  #Item 0 is CavePath
+			rotations = 1
 		for i in gridmap_list:
 			if i.y == (camera_on_layer-1)*-10:
-				#var collision_point = ray_cast_3d.get_collision_point()
-				#var cell = i.local_to_map(collision_point)
-				var new_trap_avail_spot = selected_Trap_example.instantiate()
-				var groups = new_trap_avail_spot.get_groups()
-				var trap_rotation = 0
-				print(i)
-				if groups.has("arrow"):
-					trap_rotation = check_for_arrow_trap(i)[0] #[rotaion,viable]
-					if !check_for_arrow_trap(i)[1]:
-						new_trap_avail_spot.queue_free()
+				for j in range(0,rotations):
+					var good_2_go := true
+					new_trap_avail_spot = selected_Trap_example.instantiate()
+					var trap_rotation = 0
+					trap_position = gridmap.map_to_local(i)
+					if groups.has("arrow"):
+						if !check_for_arrow_trap(i)[1]:
+							good_2_go = false
+						else:
+							trap_rotation = check_for_arrow_trap(i)[0] #[rotaion,viable]
+					elif groups.has("dirtblock"):
+						var dirt_results = check_dirk_block_stuff(gridmap.map_to_local(i)+offset_4_dirt[j], i)
+						if !dirt_results[1]:
+							good_2_go = false
+						else:
+							trap_rotation = dirt_results[0]
+							trap_position = dirt_results[2]
+							new_trap_avail_spot.remove_from_group("abilityholder")
 					else:
+						trap_position = gridmap.map_to_local(i)
+					
+					if good_2_go:
 						new_trap_avail_spot.spot_avail = true
-						new_trap_avail_spot.position = gridmap.map_to_local(i)
+						new_trap_avail_spot.position = trap_position
 						new_trap_avail_spot.rotation.y = trap_rotation
 						new_trap_avail_spot.remove_from_group("trap")
 						gridmap.add_child(new_trap_avail_spot)
-				else:
-					new_trap_avail_spot.spot_avail = true
-					new_trap_avail_spot.position = gridmap.map_to_local(i)
-					new_trap_avail_spot.rotation.y = trap_rotation
-					new_trap_avail_spot.remove_from_group("trap")
-					gridmap.add_child(new_trap_avail_spot)
+					else:
+						new_trap_avail_spot.queue_free()
 
 func end_select_trap_ability_check() -> void:
 	selected_Trap = null

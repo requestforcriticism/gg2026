@@ -17,6 +17,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0, -1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2, 2, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_bngrn"]
 resource_name = "holder"
@@ -65,7 +77,7 @@ tracks/3/path = NodePath("Floor:cast_shadow")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(1.1366216),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
@@ -845,7 +857,7 @@ tracks/68/path = NodePath("Floor:transparency")
 tracks/68/interp = 1
 tracks/68/loop_wrap = true
 tracks/68/keys = {
-"times": PackedFloat32Array(1.8687955),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
@@ -1671,6 +1683,18 @@ tracks/67/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/68/type = "value"
+tracks/68/imported = false
+tracks/68/enabled = true
+tracks/68/path = NodePath("OmniLight3D:position")
+tracks/68/interp = 1
+tracks/68/loop_wrap = true
+tracks/68/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2, 2, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g4xuw"]
 _data = {
@@ -1681,9 +1705,6 @@ _data = {
 
 [node name="SpikeTrapExample" unique_id=1269147494 groups=["example"] instance=ExtResource("1_g4xuw")]
 script = ExtResource("2_mu8ov")
-
-[node name="Floor" parent="." index="0" unique_id=2102070784]
-cast_shadow = 0
 
 [node name="Hole" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="0" unique_id=283782914]
 cast_shadow = 0
@@ -1733,54 +1754,52 @@ cast_shadow = 0
 [node name="Hole16" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="15" unique_id=2069857772]
 cast_shadow = 0
 
-[node name="Spikes" parent="Floor" index="1" unique_id=1952486113 groups=["example", "spike", "trap"]]
-
-[node name="Spike" parent="Floor/Spikes" index="0" unique_id=317748505]
+[node name="Spike" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="0" unique_id=317748505]
 cast_shadow = 0
 
-[node name="Spike2" parent="Floor/Spikes" index="1" unique_id=698516083]
+[node name="Spike2" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="1" unique_id=698516083]
 cast_shadow = 0
 
-[node name="Spike3" parent="Floor/Spikes" index="2" unique_id=1900910688]
+[node name="Spike3" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="2" unique_id=1900910688]
 cast_shadow = 0
 
-[node name="Spike4" parent="Floor/Spikes" index="3" unique_id=378354494]
+[node name="Spike4" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="3" unique_id=378354494]
 cast_shadow = 0
 
-[node name="Spike5" parent="Floor/Spikes" index="4" unique_id=1323554324]
+[node name="Spike5" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="4" unique_id=1323554324]
 cast_shadow = 0
 
-[node name="Spike6" parent="Floor/Spikes" index="5" unique_id=2055888988]
+[node name="Spike6" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="5" unique_id=2055888988]
 cast_shadow = 0
 
-[node name="Spike7" parent="Floor/Spikes" index="6" unique_id=1501739526]
+[node name="Spike7" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="6" unique_id=1501739526]
 cast_shadow = 0
 
-[node name="Spike8" parent="Floor/Spikes" index="7" unique_id=502636662]
+[node name="Spike8" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="7" unique_id=502636662]
 cast_shadow = 0
 
-[node name="Spike9" parent="Floor/Spikes" index="8" unique_id=1188780388]
+[node name="Spike9" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="8" unique_id=1188780388]
 cast_shadow = 0
 
-[node name="Spike10" parent="Floor/Spikes" index="9" unique_id=321421494]
+[node name="Spike10" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="9" unique_id=321421494]
 cast_shadow = 0
 
-[node name="Spike11" parent="Floor/Spikes" index="10" unique_id=1997999098]
+[node name="Spike11" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="10" unique_id=1997999098]
 cast_shadow = 0
 
-[node name="Spike12" parent="Floor/Spikes" index="11" unique_id=1309550817]
+[node name="Spike12" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="11" unique_id=1309550817]
 cast_shadow = 0
 
-[node name="Spike13" parent="Floor/Spikes" index="12" unique_id=529632027]
+[node name="Spike13" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="12" unique_id=529632027]
 cast_shadow = 0
 
-[node name="Spike14" parent="Floor/Spikes" index="13" unique_id=39006855]
+[node name="Spike14" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="13" unique_id=39006855]
 cast_shadow = 0
 
-[node name="Spike15" parent="Floor/Spikes" index="14" unique_id=1198976353]
+[node name="Spike15" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="14" unique_id=1198976353]
 cast_shadow = 0
 
-[node name="Spike16" parent="Floor/Spikes" index="15" unique_id=811828178]
+[node name="Spike16" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="15" unique_id=811828178]
 cast_shadow = 0
 
 [node name="InitialdetectArea3D" parent="." index="1" unique_id=1843298355]

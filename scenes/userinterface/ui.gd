@@ -9,6 +9,8 @@ signal ability_select(A2d)
 @export var arrow_trap_example: PackedScene
 @export var boulder_ability: PackedScene
 @export var boulder_ability_example: PackedScene
+@export var dirt_wall_ability: PackedScene
+@export var dirt_wall_ability_example: PackedScene
 
 @onready var bankquota = get_tree().get_first_node_in_group("bankandquota")
 @onready var quota = get_tree().get_first_node_in_group("quota")
@@ -60,7 +62,7 @@ func _on_boulder_ability_button_pressed() -> void:
 	ability_select.emit(boulder_ability, boulder_ability_example)
 
 func _on_wall_ability_button_pressed() -> void:
-	pass # Replace with function body.
+	trap_select.emit(dirt_wall_ability, dirt_wall_ability_example)
 
 func _on_gas_ability_button_pressed() -> void:
 	pass # Replace with function body.

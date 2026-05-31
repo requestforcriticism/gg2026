@@ -10,13 +10,3 @@ func _ready() -> void:
 		$AnimationPlayer.play("holder")
 	elif spot_avail:
 		$AnimationPlayer.play("spot_avail")
-
-#
-#func _physics_process(delta: float) -> void:
-	#if holder && !$AnimationPlayer.current_animation == "holder":
-		#$AnimationPlayer.stop()
-		#$AnimationPlayer.play("holder")
-		#
-	#elif spot_avail && !$AnimationPlayer.current_animation == "spot_avail":
-		#$AnimationPlayer.stop()
-		#$AnimationPlayer.play("spot_avail")

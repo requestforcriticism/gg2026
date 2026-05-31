@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bekowun0qq86y"]
+
+[ext_resource type="Script" uid="uid://dy8r4kvobuisn" path="res://scenes/abilities/dirkblock/dirt_block_ability_base.gd" id="1_scvv0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_thr1m"]
+albedo_color = Color(0.56147856, 0.27945468, 9.62615e-08, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_thr1m"]
+material = SubResource("StandardMaterial3D_thr1m")
+size = Vector3(0.1, 1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_thr1m"]
+size = Vector3(0.1, 1, 2)
+
+[node name="DirtBlock_ability_base" type="Node3D" unique_id=2016828014 groups=["ability", "dirtblock"]]
+script = ExtResource("1_scvv0")
+
+[node name="Wall" type="MeshInstance3D" parent="." unique_id=1704673320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_thr1m")
+
+[node name="Area3D" type="Area3D" parent="Wall" unique_id=1151033018]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall/Area3D" unique_id=1568775025]
+shape = SubResource("BoxShape3D_thr1m")
