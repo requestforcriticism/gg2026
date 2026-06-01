@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://ruko6ar7hvvd"]
+
+[ext_resource type="Script" uid="uid://jdrsd7bxxcda" path="res://scenes/traps/mud_trap/mud_trap_base.gd" id="1_xmin4"]
+[ext_resource type="Texture2D" uid="uid://c86mumhyqh3pp" path="res://assets/visual/mesh_assets/Ground095A_1K-PNG/Ground095A_1K-PNG_Color.png" id="2_etjlg"]
+[ext_resource type="Texture2D" uid="uid://cg4veag5xy0d" path="res://assets/visual/mesh_assets/Ground095A_1K-PNG/Ground095A_1K-PNG_AmbientOcclusion.png" id="3_xkrnr"]
+[ext_resource type="Texture2D" uid="uid://djtcw4ukx23bh" path="res://assets/visual/mesh_assets/Ground095A_1K-PNG/Ground095A_1K-PNG_Displacement.png" id="4_q5raf"]
+[ext_resource type="Texture2D" uid="uid://ckyixd7ne02fg" path="res://assets/visual/mesh_assets/Ground095A_1K-PNG/Ground095A_1K-PNG_NormalGL.png" id="5_06d0n"]
+[ext_resource type="Texture2D" uid="uid://h6qy07krdhrp" path="res://assets/visual/mesh_assets/Ground095A_1K-PNG/Ground095A_1K-PNG_Roughness.png" id="6_848gj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xmin4"]
+albedo_color = Color(0.9367008, 0.7710098, 0.45155954, 1)
+albedo_texture = ExtResource("2_etjlg")
+roughness_texture = ExtResource("6_848gj")
+normal_enabled = true
+normal_texture = ExtResource("5_06d0n")
+ao_enabled = true
+ao_texture = ExtResource("3_xkrnr")
+heightmap_enabled = true
+heightmap_texture = ExtResource("4_q5raf")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_xmin4"]
+material = SubResource("StandardMaterial3D_xmin4")
+size = Vector3(1.9, 0.01, 1.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xmin4"]
+size = Vector3(1.9, 1, 1.9)
+
+[node name="Mud_trap_base" type="Node3D" unique_id=305420928 groups=["mudtrap", "trap"]]
+script = ExtResource("1_xmin4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=231310864]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005, 0)
+mesh = SubResource("BoxMesh_xmin4")
+
+[node name="FindEnemyArea3D" type="Area3D" parent="." unique_id=12138510]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FindEnemyArea3D" unique_id=1438138683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_xmin4")

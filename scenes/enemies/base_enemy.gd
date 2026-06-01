@@ -12,13 +12,15 @@ extends PathFollow3D
 
 var gold_in_bag := 0
 var rdy_to_leave := false
-var speed :float
 var not_dead := true
 var wall_2_destroy :Area3D
 
 var forward :Vector3
 var travel_angle :float
 var animate_direction :String
+var slowed := false
+var current_base_speed : float
+var return_speed_multiplier := 1.25
 
 enum ENEMY_STATE {TRAVEL_IN, TRAVEL_OUT, MINING, MINING_DIRT_WALL, RETURN_GOLD}
 var state := ENEMY_STATE.TRAVEL_IN
@@ -37,7 +39,8 @@ var state := ENEMY_STATE.TRAVEL_IN
 
 var current_health: int:
 	set(health_in):
-		gpu_particles_3d.amount = current_health - health_in
+		if current_health > 0:
+			gpu_particles_3d.amount = current_health - health_in
 		current_health = max(health_in,0)
 		progress_bar.value = current_health
 		progress_bar.modulate.h = (progress_bar.value/progress_bar.max_value)*130.0/360.0
@@ -53,8 +56,13 @@ var current_health: int:
 			collision_shape_3d.set_deferred("disabled",true)
 			death_timer.start()
 
+var current_speed: float:
+	set(speed_in):
+		current_speed = speed_in
+		
 func _ready() -> void:
-	speed = base_speed
+	current_base_speed = base_speed
+	current_speed = current_base_speed
 	progress_bar.max_value = max_health
 	current_health = max_health
 	progress_bar.value = current_health
@@ -63,17 +71,21 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	do_state_stuff(delta)
-	
+	recover_speed()
+
+func recover_speed() -> void:
+	current_speed = lerp(current_speed,current_base_speed,.01)
 
 func do_state_stuff(delta) -> void:
 	if state == ENEMY_STATE.TRAVEL_IN:
-		progress += delta * speed
+		progress += delta * current_speed
 		h_offset = offset_value
 		animated_sprite_3d.play(figure_out_travel_animation())
 		animated_sprite_3d.visible = true
 		if progress_ratio == 1.0:
 			if get_parent().my_going_forward_mine.current_gold > 0:
-				speed = 0.0
+				current_base_speed = 0.0
+				current_speed = current_base_speed
 				find_dirt_block_area_3d.monitoring = false
 				state = ENEMY_STATE.MINING
 				find_dirt_block_area_3d.monitoring = false
@@ -96,7 +108,7 @@ func do_state_stuff(delta) -> void:
 		if mining_timer.is_stopped():
 			mining_timer.start()
 	elif state == ENEMY_STATE.TRAVEL_OUT:
-		progress -= delta * speed
+		progress -= delta * current_speed
 		h_offset = offset_value
 		animated_sprite_3d.play(figure_out_travel_animation())
 		animated_sprite_3d.visible = true
@@ -104,7 +116,8 @@ func do_state_stuff(delta) -> void:
 			dropped_gold_bag.visible = true
 		if progress_ratio == 0.0:
 			if get_parent().my_going_back[0].is_in_group("enemy_camp"):
-				speed = 0.0
+				current_base_speed = 0.0
+				current_speed = current_base_speed
 				state = ENEMY_STATE.RETURN_GOLD
 				find_dirt_block_area_3d.monitoring = false
 				dropped_gold_bag.visible = false
@@ -190,19 +203,19 @@ func _on_mining_timer_timeout() -> void:
 			find_dirt_block_area_3d.rotation.y = PI
 			find_dirt_block_area_3d.monitoring = true
 			progress_ratio = 1.0
-			speed = base_speed * 1.25
+			current_base_speed = base_speed * return_speed_multiplier
+			current_speed = current_base_speed
 	elif state == ENEMY_STATE.MINING_DIRT_WALL:
 		if wall_2_destroy && wall_2_destroy.get_parent().current_health > 0:
 				wall_2_destroy.get_parent().current_health -= 1
 		else:
 			if rdy_to_leave:
 				state = ENEMY_STATE.TRAVEL_OUT
-				speed = base_speed
+				current_speed = current_base_speed
 			else:
 				state = ENEMY_STATE.TRAVEL_IN
-				speed = base_speed
-				
-			
+				current_speed = current_base_speed
+				print("here")
 
 func _on_return_gold_timer_timeout() -> void:
 	if gold_in_bag > 0:
@@ -217,7 +230,8 @@ func _on_return_gold_timer_timeout() -> void:
 		state = ENEMY_STATE.TRAVEL_IN
 		find_dirt_block_area_3d.rotation.y = 0.0
 		find_dirt_block_area_3d.monitoring = true
-		speed = base_speed
+		current_base_speed = base_speed
+		current_speed = current_base_speed
 		animated_sprite_3d.visible = false
 		progress_ratio = 0.0
 		to_next_path()
@@ -228,7 +242,8 @@ func _on_death_timer_timeout() -> void:
 
 func _on_find_dirt_block_area_3d_area_entered(area: Area3D) -> void:
 	state = ENEMY_STATE.MINING_DIRT_WALL
-	speed = 0.0
+	current_base_speed = 0.0
+	current_speed = current_base_speed
 	wall_2_destroy = area
 
 
@@ -236,8 +251,9 @@ func _on_find_dirt_block_area_3d_area_exited(area: Area3D) -> void:
 	mining_timer.stop()
 	if rdy_to_leave:
 		state = ENEMY_STATE.TRAVEL_OUT
-		speed = base_speed
+		current_base_speed = base_speed*return_speed_multiplier
+		current_speed = current_base_speed
 	else:
 		state = ENEMY_STATE.TRAVEL_IN
-		speed = base_speed
-	
+		current_base_speed = base_speed
+		current_speed = current_base_speed

@@ -1,9 +1,23 @@
 [gd_scene format=3 uid="uid://bekowun0qq86y"]
 
 [ext_resource type="Script" uid="uid://dy8r4kvobuisn" path="res://scenes/abilities/dirkblock/dirt_block_ability_base.gd" id="1_scvv0"]
+[ext_resource type="Texture2D" uid="uid://cmr6h28af6v13" path="res://assets/visual/mesh_assets/Ground067_1K-PNG/Ground067_1K-PNG_Color.png" id="2_ql0p7"]
+[ext_resource type="Texture2D" uid="uid://blbqx55xab87m" path="res://assets/visual/mesh_assets/Ground067_1K-PNG/Ground067_1K-PNG_AmbientOcclusion.png" id="3_gcp03"]
+[ext_resource type="Texture2D" uid="uid://2qj2yqjjs7mq" path="res://assets/visual/mesh_assets/Ground067_1K-PNG/Ground067_1K-PNG_Displacement.png" id="4_kgsyd"]
+[ext_resource type="Texture2D" uid="uid://tl35hxfmccim" path="res://assets/visual/mesh_assets/Ground067_1K-PNG/Ground067_1K-PNG_NormalGL.png" id="5_xkji4"]
+[ext_resource type="Texture2D" uid="uid://c88j3iyltawep" path="res://assets/visual/mesh_assets/Ground067_1K-PNG/Ground067_1K-PNG_Roughness.png" id="6_rrii1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_thr1m"]
-albedo_color = Color(0.56147856, 0.27945468, 9.62615e-08, 1)
+albedo_color = Color(0.82879686, 0.4235536, 0, 1)
+albedo_texture = ExtResource("2_ql0p7")
+roughness_texture = ExtResource("6_rrii1")
+normal_enabled = true
+normal_texture = ExtResource("5_xkji4")
+ao_enabled = true
+ao_texture = ExtResource("3_gcp03")
+heightmap_enabled = true
+heightmap_texture = ExtResource("4_kgsyd")
+uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_thr1m"]
 material = SubResource("StandardMaterial3D_thr1m")

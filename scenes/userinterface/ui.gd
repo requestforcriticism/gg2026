@@ -7,6 +7,8 @@ signal ability_select(A2d)
 @export var spike_trap_example: PackedScene
 @export var arrow_trap: PackedScene
 @export var arrow_trap_example: PackedScene
+@export var mud_trap: PackedScene
+@export var mud_trap_example: PackedScene
 @export var boulder_ability: PackedScene
 @export var boulder_ability_example: PackedScene
 @export var dirt_wall_ability: PackedScene
@@ -56,7 +58,7 @@ func _on_arrow_trap_button_pressed() -> void:
 	trap_select.emit(arrow_trap, arrow_trap_example)
 
 func _on_mud_trap_button_pressed() -> void:
-	pass # Replace with function body.
+	trap_select.emit(mud_trap, mud_trap_example)
 
 func _on_boulder_ability_button_pressed() -> void:
 	ability_select.emit(boulder_ability, boulder_ability_example)

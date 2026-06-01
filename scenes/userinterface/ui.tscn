@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bregrm2e4ueyx" path="res://scenes/abilities/boulder/boulder_ability_example.tscn" id="4_bbqyl"]
 [ext_resource type="Texture2D" uid="uid://7yjwb2g5o7r6" path="res://assets/visual/abilities/boulder.png" id="4_kj22y"]
 [ext_resource type="PackedScene" uid="uid://cgpwcn0dgut8a" path="res://scenes/traps/arrow_trap/arrow_trap_example.tscn" id="5_skj6d"]
+[ext_resource type="PackedScene" uid="uid://b117p353j0tq2" path="res://scenes/traps/mud_trap/mud_trap.tscn" id="6_ojaxh"]
+[ext_resource type="PackedScene" uid="uid://bg4ea11atgdtv" path="res://scenes/traps/mud_trap/mud_trap_base_example.tscn" id="7_ys5vj"]
 [ext_resource type="PackedScene" uid="uid://bekowun0qq86y" path="res://scenes/abilities/dirkblock/dirt_block_ability_base.tscn" id="8_750pv"]
 [ext_resource type="PackedScene" uid="uid://cyaegfakaq4pr" path="res://scenes/abilities/dirkblock/dirt_block_ability_base_example.tscn" id="9_xo44p"]
 
@@ -41,6 +43,8 @@ spike_trap = ExtResource("2_jsawn")
 spike_trap_example = ExtResource("3_8pgxs")
 arrow_trap = ExtResource("4_1w675")
 arrow_trap_example = ExtResource("5_skj6d")
+mud_trap = ExtResource("6_ojaxh")
+mud_trap_example = ExtResource("7_ys5vj")
 boulder_ability = ExtResource("3_n3j8f")
 boulder_ability_example = ExtResource("4_bbqyl")
 dirt_wall_ability = ExtResource("8_750pv")

@@ -1,4 +1,6 @@
-extends "res://scenes/abilities/dirkblock/dirt_block_ability_base.gd"
+extends "res://scenes/traps/mud_trap/mud_trap_base.gd"
+
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var holder := false
 var spot_avail := false

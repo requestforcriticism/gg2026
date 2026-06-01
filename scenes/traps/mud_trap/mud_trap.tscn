@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b117p353j0tq2"]
+
+[ext_resource type="PackedScene" uid="uid://ruko6ar7hvvd" path="res://scenes/traps/mud_trap/mud_trap_base.tscn" id="1_pq6p4"]
+[ext_resource type="Script" uid="uid://ccwimqko8olt6" path="res://scenes/traps/mud_trap/mud_trap.gd" id="2_2krap"]
+
+[node name="Mud_trap" unique_id=305420928 instance=ExtResource("1_pq6p4")]
+script = ExtResource("2_2krap")
+
+[connection signal="area_entered" from="FindEnemyArea3D" to="." method="_on_find_enemy_area_3d_area_entered"]
+[connection signal="area_exited" from="FindEnemyArea3D" to="." method="_on_find_enemy_area_3d_area_exited"]
