@@ -228,6 +228,9 @@ height = 0.5
 radius = 0.2529297
 height = 0.6437988
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ylyo2"]
+size = Vector3(0.49121094, 1, 0.33642578)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n763p"]
 bg_color = Color(0, 0, 0, 0.47058824)
 
@@ -275,6 +278,15 @@ collision_mask = 8
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyArea3D" unique_id=121936041]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.328, 0)
 shape = SubResource("CapsuleShape3D_c1rwf")
+
+[node name="FindDirtBlockArea3D" type="Area3D" parent="." unique_id=1919062705]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FindDirtBlockArea3D" unique_id=1051446849]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3317871)
+shape = SubResource("BoxShape3D_ylyo2")
+debug_color = Color(0.9662656, 0, 0.48456597, 0.41960785)
 
 [node name="MiningTimer" type="Timer" parent="." unique_id=1662640569]
 
@@ -344,6 +356,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90769273, 0)
 light_energy = 0.5
 shadow_enabled = true
 
+[connection signal="area_entered" from="FindDirtBlockArea3D" to="." method="_on_find_dirt_block_area_3d_area_entered"]
+[connection signal="area_exited" from="FindDirtBlockArea3D" to="." method="_on_find_dirt_block_area_3d_area_exited"]
 [connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]
 [connection signal="timeout" from="ReturnGoldTimer" to="." method="_on_return_gold_timer_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

@@ -5,3 +5,8 @@
 
 [node name="DirtBlock_ability_base_example" unique_id=554376165 groups=["abilityholder", "example"] instance=ExtResource("1_0h5cw")]
 script = ExtResource("2_x81c0")
+
+[node name="Area3D" parent="." index="1" unique_id=1151033018]
+collision_layer = 0
+monitoring = false
+monitorable = false

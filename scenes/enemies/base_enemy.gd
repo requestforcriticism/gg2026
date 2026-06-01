@@ -14,12 +14,13 @@ var gold_in_bag := 0
 var rdy_to_leave := false
 var speed :float
 var not_dead := true
+var wall_2_destroy :Area3D
 
 var forward :Vector3
 var travel_angle :float
 var animate_direction :String
 
-enum ENEMY_STATE {TRAVEL_IN, TRAVEL_OUT, MINING, RETURN_GOLD}
+enum ENEMY_STATE {TRAVEL_IN, TRAVEL_OUT, MINING, MINING_DIRT_WALL, RETURN_GOLD}
 var state := ENEMY_STATE.TRAVEL_IN
 
 @onready var stolen = get_tree().get_first_node_in_group("enemy_camp")
@@ -32,6 +33,7 @@ var state := ENEMY_STATE.TRAVEL_IN
 @onready var collision_shape_3d: CollisionShape3D = $EnemyArea3D/CollisionShape3D
 @onready var dropped_gold_bag: Node3D = $DroppedGoldBag
 @onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
+@onready var find_dirt_block_area_3d: Area3D = $FindDirtBlockArea3D
 
 var current_health: int:
 	set(health_in):
@@ -67,12 +69,14 @@ func do_state_stuff(delta) -> void:
 	if state == ENEMY_STATE.TRAVEL_IN:
 		progress += delta * speed
 		h_offset = offset_value
-		figure_out_travel_animation()
+		animated_sprite_3d.play(figure_out_travel_animation())
 		animated_sprite_3d.visible = true
 		if progress_ratio == 1.0:
 			if get_parent().my_going_forward_mine.current_gold > 0:
 				speed = 0.0
+				find_dirt_block_area_3d.monitoring = false
 				state = ENEMY_STATE.MINING
+				find_dirt_block_area_3d.monitoring = false
 				to_next_goldmine()
 			elif get_parent().my_going_forward_mine.current_gold == 0:
 				if get_parent().my_going_forward_mine.closing:
@@ -87,10 +91,14 @@ func do_state_stuff(delta) -> void:
 		figure_out_mining_animation()
 		if mining_timer.is_stopped():
 			mining_timer.start()
+	elif state == ENEMY_STATE.MINING_DIRT_WALL:
+		figure_out_mining_dirt_wall_animation()
+		if mining_timer.is_stopped():
+			mining_timer.start()
 	elif state == ENEMY_STATE.TRAVEL_OUT:
 		progress -= delta * speed
 		h_offset = offset_value
-		figure_out_travel_animation()
+		animated_sprite_3d.play(figure_out_travel_animation())
 		animated_sprite_3d.visible = true
 		if !dropped_gold_bag.visible && gold_in_bag > 0:
 			dropped_gold_bag.visible = true
@@ -98,6 +106,7 @@ func do_state_stuff(delta) -> void:
 			if get_parent().my_going_back[0].is_in_group("enemy_camp"):
 				speed = 0.0
 				state = ENEMY_STATE.RETURN_GOLD
+				find_dirt_block_area_3d.monitoring = false
 				dropped_gold_bag.visible = false
 				to_next_path()
 			else:
@@ -120,9 +129,11 @@ func to_next_goldmine() -> void:
 func leave() -> void:
 	if state == ENEMY_STATE.TRAVEL_IN || state == ENEMY_STATE.TRAVEL_OUT:
 		state = ENEMY_STATE.TRAVEL_OUT
+		find_dirt_block_area_3d.rotation.y = PI
+		find_dirt_block_area_3d.monitoring = true
 		rdy_to_leave = true
 
-func figure_out_travel_animation() -> void:
+func figure_out_travel_animation() -> String:
 	forward = -global_transform.basis.z
 	travel_angle = rad_to_deg(atan2(forward.x, forward.z))
 	if state == ENEMY_STATE.TRAVEL_IN:
@@ -135,7 +146,8 @@ func figure_out_travel_animation() -> void:
 			animate_direction = "walking_left"
 	else:
 		print("something messed up here.")
-	animated_sprite_3d.play(animate_direction)
+	return animate_direction
+	#animated_sprite_3d.play(animate_direction)
 
 func figure_out_mining_animation() -> void:
 	if progress_ratio < 0.41:
@@ -144,6 +156,12 @@ func figure_out_mining_animation() -> void:
 		animated_sprite_3d.play("mining_left")
 	else:
 		animated_sprite_3d.play("mining_up")
+
+func figure_out_mining_dirt_wall_animation() -> void:
+	if animate_direction == "walking_right":
+		animated_sprite_3d.play("mining_right")
+	else:
+		animated_sprite_3d.play("mining_left")
 
 func create_bag_to_drop() -> void:
 	var new_bag = bag_to_drop_scene.instantiate()
@@ -156,20 +174,35 @@ func create_bag_to_drop() -> void:
 	get_parent().add_child(new_bag)
 
 func _on_mining_timer_timeout() -> void:
-	if gold_in_bag < max_gold_capacity && get_parent().current_gold > 0:
-		$MineGold.visible = true
-		get_parent().lose_gold(mining_amount_per_tick)
-		gold_in_bag += 1
-		mine_gold.mine_gold() #play animation
-	else:
-		$MineGold.visible = false
-		mining_timer.stop()
-		rdy_to_leave = true
-		animated_sprite_3d.visible = false
-		to_next_path()
-		state = ENEMY_STATE.TRAVEL_OUT
-		progress_ratio = 1.0
-		speed = base_speed * 1.25
+	if state == ENEMY_STATE.MINING:
+		if gold_in_bag < max_gold_capacity && get_parent().current_gold > 0:
+			$MineGold.visible = true
+			get_parent().lose_gold(mining_amount_per_tick)
+			gold_in_bag += 1
+			mine_gold.mine_gold() #play animation
+		else:
+			$MineGold.visible = false
+			mining_timer.stop()
+			rdy_to_leave = true
+			animated_sprite_3d.visible = false
+			to_next_path()
+			state = ENEMY_STATE.TRAVEL_OUT
+			find_dirt_block_area_3d.rotation.y = PI
+			find_dirt_block_area_3d.monitoring = true
+			progress_ratio = 1.0
+			speed = base_speed * 1.25
+	elif state == ENEMY_STATE.MINING_DIRT_WALL:
+		if wall_2_destroy && wall_2_destroy.get_parent().current_health > 0:
+				wall_2_destroy.get_parent().current_health -= 1
+		else:
+			if rdy_to_leave:
+				state = ENEMY_STATE.TRAVEL_OUT
+				speed = base_speed
+			else:
+				state = ENEMY_STATE.TRAVEL_IN
+				speed = base_speed
+				
+			
 
 func _on_return_gold_timer_timeout() -> void:
 	if gold_in_bag > 0:
@@ -182,6 +215,8 @@ func _on_return_gold_timer_timeout() -> void:
 		return_gold_timer.stop()
 		rdy_to_leave = false
 		state = ENEMY_STATE.TRAVEL_IN
+		find_dirt_block_area_3d.rotation.y = 0.0
+		find_dirt_block_area_3d.monitoring = true
 		speed = base_speed
 		animated_sprite_3d.visible = false
 		progress_ratio = 0.0
@@ -189,3 +224,20 @@ func _on_return_gold_timer_timeout() -> void:
 
 func _on_death_timer_timeout() -> void:
 	call_deferred("queue_free")
+
+
+func _on_find_dirt_block_area_3d_area_entered(area: Area3D) -> void:
+	state = ENEMY_STATE.MINING_DIRT_WALL
+	speed = 0.0
+	wall_2_destroy = area
+
+
+func _on_find_dirt_block_area_3d_area_exited(area: Area3D) -> void:
+	mining_timer.stop()
+	if rdy_to_leave:
+		state = ENEMY_STATE.TRAVEL_OUT
+		speed = base_speed
+	else:
+		state = ENEMY_STATE.TRAVEL_IN
+		speed = base_speed
+	

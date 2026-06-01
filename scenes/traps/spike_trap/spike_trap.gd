@@ -10,6 +10,8 @@ extends "res://scenes/traps/spike_trap/spike_trap_base.gd"
 var enemies_on_trap: Array = []
 var spikes_active := false
 
+
+
 func _on_initialdetect_area_3d_area_entered(area: Area3D) -> void:
 	if area:
 		if area.is_in_group("enemy"):
@@ -44,4 +46,8 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		animation_player.play("spike_thrust")
 		spike_thrust()
 	if anim_name == "spike_thrust":
-		spikes_active = false
+		if enemies_on_trap:
+			animation_player.play("spike_buildup")
+			spike_buildup_timer.start()
+		else:
+			spikes_active = false

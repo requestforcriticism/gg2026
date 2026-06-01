@@ -20,14 +20,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("OmniLight3D:position")
+tracks/1/path = NodePath("OmniLight3D2:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(2, 2, 0)]
+"values": [Vector3(0, 2, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OmniLight3D2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_bngrn"]
@@ -49,35 +61,35 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("OmniLight3D:visible")
+tracks/1/path = NodePath("Floor:cast_shadow")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [1]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("OmniLight3D:position")
+tracks/2/path = NodePath("Floor/SpikeHoles/Hole:cast_shadow")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(2, 2, 0), Vector3(1.4, 2, 1.4), Vector3(0, 2, 2), Vector3(-1.4, 2, 1.4), Vector3(-2, 2, 0), Vector3(-1.4, 2, -1.4), Vector3(0, 2, -2), Vector3(1.4, 2, -1.4)]
+"times": PackedFloat32Array(1.5358729),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Floor:cast_shadow")
+tracks/3/path = NodePath("Floor/SpikeHoles/Hole2:cast_shadow")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(1.5358729),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
@@ -85,7 +97,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Floor/SpikeHoles/Hole:cast_shadow")
+tracks/4/path = NodePath("Floor/SpikeHoles/Hole3:cast_shadow")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -97,7 +109,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Floor/SpikeHoles/Hole2:cast_shadow")
+tracks/5/path = NodePath("Floor/SpikeHoles/Hole4:cast_shadow")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -109,7 +121,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Floor/SpikeHoles/Hole3:cast_shadow")
+tracks/6/path = NodePath("Floor/SpikeHoles/Hole5:cast_shadow")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -121,7 +133,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Floor/SpikeHoles/Hole4:cast_shadow")
+tracks/7/path = NodePath("Floor/SpikeHoles/Hole6:cast_shadow")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -133,7 +145,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Floor/SpikeHoles/Hole5:cast_shadow")
+tracks/8/path = NodePath("Floor/SpikeHoles/Hole7:cast_shadow")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -145,7 +157,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Floor/SpikeHoles/Hole6:cast_shadow")
+tracks/9/path = NodePath("Floor/SpikeHoles/Hole8:cast_shadow")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -157,7 +169,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Floor/SpikeHoles/Hole7:cast_shadow")
+tracks/10/path = NodePath("Floor/SpikeHoles/Hole9:cast_shadow")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -169,7 +181,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Floor/SpikeHoles/Hole8:cast_shadow")
+tracks/11/path = NodePath("Floor/SpikeHoles/Hole10:cast_shadow")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -181,7 +193,7 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("Floor/SpikeHoles/Hole9:cast_shadow")
+tracks/12/path = NodePath("Floor/SpikeHoles/Hole11:cast_shadow")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
@@ -193,7 +205,7 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("Floor/SpikeHoles/Hole10:cast_shadow")
+tracks/13/path = NodePath("Floor/SpikeHoles/Hole12:cast_shadow")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
@@ -205,7 +217,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Floor/SpikeHoles/Hole11:cast_shadow")
+tracks/14/path = NodePath("Floor/SpikeHoles/Hole13:cast_shadow")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -217,7 +229,7 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Floor/SpikeHoles/Hole12:cast_shadow")
+tracks/15/path = NodePath("Floor/SpikeHoles/Hole14:cast_shadow")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
@@ -229,7 +241,7 @@ tracks/15/keys = {
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("Floor/SpikeHoles/Hole13:cast_shadow")
+tracks/16/path = NodePath("Floor/SpikeHoles/Hole15:cast_shadow")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
@@ -241,7 +253,7 @@ tracks/16/keys = {
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("Floor/SpikeHoles/Hole14:cast_shadow")
+tracks/17/path = NodePath("Floor/SpikeHoles/Hole16:cast_shadow")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
@@ -253,11 +265,11 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("Floor/SpikeHoles/Hole15:cast_shadow")
+tracks/18/path = NodePath("Floor/Spikes/Spike:cast_shadow")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
-"times": PackedFloat32Array(1.5358729),
+"times": PackedFloat32Array(1.5345736),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
@@ -265,11 +277,11 @@ tracks/18/keys = {
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("Floor/SpikeHoles/Hole16:cast_shadow")
+tracks/19/path = NodePath("Floor/Spikes/Spike2:cast_shadow")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
-"times": PackedFloat32Array(1.5358729),
+"times": PackedFloat32Array(1.5345736),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
@@ -277,7 +289,7 @@ tracks/19/keys = {
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("Floor/Spikes/Spike:cast_shadow")
+tracks/20/path = NodePath("Floor/Spikes/Spike3:cast_shadow")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
@@ -289,7 +301,7 @@ tracks/20/keys = {
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("Floor/Spikes/Spike2:cast_shadow")
+tracks/21/path = NodePath("Floor/Spikes/Spike4:cast_shadow")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
@@ -301,7 +313,7 @@ tracks/21/keys = {
 tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("Floor/Spikes/Spike3:cast_shadow")
+tracks/22/path = NodePath("Floor/Spikes/Spike5:cast_shadow")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
@@ -313,7 +325,7 @@ tracks/22/keys = {
 tracks/23/type = "value"
 tracks/23/imported = false
 tracks/23/enabled = true
-tracks/23/path = NodePath("Floor/Spikes/Spike4:cast_shadow")
+tracks/23/path = NodePath("Floor/Spikes/Spike6:cast_shadow")
 tracks/23/interp = 1
 tracks/23/loop_wrap = true
 tracks/23/keys = {
@@ -325,7 +337,7 @@ tracks/23/keys = {
 tracks/24/type = "value"
 tracks/24/imported = false
 tracks/24/enabled = true
-tracks/24/path = NodePath("Floor/Spikes/Spike5:cast_shadow")
+tracks/24/path = NodePath("Floor/Spikes/Spike7:cast_shadow")
 tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/keys = {
@@ -337,7 +349,7 @@ tracks/24/keys = {
 tracks/25/type = "value"
 tracks/25/imported = false
 tracks/25/enabled = true
-tracks/25/path = NodePath("Floor/Spikes/Spike6:cast_shadow")
+tracks/25/path = NodePath("Floor/Spikes/Spike8:cast_shadow")
 tracks/25/interp = 1
 tracks/25/loop_wrap = true
 tracks/25/keys = {
@@ -349,7 +361,7 @@ tracks/25/keys = {
 tracks/26/type = "value"
 tracks/26/imported = false
 tracks/26/enabled = true
-tracks/26/path = NodePath("Floor/Spikes/Spike7:cast_shadow")
+tracks/26/path = NodePath("Floor/Spikes/Spike9:cast_shadow")
 tracks/26/interp = 1
 tracks/26/loop_wrap = true
 tracks/26/keys = {
@@ -361,7 +373,7 @@ tracks/26/keys = {
 tracks/27/type = "value"
 tracks/27/imported = false
 tracks/27/enabled = true
-tracks/27/path = NodePath("Floor/Spikes/Spike8:cast_shadow")
+tracks/27/path = NodePath("Floor/Spikes/Spike10:cast_shadow")
 tracks/27/interp = 1
 tracks/27/loop_wrap = true
 tracks/27/keys = {
@@ -373,7 +385,7 @@ tracks/27/keys = {
 tracks/28/type = "value"
 tracks/28/imported = false
 tracks/28/enabled = true
-tracks/28/path = NodePath("Floor/Spikes/Spike9:cast_shadow")
+tracks/28/path = NodePath("Floor/Spikes/Spike11:cast_shadow")
 tracks/28/interp = 1
 tracks/28/loop_wrap = true
 tracks/28/keys = {
@@ -385,7 +397,7 @@ tracks/28/keys = {
 tracks/29/type = "value"
 tracks/29/imported = false
 tracks/29/enabled = true
-tracks/29/path = NodePath("Floor/Spikes/Spike10:cast_shadow")
+tracks/29/path = NodePath("Floor/Spikes/Spike12:cast_shadow")
 tracks/29/interp = 1
 tracks/29/loop_wrap = true
 tracks/29/keys = {
@@ -397,7 +409,7 @@ tracks/29/keys = {
 tracks/30/type = "value"
 tracks/30/imported = false
 tracks/30/enabled = true
-tracks/30/path = NodePath("Floor/Spikes/Spike11:cast_shadow")
+tracks/30/path = NodePath("Floor/Spikes/Spike13:cast_shadow")
 tracks/30/interp = 1
 tracks/30/loop_wrap = true
 tracks/30/keys = {
@@ -409,7 +421,7 @@ tracks/30/keys = {
 tracks/31/type = "value"
 tracks/31/imported = false
 tracks/31/enabled = true
-tracks/31/path = NodePath("Floor/Spikes/Spike12:cast_shadow")
+tracks/31/path = NodePath("Floor/Spikes/Spike14:cast_shadow")
 tracks/31/interp = 1
 tracks/31/loop_wrap = true
 tracks/31/keys = {
@@ -421,7 +433,7 @@ tracks/31/keys = {
 tracks/32/type = "value"
 tracks/32/imported = false
 tracks/32/enabled = true
-tracks/32/path = NodePath("Floor/Spikes/Spike13:cast_shadow")
+tracks/32/path = NodePath("Floor/Spikes/Spike15:cast_shadow")
 tracks/32/interp = 1
 tracks/32/loop_wrap = true
 tracks/32/keys = {
@@ -433,7 +445,7 @@ tracks/32/keys = {
 tracks/33/type = "value"
 tracks/33/imported = false
 tracks/33/enabled = true
-tracks/33/path = NodePath("Floor/Spikes/Spike14:cast_shadow")
+tracks/33/path = NodePath("Floor/Spikes/Spike16:cast_shadow")
 tracks/33/interp = 1
 tracks/33/loop_wrap = true
 tracks/33/keys = {
@@ -445,31 +457,31 @@ tracks/33/keys = {
 tracks/34/type = "value"
 tracks/34/imported = false
 tracks/34/enabled = true
-tracks/34/path = NodePath("Floor/Spikes/Spike15:cast_shadow")
+tracks/34/path = NodePath("Floor/Spikes/Spike:transparency")
 tracks/34/interp = 1
 tracks/34/loop_wrap = true
 tracks/34/keys = {
-"times": PackedFloat32Array(1.5345736),
+"times": PackedFloat32Array(1.7529725),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
+"update": 0,
+"values": [0.0]
 }
 tracks/35/type = "value"
 tracks/35/imported = false
 tracks/35/enabled = true
-tracks/35/path = NodePath("Floor/Spikes/Spike16:cast_shadow")
+tracks/35/path = NodePath("Floor/Spikes/Spike2:transparency")
 tracks/35/interp = 1
 tracks/35/loop_wrap = true
 tracks/35/keys = {
-"times": PackedFloat32Array(1.5345736),
+"times": PackedFloat32Array(1.7529725),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
+"update": 0,
+"values": [0.0]
 }
 tracks/36/type = "value"
 tracks/36/imported = false
 tracks/36/enabled = true
-tracks/36/path = NodePath("Floor/Spikes/Spike:transparency")
+tracks/36/path = NodePath("Floor/Spikes/Spike3:transparency")
 tracks/36/interp = 1
 tracks/36/loop_wrap = true
 tracks/36/keys = {
@@ -481,7 +493,7 @@ tracks/36/keys = {
 tracks/37/type = "value"
 tracks/37/imported = false
 tracks/37/enabled = true
-tracks/37/path = NodePath("Floor/Spikes/Spike2:transparency")
+tracks/37/path = NodePath("Floor/Spikes/Spike4:transparency")
 tracks/37/interp = 1
 tracks/37/loop_wrap = true
 tracks/37/keys = {
@@ -493,7 +505,7 @@ tracks/37/keys = {
 tracks/38/type = "value"
 tracks/38/imported = false
 tracks/38/enabled = true
-tracks/38/path = NodePath("Floor/Spikes/Spike3:transparency")
+tracks/38/path = NodePath("Floor/Spikes/Spike5:transparency")
 tracks/38/interp = 1
 tracks/38/loop_wrap = true
 tracks/38/keys = {
@@ -505,7 +517,7 @@ tracks/38/keys = {
 tracks/39/type = "value"
 tracks/39/imported = false
 tracks/39/enabled = true
-tracks/39/path = NodePath("Floor/Spikes/Spike4:transparency")
+tracks/39/path = NodePath("Floor/Spikes/Spike6:transparency")
 tracks/39/interp = 1
 tracks/39/loop_wrap = true
 tracks/39/keys = {
@@ -517,7 +529,7 @@ tracks/39/keys = {
 tracks/40/type = "value"
 tracks/40/imported = false
 tracks/40/enabled = true
-tracks/40/path = NodePath("Floor/Spikes/Spike5:transparency")
+tracks/40/path = NodePath("Floor/Spikes/Spike7:transparency")
 tracks/40/interp = 1
 tracks/40/loop_wrap = true
 tracks/40/keys = {
@@ -529,7 +541,7 @@ tracks/40/keys = {
 tracks/41/type = "value"
 tracks/41/imported = false
 tracks/41/enabled = true
-tracks/41/path = NodePath("Floor/Spikes/Spike6:transparency")
+tracks/41/path = NodePath("Floor/Spikes/Spike8:transparency")
 tracks/41/interp = 1
 tracks/41/loop_wrap = true
 tracks/41/keys = {
@@ -541,7 +553,7 @@ tracks/41/keys = {
 tracks/42/type = "value"
 tracks/42/imported = false
 tracks/42/enabled = true
-tracks/42/path = NodePath("Floor/Spikes/Spike7:transparency")
+tracks/42/path = NodePath("Floor/Spikes/Spike9:transparency")
 tracks/42/interp = 1
 tracks/42/loop_wrap = true
 tracks/42/keys = {
@@ -553,7 +565,7 @@ tracks/42/keys = {
 tracks/43/type = "value"
 tracks/43/imported = false
 tracks/43/enabled = true
-tracks/43/path = NodePath("Floor/Spikes/Spike8:transparency")
+tracks/43/path = NodePath("Floor/Spikes/Spike10:transparency")
 tracks/43/interp = 1
 tracks/43/loop_wrap = true
 tracks/43/keys = {
@@ -565,7 +577,7 @@ tracks/43/keys = {
 tracks/44/type = "value"
 tracks/44/imported = false
 tracks/44/enabled = true
-tracks/44/path = NodePath("Floor/Spikes/Spike9:transparency")
+tracks/44/path = NodePath("Floor/Spikes/Spike11:transparency")
 tracks/44/interp = 1
 tracks/44/loop_wrap = true
 tracks/44/keys = {
@@ -577,7 +589,7 @@ tracks/44/keys = {
 tracks/45/type = "value"
 tracks/45/imported = false
 tracks/45/enabled = true
-tracks/45/path = NodePath("Floor/Spikes/Spike10:transparency")
+tracks/45/path = NodePath("Floor/Spikes/Spike12:transparency")
 tracks/45/interp = 1
 tracks/45/loop_wrap = true
 tracks/45/keys = {
@@ -589,7 +601,7 @@ tracks/45/keys = {
 tracks/46/type = "value"
 tracks/46/imported = false
 tracks/46/enabled = true
-tracks/46/path = NodePath("Floor/Spikes/Spike11:transparency")
+tracks/46/path = NodePath("Floor/Spikes/Spike13:transparency")
 tracks/46/interp = 1
 tracks/46/loop_wrap = true
 tracks/46/keys = {
@@ -601,7 +613,7 @@ tracks/46/keys = {
 tracks/47/type = "value"
 tracks/47/imported = false
 tracks/47/enabled = true
-tracks/47/path = NodePath("Floor/Spikes/Spike12:transparency")
+tracks/47/path = NodePath("Floor/Spikes/Spike14:transparency")
 tracks/47/interp = 1
 tracks/47/loop_wrap = true
 tracks/47/keys = {
@@ -613,7 +625,7 @@ tracks/47/keys = {
 tracks/48/type = "value"
 tracks/48/imported = false
 tracks/48/enabled = true
-tracks/48/path = NodePath("Floor/Spikes/Spike13:transparency")
+tracks/48/path = NodePath("Floor/Spikes/Spike15:transparency")
 tracks/48/interp = 1
 tracks/48/loop_wrap = true
 tracks/48/keys = {
@@ -625,7 +637,7 @@ tracks/48/keys = {
 tracks/49/type = "value"
 tracks/49/imported = false
 tracks/49/enabled = true
-tracks/49/path = NodePath("Floor/Spikes/Spike14:transparency")
+tracks/49/path = NodePath("Floor/Spikes/Spike16:transparency")
 tracks/49/interp = 1
 tracks/49/loop_wrap = true
 tracks/49/keys = {
@@ -637,11 +649,11 @@ tracks/49/keys = {
 tracks/50/type = "value"
 tracks/50/imported = false
 tracks/50/enabled = true
-tracks/50/path = NodePath("Floor/Spikes/Spike15:transparency")
+tracks/50/path = NodePath("Floor/SpikeHoles/Hole16:transparency")
 tracks/50/interp = 1
 tracks/50/loop_wrap = true
 tracks/50/keys = {
-"times": PackedFloat32Array(1.7529725),
+"times": PackedFloat32Array(0.13624111),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
@@ -649,11 +661,11 @@ tracks/50/keys = {
 tracks/51/type = "value"
 tracks/51/imported = false
 tracks/51/enabled = true
-tracks/51/path = NodePath("Floor/Spikes/Spike16:transparency")
+tracks/51/path = NodePath("Floor/SpikeHoles/Hole:transparency")
 tracks/51/interp = 1
 tracks/51/loop_wrap = true
 tracks/51/keys = {
-"times": PackedFloat32Array(1.7529725),
+"times": PackedFloat32Array(0.13624111),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
@@ -661,7 +673,7 @@ tracks/51/keys = {
 tracks/52/type = "value"
 tracks/52/imported = false
 tracks/52/enabled = true
-tracks/52/path = NodePath("Floor/SpikeHoles/Hole16:transparency")
+tracks/52/path = NodePath("Floor/SpikeHoles/Hole2:transparency")
 tracks/52/interp = 1
 tracks/52/loop_wrap = true
 tracks/52/keys = {
@@ -673,7 +685,7 @@ tracks/52/keys = {
 tracks/53/type = "value"
 tracks/53/imported = false
 tracks/53/enabled = true
-tracks/53/path = NodePath("Floor/SpikeHoles/Hole:transparency")
+tracks/53/path = NodePath("Floor/SpikeHoles/Hole3:transparency")
 tracks/53/interp = 1
 tracks/53/loop_wrap = true
 tracks/53/keys = {
@@ -685,7 +697,7 @@ tracks/53/keys = {
 tracks/54/type = "value"
 tracks/54/imported = false
 tracks/54/enabled = true
-tracks/54/path = NodePath("Floor/SpikeHoles/Hole2:transparency")
+tracks/54/path = NodePath("Floor/SpikeHoles/Hole4:transparency")
 tracks/54/interp = 1
 tracks/54/loop_wrap = true
 tracks/54/keys = {
@@ -697,7 +709,7 @@ tracks/54/keys = {
 tracks/55/type = "value"
 tracks/55/imported = false
 tracks/55/enabled = true
-tracks/55/path = NodePath("Floor/SpikeHoles/Hole3:transparency")
+tracks/55/path = NodePath("Floor/SpikeHoles/Hole5:transparency")
 tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = {
@@ -709,7 +721,7 @@ tracks/55/keys = {
 tracks/56/type = "value"
 tracks/56/imported = false
 tracks/56/enabled = true
-tracks/56/path = NodePath("Floor/SpikeHoles/Hole4:transparency")
+tracks/56/path = NodePath("Floor/SpikeHoles/Hole6:transparency")
 tracks/56/interp = 1
 tracks/56/loop_wrap = true
 tracks/56/keys = {
@@ -721,7 +733,7 @@ tracks/56/keys = {
 tracks/57/type = "value"
 tracks/57/imported = false
 tracks/57/enabled = true
-tracks/57/path = NodePath("Floor/SpikeHoles/Hole5:transparency")
+tracks/57/path = NodePath("Floor/SpikeHoles/Hole7:transparency")
 tracks/57/interp = 1
 tracks/57/loop_wrap = true
 tracks/57/keys = {
@@ -733,7 +745,7 @@ tracks/57/keys = {
 tracks/58/type = "value"
 tracks/58/imported = false
 tracks/58/enabled = true
-tracks/58/path = NodePath("Floor/SpikeHoles/Hole6:transparency")
+tracks/58/path = NodePath("Floor/SpikeHoles/Hole8:transparency")
 tracks/58/interp = 1
 tracks/58/loop_wrap = true
 tracks/58/keys = {
@@ -745,7 +757,7 @@ tracks/58/keys = {
 tracks/59/type = "value"
 tracks/59/imported = false
 tracks/59/enabled = true
-tracks/59/path = NodePath("Floor/SpikeHoles/Hole7:transparency")
+tracks/59/path = NodePath("Floor/SpikeHoles/Hole9:transparency")
 tracks/59/interp = 1
 tracks/59/loop_wrap = true
 tracks/59/keys = {
@@ -757,7 +769,7 @@ tracks/59/keys = {
 tracks/60/type = "value"
 tracks/60/imported = false
 tracks/60/enabled = true
-tracks/60/path = NodePath("Floor/SpikeHoles/Hole8:transparency")
+tracks/60/path = NodePath("Floor/SpikeHoles/Hole10:transparency")
 tracks/60/interp = 1
 tracks/60/loop_wrap = true
 tracks/60/keys = {
@@ -769,7 +781,7 @@ tracks/60/keys = {
 tracks/61/type = "value"
 tracks/61/imported = false
 tracks/61/enabled = true
-tracks/61/path = NodePath("Floor/SpikeHoles/Hole9:transparency")
+tracks/61/path = NodePath("Floor/SpikeHoles/Hole11:transparency")
 tracks/61/interp = 1
 tracks/61/loop_wrap = true
 tracks/61/keys = {
@@ -781,7 +793,7 @@ tracks/61/keys = {
 tracks/62/type = "value"
 tracks/62/imported = false
 tracks/62/enabled = true
-tracks/62/path = NodePath("Floor/SpikeHoles/Hole10:transparency")
+tracks/62/path = NodePath("Floor/SpikeHoles/Hole12:transparency")
 tracks/62/interp = 1
 tracks/62/loop_wrap = true
 tracks/62/keys = {
@@ -793,7 +805,7 @@ tracks/62/keys = {
 tracks/63/type = "value"
 tracks/63/imported = false
 tracks/63/enabled = true
-tracks/63/path = NodePath("Floor/SpikeHoles/Hole11:transparency")
+tracks/63/path = NodePath("Floor/SpikeHoles/Hole13:transparency")
 tracks/63/interp = 1
 tracks/63/loop_wrap = true
 tracks/63/keys = {
@@ -805,7 +817,7 @@ tracks/63/keys = {
 tracks/64/type = "value"
 tracks/64/imported = false
 tracks/64/enabled = true
-tracks/64/path = NodePath("Floor/SpikeHoles/Hole12:transparency")
+tracks/64/path = NodePath("Floor/SpikeHoles/Hole14:transparency")
 tracks/64/interp = 1
 tracks/64/loop_wrap = true
 tracks/64/keys = {
@@ -817,7 +829,7 @@ tracks/64/keys = {
 tracks/65/type = "value"
 tracks/65/imported = false
 tracks/65/enabled = true
-tracks/65/path = NodePath("Floor/SpikeHoles/Hole13:transparency")
+tracks/65/path = NodePath("Floor/SpikeHoles/Hole15:transparency")
 tracks/65/interp = 1
 tracks/65/loop_wrap = true
 tracks/65/keys = {
@@ -829,11 +841,11 @@ tracks/65/keys = {
 tracks/66/type = "value"
 tracks/66/imported = false
 tracks/66/enabled = true
-tracks/66/path = NodePath("Floor/SpikeHoles/Hole14:transparency")
+tracks/66/path = NodePath("Floor:transparency")
 tracks/66/interp = 1
 tracks/66/loop_wrap = true
 tracks/66/keys = {
-"times": PackedFloat32Array(0.13624111),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
@@ -841,26 +853,26 @@ tracks/66/keys = {
 tracks/67/type = "value"
 tracks/67/imported = false
 tracks/67/enabled = true
-tracks/67/path = NodePath("Floor/SpikeHoles/Hole15:transparency")
+tracks/67/path = NodePath("OmniLight3D2:position")
 tracks/67/interp = 1
 tracks/67/loop_wrap = true
 tracks/67/keys = {
-"times": PackedFloat32Array(0.13624111),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0]
+"values": [Vector3(2, 2, 0), Vector3(0, 2, 2), Vector3(-2, 2, 0), Vector3(0, 2, -2)]
 }
 tracks/68/type = "value"
 tracks/68/imported = false
 tracks/68/enabled = true
-tracks/68/path = NodePath("Floor:transparency")
+tracks/68/path = NodePath("OmniLight3D2:visible")
 tracks/68/interp = 1
 tracks/68/loop_wrap = true
 tracks/68/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_mu8ov"]
@@ -870,19 +882,19 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("OmniLight3D:visible")
+tracks/0/path = NodePath("Floor:transparency")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [0.7]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Floor:transparency")
+tracks/1/path = NodePath("Floor/SpikeHoles/Hole:transparency")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -894,7 +906,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Floor/SpikeHoles/Hole:transparency")
+tracks/2/path = NodePath("Floor/SpikeHoles/Hole2:transparency")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -906,7 +918,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Floor/SpikeHoles/Hole2:transparency")
+tracks/3/path = NodePath("Floor/SpikeHoles/Hole3:transparency")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -918,7 +930,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Floor/SpikeHoles/Hole3:transparency")
+tracks/4/path = NodePath("Floor/SpikeHoles/Hole4:transparency")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -930,7 +942,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Floor/SpikeHoles/Hole4:transparency")
+tracks/5/path = NodePath("Floor/SpikeHoles/Hole5:transparency")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -942,7 +954,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Floor/SpikeHoles/Hole5:transparency")
+tracks/6/path = NodePath("Floor/SpikeHoles/Hole6:transparency")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -954,7 +966,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Floor/SpikeHoles/Hole6:transparency")
+tracks/7/path = NodePath("Floor/SpikeHoles/Hole7:transparency")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -966,7 +978,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Floor/SpikeHoles/Hole7:transparency")
+tracks/8/path = NodePath("Floor/SpikeHoles/Hole8:transparency")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -978,7 +990,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Floor/SpikeHoles/Hole8:transparency")
+tracks/9/path = NodePath("Floor/SpikeHoles/Hole9:transparency")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -990,7 +1002,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Floor/SpikeHoles/Hole9:transparency")
+tracks/10/path = NodePath("Floor/SpikeHoles/Hole10:transparency")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1002,7 +1014,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Floor/SpikeHoles/Hole10:transparency")
+tracks/11/path = NodePath("Floor/SpikeHoles/Hole11:transparency")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -1014,7 +1026,7 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("Floor/SpikeHoles/Hole11:transparency")
+tracks/12/path = NodePath("Floor/SpikeHoles/Hole12:transparency")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
@@ -1026,7 +1038,7 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("Floor/SpikeHoles/Hole12:transparency")
+tracks/13/path = NodePath("Floor/SpikeHoles/Hole13:transparency")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
@@ -1038,7 +1050,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Floor/SpikeHoles/Hole13:transparency")
+tracks/14/path = NodePath("Floor/SpikeHoles/Hole14:transparency")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -1050,7 +1062,7 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Floor/SpikeHoles/Hole14:transparency")
+tracks/15/path = NodePath("Floor/SpikeHoles/Hole15:transparency")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
@@ -1062,7 +1074,7 @@ tracks/15/keys = {
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("Floor/SpikeHoles/Hole15:transparency")
+tracks/16/path = NodePath("Floor/SpikeHoles/Hole16:transparency")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
@@ -1074,7 +1086,7 @@ tracks/16/keys = {
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("Floor/SpikeHoles/Hole16:transparency")
+tracks/17/path = NodePath("Floor/Spikes/Spike:transparency")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
@@ -1086,7 +1098,7 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("Floor/Spikes/Spike:transparency")
+tracks/18/path = NodePath("Floor/Spikes/Spike2:transparency")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
@@ -1098,7 +1110,7 @@ tracks/18/keys = {
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("Floor/Spikes/Spike2:transparency")
+tracks/19/path = NodePath("Floor/Spikes/Spike3:transparency")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
@@ -1110,7 +1122,7 @@ tracks/19/keys = {
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("Floor/Spikes/Spike3:transparency")
+tracks/20/path = NodePath("Floor/Spikes/Spike4:transparency")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
@@ -1122,7 +1134,7 @@ tracks/20/keys = {
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("Floor/Spikes/Spike4:transparency")
+tracks/21/path = NodePath("Floor/Spikes/Spike5:transparency")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
@@ -1134,7 +1146,7 @@ tracks/21/keys = {
 tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("Floor/Spikes/Spike5:transparency")
+tracks/22/path = NodePath("Floor/Spikes/Spike6:transparency")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
@@ -1146,7 +1158,7 @@ tracks/22/keys = {
 tracks/23/type = "value"
 tracks/23/imported = false
 tracks/23/enabled = true
-tracks/23/path = NodePath("Floor/Spikes/Spike6:transparency")
+tracks/23/path = NodePath("Floor/Spikes/Spike7:transparency")
 tracks/23/interp = 1
 tracks/23/loop_wrap = true
 tracks/23/keys = {
@@ -1158,7 +1170,7 @@ tracks/23/keys = {
 tracks/24/type = "value"
 tracks/24/imported = false
 tracks/24/enabled = true
-tracks/24/path = NodePath("Floor/Spikes/Spike7:transparency")
+tracks/24/path = NodePath("Floor/Spikes/Spike8:transparency")
 tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/keys = {
@@ -1170,7 +1182,7 @@ tracks/24/keys = {
 tracks/25/type = "value"
 tracks/25/imported = false
 tracks/25/enabled = true
-tracks/25/path = NodePath("Floor/Spikes/Spike8:transparency")
+tracks/25/path = NodePath("Floor/Spikes/Spike9:transparency")
 tracks/25/interp = 1
 tracks/25/loop_wrap = true
 tracks/25/keys = {
@@ -1182,7 +1194,7 @@ tracks/25/keys = {
 tracks/26/type = "value"
 tracks/26/imported = false
 tracks/26/enabled = true
-tracks/26/path = NodePath("Floor/Spikes/Spike9:transparency")
+tracks/26/path = NodePath("Floor/Spikes/Spike10:transparency")
 tracks/26/interp = 1
 tracks/26/loop_wrap = true
 tracks/26/keys = {
@@ -1194,7 +1206,7 @@ tracks/26/keys = {
 tracks/27/type = "value"
 tracks/27/imported = false
 tracks/27/enabled = true
-tracks/27/path = NodePath("Floor/Spikes/Spike10:transparency")
+tracks/27/path = NodePath("Floor/Spikes/Spike11:transparency")
 tracks/27/interp = 1
 tracks/27/loop_wrap = true
 tracks/27/keys = {
@@ -1206,7 +1218,7 @@ tracks/27/keys = {
 tracks/28/type = "value"
 tracks/28/imported = false
 tracks/28/enabled = true
-tracks/28/path = NodePath("Floor/Spikes/Spike11:transparency")
+tracks/28/path = NodePath("Floor/Spikes/Spike12:transparency")
 tracks/28/interp = 1
 tracks/28/loop_wrap = true
 tracks/28/keys = {
@@ -1218,7 +1230,7 @@ tracks/28/keys = {
 tracks/29/type = "value"
 tracks/29/imported = false
 tracks/29/enabled = true
-tracks/29/path = NodePath("Floor/Spikes/Spike12:transparency")
+tracks/29/path = NodePath("Floor/Spikes/Spike13:transparency")
 tracks/29/interp = 1
 tracks/29/loop_wrap = true
 tracks/29/keys = {
@@ -1230,7 +1242,7 @@ tracks/29/keys = {
 tracks/30/type = "value"
 tracks/30/imported = false
 tracks/30/enabled = true
-tracks/30/path = NodePath("Floor/Spikes/Spike13:transparency")
+tracks/30/path = NodePath("Floor/Spikes/Spike14:transparency")
 tracks/30/interp = 1
 tracks/30/loop_wrap = true
 tracks/30/keys = {
@@ -1242,7 +1254,7 @@ tracks/30/keys = {
 tracks/31/type = "value"
 tracks/31/imported = false
 tracks/31/enabled = true
-tracks/31/path = NodePath("Floor/Spikes/Spike14:transparency")
+tracks/31/path = NodePath("Floor/Spikes/Spike15:transparency")
 tracks/31/interp = 1
 tracks/31/loop_wrap = true
 tracks/31/keys = {
@@ -1254,7 +1266,7 @@ tracks/31/keys = {
 tracks/32/type = "value"
 tracks/32/imported = false
 tracks/32/enabled = true
-tracks/32/path = NodePath("Floor/Spikes/Spike15:transparency")
+tracks/32/path = NodePath("Floor/Spikes/Spike16:transparency")
 tracks/32/interp = 1
 tracks/32/loop_wrap = true
 tracks/32/keys = {
@@ -1266,19 +1278,19 @@ tracks/32/keys = {
 tracks/33/type = "value"
 tracks/33/imported = false
 tracks/33/enabled = true
-tracks/33/path = NodePath("Floor/Spikes/Spike16:transparency")
+tracks/33/path = NodePath("Floor/Spikes/Spike:cast_shadow")
 tracks/33/interp = 1
 tracks/33/loop_wrap = true
 tracks/33/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.7]
+"update": 1,
+"values": [0]
 }
 tracks/34/type = "value"
 tracks/34/imported = false
 tracks/34/enabled = true
-tracks/34/path = NodePath("Floor/Spikes/Spike:cast_shadow")
+tracks/34/path = NodePath("Floor/Spikes/Spike2:cast_shadow")
 tracks/34/interp = 1
 tracks/34/loop_wrap = true
 tracks/34/keys = {
@@ -1290,7 +1302,7 @@ tracks/34/keys = {
 tracks/35/type = "value"
 tracks/35/imported = false
 tracks/35/enabled = true
-tracks/35/path = NodePath("Floor/Spikes/Spike2:cast_shadow")
+tracks/35/path = NodePath("Floor/Spikes/Spike3:cast_shadow")
 tracks/35/interp = 1
 tracks/35/loop_wrap = true
 tracks/35/keys = {
@@ -1302,7 +1314,7 @@ tracks/35/keys = {
 tracks/36/type = "value"
 tracks/36/imported = false
 tracks/36/enabled = true
-tracks/36/path = NodePath("Floor/Spikes/Spike3:cast_shadow")
+tracks/36/path = NodePath("Floor/Spikes/Spike4:cast_shadow")
 tracks/36/interp = 1
 tracks/36/loop_wrap = true
 tracks/36/keys = {
@@ -1314,7 +1326,7 @@ tracks/36/keys = {
 tracks/37/type = "value"
 tracks/37/imported = false
 tracks/37/enabled = true
-tracks/37/path = NodePath("Floor/Spikes/Spike4:cast_shadow")
+tracks/37/path = NodePath("Floor/Spikes/Spike5:cast_shadow")
 tracks/37/interp = 1
 tracks/37/loop_wrap = true
 tracks/37/keys = {
@@ -1326,7 +1338,7 @@ tracks/37/keys = {
 tracks/38/type = "value"
 tracks/38/imported = false
 tracks/38/enabled = true
-tracks/38/path = NodePath("Floor/Spikes/Spike5:cast_shadow")
+tracks/38/path = NodePath("Floor/Spikes/Spike6:cast_shadow")
 tracks/38/interp = 1
 tracks/38/loop_wrap = true
 tracks/38/keys = {
@@ -1338,7 +1350,7 @@ tracks/38/keys = {
 tracks/39/type = "value"
 tracks/39/imported = false
 tracks/39/enabled = true
-tracks/39/path = NodePath("Floor/Spikes/Spike6:cast_shadow")
+tracks/39/path = NodePath("Floor/Spikes/Spike7:cast_shadow")
 tracks/39/interp = 1
 tracks/39/loop_wrap = true
 tracks/39/keys = {
@@ -1350,7 +1362,7 @@ tracks/39/keys = {
 tracks/40/type = "value"
 tracks/40/imported = false
 tracks/40/enabled = true
-tracks/40/path = NodePath("Floor/Spikes/Spike7:cast_shadow")
+tracks/40/path = NodePath("Floor/Spikes/Spike8:cast_shadow")
 tracks/40/interp = 1
 tracks/40/loop_wrap = true
 tracks/40/keys = {
@@ -1362,7 +1374,7 @@ tracks/40/keys = {
 tracks/41/type = "value"
 tracks/41/imported = false
 tracks/41/enabled = true
-tracks/41/path = NodePath("Floor/Spikes/Spike8:cast_shadow")
+tracks/41/path = NodePath("Floor/Spikes/Spike9:cast_shadow")
 tracks/41/interp = 1
 tracks/41/loop_wrap = true
 tracks/41/keys = {
@@ -1374,7 +1386,7 @@ tracks/41/keys = {
 tracks/42/type = "value"
 tracks/42/imported = false
 tracks/42/enabled = true
-tracks/42/path = NodePath("Floor/Spikes/Spike9:cast_shadow")
+tracks/42/path = NodePath("Floor/Spikes/Spike10:cast_shadow")
 tracks/42/interp = 1
 tracks/42/loop_wrap = true
 tracks/42/keys = {
@@ -1386,7 +1398,7 @@ tracks/42/keys = {
 tracks/43/type = "value"
 tracks/43/imported = false
 tracks/43/enabled = true
-tracks/43/path = NodePath("Floor/Spikes/Spike10:cast_shadow")
+tracks/43/path = NodePath("Floor/Spikes/Spike11:cast_shadow")
 tracks/43/interp = 1
 tracks/43/loop_wrap = true
 tracks/43/keys = {
@@ -1398,7 +1410,7 @@ tracks/43/keys = {
 tracks/44/type = "value"
 tracks/44/imported = false
 tracks/44/enabled = true
-tracks/44/path = NodePath("Floor/Spikes/Spike11:cast_shadow")
+tracks/44/path = NodePath("Floor/Spikes/Spike12:cast_shadow")
 tracks/44/interp = 1
 tracks/44/loop_wrap = true
 tracks/44/keys = {
@@ -1410,7 +1422,7 @@ tracks/44/keys = {
 tracks/45/type = "value"
 tracks/45/imported = false
 tracks/45/enabled = true
-tracks/45/path = NodePath("Floor/Spikes/Spike12:cast_shadow")
+tracks/45/path = NodePath("Floor/Spikes/Spike13:cast_shadow")
 tracks/45/interp = 1
 tracks/45/loop_wrap = true
 tracks/45/keys = {
@@ -1422,7 +1434,7 @@ tracks/45/keys = {
 tracks/46/type = "value"
 tracks/46/imported = false
 tracks/46/enabled = true
-tracks/46/path = NodePath("Floor/Spikes/Spike13:cast_shadow")
+tracks/46/path = NodePath("Floor/Spikes/Spike14:cast_shadow")
 tracks/46/interp = 1
 tracks/46/loop_wrap = true
 tracks/46/keys = {
@@ -1434,7 +1446,7 @@ tracks/46/keys = {
 tracks/47/type = "value"
 tracks/47/imported = false
 tracks/47/enabled = true
-tracks/47/path = NodePath("Floor/Spikes/Spike14:cast_shadow")
+tracks/47/path = NodePath("Floor/Spikes/Spike15:cast_shadow")
 tracks/47/interp = 1
 tracks/47/loop_wrap = true
 tracks/47/keys = {
@@ -1446,7 +1458,7 @@ tracks/47/keys = {
 tracks/48/type = "value"
 tracks/48/imported = false
 tracks/48/enabled = true
-tracks/48/path = NodePath("Floor/Spikes/Spike15:cast_shadow")
+tracks/48/path = NodePath("Floor/Spikes/Spike16:cast_shadow")
 tracks/48/interp = 1
 tracks/48/loop_wrap = true
 tracks/48/keys = {
@@ -1458,7 +1470,7 @@ tracks/48/keys = {
 tracks/49/type = "value"
 tracks/49/imported = false
 tracks/49/enabled = true
-tracks/49/path = NodePath("Floor/Spikes/Spike16:cast_shadow")
+tracks/49/path = NodePath("Floor/SpikeHoles/Hole16:cast_shadow")
 tracks/49/interp = 1
 tracks/49/loop_wrap = true
 tracks/49/keys = {
@@ -1470,7 +1482,7 @@ tracks/49/keys = {
 tracks/50/type = "value"
 tracks/50/imported = false
 tracks/50/enabled = true
-tracks/50/path = NodePath("Floor/SpikeHoles/Hole16:cast_shadow")
+tracks/50/path = NodePath("Floor/SpikeHoles/Hole:cast_shadow")
 tracks/50/interp = 1
 tracks/50/loop_wrap = true
 tracks/50/keys = {
@@ -1482,7 +1494,7 @@ tracks/50/keys = {
 tracks/51/type = "value"
 tracks/51/imported = false
 tracks/51/enabled = true
-tracks/51/path = NodePath("Floor/SpikeHoles/Hole:cast_shadow")
+tracks/51/path = NodePath("Floor/SpikeHoles/Hole2:cast_shadow")
 tracks/51/interp = 1
 tracks/51/loop_wrap = true
 tracks/51/keys = {
@@ -1494,7 +1506,7 @@ tracks/51/keys = {
 tracks/52/type = "value"
 tracks/52/imported = false
 tracks/52/enabled = true
-tracks/52/path = NodePath("Floor/SpikeHoles/Hole2:cast_shadow")
+tracks/52/path = NodePath("Floor/SpikeHoles/Hole3:cast_shadow")
 tracks/52/interp = 1
 tracks/52/loop_wrap = true
 tracks/52/keys = {
@@ -1506,7 +1518,7 @@ tracks/52/keys = {
 tracks/53/type = "value"
 tracks/53/imported = false
 tracks/53/enabled = true
-tracks/53/path = NodePath("Floor/SpikeHoles/Hole3:cast_shadow")
+tracks/53/path = NodePath("Floor/SpikeHoles/Hole4:cast_shadow")
 tracks/53/interp = 1
 tracks/53/loop_wrap = true
 tracks/53/keys = {
@@ -1518,7 +1530,7 @@ tracks/53/keys = {
 tracks/54/type = "value"
 tracks/54/imported = false
 tracks/54/enabled = true
-tracks/54/path = NodePath("Floor/SpikeHoles/Hole4:cast_shadow")
+tracks/54/path = NodePath("Floor/SpikeHoles/Hole5:cast_shadow")
 tracks/54/interp = 1
 tracks/54/loop_wrap = true
 tracks/54/keys = {
@@ -1530,7 +1542,7 @@ tracks/54/keys = {
 tracks/55/type = "value"
 tracks/55/imported = false
 tracks/55/enabled = true
-tracks/55/path = NodePath("Floor/SpikeHoles/Hole5:cast_shadow")
+tracks/55/path = NodePath("Floor/SpikeHoles/Hole6:cast_shadow")
 tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = {
@@ -1542,7 +1554,7 @@ tracks/55/keys = {
 tracks/56/type = "value"
 tracks/56/imported = false
 tracks/56/enabled = true
-tracks/56/path = NodePath("Floor/SpikeHoles/Hole6:cast_shadow")
+tracks/56/path = NodePath("Floor/SpikeHoles/Hole7:cast_shadow")
 tracks/56/interp = 1
 tracks/56/loop_wrap = true
 tracks/56/keys = {
@@ -1554,7 +1566,7 @@ tracks/56/keys = {
 tracks/57/type = "value"
 tracks/57/imported = false
 tracks/57/enabled = true
-tracks/57/path = NodePath("Floor/SpikeHoles/Hole7:cast_shadow")
+tracks/57/path = NodePath("Floor/SpikeHoles/Hole8:cast_shadow")
 tracks/57/interp = 1
 tracks/57/loop_wrap = true
 tracks/57/keys = {
@@ -1566,7 +1578,7 @@ tracks/57/keys = {
 tracks/58/type = "value"
 tracks/58/imported = false
 tracks/58/enabled = true
-tracks/58/path = NodePath("Floor/SpikeHoles/Hole8:cast_shadow")
+tracks/58/path = NodePath("Floor/SpikeHoles/Hole9:cast_shadow")
 tracks/58/interp = 1
 tracks/58/loop_wrap = true
 tracks/58/keys = {
@@ -1578,7 +1590,7 @@ tracks/58/keys = {
 tracks/59/type = "value"
 tracks/59/imported = false
 tracks/59/enabled = true
-tracks/59/path = NodePath("Floor/SpikeHoles/Hole9:cast_shadow")
+tracks/59/path = NodePath("Floor/SpikeHoles/Hole10:cast_shadow")
 tracks/59/interp = 1
 tracks/59/loop_wrap = true
 tracks/59/keys = {
@@ -1590,7 +1602,7 @@ tracks/59/keys = {
 tracks/60/type = "value"
 tracks/60/imported = false
 tracks/60/enabled = true
-tracks/60/path = NodePath("Floor/SpikeHoles/Hole10:cast_shadow")
+tracks/60/path = NodePath("Floor/SpikeHoles/Hole11:cast_shadow")
 tracks/60/interp = 1
 tracks/60/loop_wrap = true
 tracks/60/keys = {
@@ -1602,7 +1614,7 @@ tracks/60/keys = {
 tracks/61/type = "value"
 tracks/61/imported = false
 tracks/61/enabled = true
-tracks/61/path = NodePath("Floor/SpikeHoles/Hole11:cast_shadow")
+tracks/61/path = NodePath("Floor/SpikeHoles/Hole12:cast_shadow")
 tracks/61/interp = 1
 tracks/61/loop_wrap = true
 tracks/61/keys = {
@@ -1614,7 +1626,7 @@ tracks/61/keys = {
 tracks/62/type = "value"
 tracks/62/imported = false
 tracks/62/enabled = true
-tracks/62/path = NodePath("Floor/SpikeHoles/Hole12:cast_shadow")
+tracks/62/path = NodePath("Floor/SpikeHoles/Hole13:cast_shadow")
 tracks/62/interp = 1
 tracks/62/loop_wrap = true
 tracks/62/keys = {
@@ -1626,7 +1638,7 @@ tracks/62/keys = {
 tracks/63/type = "value"
 tracks/63/imported = false
 tracks/63/enabled = true
-tracks/63/path = NodePath("Floor/SpikeHoles/Hole13:cast_shadow")
+tracks/63/path = NodePath("Floor/SpikeHoles/Hole14:cast_shadow")
 tracks/63/interp = 1
 tracks/63/loop_wrap = true
 tracks/63/keys = {
@@ -1638,7 +1650,7 @@ tracks/63/keys = {
 tracks/64/type = "value"
 tracks/64/imported = false
 tracks/64/enabled = true
-tracks/64/path = NodePath("Floor/SpikeHoles/Hole14:cast_shadow")
+tracks/64/path = NodePath("Floor/SpikeHoles/Hole15:cast_shadow")
 tracks/64/interp = 1
 tracks/64/loop_wrap = true
 tracks/64/keys = {
@@ -1650,7 +1662,7 @@ tracks/64/keys = {
 tracks/65/type = "value"
 tracks/65/imported = false
 tracks/65/enabled = true
-tracks/65/path = NodePath("Floor/SpikeHoles/Hole15:cast_shadow")
+tracks/65/path = NodePath("Floor:cast_shadow")
 tracks/65/interp = 1
 tracks/65/loop_wrap = true
 tracks/65/keys = {
@@ -1662,38 +1674,26 @@ tracks/65/keys = {
 tracks/66/type = "value"
 tracks/66/imported = false
 tracks/66/enabled = true
-tracks/66/path = NodePath("Floor:cast_shadow")
+tracks/66/path = NodePath("Floor/Spikes:position")
 tracks/66/interp = 1
 tracks/66/loop_wrap = true
 tracks/66/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/67/type = "value"
-tracks/67/imported = false
-tracks/67/enabled = true
-tracks/67/path = NodePath("Floor/Spikes:position")
-tracks/67/interp = 1
-tracks/67/loop_wrap = true
-tracks/67/keys = {
 "times": PackedFloat32Array(0.008987739),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
-tracks/68/type = "value"
-tracks/68/imported = false
-tracks/68/enabled = true
-tracks/68/path = NodePath("OmniLight3D:position")
-tracks/68/interp = 1
-tracks/68/loop_wrap = true
-tracks/68/keys = {
+tracks/67/type = "value"
+tracks/67/imported = false
+tracks/67/enabled = true
+tracks/67/path = NodePath("OmniLight3D2:visible")
+tracks/67/interp = 1
+tracks/67/loop_wrap = true
+tracks/67/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(2, 2, 0)]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g4xuw"]
@@ -1706,100 +1706,136 @@ _data = {
 [node name="SpikeTrapExample" unique_id=1269147494 groups=["example"] instance=ExtResource("1_g4xuw")]
 script = ExtResource("2_mu8ov")
 
+[node name="Floor" parent="." index="0" unique_id=2102070784]
+transparency = 0.7
+cast_shadow = 0
+
 [node name="Hole" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="0" unique_id=283782914]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole2" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="1" unique_id=1552609213]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole3" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="2" unique_id=237561510]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole4" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="3" unique_id=1229221334]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole5" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="4" unique_id=1757453820]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole6" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="5" unique_id=243491697]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole7" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="6" unique_id=542158468]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole8" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="7" unique_id=864934570]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole9" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="8" unique_id=1666911988]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole10" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="9" unique_id=135495006]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole11" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="10" unique_id=266993511]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole12" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="11" unique_id=1584038709]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole13" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="12" unique_id=896245373]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole14" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="13" unique_id=489329775]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole15" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="14" unique_id=758340248]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Hole16" parent="Floor/SpikeHoles" parent_id_path=PackedInt32Array(1595592693) index="15" unique_id=2069857772]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="0" unique_id=317748505]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike2" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="1" unique_id=698516083]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike3" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="2" unique_id=1900910688]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike4" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="3" unique_id=378354494]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike5" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="4" unique_id=1323554324]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike6" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="5" unique_id=2055888988]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike7" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="6" unique_id=1501739526]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike8" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="7" unique_id=502636662]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike9" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="8" unique_id=1188780388]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike10" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="9" unique_id=321421494]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike11" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="10" unique_id=1997999098]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike12" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="11" unique_id=1309550817]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike13" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="12" unique_id=529632027]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike14" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="13" unique_id=39006855]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike15" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="14" unique_id=1198976353]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="Spike16" parent="Floor/Spikes" parent_id_path=PackedInt32Array(1952486113) index="15" unique_id=811828178]
+transparency = 0.7
 cast_shadow = 0
 
 [node name="InitialdetectArea3D" parent="." index="1" unique_id=1843298355]
@@ -1814,5 +1850,5 @@ disabled = true
 libraries/ = SubResource("AnimationLibrary_g4xuw")
 autoplay = &"RESET"
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." index="3" unique_id=2040288291]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
+[node name="OmniLight3D2" type="OmniLight3D" parent="." index="3" unique_id=499506806]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2)

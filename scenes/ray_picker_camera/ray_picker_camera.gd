@@ -97,12 +97,16 @@ func gridmap_collision() -> void:
 		var tile_position = gridmap.map_to_local(cell)
 		if groups.has("dirtblock"):
 			var dirt_results = check_dirk_block_stuff(collision_point, cell)
+			trap_rotation = dirt_results[0]
+			tile_position = dirt_results[2]
+			for k in trap_ability_manager.get_children():
+				if k.is_in_group("dirtblock") && k.position == tile_position:
+					dirt_results[1] = false
 			if !dirt_results[1]:
 				temp_instance.queue_free()
 				return
 			else:
-				trap_rotation = dirt_results[0]
-				tile_position = dirt_results[2]
+				
 				temp_instance.queue_free()
 				put_the_trap(tile_position,cell)
 		elif gridmap.get_cell_item(cell) == 0:
@@ -308,11 +312,14 @@ func add_trap_placement_options() -> void:
 							trap_rotation = check_for_arrow_trap(i)[0] #[rotaion,viable]
 					elif groups.has("dirtblock"):
 						var dirt_results = check_dirk_block_stuff(gridmap.map_to_local(i)+offset_4_dirt[j], i)
+						trap_rotation = dirt_results[0]
+						trap_position = dirt_results[2]
+						for k in trap_ability_manager.get_children():
+							if k.is_in_group("dirtblock") && k.position == trap_position:
+								good_2_go = false
 						if !dirt_results[1]:
 							good_2_go = false
 						else:
-							trap_rotation = dirt_results[0]
-							trap_position = dirt_results[2]
 							new_trap_avail_spot.remove_from_group("abilityholder")
 					else:
 						trap_position = gridmap.map_to_local(i)

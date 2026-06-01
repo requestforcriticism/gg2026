@@ -10,7 +10,8 @@ func _physics_process(delta: float) -> void:
 func _on_area_entered(area: Area3D) -> void:
 	if area.is_in_group("enemy"):
 		area.get_parent().current_health -= damage
-		queue_free()
+	queue_free()
+	
 
 func _on_body_entered(body: Node3D) -> void:
 	queue_free()
