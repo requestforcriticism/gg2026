@@ -78,6 +78,14 @@ region = Rect2(96, 32, 32, 32)
 atlas = ExtResource("6_2t7ph")
 region = Rect2(0, 32, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixvfu"]
+atlas = ExtResource("4_ylyo2")
+region = Rect2(0, 0, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hts3q"]
+atlas = ExtResource("4_ylyo2")
+region = Rect2(0, 36, 26, 36)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ahw5l"]
 atlas = ExtResource("6_2t7ph")
 region = Rect2(0, 32, 32, 32)
@@ -184,6 +192,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ixvfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hts3q")
+}],
+"loop": true,
+"name": &"stunned",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ahw5l")
 }, {
 "duration": 1.0,
@@ -262,9 +281,9 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.25, 0)
 billboard = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_tofne")
-animation = &"walking_left"
+animation = &"stunned"
 autoplay = "mining_right"
-frame_progress = 0.8175147
+frame_progress = 0.9068689
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=492678186]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.34514385, 0)
@@ -296,6 +315,9 @@ visible = false
 [node name="ReturnGoldTimer" type="Timer" parent="." unique_id=1372039354]
 
 [node name="DeathTimer" type="Timer" parent="." unique_id=354328863]
+one_shot = true
+
+[node name="StunnedTimer" type="Timer" parent="." unique_id=737049942]
 one_shot = true
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=464531038]
@@ -361,5 +383,6 @@ shadow_enabled = true
 [connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]
 [connection signal="timeout" from="ReturnGoldTimer" to="." method="_on_return_gold_timer_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="StunnedTimer" to="." method="_on_stunned_timer_timeout"]
 
 [editable path="DroppedGoldBag"]

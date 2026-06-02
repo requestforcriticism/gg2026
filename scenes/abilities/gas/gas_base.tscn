@@ -1,5 +1,11 @@
 [gd_scene format=3 uid="uid://df0yjr1eql3oi"]
 
+[sub_resource type="Gradient" id="Gradient_guuol"]
+colors = PackedColorArray(0, 0.5803248, 0.13919008, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hvp64"]
+gradient = SubResource("Gradient_guuol")
+
 [sub_resource type="Curve" id="Curve_guuol"]
 _data = [Vector2(0, 0.11235964), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -22,19 +28,21 @@ gravity = Vector3(0, -0.5, 0)
 tangential_accel_min = -2.2351742e-06
 tangential_accel_max = 3.8199978
 scale_curve = SubResource("CurveTexture_hvp64")
+color = Color(0.3882353, 1, 0.3882353, 1)
+color_ramp = SubResource("GradientTexture1D_hvp64")
+collision_mode = 1
+collision_friction = 0.1
+collision_bounce = 0.1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_guuol"]
-albedo_color = Color(0, 1, 0, 1)
-billboard_mode = 1
 
-[sub_resource type="BoxMesh" id="BoxMesh_hvp64"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_guuol"]
 material = SubResource("StandardMaterial3D_guuol")
 
 [node name="Gas_Base" type="Node3D" unique_id=591994917]
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=866577421]
-transparency = 0.92
-amount = 128
+amount = 1
 lifetime = 3.0
 process_material = SubResource("ParticleProcessMaterial_guuol")
-draw_pass_1 = SubResource("BoxMesh_hvp64")
+draw_pass_1 = SubResource("PlaneMesh_guuol")

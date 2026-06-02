@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://djtcw4ukx23bh" path="res://assets/visual/mesh_assets/Ground095A_1K-PNG/Ground095A_1K-PNG_Displacement.png" id="4_q5raf"]
 [ext_resource type="Texture2D" uid="uid://ckyixd7ne02fg" path="res://assets/visual/mesh_assets/Ground095A_1K-PNG/Ground095A_1K-PNG_NormalGL.png" id="5_06d0n"]
 [ext_resource type="Texture2D" uid="uid://h6qy07krdhrp" path="res://assets/visual/mesh_assets/Ground095A_1K-PNG/Ground095A_1K-PNG_Roughness.png" id="6_848gj"]
+[ext_resource type="Script" uid="uid://dbhhbbes7kh7p" path="res://scenes/traps/mud_trap/mesh_instance_3d.gd" id="7_xkrnr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xmin4"]
 albedo_color = Color(0.9367008, 0.7710098, 0.45155954, 1)
@@ -17,7 +18,8 @@ ao_enabled = true
 ao_texture = ExtResource("3_xkrnr")
 heightmap_enabled = true
 heightmap_texture = ExtResource("4_q5raf")
-uv1_triplanar = true
+detail_uv_layer = 1
+uv1_scale = Vector3(2, 2, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_xmin4"]
 material = SubResource("StandardMaterial3D_xmin4")
@@ -32,6 +34,7 @@ script = ExtResource("1_xmin4")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=231310864]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005, 0)
 mesh = SubResource("BoxMesh_xmin4")
+script = ExtResource("7_xkrnr")
 
 [node name="FindEnemyArea3D" type="Area3D" parent="." unique_id=12138510]
 collision_layer = 0

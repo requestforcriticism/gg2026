@@ -9,6 +9,7 @@ extends PathFollow3D
 @export var return_gold_rate := .5 #Number of seconds
 @export var mining_amount_per_tick :=1
 @export var max_gold_capacity := 5
+@export var stunned_length := 1.0
 
 var gold_in_bag := 0
 var rdy_to_leave := false
@@ -18,18 +19,20 @@ var wall_2_destroy :Area3D
 var forward :Vector3
 var travel_angle :float
 var animate_direction :String
-var slowed := false
+var slowed_perc := 1.0
 var current_base_speed : float
 var return_speed_multiplier := 1.25
 
-enum ENEMY_STATE {TRAVEL_IN, TRAVEL_OUT, MINING, MINING_DIRT_WALL, RETURN_GOLD}
+enum ENEMY_STATE {TRAVEL_IN, TRAVEL_OUT, MINING, MINING_DIRT_WALL, RETURN_GOLD, STUNNED}
 var state := ENEMY_STATE.TRAVEL_IN
+var previous_state
 
 @onready var stolen = get_tree().get_first_node_in_group("enemy_camp")
 @onready var mine_gold: Node3D = $MineGold
 @onready var mining_timer: Timer = $MiningTimer
 @onready var return_gold_timer: Timer = $ReturnGoldTimer
 @onready var death_timer: Timer = $DeathTimer
+@onready var stunned_timer: Timer = $StunnedTimer
 @onready var progress_bar: ProgressBar = $SubViewport/ProgressBar
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
 @onready var collision_shape_3d: CollisionShape3D = $EnemyArea3D/CollisionShape3D
@@ -58,8 +61,8 @@ var current_health: int:
 
 var current_speed: float:
 	set(speed_in):
-		current_speed = speed_in
-		
+		current_speed = speed_in * slowed_perc
+
 func _ready() -> void:
 	current_base_speed = base_speed
 	current_speed = current_base_speed
@@ -68,13 +71,21 @@ func _ready() -> void:
 	progress_bar.value = current_health
 	mining_timer.wait_time = mining_rate
 	return_gold_timer.wait_time = return_gold_rate
+	stunned_timer.wait_time = stunned_length
 
 func _physics_process(delta: float) -> void:
 	do_state_stuff(delta)
 	recover_speed()
 
+func get_stunned() -> void:
+	stunned_timer.start()
+	previous_state = state
+	state = ENEMY_STATE.STUNNED
+	current_speed = 0.0
+
 func recover_speed() -> void:
-	current_speed = lerp(current_speed,current_base_speed,.01)
+	slowed_perc = lerp(slowed_perc,1.0,.01)
+	current_speed = current_base_speed
 
 func do_state_stuff(delta) -> void:
 	if state == ENEMY_STATE.TRAVEL_IN:
@@ -130,6 +141,8 @@ func do_state_stuff(delta) -> void:
 		animated_sprite_3d.play("return_gold")
 		if return_gold_timer.is_stopped():
 			return_gold_timer.start()
+	elif state == ENEMY_STATE.STUNNED:
+		animated_sprite_3d.play("stunned")
 	else:
 		print("Something messed up.")
 
@@ -257,3 +270,8 @@ func _on_find_dirt_block_area_3d_area_exited(area: Area3D) -> void:
 		state = ENEMY_STATE.TRAVEL_IN
 		current_base_speed = base_speed
 		current_speed = current_base_speed
+
+
+func _on_stunned_timer_timeout() -> void:
+	state = previous_state
+	current_speed = current_base_speed

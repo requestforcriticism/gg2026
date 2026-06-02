@@ -13,4 +13,5 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	area.get_parent().current_health -= damage
+	area.get_parent().get_stunned()
 	
