@@ -8,10 +8,12 @@ extends PathFollow3D
 @export var mining_rate := 1 #Number of seconds
 @export var return_gold_rate := .5 #Number of seconds
 @export var mining_amount_per_tick :=1
-@export var max_gold_capacity := 5
+@export var base_max_gold_capacity := 5
 @export var stunned_length := 1.0
 
+var max_gold_capacity
 var gold_in_bag := 0
+var returned_gold := 0
 var rdy_to_leave := false
 var not_dead := true
 var wall_2_destroy :Area3D
@@ -27,6 +29,11 @@ enum ENEMY_STATE {TRAVEL_IN, TRAVEL_OUT, MINING, MINING_DIRT_WALL, RETURN_GOLD, 
 var state := ENEMY_STATE.TRAVEL_IN
 var previous_state
 
+#	[spike damage, Arrow damage, damage while slowed, mining walls & gold, boulder damage]
+var damage_taken: Array[float] = [0.05,0.04,0.03,0.02,0.01]
+#	[spike, Arrow, Mud, Pike, Boulder, Bag]
+var items_purchased: Array = [0,0,0,0,0,0]
+
 @onready var stolen = get_tree().get_first_node_in_group("enemy_camp")
 @onready var mine_gold: Node3D = $MineGold
 @onready var mining_timer: Timer = $MiningTimer
@@ -40,15 +47,16 @@ var previous_state
 @onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
 @onready var find_dirt_block_area_3d: Area3D = $FindDirtBlockArea3D
 
-var current_health: int:
+var current_health: float:
 	set(health_in):
 		if current_health > 0:
 			gpu_particles_3d.amount = current_health - health_in
-		current_health = max(health_in,0)
+		if current_health != max_health && current_health > health_in:
+			gpu_particles_3d.emitting = true
+		current_health = max(min(health_in,max_health),0)
 		progress_bar.value = current_health
 		progress_bar.modulate.h = (progress_bar.value/progress_bar.max_value)*130.0/360.0
-		if current_health != max_health:
-			gpu_particles_3d.emitting = true
+		
 		if current_health < 1 && not_dead:
 			not_dead = false
 			dropped_gold_bag.visible = false
@@ -64,6 +72,7 @@ var current_speed: float:
 		current_speed = speed_in * slowed_perc
 
 func _ready() -> void:
+	max_gold_capacity = base_max_gold_capacity
 	current_base_speed = base_speed
 	current_speed = current_base_speed
 	progress_bar.max_value = max_health
@@ -76,6 +85,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	do_state_stuff(delta)
 	recover_speed()
+	printt(items_purchased,current_health,max_health)
 
 func get_stunned() -> void:
 	stunned_timer.start()
@@ -205,6 +215,7 @@ func _on_mining_timer_timeout() -> void:
 			$MineGold.visible = true
 			get_parent().lose_gold(mining_amount_per_tick)
 			gold_in_bag += 1
+			damage_taken[4] += 1
 			mine_gold.mine_gold() #play animation
 		else:
 			$MineGold.visible = false
@@ -221,6 +232,7 @@ func _on_mining_timer_timeout() -> void:
 	elif state == ENEMY_STATE.MINING_DIRT_WALL:
 		if wall_2_destroy && wall_2_destroy.get_parent().current_health > 0:
 				wall_2_destroy.get_parent().current_health -= 1
+				damage_taken[4] += 1
 		else:
 			if rdy_to_leave:
 				state = ENEMY_STATE.TRAVEL_OUT
@@ -228,14 +240,18 @@ func _on_mining_timer_timeout() -> void:
 			else:
 				state = ENEMY_STATE.TRAVEL_IN
 				current_speed = current_base_speed
-				print("here")
 
 func _on_return_gold_timer_timeout() -> void:
 	if gold_in_bag > 0:
 		$MineGold.visible = true
 		stolen.stolen_gold += 1
 		gold_in_bag -= 1
+		returned_gold += 1
 		mine_gold.mine_gold() #play animation
+		if gold_in_bag == 0:
+			stolen.purchase_items(self,returned_gold,current_health,max_health,damage_taken,get_index_4_sorted_array(),items_purchased)
+			returned_gold = 0
+			#printt(items_purchased,current_health,max_health,mining_rate,max_gold_capacity)
 	else:
 		$MineGold.visible = false
 		return_gold_timer.stop()
@@ -252,13 +268,11 @@ func _on_return_gold_timer_timeout() -> void:
 func _on_death_timer_timeout() -> void:
 	call_deferred("queue_free")
 
-
 func _on_find_dirt_block_area_3d_area_entered(area: Area3D) -> void:
 	state = ENEMY_STATE.MINING_DIRT_WALL
 	current_base_speed = 0.0
 	current_speed = current_base_speed
 	wall_2_destroy = area
-
 
 func _on_find_dirt_block_area_3d_area_exited(area: Area3D) -> void:
 	mining_timer.stop()
@@ -271,7 +285,30 @@ func _on_find_dirt_block_area_3d_area_exited(area: Area3D) -> void:
 		current_base_speed = base_speed
 		current_speed = current_base_speed
 
-
 func _on_stunned_timer_timeout() -> void:
 	state = previous_state
 	current_speed = current_base_speed
+
+func purchase_health_potion() -> void:
+	current_health += 5
+
+func purchased_pike() -> void:
+	mining_timer.wait_time = mining_rate/2.0
+
+func purchased_bag() -> void:
+	max_gold_capacity = base_max_gold_capacity + 5
+
+func increase_max_health() -> void:
+	max_health += 5
+	current_health += 5
+
+func get_index_4_sorted_array() -> Array:
+	var temp_array: Array[float] = damage_taken.duplicate(false)
+	var sorted_indices: Array[int] = [0,0,0,0,0]
+	
+	for i in range(0,temp_array.size()):
+		var max_ind = temp_array.find(temp_array.max())
+		sorted_indices[max_ind] = 4-i
+		temp_array[max_ind] = -0.1
+	
+	return sorted_indices

@@ -28,14 +28,26 @@ func _on_initialdetect_area_3d_area_exited(area: Area3D) -> void:
 func spike_buildup_passive_damage() -> void:
 	for i in enemies_on_trap:
 		if i:
-			i.current_health -= passive_spike_buildup_damage
+			if i.items_purchased[0]:
+				i.current_health -= floori(passive_spike_buildup_damage/2)
+				i.damage_taken[0] += floori(passive_spike_buildup_damage/2)
+				i.damage_taken[2] += (1.0-i.slowed_perc) * passive_spike_buildup_damage/2.0
+			else:
+				i.current_health -= passive_spike_buildup_damage
+				i.damage_taken[0] += passive_spike_buildup_damage
+				i.damage_taken[2] += (1.0-i.slowed_perc) * passive_spike_buildup_damage
 		else:
 			enemies_on_trap.erase(i)
 
 func spike_thrust() -> void:
 	for i in enemies_on_trap:
 		if i:
-			i.current_health -= spike_thrust_damage
+			if i.items_purchased[0]:
+				i.current_health -= floori(spike_thrust_damage/2)
+				i.damage_taken[0] += floori(spike_thrust_damage/2)
+			else:
+				i.current_health -= spike_thrust_damage
+				i.damage_taken[0] += spike_thrust_damage
 		else:
 			enemies_on_trap.erase(i)
 

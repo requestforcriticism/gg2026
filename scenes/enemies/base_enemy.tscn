@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://rna1bxx4rh4b" path="res://scenes/minegold/mine_gold.tscn" id="2_qf3h2"]
 [ext_resource type="Texture2D" uid="uid://b28mjhy7el2jr" path="res://assets/visual/enemies/humanmodified.png" id="4_ylyo2"]
 [ext_resource type="Texture2D" uid="uid://b7i4bp11w7dtr" path="res://assets/visual/enemies/Character11_sheet.png" id="6_2t7ph"]
+[ext_resource type="Texture2D" uid="uid://cyolpms3bnht2" path="res://assets/visual/enemy_shop/equip_icon_shield_blue.png" id="6_n2ebm"]
+[ext_resource type="Texture2D" uid="uid://b3yk1pgi686wr" path="res://assets/visual/enemy_shop/equip_icon_potion_red_2.png" id="7_n2ebm"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ylyo2"]
 direction = Vector3(0, 1, 0)
@@ -323,6 +325,10 @@ one_shot = true
 [node name="SubViewport" type="SubViewport" parent="." unique_id=464531038]
 transparent_bg = true
 
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewport" unique_id=745536754]
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="ProgressBarbg" type="ProgressBar" parent="SubViewport" unique_id=1657462488]
 anchors_preset = 8
 anchor_left = 0.5
@@ -357,6 +363,36 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 value = 100.0
 show_percentage = false
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="SubViewport" unique_id=763748444]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -26.0
+offset_right = 70.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport/HBoxContainer3" unique_id=1602855820]
+layout_mode = 2
+texture = ExtResource("6_n2ebm")
+
+[node name="TextureRect4" type="TextureRect" parent="SubViewport/HBoxContainer3" unique_id=275800751]
+layout_mode = 2
+texture = ExtResource("6_n2ebm")
+
+[node name="TextureRect2" type="TextureRect" parent="SubViewport/HBoxContainer3" unique_id=281923480]
+layout_mode = 2
+texture = ExtResource("7_n2ebm")
+
+[node name="TextureRect3" type="TextureRect" parent="SubViewport/HBoxContainer3" unique_id=1172217627]
+layout_mode = 2
+texture = ExtResource("7_n2ebm")
 
 [node name="ShowProgressBar" type="Sprite3D" parent="." unique_id=1948879998]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73560935, 0)

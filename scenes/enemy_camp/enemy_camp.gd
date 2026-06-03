@@ -32,3 +32,54 @@ func reorg_children()-> void:
 				path_children.append(i)
 		for i in path_children:
 			i.progress_ratio = float(path_children.find(i)) / path_children.size() + (1.0/path_children.size())/2.0
+
+func purchase_items(enemy:Object,gold_earned:int,current_hp:float,max_hp:int, damage_taken:Array,dam_take_index:Array, items_purchased:Array) -> void:
+	if gold_earned > 0:
+		if current_hp < floor(max_hp/2):
+			enemy.purchase_health_potion()
+			gold_earned -= 1
+			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
+		elif !items_purchased[dam_take_index.find(4)] && gold_earned >=3:
+			enemy.items_purchased[dam_take_index.find(4)] = 1
+			gold_earned -= 3
+			check_4_pike(enemy, dam_take_index.find(4))
+			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
+		elif !items_purchased[dam_take_index.find(3)] && gold_earned >=3:
+			enemy.items_purchased[dam_take_index.find(3)] = 1
+			gold_earned -= 3
+			check_4_pike(enemy, dam_take_index.find(3))
+			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
+		elif !items_purchased[dam_take_index.find(2)] && gold_earned >=3:
+			enemy.items_purchased[dam_take_index.find(2)] = 1
+			gold_earned -= 3
+			check_4_pike(enemy, dam_take_index.find(2))
+			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
+		elif !items_purchased[dam_take_index.find(1)] && gold_earned >=3:
+			enemy.items_purchased[dam_take_index.find(1)] = 1
+			gold_earned -= 3
+			check_4_pike(enemy, dam_take_index.find(1))
+			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
+		elif !items_purchased[dam_take_index.find(0)] && gold_earned >=3:
+			enemy.items_purchased[dam_take_index.find(0)] = 1
+			gold_earned -= 3
+			check_4_pike(enemy, dam_take_index.find(0))
+			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
+		elif !items_purchased[5] && gold_earned >=3:
+			enemy.items_purchased[5] = 1
+			gold_earned -= 3
+			enemy.purchased_bag()
+			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)	
+		elif current_hp < max_hp:
+			enemy.purchase_health_potion()
+			gold_earned -= 1
+			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
+		elif current_hp == max_hp:
+			enemy.increase_max_health()
+			gold_earned -= 1
+			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
+		else:
+			print("some error")
+	
+func check_4_pike(enemy:Object, ind:int) -> void:
+	if ind == 3:
+		enemy.purchased_pike()

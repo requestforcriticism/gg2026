@@ -12,6 +12,17 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
-	area.get_parent().current_health -= damage
-	area.get_parent().get_stunned()
+	if area.is_in_group("enemy"):
+		area.get_parent().get_stunned()
+		if area.get_parent().items_purchased[1]:
+			area.get_parent().current_health -= floori(damage/2)
+			area.get_parent().damage_taken[3] += floori(damage/2)
+			area.get_parent().damage_taken[2] += (1.0-area.get_parent().slowed_perc) * damage/2.0
+		else:
+			area.get_parent().current_health -= damage
+			area.get_parent().damage_taken[3] += damage
+			area.get_parent().damage_taken[2] += (1.0-area.get_parent().slowed_perc) * damage
+	
+	#area.get_parent().current_health -= damage
+		
 	
