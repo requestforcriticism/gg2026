@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://h6qy07krdhrp" path="res://assets/visual/mesh_assets/Ground095A_1K-PNG/Ground095A_1K-PNG_Roughness.png" id="6_848gj"]
 [ext_resource type="Script" uid="uid://dbhhbbes7kh7p" path="res://scenes/traps/mud_trap/mesh_instance_3d.gd" id="7_xkrnr"]
 
+[sub_resource type="Curve" id="Curve_xkrnr"]
+_data = [Vector2(0, 0.9224652), 0.0, 0.0, 0, 0, Vector2(0.99999, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xmin4"]
 albedo_color = Color(0.9367008, 0.7710098, 0.45155954, 1)
 albedo_texture = ExtResource("2_etjlg")
@@ -21,9 +25,13 @@ heightmap_texture = ExtResource("4_q5raf")
 detail_uv_layer = 1
 uv1_scale = Vector3(2, 2, 2)
 
-[sub_resource type="BoxMesh" id="BoxMesh_xmin4"]
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_xkrnr"]
 material = SubResource("StandardMaterial3D_xmin4")
-size = Vector3(1.9, 0.01, 1.9)
+radius = 0.9
+radial_steps = 16
+sections = 2
+section_length = 0.01
+curve = SubResource("Curve_xkrnr")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xmin4"]
 size = Vector3(1.9, 1, 1.9)
@@ -31,9 +39,9 @@ size = Vector3(1.9, 1, 1.9)
 [node name="Mud_trap_base" type="Node3D" unique_id=305420928 groups=["mudtrap", "trap"]]
 script = ExtResource("1_xmin4")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=231310864]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=24714945]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005, 0)
-mesh = SubResource("BoxMesh_xmin4")
+mesh = SubResource("TubeTrailMesh_xkrnr")
 script = ExtResource("7_xkrnr")
 
 [node name="FindEnemyArea3D" type="Area3D" parent="." unique_id=12138510]

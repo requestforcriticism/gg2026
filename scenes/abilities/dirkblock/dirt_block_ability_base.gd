@@ -1,11 +1,15 @@
 extends Node3D
 
-@export var trap_cost := 10
+@export var trap_cost := [0]
 @export var speed := 0.0
 @export var Max_HP := 5
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
+
+var trap_level:int :
+	set(level_in):
+		trap_level = level_in
 
 var current_health: int:
 	set(health_in):

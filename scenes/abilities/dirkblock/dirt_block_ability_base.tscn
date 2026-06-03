@@ -137,7 +137,7 @@ height = 0.08
 radial_segments = 5
 rings = 4
 
-[node name="DirtBlock_ability_base" type="Node3D" unique_id=2016828014 groups=["ability", "dirtblock"]]
+[node name="DirtBlock_ability_base" type="Node3D" unique_id=2016828014 groups=["ability", "dirtblock", "dirtblockwinfo"]]
 script = ExtResource("1_scvv0")
 
 [node name="Wall" type="MeshInstance3D" parent="." unique_id=1704673320]

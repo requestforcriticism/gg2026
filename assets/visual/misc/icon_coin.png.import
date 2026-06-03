@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dp405atq0i3mt"
-path="res://.godot/imported/icon_coins_pouch.png-fe95cbb1b2469de85c51e8bc28cc070a.ctex"
+uid="uid://bjhlsd61gkg43"
+path.s3tc="res://.godot/imported/icon_coin.png-dd5fbeb6ac73f1b5db5ab7c374e701cb.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://assets/visual/enemy_shop/icon_coins_pouch.png"
-dest_files=["res://.godot/imported/icon_coins_pouch.png-fe95cbb1b2469de85c51e8bc28cc070a.ctex"]
+source_file="res://assets/visual/misc/icon_coin.png"
+dest_files=["res://.godot/imported/icon_coin.png-dd5fbeb6ac73f1b5db5ab7c374e701cb.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -23,7 +24,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -37,4 +38,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

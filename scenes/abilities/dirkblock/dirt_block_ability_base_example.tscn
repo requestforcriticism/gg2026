@@ -161,7 +161,7 @@ collision_layer = 0
 monitoring = false
 monitorable = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2" unique_id=817101034]
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." index="2" unique_id=817101034]
 libraries/ = SubResource("AnimationLibrary_ilift")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="3" unique_id=1565994455]

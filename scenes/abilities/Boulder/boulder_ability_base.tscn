@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bh5belcht22a2"]
 
-[ext_resource type="Script" uid="uid://buoqyxkln2lsk" path="res://scenes/abilities/Boulder/boulder_ability_base.gd" id="1_eli21"]
+[ext_resource type="Script" uid="uid://chdkvcepffj22" path="res://scenes/abilities/Boulder/boulder_ability_base.gd" id="1_eli21"]
 [ext_resource type="Texture2D" uid="uid://48vrwbn4ri53" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_Color.png" id="2_eolnb"]
 [ext_resource type="Texture2D" uid="uid://c8dunaso4gl3q" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_AmbientOcclusion.png" id="3_elfqs"]
 [ext_resource type="Texture2D" uid="uid://dqpjhhum47bc2" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_Displacement.png" id="4_ih5jo"]
@@ -28,7 +28,7 @@ rings = 5
 [sub_resource type="SphereShape3D" id="SphereShape3D_q4cqp"]
 radius = 0.8
 
-[node name="BoulderAbilityBase" type="PathFollow3D" unique_id=1459297515 groups=["ability"]]
+[node name="BoulderAbilityBase" type="PathFollow3D" unique_id=1459297515 groups=["ability", "boulder"]]
 loop = false
 script = ExtResource("1_eli21")
 

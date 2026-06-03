@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cchlnwmd6m3h3"]
 
 [ext_resource type="PackedScene" uid="uid://bh5belcht22a2" path="res://scenes/abilities/boulder/boulder_ability_base.tscn" id="1_f8e30"]
-[ext_resource type="Script" uid="uid://b6dn5ukbyerby" path="res://scenes/abilities/Boulder/boulder_ability.gd" id="2_jcx31"]
+[ext_resource type="Script" uid="uid://b6dn5ukbyerby" path="res://scenes/abilities/boulder/boulder_ability.gd" id="2_jcx31"]
 
 [sub_resource type="Animation" id="Animation_2rnmb"]
 length = 0.001
@@ -40,7 +40,7 @@ _data = {
 &"spin": SubResource("Animation_jcx31")
 }
 
-[node name="BoulderAbilityBase" unique_id=1459297515 instance=ExtResource("1_f8e30")]
+[node name="BoulderAbility" unique_id=1459297515 instance=ExtResource("1_f8e30")]
 script = ExtResource("2_jcx31")
 
 [node name="Area3D" parent="BoulderMeshInstance3D" parent_id_path=PackedInt32Array(1137553629) index="0" unique_id=797376955]

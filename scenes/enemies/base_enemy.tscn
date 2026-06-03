@@ -400,7 +400,7 @@ billboard = 1
 texture = SubResource("ViewportTexture_n763p")
 
 [node name="DroppedGoldBag" parent="." unique_id=1273920364 instance=ExtResource("2_lkvl6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.77746016, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 visible = false
 
 [node name="SpriteMeshInstance" parent="DroppedGoldBag" index="0" unique_id=666550001]

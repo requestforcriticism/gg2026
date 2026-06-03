@@ -80,9 +80,12 @@ top_radius = 0.1
 bottom_radius = 0.1
 height = 0.02
 
-[node name="ArrowTrapBase" type="Node3D" unique_id=1486655462 groups=["arrow", "trap"]]
+[node name="ArrowTrapBase" type="Node3D" unique_id=1486655462 groups=["arrow", "arrowtrapwinfo", "trap"]]
 script = ExtResource("1_x4lbm")
+trap_cost = null
 arrow_scene = ExtResource("2_x4lbm")
+arrow_damage = null
+arrow_fire_rate = null
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=271001784]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005, 0.005, -0.89)

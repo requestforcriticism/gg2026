@@ -85,7 +85,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	do_state_stuff(delta)
 	recover_speed()
-	printt(items_purchased,current_health,max_health)
+	#printt(items_purchased,current_health,max_health)
 
 func get_stunned() -> void:
 	stunned_timer.start()
@@ -134,6 +134,11 @@ func do_state_stuff(delta) -> void:
 		animated_sprite_3d.play(figure_out_travel_animation())
 		animated_sprite_3d.visible = true
 		if !dropped_gold_bag.visible && gold_in_bag > 0:
+			if items_purchased.max() == 0:
+				dropped_gold_bag.position.y = 0.9
+			else:
+				dropped_gold_bag.position.y = 1.25
+			print(dropped_gold_bag.position.y)
 			dropped_gold_bag.visible = true
 		if progress_ratio == 0.0:
 			if get_parent().my_going_back[0].is_in_group("enemy_camp"):

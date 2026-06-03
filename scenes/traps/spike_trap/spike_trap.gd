@@ -1,15 +1,15 @@
 extends "res://scenes/traps/spike_trap/spike_trap_base.gd"
 
-@export var passive_spike_buildup_damage := 2
-@export var spike_thrust_damage := 20
+@export var trap_cost := [50,100,200]
+@export var passive_spike_buildup_damage := [2,4,8]
+@export var spike_thrust_damage := [20,40,80]
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var spike_buildup_timer: Timer = $SpikeBuildupTimer
 
 var enemies_on_trap: Array = []
 var spikes_active := false
-
-
+var trap_level := 0
 
 func _on_initialdetect_area_3d_area_entered(area: Area3D) -> void:
 	if area:
@@ -29,13 +29,13 @@ func spike_buildup_passive_damage() -> void:
 	for i in enemies_on_trap:
 		if i:
 			if i.items_purchased[0]:
-				i.current_health -= floori(passive_spike_buildup_damage/2)
-				i.damage_taken[0] += floori(passive_spike_buildup_damage/2)
-				i.damage_taken[2] += (1.0-i.slowed_perc) * passive_spike_buildup_damage/2.0
+				i.current_health -= floori(passive_spike_buildup_damage[trap_level]/2)
+				i.damage_taken[0] += floori(passive_spike_buildup_damage[trap_level]/2)
+				i.damage_taken[2] += (1.0-i.slowed_perc) * passive_spike_buildup_damage[trap_level]/2.0
 			else:
-				i.current_health -= passive_spike_buildup_damage
-				i.damage_taken[0] += passive_spike_buildup_damage
-				i.damage_taken[2] += (1.0-i.slowed_perc) * passive_spike_buildup_damage
+				i.current_health -= passive_spike_buildup_damage[trap_level]
+				i.damage_taken[0] += passive_spike_buildup_damage[trap_level]
+				i.damage_taken[2] += (1.0-i.slowed_perc) * passive_spike_buildup_damage[trap_level]
 		else:
 			enemies_on_trap.erase(i)
 
@@ -43,11 +43,11 @@ func spike_thrust() -> void:
 	for i in enemies_on_trap:
 		if i:
 			if i.items_purchased[0]:
-				i.current_health -= floori(spike_thrust_damage/2)
-				i.damage_taken[0] += floori(spike_thrust_damage/2)
+				i.current_health -= floori(spike_thrust_damage[trap_level]/2)
+				i.damage_taken[0] += floori(spike_thrust_damage[trap_level]/2)
 			else:
-				i.current_health -= spike_thrust_damage
-				i.damage_taken[0] += spike_thrust_damage
+				i.current_health -= spike_thrust_damage[trap_level]
+				i.damage_taken[0] += spike_thrust_damage[trap_level]
 		else:
 			enemies_on_trap.erase(i)
 
