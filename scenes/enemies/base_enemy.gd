@@ -29,9 +29,9 @@ enum ENEMY_STATE {TRAVEL_IN, TRAVEL_OUT, MINING, MINING_DIRT_WALL, RETURN_GOLD, 
 var state := ENEMY_STATE.TRAVEL_IN
 var previous_state
 
-#	[spike damage, Arrow damage, damage while slowed, mining walls & gold, boulder damage]
+#	[spike damage, Arrow damage, damage while slowed, boulder damage, mining walls & gold]
 var damage_taken: Array[float] = [0.05,0.04,0.03,0.02,0.01]
-#	[spike, Arrow, Mud, Pike, Boulder, Bag]
+#	[spike, Arrow, Mud,  Boulder, Pike, Bag]
 var items_purchased: Array = [0,0,0,0,0,0]
 
 @onready var stolen = get_tree().get_first_node_in_group("enemy_camp")
@@ -47,10 +47,11 @@ var items_purchased: Array = [0,0,0,0,0,0]
 @onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
 @onready var find_dirt_block_area_3d: Area3D = $FindDirtBlockArea3D
 
+
 var current_health: float:
 	set(health_in):
 		if current_health > 0:
-			gpu_particles_3d.amount = current_health - health_in
+			gpu_particles_3d.amount = max(current_health - health_in, 1)
 		if current_health != max_health && current_health > health_in:
 			gpu_particles_3d.emitting = true
 		current_health = max(min(health_in,max_health),0)
@@ -72,6 +73,7 @@ var current_speed: float:
 		current_speed = speed_in * slowed_perc
 
 func _ready() -> void:
+	#Engine.time_scale = 2
 	max_gold_capacity = base_max_gold_capacity
 	current_base_speed = base_speed
 	current_speed = current_base_speed
@@ -85,13 +87,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	do_state_stuff(delta)
 	recover_speed()
-	#printt(items_purchased,current_health,max_health)
 
 func get_stunned() -> void:
-	stunned_timer.start()
-	previous_state = state
-	state = ENEMY_STATE.STUNNED
-	current_speed = 0.0
+	if state != ENEMY_STATE.RETURN_GOLD || state != ENEMY_STATE.MINING:
+		stunned_timer.start()
+		previous_state = state
+		state = ENEMY_STATE.STUNNED
+		current_speed = 0.0
 
 func recover_speed() -> void:
 	slowed_perc = lerp(slowed_perc,1.0,.01)
@@ -138,7 +140,6 @@ func do_state_stuff(delta) -> void:
 				dropped_gold_bag.position.y = 0.9
 			else:
 				dropped_gold_bag.position.y = 1.25
-			print(dropped_gold_bag.position.y)
 			dropped_gold_bag.visible = true
 		if progress_ratio == 0.0:
 			if get_parent().my_going_back[0].is_in_group("enemy_camp"):
@@ -192,11 +193,20 @@ func figure_out_travel_animation() -> String:
 
 func figure_out_mining_animation() -> void:
 	if progress_ratio < 0.41:
-		animated_sprite_3d.play("mining_right")
+		if items_purchased[4]:
+			animated_sprite_3d.play("mining_right",2)
+		else:
+			animated_sprite_3d.play("mining_right")
 	elif progress_ratio > 0.59:
-		animated_sprite_3d.play("mining_left")
+		if items_purchased[4]:
+			animated_sprite_3d.play("mining_left",2)
+		else:
+			animated_sprite_3d.play("mining_left")
 	else:
-		animated_sprite_3d.play("mining_up")
+		if items_purchased[4]:
+			animated_sprite_3d.play("mining_up",2)
+		else:
+			animated_sprite_3d.play("mining_up")
 
 func figure_out_mining_dirt_wall_animation() -> void:
 	if animate_direction == "walking_right":
@@ -215,6 +225,7 @@ func create_bag_to_drop() -> void:
 	get_parent().add_child(new_bag)
 
 func _on_mining_timer_timeout() -> void:
+	#print(mining_timer.wait_time)
 	if state == ENEMY_STATE.MINING:
 		if gold_in_bag < max_gold_capacity && get_parent().current_gold > 0:
 			$MineGold.visible = true
@@ -256,7 +267,7 @@ func _on_return_gold_timer_timeout() -> void:
 		if gold_in_bag == 0:
 			stolen.purchase_items(self,returned_gold,current_health,max_health,damage_taken,get_index_4_sorted_array(),items_purchased)
 			returned_gold = 0
-			#printt(items_purchased,current_health,max_health,mining_rate,max_gold_capacity)
+			show_purchased_items()
 	else:
 		$MineGold.visible = false
 		return_gold_timer.stop()
@@ -299,6 +310,7 @@ func purchase_health_potion() -> void:
 
 func purchased_pike() -> void:
 	mining_timer.wait_time = mining_rate/2.0
+	mine_gold.speed_mult = 2
 
 func purchased_bag() -> void:
 	max_gold_capacity = base_max_gold_capacity + 5
@@ -317,3 +329,17 @@ func get_index_4_sorted_array() -> Array:
 		temp_array[max_ind] = -0.1
 	
 	return sorted_indices
+
+func show_purchased_items() -> void:
+	if items_purchased[0]:
+		$SubViewport/ItemHBoxContainer/SpikeitemTextureRect.visible = true
+	if items_purchased[1]:
+		$SubViewport/ItemHBoxContainer/ArrowitemTextureRect.visible = true
+	if items_purchased[2]:
+		$SubViewport/ItemHBoxContainer/MuditemRect.visible = true
+	if items_purchased[3]:
+		$SubViewport/ItemHBoxContainer/BoulderitemTextureRect.visible = true
+	if items_purchased[4]:
+		$SubViewport/ItemHBoxContainer/MineitemTextureRect.visible = true
+	if items_purchased[5]:
+		$SubViewport/ItemHBoxContainer/BagitemTextureRect.visible = true

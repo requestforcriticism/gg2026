@@ -5,8 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://rna1bxx4rh4b" path="res://scenes/minegold/mine_gold.tscn" id="2_qf3h2"]
 [ext_resource type="Texture2D" uid="uid://b28mjhy7el2jr" path="res://assets/visual/enemies/humanmodified.png" id="4_ylyo2"]
 [ext_resource type="Texture2D" uid="uid://b7i4bp11w7dtr" path="res://assets/visual/enemies/Character11_sheet.png" id="6_2t7ph"]
+[ext_resource type="Texture2D" uid="uid://dsrx81fafwpf2" path="res://assets/visual/enemy_shop/icon_equip_armor.png" id="6_ahw5l"]
 [ext_resource type="Texture2D" uid="uid://cyolpms3bnht2" path="res://assets/visual/enemy_shop/equip_icon_shield_blue.png" id="6_n2ebm"]
-[ext_resource type="Texture2D" uid="uid://b3yk1pgi686wr" path="res://assets/visual/enemy_shop/equip_icon_potion_red_2.png" id="7_n2ebm"]
+[ext_resource type="Texture2D" uid="uid://bsq1n006qydu0" path="res://assets/visual/enemy_shop/icon_equip_shoes.png" id="8_saudc"]
+[ext_resource type="Texture2D" uid="uid://d2b84hjq5c687" path="res://assets/visual/enemy_shop/icon_equip_pickax.png" id="9_v35a0"]
+[ext_resource type="Texture2D" uid="uid://cks26qfueei0x" path="res://assets/visual/enemy_shop/icon_equip_helmet_1.png" id="10_qrxh2"]
+[ext_resource type="Texture2D" uid="uid://cti1otggxkvq1" path="res://assets/visual/enemy_shop/icon_bag.png" id="11_tofne"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ylyo2"]
 direction = Vector3(0, 1, 0)
@@ -283,9 +287,8 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.25, 0)
 billboard = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_tofne")
-animation = &"stunned"
+animation = &"die"
 autoplay = "mining_right"
-frame_progress = 0.9068689
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=492678186]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.34514385, 0)
@@ -364,7 +367,7 @@ size_flags_vertical = 4
 value = 100.0
 show_percentage = false
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="SubViewport" unique_id=763748444]
+[node name="ItemHBoxContainer" type="HBoxContainer" parent="SubViewport" unique_id=763748444]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -378,21 +381,35 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="SubViewport/HBoxContainer3" unique_id=1602855820]
+[node name="SpikeitemTextureRect" type="TextureRect" parent="SubViewport/ItemHBoxContainer" unique_id=1602855820]
+visible = false
+layout_mode = 2
+texture = ExtResource("6_ahw5l")
+
+[node name="ArrowitemTextureRect" type="TextureRect" parent="SubViewport/ItemHBoxContainer" unique_id=275800751]
+visible = false
 layout_mode = 2
 texture = ExtResource("6_n2ebm")
 
-[node name="TextureRect4" type="TextureRect" parent="SubViewport/HBoxContainer3" unique_id=275800751]
+[node name="MuditemRect" type="TextureRect" parent="SubViewport/ItemHBoxContainer" unique_id=281923480]
+visible = false
 layout_mode = 2
-texture = ExtResource("6_n2ebm")
+texture = ExtResource("8_saudc")
 
-[node name="TextureRect2" type="TextureRect" parent="SubViewport/HBoxContainer3" unique_id=281923480]
+[node name="BoulderitemTextureRect" type="TextureRect" parent="SubViewport/ItemHBoxContainer" unique_id=1701130943]
+visible = false
 layout_mode = 2
-texture = ExtResource("7_n2ebm")
+texture = ExtResource("10_qrxh2")
 
-[node name="TextureRect3" type="TextureRect" parent="SubViewport/HBoxContainer3" unique_id=1172217627]
+[node name="MineitemTextureRect" type="TextureRect" parent="SubViewport/ItemHBoxContainer" unique_id=1172217627]
+visible = false
 layout_mode = 2
-texture = ExtResource("7_n2ebm")
+texture = ExtResource("9_v35a0")
+
+[node name="BagitemTextureRect" type="TextureRect" parent="SubViewport/ItemHBoxContainer" unique_id=1472050812]
+visible = false
+layout_mode = 2
+texture = ExtResource("11_tofne")
 
 [node name="ShowProgressBar" type="Sprite3D" parent="." unique_id=1948879998]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.73560935, 0)

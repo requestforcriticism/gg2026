@@ -1,6 +1,6 @@
 extends "res://scenes/traps/spike_trap/spike_trap_base.gd"
 
-@export var trap_cost := [50,100,200]
+@export var trap_cost := [51,100,200]
 @export var passive_spike_buildup_damage := [2,4,8]
 @export var spike_thrust_damage := [20,40,80]
 

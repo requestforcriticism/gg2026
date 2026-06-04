@@ -81,5 +81,5 @@ func purchase_items(enemy:Object,gold_earned:int,current_hp:float,max_hp:int, da
 			print("some error")
 	
 func check_4_pike(enemy:Object, ind:int) -> void:
-	if ind == 3:
+	if ind == 4:
 		enemy.purchased_pike()

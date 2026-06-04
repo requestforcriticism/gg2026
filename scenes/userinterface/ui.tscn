@@ -11,24 +11,41 @@
 [ext_resource type="PackedScene" uid="uid://cgpwcn0dgut8a" path="res://scenes/traps/arrow_trap/arrow_trap_example.tscn" id="5_skj6d"]
 [ext_resource type="PackedScene" uid="uid://b117p353j0tq2" path="res://scenes/traps/mud_trap/mud_trap.tscn" id="6_ojaxh"]
 [ext_resource type="PackedScene" uid="uid://bg4ea11atgdtv" path="res://scenes/traps/mud_trap/mud_trap_base_example.tscn" id="7_ys5vj"]
-[ext_resource type="PackedScene" uid="uid://bekowun0qq86y" path="res://scenes/abilities/dirkblock/dirt_block_ability_base.tscn" id="8_750pv"]
 [ext_resource type="PackedScene" uid="uid://cyaegfakaq4pr" path="res://scenes/abilities/dirkblock/dirt_block_ability_base_example.tscn" id="9_xo44p"]
+[ext_resource type="PackedScene" uid="uid://bv3uj2kr2etuj" path="res://scenes/abilities/dirkblock/dirt_block_ability.tscn" id="10_uqdvs"]
+[ext_resource type="Texture2D" uid="uid://dler84m75hq1p" path="res://assets/visual/ui/Box.png" id="13_7cvrb"]
+[ext_resource type="Texture2D" uid="uid://bbmxcjgpfno3r" path="res://assets/visual/ui/keyboard_4.png" id="13_lox5b"]
 [ext_resource type="Texture2D" uid="uid://cv4c0upyax4sh" path="res://assets/visual/abilities/dirtwall.png" id="13_uqdvs"]
 [ext_resource type="Texture2D" uid="uid://bjhlsd61gkg43" path="res://assets/visual/misc/icon_coin.png" id="14_ys5vj"]
 [ext_resource type="Texture2D" uid="uid://6h3f8m6lhm5c" path="res://assets/visual/traps/arrows.png" id="15_lox5b"]
 [ext_resource type="Texture2D" uid="uid://dwhpvkd1dvykn" path="res://assets/visual/traps/mud trap.png" id="16_7cvrb"]
+[ext_resource type="Texture2D" uid="uid://b4m65phwr3pvj" path="res://assets/visual/ui/keyboard_5.png" id="16_2507d"]
+[ext_resource type="FontFile" uid="uid://bhu5ia8mauvjv" path="res://assets/fonts/Asap/Asap-VariableFont_wdth,wght.ttf" id="16_dcdsw"]
+[ext_resource type="Texture2D" uid="uid://cf506iuq0fxdk" path="res://assets/visual/ui/keyboard_1.png" id="18_dcdsw"]
+[ext_resource type="Texture2D" uid="uid://by2p3wx3m7umu" path="res://assets/visual/ui/keyboard_2.png" id="20_0x7qu"]
+[ext_resource type="Texture2D" uid="uid://cvnq4gd68a138" path="res://assets/visual/ui/keyboard_3.png" id="22_cgdo4"]
+[ext_resource type="PackedScene" uid="uid://dax8c54rgnld1" path="res://scenes/traps/arrow_trap/arrow_trap_base.tscn" id="25_0x7qu"]
+[ext_resource type="Texture2D" uid="uid://duq05tatx2w2g" path="res://assets/visual/misc/icon_scroll_letter_0.png" id="25_cgdo4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jsawn"]
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ojaxh"]
-font_size = 24
-outline_size = 4
+line_spacing = 0.0
+font = ExtResource("16_dcdsw")
+font_size = 40
+outline_size = 16
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_yqs5y"]
 outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dcdsw"]
+font = ExtResource("16_dcdsw")
+font_size = 22
+outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_eugoy"]
@@ -62,7 +79,7 @@ mud_trap = ExtResource("6_ojaxh")
 mud_trap_example = ExtResource("7_ys5vj")
 boulder_ability = ExtResource("3_n3j8f")
 boulder_ability_example = ExtResource("4_bbqyl")
-dirt_wall_ability = ExtResource("8_750pv")
+dirt_wall_ability = ExtResource("10_uqdvs")
 dirt_wall_ability_example = ExtResource("9_xo44p")
 
 [node name="TrapAbilityOption" type="VBoxContainer" parent="." unique_id=536935284]
@@ -83,8 +100,11 @@ text = "Boulder"
 label_settings = SubResource("LabelSettings_jsawn")
 
 [node name="BoulderAbilityButton" type="Button" parent="TrapAbilityOption/AbilityOptions/BoulderAbility" unique_id=941844215]
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 icon = ExtResource("4_kj22y")
+icon_alignment = 1
+expand_icon = true
 
 [node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton" unique_id=1354248728]
 layout_mode = 1
@@ -93,16 +113,42 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 6
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -4
+
+[node name="numkey" type="TextureRect" parent="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton/MarginContainer" unique_id=2107382134]
+self_modulate = Color(0.41981313, 0.41981313, 0.4198131, 1)
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("13_7cvrb")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton/MarginContainer/numkey" unique_id=1842272396]
+modulate = Color(1, 0.73333335, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("13_lox5b")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="bouldercooldownLabel" type="Label" parent="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton/MarginContainer" unique_id=1191057032]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
+size_flags_horizontal = 4
 text = "99"
 label_settings = SubResource("LabelSettings_ojaxh")
+uppercase = true
 
 [node name="BoulderAbilityCooldownTimer" type="Timer" parent="TrapAbilityOption/AbilityOptions/BoulderAbility" unique_id=971589600]
 one_shot = true
@@ -116,26 +162,55 @@ layout_mode = 2
 text = "Wall"
 
 [node name="WallAbilityButton" type="Button" parent="TrapAbilityOption/AbilityOptions/WallAbility" unique_id=39977316]
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 icon = ExtResource("13_uqdvs")
+icon_alignment = 1
+expand_icon = true
 
-[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton" unique_id=48006160]
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton" unique_id=1214306231]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 6
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -4
 
-[node name="wallcooldownLabel" type="Label" parent="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton/MarginContainer" unique_id=1834410262]
+[node name="numkey" type="TextureRect" parent="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton/MarginContainer" unique_id=839289417]
+self_modulate = Color(0.41981313, 0.41981313, 0.4198131, 1)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 0
 size_flags_vertical = 8
-text = "999"
+texture = ExtResource("13_7cvrb")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton/MarginContainer/numkey" unique_id=646691425]
+modulate = Color(1, 0.73333335, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("16_2507d")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="wallcooldownLabel" type="Label" parent="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton/MarginContainer" unique_id=577929542]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "99"
 label_settings = SubResource("LabelSettings_ojaxh")
+uppercase = true
 
 [node name="WallAbilityCooldownTimer" type="Timer" parent="TrapAbilityOption/AbilityOptions/WallAbility" unique_id=1011656387]
 one_shot = true
@@ -156,9 +231,75 @@ label_settings = SubResource("LabelSettings_yqs5y")
 horizontal_alignment = 1
 
 [node name="SpikeTrapButton" type="Button" parent="TrapAbilityOption/TrapOptions/SpikeTrap" unique_id=1164616605]
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 icon = ExtResource("1_eugoy")
 icon_alignment = 1
+expand_icon = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton" unique_id=2092726357]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -4
+
+[node name="CoinCost" type="TextureRect" parent="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton/MarginContainer" unique_id=1011616604]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = ExtResource("14_ys5vj")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="spikecostLabel" type="Label" parent="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton/MarginContainer/CoinCost" unique_id=642976048]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 20.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "99"
+label_settings = SubResource("LabelSettings_dcdsw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="numkey" type="TextureRect" parent="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton/MarginContainer" unique_id=1083655073]
+self_modulate = Color(0.41981313, 0.41981313, 0.4198131, 1)
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("13_7cvrb")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton/MarginContainer/numkey" unique_id=662670685]
+modulate = Color(1, 0.73333335, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("18_dcdsw")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="ArrowTrap" type="VBoxContainer" parent="TrapAbilityOption/TrapOptions" unique_id=663043943]
 layout_mode = 2
@@ -169,8 +310,75 @@ layout_mode = 2
 text = "Arrow Trap"
 
 [node name="ArrowTrapButton" type="Button" parent="TrapAbilityOption/TrapOptions/ArrowTrap" unique_id=1664267741]
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 icon = ExtResource("15_lox5b")
+icon_alignment = 1
+expand_icon = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton" unique_id=1367280206]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -4
+
+[node name="CoinCost" type="TextureRect" parent="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton/MarginContainer" unique_id=1277176369]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = ExtResource("14_ys5vj")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="arrowcostLabel" type="Label" parent="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton/MarginContainer/CoinCost" unique_id=1093373702]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 20.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "99"
+label_settings = SubResource("LabelSettings_dcdsw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="numkey" type="TextureRect" parent="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton/MarginContainer" unique_id=656904056]
+self_modulate = Color(0.41981313, 0.41981313, 0.4198131, 1)
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("13_7cvrb")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton/MarginContainer/numkey" unique_id=1126438158]
+modulate = Color(1, 0.73333335, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("20_0x7qu")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="MudTrap" type="VBoxContainer" parent="TrapAbilityOption/TrapOptions" unique_id=1676996586]
 layout_mode = 2
@@ -181,8 +389,75 @@ layout_mode = 2
 text = "Mud Trap"
 
 [node name="MudTrapButton" type="Button" parent="TrapAbilityOption/TrapOptions/MudTrap" unique_id=957133769]
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 icon = ExtResource("16_7cvrb")
+icon_alignment = 1
+expand_icon = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton" unique_id=500285789]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -4
+
+[node name="CoinCost" type="TextureRect" parent="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton/MarginContainer" unique_id=2029390214]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = ExtResource("14_ys5vj")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="mudcostLabel" type="Label" parent="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton/MarginContainer/CoinCost" unique_id=1596680452]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 20.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "99"
+label_settings = SubResource("LabelSettings_dcdsw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="numkey" type="TextureRect" parent="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton/MarginContainer" unique_id=190711974]
+self_modulate = Color(0.41981313, 0.41981313, 0.4198131, 1)
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("13_7cvrb")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton/MarginContainer/numkey" unique_id=1678412690]
+modulate = Color(1, 0.73333335, 0, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("22_cgdo4")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Gold_Quota" type="GridContainer" parent="." unique_id=1536439003]
 layout_mode = 2
@@ -191,9 +466,11 @@ size_flags_vertical = 0
 columns = 2
 
 [node name="GoldTextureRect" type="TextureRect" parent="Gold_Quota" unique_id=601616356]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("14_ys5vj")
-expand_mode = 2
+expand_mode = 1
+stretch_mode = 4
 
 [node name="GoldLabel" type="Label" parent="Gold_Quota" unique_id=954255190]
 layout_mode = 2
@@ -201,9 +478,11 @@ text = "99999"
 label_settings = SubResource("LabelSettings_eugoy")
 
 [node name="QuotoaScrollTextureRect" type="TextureRect" parent="Gold_Quota" unique_id=1045637805]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("14_ys5vj")
-expand_mode = 2
+texture = ExtResource("25_cgdo4")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="QuotaLabel" type="Label" parent="Gold_Quota" unique_id=1822100698]
 layout_mode = 2
@@ -273,6 +552,20 @@ label_settings = SubResource("LabelSettings_lox5b")
 layout_mode = 2
 text = "2 damage / 0.1 Sec"
 label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="trap_info" type="Node" parent="." unique_id=1488011857]
+
+[node name="SpikeTrapinfo" parent="trap_info" unique_id=1269147494 instance=ExtResource("2_jsawn")]
+process_mode = 4
+visible = false
+
+[node name="ArrowTrapBaseinfo" parent="trap_info" unique_id=1486655462 instance=ExtResource("25_0x7qu")]
+process_mode = 4
+visible = false
+
+[node name="MudTrapinfo" parent="trap_info" unique_id=305420928 instance=ExtResource("6_ojaxh")]
+process_mode = 4
+visible = false
 
 [connection signal="pressed" from="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton" to="." method="_on_boulder_ability_button_pressed"]
 [connection signal="timeout" from="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityCooldownTimer" to="." method="_on_boulder_ability_colldown_timer_timeout"]

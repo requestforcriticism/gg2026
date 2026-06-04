@@ -18,7 +18,12 @@ signal ability_select(A2d)
 @onready var quota = get_tree().get_first_node_in_group("quota")
 @onready var stolen = get_tree().get_first_node_in_group("enemy_camp")
 
-
+@onready var spike_trapinfo: Node3D = $trap_info/SpikeTrapinfo
+@onready var arrow_trap_baseinfo: Node3D = $trap_info/ArrowTrapBaseinfo
+@onready var mud_trapinfo: Node3D = $trap_info/MudTrapinfo
+@onready var spikecost_label: Label = $TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton/MarginContainer/CoinCost/spikecostLabel
+@onready var arrowcost_label: Label = $TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton/MarginContainer/CoinCost/arrowcostLabel
+@onready var mudcost_label: Label = $TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton/MarginContainer/CoinCost/mudcostLabel
 
 @onready var boulder_ability_cooldown_timer: Timer = $TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityCooldownTimer
 @onready var bouldercooldown_label: Label = $TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton/MarginContainer/bouldercooldownLabel
@@ -29,7 +34,7 @@ signal ability_select(A2d)
 @onready var quota_label: Label = $Gold_Quota/QuotaLabel
 @onready var stolen_label: Label = $HumanStole/StolenLabel
 
-var ability_cooldown := 15.0
+var ability_cooldown := 15
 var boulder_cooldown :int
 var boulder_ready :bool
 var wall_cooldown :int
@@ -39,6 +44,9 @@ func _ready() -> void:
 	set_gold_label(bankquota.gold)
 	set_stolen_label(stolen.stolen_gold)
 	set_quota_label(bankquota.earned_for_quota, bankquota.current_quota)
+	spikecost_label.text = str(spike_trapinfo.trap_cost[0])
+	arrowcost_label.text = str(arrow_trap_baseinfo.trap_cost[0])
+	mudcost_label.text = str(mud_trapinfo.trap_cost[0])
 	boulder_ready = true
 	wall_ready = true
 	boulder_cooldown = ability_cooldown
@@ -101,8 +109,10 @@ func _on_boulder_ability_colldown_timer_timeout() -> void:
 	boulder_cooldown -= 1
 	bouldercooldown_label.text = str(boulder_cooldown)
 	if boulder_cooldown == 0:
+		boulder_ability_cooldown_timer.stop()
 		boulder_ready = true
 		bouldercooldown_label.visible = false
+		boulder_cooldown = ability_cooldown
 	else:
 		boulder_ability_cooldown_timer.start()
 
@@ -110,7 +120,9 @@ func _on_wall_ability_cooldown_timer_timeout() -> void:
 	wall_cooldown -= 1
 	wallcooldown_label.text = str(wall_cooldown)
 	if wall_cooldown == 0:
+		wall_ability_cooldown_timer.stop()
 		wall_ready = true
 		wallcooldown_label.visible = false
+		wall_cooldown = ability_cooldown
 	else:
 		wall_ability_cooldown_timer.start()

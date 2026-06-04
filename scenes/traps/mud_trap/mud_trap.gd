@@ -1,6 +1,6 @@
 extends "res://scenes/traps/mud_trap/mud_trap_base.gd"
 
-@export var trap_cost := [50,100,200]
+@export var trap_cost := [49,100,200]
 
 var speed_reduce_percent := [0.4,0.6,0.8] # -40% speed
 
