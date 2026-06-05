@@ -47,6 +47,7 @@ var boulder_cooldown :int
 var boulder_ready :bool
 var wall_cooldown :int
 var wall_ready :bool
+var holding_trap: Node3D
 
 func _ready() -> void:
 	set_gold_label(bankquota.gold)
@@ -88,12 +89,19 @@ func set_stolen_label(gold) -> void:
 @onready var spikecost_cd_value_label: Label = $TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/spikecostCDValueLabel
 @onready var spike_damage_passive_value_label: Label = $TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/spikeDamagePassiveValueLabel
 @onready var spike_damage_thrustvalue_label: Label = $TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/spikeDamageThrustvalueLabel
+@onready var spike_trap_button: Button = $TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton
 
 func _on_spike_trap_pressed() -> void:
 	close_info_windows()
 	set_spike_info(1) # 1 is base level
 	spike_info_container.visible= true
-	trap_select.emit(spike_trap, spike_trap_example)
+	
+	var temp_trap = spike_trap.instantiate()
+	if bankquota.gold >= temp_trap.trap_cost[0]:
+		trap_select.emit(spike_trap, spike_trap_example)
+	else:
+		flash_button(spike_trap_button)
+	temp_trap.queue_free()
 
 func set_spike_info(level:int) -> void:
 	spike_level_value_label.text = str(level)
@@ -105,12 +113,19 @@ func set_spike_info(level:int) -> void:
 @onready var arrowcost_cd_value_label: Label = $TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/ArrowcostCDValueLabel
 @onready var arrow_fire_rate_value_label: Label = $TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/ArrowFireRateValueLabel
 @onready var arrow_damagevalue_label: Label = $TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/ArrowDamagevalueLabel
+@onready var arrow_trap_button: Button = $TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton
 
 func _on_arrow_trap_button_pressed() -> void:
 	close_info_windows()
 	set_arrow_info(1) # 1 is base level
 	arrow_info_container.visible = true
-	trap_select.emit(arrow_trap, arrow_trap_example)
+	
+	var temp_trap = arrow_trap.instantiate()
+	if bankquota.gold >= temp_trap.trap_cost[0]:
+		trap_select.emit(arrow_trap, arrow_trap_example)
+	else:
+		flash_button(arrow_trap_button)
+	temp_trap.queue_free()
 
 func set_arrow_info(level:int) -> void:
 	arrow_level_value_label.text = str(level)
@@ -121,13 +136,20 @@ func set_arrow_info(level:int) -> void:
 @onready var mud_level_value_label: Label = $TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer/MudLevelValueLabel
 @onready var mudcost_cd_value_label: Label = $TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer/MudcostCDValueLabel
 @onready var mud_speed_reduce_value_label: Label = $TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer/MudSpeedReduceValueLabel
+@onready var mud_trap_button: Button = $TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton
 
 func _on_mud_trap_button_pressed() -> void:
 	close_info_windows()
 	set_mud_info(1) # 1 is base level
 	mud_info_container.visible = true
-	trap_select.emit(mud_trap, mud_trap_example)
-
+	
+	var temp_trap = mud_trap.instantiate()
+	if bankquota.gold >= temp_trap.trap_cost[0]:
+		trap_select.emit(mud_trap, mud_trap_example)
+	else:
+		flash_button(mud_trap_button)
+	temp_trap.queue_free()
+	
 func set_mud_info(level:int) -> void:
 	mud_level_value_label.text = str(level)
 	mudcost_cd_value_label.text = str(mud_trapinfo.trap_cost[level-1])
@@ -137,6 +159,7 @@ func set_mud_info(level:int) -> void:
 @onready var bouldercost_cd_value_label: Label = $TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer/BouldercostCDValueLabel
 @onready var boulder_damage_value_label: Label = $TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer/BoulderDamageValueLabel
 @onready var boulder_stun_value_label: Label = $TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer/BoulderStunValueLabel
+@onready var boulder_ability_button: Button = $TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton
 
 func _on_boulder_ability_button_pressed() -> void:
 	close_info_windows()
@@ -144,6 +167,8 @@ func _on_boulder_ability_button_pressed() -> void:
 	boulder_info_container.visible = true
 	if boulder_ready:
 		ability_select.emit(boulder_ability, boulder_ability_example)
+	else:
+		flash_button(boulder_ability_button)
 
 func set_boulder_info(level:int) -> void:
 	bouldercost_cd_value_label.text = str(ability_cooldown) + " Sec"
@@ -152,12 +177,15 @@ func set_boulder_info(level:int) -> void:
 
 @onready var cost_cd_value_label: Label = $TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer/costCDValueLabel
 @onready var hp_value_label: Label = $TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer/HPValueLabel
+@onready var wall_ability_button: Button = $TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton
 
 func _on_wall_ability_button_pressed() -> void:
 	close_info_windows()
 	wall_info_container.visible = true
 	if wall_ready:
 		trap_select.emit(dirt_wall_ability, dirt_wall_ability_example)
+	else:
+		flash_button(wall_ability_button)
 
 func set_wall_info(level:int) -> void:
 	cost_cd_value_label.text = str(ability_cooldown) + " Sec"
@@ -211,7 +239,8 @@ func close_info_windows() -> void:
 @onready var selected_arrow_info_container: PanelContainer = $TrapAbilityOption/SelectedArrowInfoContainer
 @onready var selected_mud_info_container: PanelContainer = $TrapAbilityOption/SelectedMudInfoContainer
 
-func show_selected_trap(holding_trap: Node3D) -> void:
+func show_selected_trap(new_holding_trap: Node3D) -> void:
+	holding_trap = new_holding_trap
 	close_info_windows()
 	holding_trap.selected()
 	if holding_trap.is_in_group("spike"):
@@ -229,6 +258,10 @@ func show_selected_trap(holding_trap: Node3D) -> void:
 @onready var selectedspike_damage_passive_value_label_2: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedspikeDamagePassiveValueLabel2
 @onready var selectedspike_damage_thrustvalue_label: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedspikeDamageThrustvalueLabel
 @onready var selectedspike_damage_thrustvalue_label_2: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedspikeDamageThrustvalueLabel2
+@onready var selectedspike_cost_cd_label: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedspikeCostCDLabel
+@onready var selected_damage_passive_label_2: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedDamagePassiveLabel2
+@onready var selected_damage_thrust_label_2: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedDamageThrustLabel2
+@onready var selectedspike_button: Button = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/SelectedspikeButton
 
 func set_spike_upgrade_info(holding_trap: Node3D) -> void:
 	selected_spike_info_container.visible = true
@@ -236,6 +269,10 @@ func set_spike_upgrade_info(holding_trap: Node3D) -> void:
 	selectedspike_damage_passive_value_label.text = str(holding_trap.passive_spike_buildup_damage[holding_trap.trap_level]) + " / 0.1 Sec"
 	selectedspike_damage_thrustvalue_label.text = str(holding_trap.spike_thrust_damage[holding_trap.trap_level])
 	if holding_trap.trap_level < 2:
+		selectedspike_button.visible = true
+		selectedspike_cost_cd_label.visible = true
+		selected_damage_passive_label_2.visible = true
+		selected_damage_thrust_label_2.visible = true
 		selectedspikecost_cd_value_label.visible = true
 		selectedspikecost_cd_value_label.text = str(holding_trap.trap_cost[holding_trap.trap_level+1])
 		selectedspike_damage_passive_value_label_2.visible = true
@@ -243,6 +280,10 @@ func set_spike_upgrade_info(holding_trap: Node3D) -> void:
 		selectedspike_damage_thrustvalue_label_2.visible = true
 		selectedspike_damage_thrustvalue_label_2.text = str(holding_trap.spike_thrust_damage[holding_trap.trap_level+1])
 	else:
+		selectedspike_button.visible = false
+		selectedspike_cost_cd_label.visible = false
+		selected_damage_passive_label_2.visible = false
+		selected_damage_thrust_label_2.visible = false
 		selectedspikecost_cd_value_label.visible = false
 		selectedspike_damage_passive_value_label_2.visible = false
 		selectedspike_damage_thrustvalue_label_2.visible = false
@@ -253,6 +294,10 @@ func set_spike_upgrade_info(holding_trap: Node3D) -> void:
 @onready var selected_arrow_fire_rate_value_label_2: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowFireRateValueLabel2
 @onready var selected_arrow_damagevalue_label: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowDamagevalueLabel
 @onready var selected_arrow_damagevalue_label_2: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowDamagevalueLabel2
+@onready var selected_arrow_cost_cd_label: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowCostCDLabel
+@onready var selected_arrow_fire_rate_label_2: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowFireRateLabel2
+@onready var selected_arrow_damage_label_2: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowDamageLabel2
+@onready var selected_arrow_button: Button = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/SelectedArrowButton
 
 func set_arrow_upgrade_info(holding_trap: Node3D) -> void:
 	selected_arrow_info_container.visible = true
@@ -260,6 +305,10 @@ func set_arrow_upgrade_info(holding_trap: Node3D) -> void:
 	selected_arrow_fire_rate_value_label.text = str(1/holding_trap.arrow_fire_rate[holding_trap.trap_level]) + " Shots / Sec"
 	selected_arrow_damagevalue_label.text = str(holding_trap.arrow_damage[holding_trap.trap_level])
 	if holding_trap.trap_level < 2:
+		selected_arrow_button.visible = true
+		selected_arrow_cost_cd_label.visible = true
+		selected_arrow_fire_rate_label_2.visible = true
+		selected_arrow_damage_label_2.visible = true
 		selected_arrowcost_cd_value_label.visible = true
 		selected_arrowcost_cd_value_label.text = str(holding_trap.trap_cost[holding_trap.trap_level+1])
 		selected_arrow_fire_rate_value_label_2.visible = true
@@ -267,6 +316,10 @@ func set_arrow_upgrade_info(holding_trap: Node3D) -> void:
 		selected_arrow_damagevalue_label_2.visible = true
 		selected_arrow_damagevalue_label_2.text = str(holding_trap.arrow_damage[holding_trap.trap_level+1])
 	else:
+		selected_arrow_button.visible = false
+		selected_arrow_cost_cd_label.visible = false
+		selected_arrow_fire_rate_label_2.visible = false
+		selected_arrow_damage_label_2.visible = false
 		selected_arrowcost_cd_value_label.visible = false
 		selected_arrow_fire_rate_value_label_2.visible = false
 		selected_arrow_damagevalue_label_2.visible = false
@@ -275,16 +328,46 @@ func set_arrow_upgrade_info(holding_trap: Node3D) -> void:
 @onready var selected_mudcost_cd_value_label: Label = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedMudcostCDValueLabel
 @onready var selected_mud_speed_reduce_value_label: Label = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedMudSpeedReduceValueLabel
 @onready var selected_mud_speed_reduce_value_label_2: Label = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedMudSpeedReduceValueLabel2
+@onready var selected_mud_cost_cd_label: Label = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedMudCostCDLabel
+@onready var selected_mud_speed_reduce_label_2: Label = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedMudSpeedReduceLabel2
+@onready var selected_mud_button: Button = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/SelectedMudButton
 
 func set_mud_upgrade_info(holding_trap: Node3D):
 	selected_mud_info_container.visible = true
 	selected_mud_level_value_label.text = str(holding_trap.trap_level+1)
 	selected_mud_speed_reduce_value_label.text = str(int(100*holding_trap.speed_reduce_percent[holding_trap.trap_level])) +"%"
 	if holding_trap.trap_level < 2:
+		selected_mud_cost_cd_label.visible = true
+		selected_mud_speed_reduce_label_2.visible = true
+		selected_mud_button.visible = true
 		selected_mudcost_cd_value_label.visible = true
 		selected_mudcost_cd_value_label.text = str(holding_trap.trap_cost[holding_trap.trap_level+1])
 		selected_mud_speed_reduce_value_label_2.visible = true
 		selected_mud_speed_reduce_value_label_2.text = str(int(100*holding_trap.speed_reduce_percent[holding_trap.trap_level+1])) +"%"
 	else:
+		selected_mud_cost_cd_label.visible = false
+		selected_mud_speed_reduce_label_2.visible = false
+		selected_mud_button.visible = false
 		selected_mudcost_cd_value_label.visible = false
 		selected_mud_speed_reduce_value_label_2.visible = false
+
+func _on_button_pressed() -> void:
+	if holding_trap:
+		if holding_trap.trap_level < 2:
+			if bankquota.gold >= holding_trap.trap_cost[holding_trap.trap_level+1]:
+				bankquota.gold -= holding_trap.trap_cost[holding_trap.trap_level+1]
+				holding_trap.upgrade()
+				show_selected_trap(holding_trap)
+			else:
+				selectedspike_button.self_modulate = Color.RED
+				selected_arrow_button.self_modulate = Color.RED
+				selected_mud_button.self_modulate = Color.RED
+				await get_tree().create_timer(0.05).timeout
+				selectedspike_button.self_modulate = Color.WHITE
+				selected_arrow_button.self_modulate = Color.WHITE
+				selected_mud_button.self_modulate = Color.WHITE
+
+func flash_button(button_2_flash: Button) -> void:
+	button_2_flash.self_modulate = Color.RED
+	await get_tree().create_timer(0.05).timeout
+	button_2_flash.self_modulate = Color.WHITE

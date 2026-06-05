@@ -13,9 +13,73 @@ albedo_color = Color(1, 0.3466667, 0.01999998, 1)
 material = SubResource("StandardMaterial3D_2krap")
 size = Vector3(2, 1, 2)
 
+[sub_resource type="Animation" id="Animation_6rcrm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.005, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2krap"]
+resource_name = "placed"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.257, 0), Vector3(0, 0.2, 0), Vector3(0, 0.005, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.08726646, 0, 0), Vector3(-0.08726646, 0, 0.08726646), Vector3(0.08726646, 0, 0), Vector3(-0.08726646, 0, -0.08726646), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6rcrm"]
+_data = {
+&"RESET": SubResource("Animation_6rcrm"),
+&"placed": SubResource("Animation_2krap")
+}
+
 [node name="Mud_trap" unique_id=305420928 groups=["mudtrapwinfo"] instance=ExtResource("1_pq6p4")]
 script = ExtResource("2_2krap")
 trap_cost = [49, 100, 200]
+
+[node name="FindEnemyArea3D" parent="." index="1" unique_id=12138510]
+monitoring = false
 
 [node name="SelectMeArea3D" type="Area3D" parent="." index="2" unique_id=483793217]
 collision_layer = 64
@@ -32,5 +96,9 @@ transparency = 0.55
 cast_shadow = 0
 mesh = SubResource("BoxMesh_6rcrm")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4" unique_id=1841629395]
+libraries/ = SubResource("AnimationLibrary_6rcrm")
+
 [connection signal="area_entered" from="FindEnemyArea3D" to="." method="_on_find_enemy_area_3d_area_entered"]
 [connection signal="area_exited" from="FindEnemyArea3D" to="." method="_on_find_enemy_area_3d_area_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

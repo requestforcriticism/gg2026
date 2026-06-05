@@ -111,21 +111,25 @@ func do_state_stuff(delta) -> void:
 		animated_sprite_3d.play(figure_out_travel_animation())
 		animated_sprite_3d.visible = true
 		if progress_ratio == 1.0:
-			if get_parent().my_going_forward_mine.current_gold > 0:
-				current_base_speed = 0.0
-				current_speed = current_base_speed
-				find_dirt_block_area_3d.monitoring = false
-				state = ENEMY_STATE.MINING
-				find_dirt_block_area_3d.monitoring = false
-				to_next_goldmine()
-			elif get_parent().my_going_forward_mine.current_gold == 0:
-				if get_parent().my_going_forward_mine.closing:
-					return
+			if get_parent().my_going_forward_mine:
+				if get_parent().my_going_forward_mine.current_gold > 0:
+					current_base_speed = 0.0
+					current_speed = current_base_speed
+					find_dirt_block_area_3d.monitoring = false
+					state = ENEMY_STATE.MINING
+					find_dirt_block_area_3d.monitoring = false
+					to_next_goldmine()
+				elif get_parent().my_going_forward_mine.current_gold == 0:
+					if get_parent().my_going_forward_mine.closing:
+						return
+					else:
+						to_next_path()
+						progress_ratio = 0.0
 				else:
-					to_next_path()
-					progress_ratio = 0.0
+					print("Something went wrong switching to next layer")
 			else:
-				print("Something went wrong switching to next layer")
+				to_next_path()
+				progress_ratio = 0.0
 	elif state == ENEMY_STATE.MINING:
 		h_offset = 0.0
 		figure_out_mining_animation()

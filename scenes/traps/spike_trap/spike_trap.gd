@@ -6,10 +6,17 @@ extends "res://scenes/traps/spike_trap/spike_trap_base.gd"
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var spike_buildup_timer: Timer = $SpikeBuildupTimer
+@onready var initialdetect_area_3d: Area3D = $InitialdetectArea3D
 
 var enemies_on_trap: Array = []
 var spikes_active := false
 var trap_level := 0
+
+func _ready() -> void:
+	animation_player.play("placed")
+
+func upgrade() -> void:
+	trap_level += 1
 
 func _on_initialdetect_area_3d_area_entered(area: Area3D) -> void:
 	if area:
@@ -52,11 +59,13 @@ func spike_thrust() -> void:
 			enemies_on_trap.erase(i)
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "spike_buildup":
+	if anim_name == "placed":
+		initialdetect_area_3d.monitoring = true
+	elif anim_name == "spike_buildup":
 		spike_buildup_timer.stop()
 		animation_player.play("spike_thrust")
 		spike_thrust()
-	if anim_name == "spike_thrust":
+	elif anim_name == "spike_thrust":
 		if enemies_on_trap:
 			animation_player.play("spike_buildup")
 			spike_buildup_timer.start()
