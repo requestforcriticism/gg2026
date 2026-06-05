@@ -35,7 +35,7 @@ func reorg_children()-> void:
 
 func purchase_items(enemy:Object,gold_earned:int,current_hp:float,max_hp:int, damage_taken:Array,dam_take_index:Array, items_purchased:Array) -> void:
 	if gold_earned > 0:
-		if current_hp < floor(max_hp/2):
+		if current_hp < floor(float(max_hp/2)):
 			enemy.purchase_health_potion()
 			gold_earned -= 1
 			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)

@@ -36,6 +36,7 @@ var zoom_end_value: float
 var mask_reset = 0
 var mask_Traps = 1
 var mask_Ability = 5
+var mask_Select_Traps = 7
 
 var Layer_pos := [Vector3(10,22.5,10),Vector3(2.5,-14.5,2.5)]
 var Layer_size := [11.0,16.0]
@@ -62,6 +63,8 @@ func _process(delta: float) -> void:
 			gridmap_collision()
 		elif collider is CSGPolygon3D:
 			csgpoly3d_collision(collider)
+		elif collider is Node3D:
+			print(collider)
 	else:
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
@@ -86,6 +89,7 @@ func csgpoly3d_collision(collider) -> void:
 			var Path3Doffset = collider.get_parent().curve.get_closest_offset(local_pos)
 			trap_ability_manager.activate_ability(selected_Ability,Path3Doffset,collider.get_parent())
 			end_select_trap_ability_check()
+			looking_4_selectable_traps()
 
 func gridmap_collision() -> void:
 	var collision_point = ray_cast_3d.get_collision_point()
@@ -126,6 +130,7 @@ func put_the_trap(tile_position,cell) -> void:
 		if selected_Trap:
 			trap_ability_manager.build_trap(selected_Trap,tile_position,cell,trap_rotation)
 			end_select_trap_ability_check()
+			looking_4_selectable_traps()
 
 func check_dirk_block_stuff(new_collision_point, cell) -> Array:
 	var diff:Vector3 = gridmap.map_to_local(cell)-new_collision_point
@@ -180,6 +185,8 @@ func check_for_arrow_trap(cell) -> Array:
 func check_cancel_select() -> void:
 	if Input.is_action_just_pressed("CancelSelection"):
 			end_select_trap_ability_check()
+			looking_4_selectable_traps()
+			ui.close_info_windows()
 
 func check_change_layer() -> void:
 	if Input.is_action_just_pressed("Layer_1"):
@@ -201,6 +208,7 @@ func change_layer_stuff() -> void:
 	camera_moving_to = Layer_pos[camera_on_layer-1]
 	camera_size_to = Layer_size[camera_on_layer-1]
 	end_select_trap_ability_check()
+	looking_4_selectable_traps()
 
 func move_camera() -> void:
 	if camera_moving_pos:
@@ -303,7 +311,7 @@ func add_trap_placement_options() -> void:
 				for j in range(0,rotations):
 					var good_2_go := true
 					new_trap_avail_spot = selected_Trap_example.instantiate()
-					var trap_rotation = 0
+					trap_rotation = 0
 					trap_position = gridmap.map_to_local(i)
 					if groups.has("arrow"):
 						if !check_for_arrow_trap(i)[1]:
@@ -337,6 +345,9 @@ func end_select_trap_ability_check() -> void:
 	selected_Trap = null
 	ray_cast_3d.collision_mask = mask_reset
 	get_tree().call_group("example", "queue_free")
+
+func looking_4_selectable_traps() -> void:
+	ray_cast_3d.set_collision_mask_value(mask_Select_Traps,true)
 
 func mouse_raycast() -> void:
 	var mouse_position: Vector2 = get_viewport().get_mouse_position()

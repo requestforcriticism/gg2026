@@ -8,7 +8,7 @@ var direction_x := "up"
 func _physics_process(delta: float) -> void:
 	var mat: StandardMaterial3D = mesh.surface_get_material(0)
 	mesh.surface_get_material(0)
-
+	
 	if mat && self.get_parent() == get_tree().get_first_node_in_group("mudtrap"):
 		if mat.uv1_scale.y >= scale_up - .01:
 			direction_y = "down"

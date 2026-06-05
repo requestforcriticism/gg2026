@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://11dm46vkohnw"]
 
 [ext_resource type="Script" uid="uid://d3nsuuqk6yasx" path="res://scenes/ray_picker_camera/ray_picker_camera.gd" id="1_gtjps"]
-[ext_resource type="PackedScene" uid="uid://bw7q1sdr8w8fe" path="res://scenes/traps/spike_trap/spike_trap_available_spot.tscn" id="2_x4lu3"]
 
 [node name="RayPickerCamera" type="Camera3D" unique_id=607457684]
 transform = Transform3D(0.70710677, -0.59966063, 0.3747095, 0, 0.5299193, 0.8480481, -0.70710677, -0.59966063, 0.3747095, 0, 0, 0)
@@ -9,7 +8,7 @@ projection = 1
 size = 11.0
 far = 834.52
 script = ExtResource("1_gtjps")
-spike_trap_avail = ExtResource("2_x4lu3")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=1424627951]
 collision_mask = 0
+collide_with_areas = true

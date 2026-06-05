@@ -3,5 +3,16 @@
 [ext_resource type="PackedScene" uid="uid://dax8c54rgnld1" path="res://scenes/traps/arrow_trap/arrow_trap_base.tscn" id="1_plpxn"]
 [ext_resource type="Script" uid="uid://py2ww8m8ihgi" path="res://scenes/traps/arrow_trap/arrow_trap.gd" id="2_ixn2o"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ixn2o"]
+size = Vector3(1.9, 0.1, 1.9)
+
 [node name="ArrowTrap" unique_id=1486655462 instance=ExtResource("1_plpxn")]
 script = ExtResource("2_ixn2o")
+
+[node name="SelectMeArea3D" type="Area3D" parent="." index="5" unique_id=666844352]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SelectMeArea3D" index="0" unique_id=1384813755]
+shape = SubResource("BoxShape3D_ixn2o")
+debug_color = Color(0.92969745, 0.26607504, 0, 0.41960785)

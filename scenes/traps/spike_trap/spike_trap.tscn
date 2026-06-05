@@ -56,6 +56,9 @@ _data = {
 &"spike_thrust": SubResource("Animation_b67sa")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_b67sa"]
+size = Vector3(1.9, 0.1, 1.9)
+
 [node name="SpikeTrap" unique_id=1269147494 groups=["spikewinfo"] instance=ExtResource("1_mxevx")]
 script = ExtResource("2_b67sa")
 trap_cost = [51, 100, 200]
@@ -72,6 +75,14 @@ autoplay = &"RESET"
 
 [node name="SpikeBuildupTimer" type="Timer" parent="." index="3" unique_id=800621015 groups=["trap"]]
 wait_time = 0.1
+
+[node name="SelectMeArea3D" type="Area3D" parent="." index="4" unique_id=594560971]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SelectMeArea3D" index="0" unique_id=959129409]
+shape = SubResource("BoxShape3D_b67sa")
+debug_color = Color(0.92969745, 0.26607504, 0, 0.41960785)
 
 [connection signal="area_entered" from="InitialdetectArea3D" to="." method="_on_initialdetect_area_3d_area_entered"]
 [connection signal="area_exited" from="InitialdetectArea3D" to="." method="_on_initialdetect_area_3d_area_exited"]

@@ -21,6 +21,8 @@ signal ability_select(A2d)
 @onready var spike_trapinfo: Node3D = $trap_info/SpikeTrapinfo
 @onready var arrow_trap_baseinfo: Node3D = $trap_info/ArrowTrapBaseinfo
 @onready var mud_trapinfo: Node3D = $trap_info/MudTrapinfo
+@onready var boulder_ability_baseinfo: PathFollow3D = $trap_info/BoulderAbilityBaseinfo
+@onready var dirt_block_ability_baseinfo: Node3D = $trap_info/DirtBlock_ability_baseinfo
 @onready var spikecost_label: Label = $TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton/MarginContainer/CoinCost/spikecostLabel
 @onready var arrowcost_label: Label = $TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton/MarginContainer/CoinCost/arrowcostLabel
 @onready var mudcost_label: Label = $TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton/MarginContainer/CoinCost/mudcostLabel
@@ -33,6 +35,12 @@ signal ability_select(A2d)
 @onready var gold_label: Label = $Gold_Quota/GoldLabel
 @onready var quota_label: Label = $Gold_Quota/QuotaLabel
 @onready var stolen_label: Label = $HumanStole/StolenLabel
+
+@onready var spike_info_container: PanelContainer = $TrapAbilityOption/SpikeInfoContainer
+@onready var arrow_info_container: PanelContainer = $TrapAbilityOption/ArrowInfoContainer
+@onready var mud_info_container: PanelContainer = $TrapAbilityOption/MudInfoContainer
+@onready var boulder_info_container: PanelContainer = $TrapAbilityOption/BoulderInfoContainer
+@onready var wall_info_container: PanelContainer = $TrapAbilityOption/WallInfoContainer
 
 var ability_cooldown := 15
 var boulder_cooldown :int
@@ -76,22 +84,84 @@ func set_quota_label(earned_for_quota, current_quota) -> void:
 func set_stolen_label(gold) -> void:
 	$HumanStole/StolenLabel.text  = "Stolen from Humans: " + str(gold)
 
+@onready var spike_level_value_label: Label = $TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/spikeLevelValueLabel
+@onready var spikecost_cd_value_label: Label = $TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/spikecostCDValueLabel
+@onready var spike_damage_passive_value_label: Label = $TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/spikeDamagePassiveValueLabel
+@onready var spike_damage_thrustvalue_label: Label = $TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/spikeDamageThrustvalueLabel
+
 func _on_spike_trap_pressed() -> void:
+	close_info_windows()
+	set_spike_info(1) # 1 is base level
+	spike_info_container.visible= true
 	trap_select.emit(spike_trap, spike_trap_example)
 
+func set_spike_info(level:int) -> void:
+	spike_level_value_label.text = str(level)
+	spikecost_cd_value_label.text = str(spike_trapinfo.trap_cost[level-1])
+	spike_damage_passive_value_label.text = str(spike_trapinfo.passive_spike_buildup_damage[level-1]) + " / 0.1 Sec"
+	spike_damage_thrustvalue_label.text = str(spike_trapinfo.spike_thrust_damage[level-1])
+
+@onready var arrow_level_value_label: Label = $TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/ArrowLevelValueLabel
+@onready var arrowcost_cd_value_label: Label = $TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/ArrowcostCDValueLabel
+@onready var arrow_fire_rate_value_label: Label = $TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/ArrowFireRateValueLabel
+@onready var arrow_damagevalue_label: Label = $TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/ArrowDamagevalueLabel
+
 func _on_arrow_trap_button_pressed() -> void:
+	close_info_windows()
+	set_arrow_info(1) # 1 is base level
+	arrow_info_container.visible = true
 	trap_select.emit(arrow_trap, arrow_trap_example)
 
+func set_arrow_info(level:int) -> void:
+	arrow_level_value_label.text = str(level)
+	arrowcost_cd_value_label.text = str(arrow_trap_baseinfo.trap_cost[level-1])
+	arrow_fire_rate_value_label.text = str(arrow_trap_baseinfo.arrow_fire_rate[level-1]) + " Shots / Sec"
+	arrow_damagevalue_label.text = str(arrow_trap_baseinfo.arrow_damage[level-1])
+
+@onready var mud_level_value_label: Label = $TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer/MudLevelValueLabel
+@onready var mudcost_cd_value_label: Label = $TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer/MudcostCDValueLabel
+@onready var mud_speed_reduce_value_label: Label = $TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer/MudSpeedReduceValueLabel
+
 func _on_mud_trap_button_pressed() -> void:
+	close_info_windows()
+	set_mud_info(1) # 1 is base level
+	mud_info_container.visible = true
 	trap_select.emit(mud_trap, mud_trap_example)
 
+func set_mud_info(level:int) -> void:
+	mud_level_value_label.text = str(level)
+	mudcost_cd_value_label.text = str(mud_trapinfo.trap_cost[level-1])
+	mud_speed_reduce_value_label.text = str(int(100*mud_trapinfo.speed_reduce_percent[level-1])) +"%"
+
+@onready var boulder_level_value_label: Label = $TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer/BoulderLevelValueLabel
+@onready var bouldercost_cd_value_label: Label = $TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer/BouldercostCDValueLabel
+@onready var boulder_damage_value_label: Label = $TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer/BoulderDamageValueLabel
+@onready var boulder_stun_value_label: Label = $TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer/BoulderStunValueLabel
+
 func _on_boulder_ability_button_pressed() -> void:
+	close_info_windows()
+	set_boulder_info(1) # 1 is base level
+	boulder_info_container.visible = true
 	if boulder_ready:
 		ability_select.emit(boulder_ability, boulder_ability_example)
 
+func set_boulder_info(level:int) -> void:
+	bouldercost_cd_value_label.text = str(ability_cooldown) + " Sec"
+	boulder_damage_value_label.text = str(boulder_ability_baseinfo.damage[0]) #only one value
+	boulder_stun_value_label.text = str(boulder_ability_baseinfo.stun_time[0]) #only one value
+
+@onready var cost_cd_value_label: Label = $TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer/costCDValueLabel
+@onready var hp_value_label: Label = $TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer/HPValueLabel
+
 func _on_wall_ability_button_pressed() -> void:
+	close_info_windows()
+	wall_info_container.visible = true
 	if wall_ready:
 		trap_select.emit(dirt_wall_ability, dirt_wall_ability_example)
+
+func set_wall_info(level:int) -> void:
+	cost_cd_value_label.text = str(ability_cooldown) + " Sec"
+	hp_value_label.text = str(dirt_block_ability_baseinfo.Max_HP)
 
 func start_cooldown_timer(type:String) -> void:
 	if type == "dirtblock":
@@ -126,3 +196,10 @@ func _on_wall_ability_cooldown_timer_timeout() -> void:
 		wall_cooldown = ability_cooldown
 	else:
 		wall_ability_cooldown_timer.start()
+
+func close_info_windows() -> void:
+	spike_info_container.visible = false
+	arrow_info_container.visible = false
+	mud_info_container.visible = false
+	boulder_info_container.visible = false
+	wall_info_container.visible = false

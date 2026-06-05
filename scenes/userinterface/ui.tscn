@@ -14,8 +14,11 @@
 [ext_resource type="PackedScene" uid="uid://cyaegfakaq4pr" path="res://scenes/abilities/dirkblock/dirt_block_ability_base_example.tscn" id="9_xo44p"]
 [ext_resource type="PackedScene" uid="uid://bv3uj2kr2etuj" path="res://scenes/abilities/dirkblock/dirt_block_ability.tscn" id="10_uqdvs"]
 [ext_resource type="Texture2D" uid="uid://dler84m75hq1p" path="res://assets/visual/ui/Box.png" id="13_7cvrb"]
+[ext_resource type="PackedScene" uid="uid://bh5belcht22a2" path="res://scenes/abilities/boulder/boulder_ability_base.tscn" id="13_bgwt1"]
 [ext_resource type="Texture2D" uid="uid://bbmxcjgpfno3r" path="res://assets/visual/ui/keyboard_4.png" id="13_lox5b"]
 [ext_resource type="Texture2D" uid="uid://cv4c0upyax4sh" path="res://assets/visual/abilities/dirtwall.png" id="13_uqdvs"]
+[ext_resource type="PackedScene" uid="uid://bekowun0qq86y" path="res://scenes/abilities/dirkblock/dirt_block_ability_base.tscn" id="14_eucc2"]
+[ext_resource type="FontFile" uid="uid://dfdn7v8a7l5u1" path="res://assets/fonts/Macondo-Regular.ttf" id="14_euyg3"]
 [ext_resource type="Texture2D" uid="uid://bjhlsd61gkg43" path="res://assets/visual/misc/icon_coin.png" id="14_ys5vj"]
 [ext_resource type="Texture2D" uid="uid://6h3f8m6lhm5c" path="res://assets/visual/traps/arrows.png" id="15_lox5b"]
 [ext_resource type="Texture2D" uid="uid://dwhpvkd1dvykn" path="res://assets/visual/traps/mud trap.png" id="16_7cvrb"]
@@ -26,6 +29,27 @@
 [ext_resource type="Texture2D" uid="uid://cvnq4gd68a138" path="res://assets/visual/ui/keyboard_3.png" id="22_cgdo4"]
 [ext_resource type="PackedScene" uid="uid://dax8c54rgnld1" path="res://scenes/traps/arrow_trap/arrow_trap_base.tscn" id="25_0x7qu"]
 [ext_resource type="Texture2D" uid="uid://duq05tatx2w2g" path="res://assets/visual/misc/icon_scroll_letter_0.png" id="25_cgdo4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uqdvs"]
+font = ExtResource("14_euyg3")
+font_size = 24
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cgdo4"]
+font = ExtResource("14_euyg3")
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bgwt1"]
+font = ExtResource("14_euyg3")
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lox5b"]
+font = ExtResource("14_euyg3")
+font_size = 20
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_jsawn"]
 outline_size = 5
@@ -49,15 +73,10 @@ outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_eugoy"]
+font = ExtResource("14_euyg3")
 font_size = 32
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_uqdvs"]
-font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_lox5b"]
-font_color = Color(0, 0, 0, 1)
 
 [node name="UI" type="MarginContainer" unique_id=1166578692 groups=["UI"]]
 anchors_preset = 15
@@ -82,10 +101,418 @@ boulder_ability_example = ExtResource("4_bbqyl")
 dirt_wall_ability = ExtResource("10_uqdvs")
 dirt_wall_ability_example = ExtResource("9_xo44p")
 
+[node name="trap_info" type="Node" parent="." unique_id=1488011857]
+
+[node name="SpikeTrapinfo" parent="trap_info" unique_id=1269147494 instance=ExtResource("2_jsawn")]
+process_mode = 4
+visible = false
+
+[node name="InitialdetectArea3D" parent="trap_info/SpikeTrapinfo" index="1" unique_id=1843298355]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" parent="trap_info/SpikeTrapinfo/InitialdetectArea3D" index="0" unique_id=294820398]
+disabled = true
+
+[node name="SelectMeArea3D" parent="trap_info/SpikeTrapinfo" index="4" unique_id=594560971]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" parent="trap_info/SpikeTrapinfo/SelectMeArea3D" index="0" unique_id=959129409]
+disabled = true
+
+[node name="ArrowTrapBaseinfo" parent="trap_info" unique_id=1486655462 instance=ExtResource("25_0x7qu")]
+process_mode = 4
+visible = false
+
+[node name="MudTrapinfo" parent="trap_info" unique_id=305420928 instance=ExtResource("6_ojaxh")]
+visible = false
+
+[node name="FindEnemyArea3D" parent="trap_info/MudTrapinfo" index="1" unique_id=12138510]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" parent="trap_info/MudTrapinfo/FindEnemyArea3D" index="0" unique_id=1438138683]
+disabled = true
+
+[node name="SelectMeArea3D" parent="trap_info/MudTrapinfo" index="2" unique_id=483793217]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" parent="trap_info/MudTrapinfo/SelectMeArea3D" index="0" unique_id=2039127399]
+disabled = true
+
+[node name="BoulderAbilityBaseinfo" parent="trap_info" unique_id=1459297515 instance=ExtResource("13_bgwt1")]
+process_mode = 4
+visible = false
+
+[node name="DirtBlock_ability_baseinfo" parent="trap_info" unique_id=2016828014 instance=ExtResource("14_eucc2")]
+visible = false
+
+[node name="Area3D" parent="trap_info/DirtBlock_ability_baseinfo" index="1" unique_id=1151033018]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" parent="trap_info/DirtBlock_ability_baseinfo/Area3D" index="0" unique_id=1568775025]
+disabled = true
+
 [node name="TrapAbilityOption" type="VBoxContainer" parent="." unique_id=536935284]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
+
+[node name="SpikeInfoContainer" type="PanelContainer" parent="TrapAbilityOption" unique_id=1185396837]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="border" type="TextureRect" parent="TrapAbilityOption/SpikeInfoContainer" unique_id=429917702]
+self_modulate = Color(1.8984075, 1.8984075, 1.8984075, 1)
+layout_mode = 2
+texture = ExtResource("13_7cvrb")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/SpikeInfoContainer" unique_id=1044863315]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TrapAbilityOption/SpikeInfoContainer/MarginContainer" unique_id=55159828]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer" unique_id=450082220]
+layout_mode = 2
+text = "Spike Trap"
+label_settings = SubResource("LabelSettings_uqdvs")
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer" unique_id=1131729207]
+layout_mode = 2
+columns = 2
+
+[node name="LevelLabel" type="Label" parent="TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1880298617]
+layout_mode = 2
+text = "Rank:"
+label_settings = SubResource("LabelSettings_cgdo4")
+
+[node name="spikeLevelValueLabel" type="Label" parent="TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=2110493266]
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_cgdo4")
+
+[node name="CostCDLabel" type="Label" parent="TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1576507774]
+layout_mode = 2
+text = "Gold Cost:"
+label_settings = SubResource("LabelSettings_bgwt1")
+
+[node name="spikecostCDValueLabel" type="Label" parent="TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=486121670]
+layout_mode = 2
+text = "15"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="DamagePassiveLabel" type="Label" parent="TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1413775116]
+layout_mode = 2
+text = "Spike Buildup Damage: "
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="spikeDamagePassiveValueLabel" type="Label" parent="TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1844064509]
+layout_mode = 2
+text = "99 / 0.1 Sec"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="DamageThrustLabel" type="Label" parent="TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1237623054]
+layout_mode = 2
+text = "Spike Thrust Damage: "
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="spikeDamageThrustvalueLabel" type="Label" parent="TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1063094194]
+layout_mode = 2
+text = "11"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="ArrowInfoContainer" type="PanelContainer" parent="TrapAbilityOption" unique_id=1668926850]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="border" type="TextureRect" parent="TrapAbilityOption/ArrowInfoContainer" unique_id=1970990429]
+self_modulate = Color(1.8984075, 1.8984075, 1.8984075, 1)
+layout_mode = 2
+texture = ExtResource("13_7cvrb")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/ArrowInfoContainer" unique_id=1451663772]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TrapAbilityOption/ArrowInfoContainer/MarginContainer" unique_id=1411455934]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer" unique_id=881326043]
+layout_mode = 2
+text = "Arrow Trap"
+label_settings = SubResource("LabelSettings_uqdvs")
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer" unique_id=1719585982]
+layout_mode = 2
+columns = 2
+
+[node name="LevelLabel" type="Label" parent="TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=59215197]
+layout_mode = 2
+text = "Rank:"
+label_settings = SubResource("LabelSettings_cgdo4")
+
+[node name="ArrowLevelValueLabel" type="Label" parent="TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1613978677]
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_cgdo4")
+
+[node name="CostCDLabel" type="Label" parent="TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=133791071]
+layout_mode = 2
+text = "Gold Cost:"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="ArrowcostCDValueLabel" type="Label" parent="TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1610313267]
+layout_mode = 2
+text = "15"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="ArrowFireRateLabel" type="Label" parent="TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1960271920]
+layout_mode = 2
+text = "Arrow Fire Rate: "
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="ArrowFireRateValueLabel" type="Label" parent="TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=646702736]
+layout_mode = 2
+text = "2 Shots / Sec"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="ArrowDamageLabel" type="Label" parent="TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1333304445]
+layout_mode = 2
+text = "Arrow Damage: "
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="ArrowDamagevalueLabel" type="Label" parent="TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=874875357]
+layout_mode = 2
+text = "20"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="MudInfoContainer" type="PanelContainer" parent="TrapAbilityOption" unique_id=1329272055]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="border" type="TextureRect" parent="TrapAbilityOption/MudInfoContainer" unique_id=1572206514]
+self_modulate = Color(1.8984075, 1.8984075, 1.8984075, 1)
+layout_mode = 2
+texture = ExtResource("13_7cvrb")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/MudInfoContainer" unique_id=1049709902]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TrapAbilityOption/MudInfoContainer/MarginContainer" unique_id=120898474]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer" unique_id=1250625310]
+layout_mode = 2
+text = "Mud Trap"
+label_settings = SubResource("LabelSettings_uqdvs")
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer" unique_id=639327374]
+layout_mode = 2
+columns = 2
+
+[node name="LevelLabel" type="Label" parent="TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=220598551]
+layout_mode = 2
+text = "Rank:"
+label_settings = SubResource("LabelSettings_cgdo4")
+
+[node name="MudLevelValueLabel" type="Label" parent="TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=2122777196]
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_cgdo4")
+
+[node name="CostCDLabel" type="Label" parent="TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1119050368]
+layout_mode = 2
+text = "Gold Cost:"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="MudcostCDValueLabel" type="Label" parent="TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=523488638]
+layout_mode = 2
+text = "15"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="SpeedReduceLabel" type="Label" parent="TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1531270714]
+layout_mode = 2
+text = "Speed Reduction: "
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="MudSpeedReduceValueLabel" type="Label" parent="TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1293921823]
+layout_mode = 2
+text = "40%"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="BoulderInfoContainer" type="PanelContainer" parent="TrapAbilityOption" unique_id=791678071]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="border" type="TextureRect" parent="TrapAbilityOption/BoulderInfoContainer" unique_id=1883605158]
+self_modulate = Color(1.8984075, 1.8984075, 1.8984075, 1)
+layout_mode = 2
+texture = ExtResource("13_7cvrb")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/BoulderInfoContainer" unique_id=1608009661]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TrapAbilityOption/BoulderInfoContainer/MarginContainer" unique_id=1879473293]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer" unique_id=271925700]
+layout_mode = 2
+text = "Boulder Ability"
+label_settings = SubResource("LabelSettings_uqdvs")
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer" unique_id=1426463250]
+layout_mode = 2
+columns = 2
+
+[node name="LevelLabel" type="Label" parent="TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1591325294]
+visible = false
+layout_mode = 2
+text = "Rank:"
+label_settings = SubResource("LabelSettings_cgdo4")
+
+[node name="BoulderLevelValueLabel" type="Label" parent="TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1261525972]
+visible = false
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_cgdo4")
+
+[node name="CostCDLabel" type="Label" parent="TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1977568169]
+layout_mode = 2
+text = "Cooldown:"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="BouldercostCDValueLabel" type="Label" parent="TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=2007340201]
+layout_mode = 2
+text = "15 sec"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="DamageLabel" type="Label" parent="TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=409263594]
+layout_mode = 2
+text = "Damage: "
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="BoulderDamageValueLabel" type="Label" parent="TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=749356319]
+layout_mode = 2
+text = "10"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="StunLabel" type="Label" parent="TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=423254423]
+layout_mode = 2
+text = "Stun Duration:"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="BoulderStunValueLabel" type="Label" parent="TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1121751681]
+layout_mode = 2
+text = "1 sec"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="WallInfoContainer" type="PanelContainer" parent="TrapAbilityOption" unique_id=1018652447]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="border" type="TextureRect" parent="TrapAbilityOption/WallInfoContainer" unique_id=148604941]
+self_modulate = Color(1.8984075, 1.8984075, 1.8984075, 1)
+layout_mode = 2
+texture = ExtResource("13_7cvrb")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/WallInfoContainer" unique_id=584146556]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TrapAbilityOption/WallInfoContainer/MarginContainer" unique_id=222705032]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer" unique_id=1942614105]
+layout_mode = 2
+text = "Dirt Wall"
+label_settings = SubResource("LabelSettings_uqdvs")
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer" unique_id=199534487]
+layout_mode = 2
+columns = 2
+
+[node name="LevelLabel" type="Label" parent="TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=624263803]
+visible = false
+layout_mode = 2
+text = "Rank:"
+label_settings = SubResource("LabelSettings_cgdo4")
+
+[node name="LevelValueLabel" type="Label" parent="TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=632553722]
+visible = false
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_cgdo4")
+
+[node name="CostCDLabel" type="Label" parent="TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=730110326]
+layout_mode = 2
+text = "Cooldown:"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="costCDValueLabel" type="Label" parent="TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1040537986]
+layout_mode = 2
+text = "15 sec"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="HPLabel" type="Label" parent="TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1203916304]
+layout_mode = 2
+text = "Health:"
+label_settings = SubResource("LabelSettings_lox5b")
+
+[node name="HPValueLabel" type="Label" parent="TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=225387830]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_lox5b")
 
 [node name="AbilityOptions" type="HBoxContainer" parent="TrapAbilityOption" unique_id=1879207190]
 layout_mode = 2
@@ -499,74 +926,6 @@ layout_mode = 2
 text = "Stolen from Humans: 0"
 label_settings = SubResource("LabelSettings_eugoy")
 
-[node name="SpikeInfoMarginContainer" type="MarginContainer" parent="." unique_id=1044863315]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="ColorRect" type="ColorRect" parent="SpikeInfoMarginContainer" unique_id=1453859972]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SpikeInfoMarginContainer" unique_id=55159828]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="SpikeInfoMarginContainer/VBoxContainer" unique_id=450082220]
-layout_mode = 2
-text = "Name"
-label_settings = SubResource("LabelSettings_uqdvs")
-
-[node name="GridContainer" type="GridContainer" parent="SpikeInfoMarginContainer/VBoxContainer" unique_id=1131729207]
-layout_mode = 2
-columns = 2
-
-[node name="TypeLabel" type="Label" parent="SpikeInfoMarginContainer/VBoxContainer/GridContainer" unique_id=1237623054]
-layout_mode = 2
-text = "Type: "
-label_settings = SubResource("LabelSettings_lox5b")
-
-[node name="Type2Label" type="Label" parent="SpikeInfoMarginContainer/VBoxContainer/GridContainer" unique_id=1063094194]
-layout_mode = 2
-text = "Ability"
-label_settings = SubResource("LabelSettings_lox5b")
-
-[node name="CostCDLabel" type="Label" parent="SpikeInfoMarginContainer/VBoxContainer/GridContainer" unique_id=1576507774]
-layout_mode = 2
-text = "Cooldown: "
-label_settings = SubResource("LabelSettings_lox5b")
-
-[node name="costCDValueLabel" type="Label" parent="SpikeInfoMarginContainer/VBoxContainer/GridContainer" unique_id=486121670]
-layout_mode = 2
-text = "15"
-label_settings = SubResource("LabelSettings_lox5b")
-
-[node name="DamagePassiveLabel" type="Label" parent="SpikeInfoMarginContainer/VBoxContainer/GridContainer" unique_id=1413775116]
-layout_mode = 2
-text = "Spike Buildup Damage: "
-label_settings = SubResource("LabelSettings_lox5b")
-
-[node name="DamagePassiveValueLabel" type="Label" parent="SpikeInfoMarginContainer/VBoxContainer/GridContainer" unique_id=1844064509]
-layout_mode = 2
-text = "2 damage / 0.1 Sec"
-label_settings = SubResource("LabelSettings_lox5b")
-
-[node name="trap_info" type="Node" parent="." unique_id=1488011857]
-
-[node name="SpikeTrapinfo" parent="trap_info" unique_id=1269147494 instance=ExtResource("2_jsawn")]
-process_mode = 4
-visible = false
-
-[node name="ArrowTrapBaseinfo" parent="trap_info" unique_id=1486655462 instance=ExtResource("25_0x7qu")]
-process_mode = 4
-visible = false
-
-[node name="MudTrapinfo" parent="trap_info" unique_id=305420928 instance=ExtResource("6_ojaxh")]
-process_mode = 4
-visible = false
-
 [connection signal="pressed" from="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton" to="." method="_on_boulder_ability_button_pressed"]
 [connection signal="timeout" from="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityCooldownTimer" to="." method="_on_boulder_ability_colldown_timer_timeout"]
 [connection signal="pressed" from="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton" to="." method="_on_wall_ability_button_pressed"]
@@ -574,3 +933,8 @@ visible = false
 [connection signal="pressed" from="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton" to="." method="_on_spike_trap_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton" to="." method="_on_arrow_trap_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton" to="." method="_on_mud_trap_button_pressed"]
+
+[editable path="trap_info/SpikeTrapinfo"]
+[editable path="trap_info/ArrowTrapBaseinfo"]
+[editable path="trap_info/MudTrapinfo"]
+[editable path="trap_info/DirtBlock_ability_baseinfo"]

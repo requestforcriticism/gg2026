@@ -88,8 +88,13 @@ func _physics_process(delta: float) -> void:
 	do_state_stuff(delta)
 	recover_speed()
 
-func get_stunned() -> void:
+func get_stunned(stun_time:float) -> void:
 	if state != ENEMY_STATE.RETURN_GOLD || state != ENEMY_STATE.MINING:
+		if items_purchased[3]:
+			stunned_timer.wait_time = stun_time/2.0
+		else:
+			stunned_timer.wait_time = stun_time
+		mining_timer.set_paused(true)
 		stunned_timer.start()
 		previous_state = state
 		state = ENEMY_STATE.STUNNED
@@ -225,7 +230,6 @@ func create_bag_to_drop() -> void:
 	get_parent().add_child(new_bag)
 
 func _on_mining_timer_timeout() -> void:
-	#print(mining_timer.wait_time)
 	if state == ENEMY_STATE.MINING:
 		if gold_in_bag < max_gold_capacity && get_parent().current_gold > 0:
 			$MineGold.visible = true
@@ -304,6 +308,7 @@ func _on_find_dirt_block_area_3d_area_exited(area: Area3D) -> void:
 func _on_stunned_timer_timeout() -> void:
 	state = previous_state
 	current_speed = current_base_speed
+	mining_timer.set_paused(false)
 
 func purchase_health_potion() -> void:
 	current_health += 5

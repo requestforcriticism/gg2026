@@ -17,8 +17,7 @@ func _on_area_entered(area: Area3D) -> void:
 			area.get_parent().current_health -= damage
 			area.get_parent().damage_taken[1] += damage
 			area.get_parent().damage_taken[2] += (1.0-area.get_parent().slowed_perc) * damage
-		#area.get_parent().current_health -= damage
-		
+	
 	queue_free()
 	
 

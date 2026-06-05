@@ -149,6 +149,7 @@ num6={
 3d_physics/layer_4="Gold Mine"
 3d_physics/layer_5="Path3D for Abilities"
 3d_physics/layer_6="Dirt Wall"
+3d_physics/layer_7="Selectable Trap"
 
 [physics]
 
