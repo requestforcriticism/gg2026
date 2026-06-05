@@ -28,14 +28,15 @@ glow_enabled = true
 
 [sub_resource type="Curve3D" id="Curve3D_m0bv2"]
 _data = {
-"points": PackedVector3Array(-0.0074237585, -0.1669319, -0.03605996, 0.0074237585, 0.1669319, 0.03605996, 1, 0, 0.2, -0.019382, -0.009424329, -0.15473366, 0.019382, 0.009424329, 0.15473366, 1, 0.3, 0.6, 0.0047204494, 0.09153143, -0.02549541, -0.0047204494, -0.09153143, 0.02549541, 1, 0, 0.9, 0, 0, 0, 0, 0, 0, 1, -0.5, 1),
-"tilts": PackedFloat32Array(0, 0, 0, 0)
+"points": PackedVector3Array(-0.0074237585, -0.1669319, -0.03605996, 0, 0.25, 0, 1, 0, 0.25, 0, 0, -0.25, 0, 0, 0.25, 0.75, 0.3, 0.6, 0, 0.25, 0, 0, 0.15, 0, 1, -0.5, 1),
+"tilts": PackedFloat32Array(0, 0, 0)
 }
-point_count = 4
+point_count = 3
+up_vector_enabled = false
 
 [sub_resource type="Curve3D" id="Curve3D_tf2q7"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3, -19.99, 3, 0.25, 0, 0.25, 0.25, 0, -0.25, 3, -19.99, -3, 0, 0, 0, 0, 0, 0, -2.5, -19.99, -3),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3, -19.99, 3, 0.25, 0, 0.25, 0.25, 0, -0.25, 3, -19.99, -3, 0, 0, 0, 0, 0, 0, -2.25, -19.99, -3),
 "tilts": PackedFloat32Array(0, 0, 0)
 }
 point_count = 3
@@ -43,16 +44,45 @@ point_count = 3
 [sub_resource type="Curve3D" id="Curve3D_h3e3j"]
 bake_interval = 0.01
 _data = {
-"points": PackedVector3Array(-0.3, 0, -0.3, 0, 0, 0, 3, -19.99, 3, 0.25, 0, 0.25, -0.25, 0, -0.25, -1, -19.99, 3, 0.25, 0, 0.25, -0.25, 0, -0.25, -1, -19.99, 1, 0.25, 0, 0.25, -0.25, 0, -0.25, -3, -19.99, 1, 0, 0, 0, 0.3, 0, 0.3, -3, -19.99, -2.5),
+"points": PackedVector3Array(-0.3, 0, -0.3, 0, 0, 0, 3, -19.99, 3, 0.25, 0, 0.25, -0.25, 0, -0.25, -1, -19.99, 3, 0.25, 0, 0.25, -0.25, 0, -0.25, -1, -19.99, 1, 0.25, 0, 0.25, -0.25, 0, -0.25, -3, -19.99, 1, 0, 0, 0, 0.3, 0, 0.3, -3, -19.99, -2.25),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
 point_count = 5
 
-[node name="Level" type="Node3D" unique_id=746977155 node_paths=PackedStringArray("gridmap", "mines_L1", "mines_L2")]
+[sub_resource type="Curve3D" id="Curve3D_vrc4q"]
+_data = {
+"points": PackedVector3Array(0.026490688, -0.15216064, 0.0012814999, 0, 0.25, 0, -2.25, -19.9, -3, 0.25, 0, 0, -0.25, 0, 0, -2.625, -19.6, -3.25, 0, 0.25, 0, 0, 0, 0, -3, -20.4, -3),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_x4oov"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0.25, 0, -3, -19.9, -2.25, 0, 0, 0.25, 0, 0, -0.25, -3.25, -19.6, -2.625, 0, 0.25, 0, 0, 0, 0, -3, -20.4, -3),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_b7m21"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5, -39.99, -5, -0.25, 0, -0.25, 0.25, 0, 0.25, -5, -39.99, 1, -0.25, 0, -0.25, 0.25, 0, 0.25, 1, -39.99, 1, -0.25, 0, -0.25, 0.25, 0, 0.25, 1, -39.99, 5, 0, 0, 0, 0, 0, 0, -4.2, -39.99, 5),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_pm6rs"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5, -39.99, -5, -0.25, 0, -0.25, 0.25, 0, 0.25, 5, -39.99, -5, 0.25, 0, -0.25, -0.25, 0, 0.25, 5, -39.99, -1, 0.25, 0, -0.25, -0.25, 0, 0.25, 1, -39.99, -1, -0.25, 0, 0.25, 0.25, 0, 0.25, 1, -39.99, 5, 0, 0, 0.25, 0.25, 0, 0.25, 5, -39.99, 5, 0, 0, 0, 0, 0, 0, 5, -39.99, 3.8),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[node name="Level" type="Node3D" unique_id=746977155 node_paths=PackedStringArray("gridmap", "mines_L1", "mines_L2", "mines_L3")]
 script = ExtResource("1_pe1ox")
 gridmap = NodePath("GridMap")
 mines_L1 = [NodePath("Layer1/GoldMineL1")]
 mines_L2 = [NodePath("Layer2/GoldMineL2")]
+mines_L3 = [NodePath("Layer3/GoldMineL3a"), NodePath("Layer3/GoldMineL3b")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=451302705]
 environment = SubResource("Environment_qkmgm")
@@ -88,26 +118,25 @@ spawn_rate = 1.0
 
 [node name="BaseEnemySpawnTimer" type="Timer" parent="EnemyManager" unique_id=1663667012]
 wait_time = 0.5
-one_shot = true
 autostart = true
 
 [node name="TrapAbilityManager" type="Node3D" parent="." unique_id=556410210]
 script = ExtResource("5_pe1ox")
 
 [node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("trap_ability_manager", "layer_nodes") instance=ExtResource("1_nbgty")]
-transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 2.5, -14.5, 2.5)
-size = 16.0
+transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 5.5, -27, 5.5)
+size = 21.0
 trap_ability_manager = NodePath("../TrapAbilityManager")
 single_point = ExtResource("7_m0bv2")
-layer_nodes = [NodePath("../Layer1"), NodePath("../Layer2")]
+layer_nodes = [NodePath("../Layer1"), NodePath("../Layer2"), NodePath("../Layer3")]
 
 [node name="GridMap" type="GridMap" parent="." unique_id=480385863 groups=["gridmap"]]
 mesh_library = ExtResource("1_h3e3j")
 cell_center_y = false
 data = {
-"cells": PackedInt32Array(65533, 65535, 1, 65534, 65535, 0, 65535, 65535, 0, 0, 65535, 0, 0, 0, 3, 65534, 0, 2, 65535, 0, 2, 65534, 1, 2, 65535, 1, 2, 1, 1, 2, 1, 0, 2, 1, 65535, 2, 1, 65534, 2, 0, 65534, 2, 65535, 65534, 2, 65534, 65534, 2, 65533, 0, 1, -655360, 1, 1441792, -589825, 1, 1441792, -655360, 0, 1441794, -589825, 0, 1441792, -589825, 65535, 262146, -655360, 65534, 1441792, -589825, 65534, 1441792, -655359, 65534, 1441792, -655359, 65535, 1441792, -655359, 1, 1441793, -589826, 1, 1441794, -589826, 0, 1441792, -589826, 65535, 1441792, -655358, 65534, 262146, -655358, 65535, 262146, -655358, 0, 262146, -655358, 1, 262146, -655358, 65533, 262146, -655359, 65533, 262146, -655360, 65533, 262146, -589825, 65533, 262146, -589826, 65533, 262146, -589827, 65533, 262146, -589827, 65534, 262146, -589827, 65535, 262146, -589827, 0, 262146, -589827, 1, 262146, -589827, 2, 262146, -589826, 2, 262146, -589825, 2, 262146, -655360, 2, 262146, -655359, 2, 262146, -655358, 2, 262146, -589826, 65534, 1441795, 0, 1, 2, -655360, 65535, 1441794, -655359, 0, 1441792)
+"cells": PackedInt32Array(65533, 65535, 1, 65534, 65535, 0, 65535, 65535, 0, 0, 65535, 0, 0, 0, 3, 65534, 0, 2, 65535, 0, 2, 65534, 1, 2, 65535, 1, 2, 1, 1, 2, 1, 0, 2, 1, 65535, 2, 1, 65534, 2, 0, 65534, 2, 65535, 65534, 2, 65534, 65534, 2, 65533, 0, 1, -655360, 1, 1441792, -589825, 1, 1441792, -655360, 0, 1441794, -589825, 0, 1441792, -589825, 65535, 262146, -655360, 65534, 1441792, -589825, 65534, 1441792, -655359, 65534, 1441792, -655359, 65535, 1441792, -655359, 1, 1441793, -589826, 1, 1441794, -589826, 0, 1441792, -589826, 65535, 1441792, -655358, 65534, 262146, -655358, 65535, 262146, -655358, 0, 262146, -655358, 1, 262146, -655358, 65533, 262146, -655359, 65533, 262146, -655360, 65533, 262146, -589825, 65533, 262146, -589826, 65533, 262146, -589827, 65533, 262146, -589827, 65534, 262146, -589827, 65535, 262146, -589827, 0, 262146, -589827, 1, 262146, -589827, 2, 262146, -589826, 2, 262146, -589825, 2, 262146, -655360, 2, 262146, -655359, 2, 262146, -655358, 2, 262146, -589826, 65534, 1441795, 0, 1, 2, -655360, 65535, 1441794, -655359, 0, 1441792, -1245185, 65535, 131074, -1245186, 65535, 131074, -1245186, 65534, 131074, -1245185, 65534, 131074, -1310720, 65534, 131074, -1310720, 65535, 131072, -1310720, 0, 131072, -1245185, 0, 131072, -1245186, 0, 131072, -1310720, 65532, 589826, -1245185, 65532, 589826, -1245186, 65532, 589826, -1245187, 65532, 589826, -1245188, 65532, 327682, -1310719, 65532, 589826, -1310718, 65532, 589826, -1310717, 65532, 589826, -1310717, 65535, 589826, -1310717, 65534, 589826, -1310717, 65533, 589826, -1310717, 0, 589826, -1310717, 1, 589826, -1310717, 2, 589826, -1310720, 3, 589826, -1310719, 3, 589826, -1310718, 3, 589826, -1310717, 3, 327682, -1245185, 3, 327682, -1245186, 3, 327682, -1245187, 3, 327682, -1245188, 65535, 327682, -1245188, 65534, 327682, -1245187, 65534, 131072, -1245187, 65533, 131072, -1245188, 65533, 327682, -1245188, 0, 327682, -1245188, 1, 327682, -1245188, 2, 327682, -1245188, 3, 327682, -1310719, 65534, 131074, -1310719, 65535, 131072, -1310719, 0, 131074, -1245186, 1, 131074, -1245185, 1, 131074, -1310720, 1, 131072, -1310719, 1, 131074, -1245186, 65533, 131072, -1245185, 65533, 131072, -1310720, 65533, 131072, -1310719, 65533, 131072, -1310718, 65533, 131072, -1310718, 65534, 131072, -1310718, 65535, 131072, -1310718, 0, 131074, -1310718, 1, 131072, -1310718, 2, 131072, -1310719, 2, 131072, -1310720, 2, 131072, -1245185, 2, 131072, -1245186, 2, 131072, -1245187, 2, 131072, -1245187, 1, 131074, -1245187, 0, 131072, -1245187, 65535, 131072)
 }
-metadata/_editor_floor_ = Vector3(0, -10, 0)
+metadata/_editor_floor_ = Vector3(0, -20, 0)
 
 [node name="SinglePointPath3D" parent="GridMap" unique_id=1139135948 instance=ExtResource("7_m0bv2")]
 
@@ -119,35 +148,82 @@ my_going_forward_first_path = NodePath("../Layer1/EnemyPathL1")
 
 [node name="EnemyPathL1" parent="Layer1" unique_id=1086139139 node_paths=PackedStringArray("my_going_forward_mine", "my_going_forward_nextpath", "my_going_back") instance=ExtResource("13_pm6rs")]
 my_going_forward_mine = NodePath("../GoldMineL1")
-my_going_forward_nextpath = [NodePath("../Enemy2NextLayerPath")]
+my_going_forward_nextpath = [NodePath("../Enemy2NextLayerL1Path")]
 my_going_back = [NodePath("../../EnemyCamp")]
 
 [node name="GoldMineL1" parent="Layer1" unique_id=532182191 node_paths=PackedStringArray("my_going_back") instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 my_going_back = [NodePath("../EnemyPathL1")]
-max_gold = 2
+max_gold = 1
 
-[node name="Enemy2NextLayerPath" parent="Layer1" unique_id=748768649 node_paths=PackedStringArray("my_going_forward_nextpath", "my_going_back") instance=ExtResource("13_pm6rs")]
+[node name="Enemy2NextLayerL1Path" parent="Layer1" unique_id=748768649 node_paths=PackedStringArray("my_going_forward_nextpath", "my_going_back") groups=["jumppath"] instance=ExtResource("13_pm6rs")]
 curve = SubResource("Curve3D_m0bv2")
 my_going_forward_nextpath = [NodePath("../../Layer2/EnemyPathL2a"), NodePath("../../Layer2/EnemyPathL2b")]
 my_going_back = [NodePath("../EnemyPathL1")]
 
+[node name="CSGPolygon3D" parent="Layer1/Enemy2NextLayerL1Path" index="0" unique_id=970710392]
+collision_layer = 0
+
 [node name="Layer2" type="Node3D" parent="." unique_id=1683890271]
 
-[node name="EnemyPathL2a" parent="Layer2" unique_id=1922126716 node_paths=PackedStringArray("my_going_forward_mine", "my_going_back") instance=ExtResource("13_pm6rs")]
+[node name="EnemyPathL2a" parent="Layer2" unique_id=1922126716 node_paths=PackedStringArray("my_going_forward_mine", "my_going_forward_nextpath", "my_going_back") instance=ExtResource("13_pm6rs")]
 curve = SubResource("Curve3D_tf2q7")
 my_going_forward_mine = NodePath("../GoldMineL2")
-my_going_back = [NodePath("../../Layer1/Enemy2NextLayerPath")]
+my_going_forward_nextpath = [NodePath("../Enemy2NextLayerL2aPath")]
+my_going_back = [NodePath("../../Layer1/Enemy2NextLayerL1Path")]
 
-[node name="EnemyPathL2b" parent="Layer2" unique_id=284922337 node_paths=PackedStringArray("my_going_forward_mine", "my_going_back") instance=ExtResource("13_pm6rs")]
+[node name="EnemyPathL2b" parent="Layer2" unique_id=284922337 node_paths=PackedStringArray("my_going_forward_mine", "my_going_forward_nextpath", "my_going_back") instance=ExtResource("13_pm6rs")]
 curve = SubResource("Curve3D_h3e3j")
 my_going_forward_mine = NodePath("../GoldMineL2")
-my_going_back = [NodePath("../../Layer1/Enemy2NextLayerPath")]
+my_going_forward_nextpath = [NodePath("../Enemy2NextLayerL2bPath")]
+my_going_back = [NodePath("../../Layer1/Enemy2NextLayerL1Path")]
 
 [node name="GoldMineL2" parent="Layer2" unique_id=430811579 node_paths=PackedStringArray("my_going_back") instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -20, -3)
 visible = false
 my_going_back = [NodePath("../EnemyPathL2a"), NodePath("../EnemyPathL2b")]
-max_gold = 200
+max_gold = 1
+
+[node name="Enemy2NextLayerL2aPath" parent="Layer2" unique_id=1657065064 node_paths=PackedStringArray("my_going_forward_nextpath", "my_going_back") groups=["jumppath"] instance=ExtResource("13_pm6rs")]
+curve = SubResource("Curve3D_vrc4q")
+my_going_forward_nextpath = [NodePath("../../Layer3/EnemyPathL3a"), NodePath("../../Layer3/EnemyPathL3b")]
+my_going_back = [NodePath("../EnemyPathL2a")]
+
+[node name="CSGPolygon3D" parent="Layer2/Enemy2NextLayerL2aPath" index="0" unique_id=970710392]
+collision_layer = 0
+
+[node name="Enemy2NextLayerL2bPath" parent="Layer2" unique_id=962848845 node_paths=PackedStringArray("my_going_forward_nextpath", "my_going_back") groups=["jumppath"] instance=ExtResource("13_pm6rs")]
+curve = SubResource("Curve3D_x4oov")
+my_going_forward_nextpath = [NodePath("../../Layer3/EnemyPathL3a"), NodePath("../../Layer3/EnemyPathL3b")]
+my_going_back = [NodePath("../EnemyPathL2b")]
+
+[node name="CSGPolygon3D" parent="Layer2/Enemy2NextLayerL2bPath" index="0" unique_id=970710392]
+collision_layer = 0
+
+[node name="Layer3" type="Node3D" parent="." unique_id=1246234534]
+
+[node name="EnemyPathL3a" parent="Layer3" unique_id=1689959665 node_paths=PackedStringArray("my_going_forward_mine", "my_going_back") instance=ExtResource("13_pm6rs")]
+curve = SubResource("Curve3D_b7m21")
+my_going_forward_mine = NodePath("../GoldMineL3a")
+my_going_back = [NodePath("../../Layer2/Enemy2NextLayerL2aPath"), NodePath("../../Layer2/Enemy2NextLayerL2bPath")]
+
+[node name="EnemyPathL3b" parent="Layer3" unique_id=1311437920 node_paths=PackedStringArray("my_going_forward_mine", "my_going_back") instance=ExtResource("13_pm6rs")]
+curve = SubResource("Curve3D_pm6rs")
+my_going_forward_mine = NodePath("../GoldMineL3b")
+my_going_back = [NodePath("../../Layer2/Enemy2NextLayerL2aPath"), NodePath("../../Layer2/Enemy2NextLayerL2bPath")]
+
+[node name="GoldMineL3a" parent="Layer3" unique_id=32221716 node_paths=PackedStringArray("my_going_back") instance=ExtResource("3_i166f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -40, 5)
+my_going_back = [NodePath("../EnemyPathL3a")]
+
+[node name="GoldMineL3b" parent="Layer3" unique_id=1176244053 node_paths=PackedStringArray("my_going_back") instance=ExtResource("3_i166f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -40, 3)
+my_going_back = [NodePath("../EnemyPathL3b")]
 
 [connection signal="timeout" from="EnemyManager/BaseEnemySpawnTimer" to="EnemyManager" method="spawn_base_enemy"]
+
+[editable path="Layer1/EnemyPathL1"]
+[editable path="Layer1/GoldMineL1"]
+[editable path="Layer1/Enemy2NextLayerL1Path"]
+[editable path="Layer2/Enemy2NextLayerL2aPath"]
+[editable path="Layer2/Enemy2NextLayerL2bPath"]

@@ -28,7 +28,8 @@ var camera_size_to :float
 var camera_move_speed := 10.0
 										#[min_x,max_x,min_z,max_z]
 var camera_strafe_values :Array[Array] = [[6.0,14.0,6.0,14.0]
-										,[-3.5,8.5,-3.5,8.5]]
+										,[-3.5,8.5,-3.5,8.5]
+										,[-2.2,13.75,-2.2,13.75]]
 var size_min := 3.0
 var size_max := 20.0
 var zoom_value := 3.0
@@ -41,8 +42,8 @@ var mask_Select_Traps = 7
 
 var holding_trap: Node3D
 
-var Layer_pos := [Vector3(10,22.5,10),Vector3(2.5,-14.5,2.5)]
-var Layer_size := [11.0,16.0]
+var Layer_pos := [Vector3(10,22.5,10),Vector3(2.5,-14.5,2.5),Vector3(5.5,-27,5.5)]
+var Layer_size := [11.0,16.0,21.0]
 
 func _ready() -> void:
 	ui.trap_select.connect(select_trap)
@@ -209,7 +210,8 @@ func check_change_layer() -> void:
 		camera_on_layer = 2
 		change_layer_stuff()
 	elif level.layer_unlocked >=3 && Input.is_action_just_pressed("Layer_3"):
-		pass
+		camera_on_layer = 3
+		change_layer_stuff()
 	elif level.layer_unlocked >=4 && Input.is_action_just_pressed("Layer_4"):
 		pass
 	elif Input.is_action_just_pressed("Layer_5"):
@@ -242,6 +244,7 @@ func strafe_camera(delta) ->void:
 	if direction != Vector3.ZERO:
 		camera_moving_pos = false
 		global_translate(direction * camera_move_speed * delta)
+		print(global_position)
 		global_position.x = clamp(global_position.x, camera_strafe_values[camera_on_layer-1][0], camera_strafe_values[camera_on_layer-1][1])
 		global_position.z = clamp(global_position.z, camera_strafe_values[camera_on_layer-1][2], camera_strafe_values[camera_on_layer-1][3])
 
@@ -291,11 +294,13 @@ func move_selected_trap_ability_holder() ->void:
 				i.position = project_position(get_viewport().get_mouse_position(), 2)
 			elif camera_on_layer == 2:
 				i.position = project_position(get_viewport().get_mouse_position(), 1.2)
+			elif camera_on_layer == 3:
+				i.position = project_position(get_viewport().get_mouse_position(), 1.2)
 
 func add_abilty_placement_options() -> void:
 	if selected_Ability_example:
 		for i in layer_nodes[camera_on_layer-1].get_children():
-			if i.is_in_group("enemypath"):
+			if i.is_in_group("enemypath") && !i.is_in_group("jumppath"):
 				var new_ability_avail_spot = selected_Ability_example.instantiate()
 				new_ability_avail_spot.spot_avail = true
 				i.add_child(new_ability_avail_spot)

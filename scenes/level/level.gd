@@ -1,7 +1,7 @@
 extends Node3D
 
 var layer_unlocked := 1
-var layers :=2
+var layers :=3
 
 @export var gridmap: GridMap
 @export var mines_L1 :Array[Path3D]
