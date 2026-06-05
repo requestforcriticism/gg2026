@@ -6,6 +6,13 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_2krap"]
 size = Vector3(1.9, 0.1, 1.9)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2krap"]
+albedo_color = Color(1, 0.3466667, 0.01999998, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6rcrm"]
+material = SubResource("StandardMaterial3D_2krap")
+size = Vector3(2, 1, 2)
+
 [node name="Mud_trap" unique_id=305420928 groups=["mudtrapwinfo"] instance=ExtResource("1_pq6p4")]
 script = ExtResource("2_2krap")
 trap_cost = [49, 100, 200]
@@ -17,6 +24,13 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SelectMeArea3D" index="0" unique_id=2039127399]
 shape = SubResource("BoxShape3D_2krap")
 debug_color = Color(0.92969745, 0.26607504, 0, 0.41960785)
+
+[node name="SelectedMesh" type="MeshInstance3D" parent="." index="3" unique_id=1291753922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
+transparency = 0.55
+cast_shadow = 0
+mesh = SubResource("BoxMesh_6rcrm")
 
 [connection signal="area_entered" from="FindEnemyArea3D" to="." method="_on_find_enemy_area_3d_area_entered"]
 [connection signal="area_exited" from="FindEnemyArea3D" to="." method="_on_find_enemy_area_3d_area_exited"]

@@ -59,6 +59,13 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_b67sa"]
 size = Vector3(1.9, 0.1, 1.9)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ixn2o"]
+albedo_color = Color(1, 0.3466667, 0.01999998, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_b67sa"]
+material = SubResource("StandardMaterial3D_ixn2o")
+size = Vector3(2, 1, 2)
+
 [node name="SpikeTrap" unique_id=1269147494 groups=["spikewinfo"] instance=ExtResource("1_mxevx")]
 script = ExtResource("2_b67sa")
 trap_cost = [51, 100, 200]
@@ -83,6 +90,13 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SelectMeArea3D" index="0" unique_id=959129409]
 shape = SubResource("BoxShape3D_b67sa")
 debug_color = Color(0.92969745, 0.26607504, 0, 0.41960785)
+
+[node name="SelectedMesh" type="MeshInstance3D" parent="." index="5" unique_id=563363524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
+transparency = 0.55
+cast_shadow = 0
+mesh = SubResource("BoxMesh_b67sa")
 
 [connection signal="area_entered" from="InitialdetectArea3D" to="." method="_on_initialdetect_area_3d_area_entered"]
 [connection signal="area_exited" from="InitialdetectArea3D" to="." method="_on_initialdetect_area_3d_area_exited"]

@@ -62,3 +62,13 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			spike_buildup_timer.start()
 		else:
 			spikes_active = false
+
+@onready var selected_mesh: MeshInstance3D = $SelectedMesh
+
+func selected() -> void:
+	if selected_mesh.visible == false:
+		selected_mesh.visible = true
+
+func deselected() -> void:
+	if selected_mesh.visible == true:
+		selected_mesh.visible = false

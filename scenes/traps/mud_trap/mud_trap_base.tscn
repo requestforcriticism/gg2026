@@ -36,7 +36,7 @@ curve = SubResource("Curve_xkrnr")
 [sub_resource type="BoxShape3D" id="BoxShape3D_xmin4"]
 size = Vector3(1.9, 1, 1.9)
 
-[node name="Mud_trap_base" type="Node3D" unique_id=305420928 groups=["mudtrap", "trap"]]
+[node name="Mud_trap_base" type="Node3D" unique_id=305420928 groups=["mud", "mudtrap", "trap"]]
 script = ExtResource("1_xmin4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=24714945]

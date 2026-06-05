@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://bwncq506vsoil"]
+
+[ext_resource type="FontFile" uid="uid://dfdn7v8a7l5u1" path="res://assets/fonts/Macondo-Regular.ttf" id="1_2vosu"]
+
+[resource]
+font = ExtResource("1_2vosu")
+font_size = 20
+font_color = Color(0.9999996, 0.6200975, 0.32415396, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)

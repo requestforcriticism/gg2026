@@ -115,7 +115,7 @@ func _on_arrow_trap_button_pressed() -> void:
 func set_arrow_info(level:int) -> void:
 	arrow_level_value_label.text = str(level)
 	arrowcost_cd_value_label.text = str(arrow_trap_baseinfo.trap_cost[level-1])
-	arrow_fire_rate_value_label.text = str(arrow_trap_baseinfo.arrow_fire_rate[level-1]) + " Shots / Sec"
+	arrow_fire_rate_value_label.text = str(1/arrow_trap_baseinfo.arrow_fire_rate[level-1]) + " Shots / Sec"
 	arrow_damagevalue_label.text = str(arrow_trap_baseinfo.arrow_damage[level-1])
 
 @onready var mud_level_value_label: Label = $TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer/MudLevelValueLabel
@@ -203,3 +203,88 @@ func close_info_windows() -> void:
 	mud_info_container.visible = false
 	boulder_info_container.visible = false
 	wall_info_container.visible = false
+	selected_spike_info_container.visible = false
+	selected_arrow_info_container.visible = false
+	selected_mud_info_container.visible = false
+
+@onready var selected_spike_info_container: PanelContainer = $TrapAbilityOption/SelectedSpikeInfoContainer
+@onready var selected_arrow_info_container: PanelContainer = $TrapAbilityOption/SelectedArrowInfoContainer
+@onready var selected_mud_info_container: PanelContainer = $TrapAbilityOption/SelectedMudInfoContainer
+
+func show_selected_trap(holding_trap: Node3D) -> void:
+	close_info_windows()
+	holding_trap.selected()
+	if holding_trap.is_in_group("spike"):
+		set_spike_upgrade_info(holding_trap)
+	elif holding_trap.is_in_group("arrow"):
+		set_arrow_upgrade_info(holding_trap)
+	elif holding_trap.is_in_group("mud"):
+		set_mud_upgrade_info(holding_trap)
+	else:
+		print(holding_trap," should not have been selected!")
+
+@onready var selectedspike_level_value_label: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedspikeLevelValueLabel
+@onready var selectedspikecost_cd_value_label: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedspikecostCDValueLabel
+@onready var selectedspike_damage_passive_value_label: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedspikeDamagePassiveValueLabel
+@onready var selectedspike_damage_passive_value_label_2: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedspikeDamagePassiveValueLabel2
+@onready var selectedspike_damage_thrustvalue_label: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedspikeDamageThrustvalueLabel
+@onready var selectedspike_damage_thrustvalue_label_2: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedspikeDamageThrustvalueLabel2
+
+func set_spike_upgrade_info(holding_trap: Node3D) -> void:
+	selected_spike_info_container.visible = true
+	selectedspike_level_value_label.text = str(holding_trap.trap_level+1)
+	selectedspike_damage_passive_value_label.text = str(holding_trap.passive_spike_buildup_damage[holding_trap.trap_level]) + " / 0.1 Sec"
+	selectedspike_damage_thrustvalue_label.text = str(holding_trap.spike_thrust_damage[holding_trap.trap_level])
+	if holding_trap.trap_level < 2:
+		selectedspikecost_cd_value_label.visible = true
+		selectedspikecost_cd_value_label.text = str(holding_trap.trap_cost[holding_trap.trap_level+1])
+		selectedspike_damage_passive_value_label_2.visible = true
+		selectedspike_damage_passive_value_label_2.text = str(holding_trap.passive_spike_buildup_damage[holding_trap.trap_level+1]) + " / 0.1 Sec"
+		selectedspike_damage_thrustvalue_label_2.visible = true
+		selectedspike_damage_thrustvalue_label_2.text = str(holding_trap.spike_thrust_damage[holding_trap.trap_level+1])
+	else:
+		selectedspikecost_cd_value_label.visible = false
+		selectedspike_damage_passive_value_label_2.visible = false
+		selectedspike_damage_thrustvalue_label_2.visible = false
+
+@onready var selected_arrow_level_value_label: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowLevelValueLabel
+@onready var selected_arrowcost_cd_value_label: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowcostCDValueLabel
+@onready var selected_arrow_fire_rate_value_label: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowFireRateValueLabel
+@onready var selected_arrow_fire_rate_value_label_2: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowFireRateValueLabel2
+@onready var selected_arrow_damagevalue_label: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowDamagevalueLabel
+@onready var selected_arrow_damagevalue_label_2: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowDamagevalueLabel2
+
+func set_arrow_upgrade_info(holding_trap: Node3D) -> void:
+	selected_arrow_info_container.visible = true
+	selected_arrow_level_value_label.text = str(holding_trap.trap_level+1)
+	selected_arrow_fire_rate_value_label.text = str(1/holding_trap.arrow_fire_rate[holding_trap.trap_level]) + " Shots / Sec"
+	selected_arrow_damagevalue_label.text = str(holding_trap.arrow_damage[holding_trap.trap_level])
+	if holding_trap.trap_level < 2:
+		selected_arrowcost_cd_value_label.visible = true
+		selected_arrowcost_cd_value_label.text = str(holding_trap.trap_cost[holding_trap.trap_level+1])
+		selected_arrow_fire_rate_value_label_2.visible = true
+		selected_arrow_fire_rate_value_label_2.text = str(1/holding_trap.arrow_fire_rate[holding_trap.trap_level+1]) + " Shots / Sec"
+		selected_arrow_damagevalue_label_2.visible = true
+		selected_arrow_damagevalue_label_2.text = str(holding_trap.arrow_damage[holding_trap.trap_level+1])
+	else:
+		selected_arrowcost_cd_value_label.visible = false
+		selected_arrow_fire_rate_value_label_2.visible = false
+		selected_arrow_damagevalue_label_2.visible = false
+
+@onready var selected_mud_level_value_label: Label = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedMudLevelValueLabel
+@onready var selected_mudcost_cd_value_label: Label = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedMudcostCDValueLabel
+@onready var selected_mud_speed_reduce_value_label: Label = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedMudSpeedReduceValueLabel
+@onready var selected_mud_speed_reduce_value_label_2: Label = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedMudSpeedReduceValueLabel2
+
+func set_mud_upgrade_info(holding_trap: Node3D):
+	selected_mud_info_container.visible = true
+	selected_mud_level_value_label.text = str(holding_trap.trap_level+1)
+	selected_mud_speed_reduce_value_label.text = str(int(100*holding_trap.speed_reduce_percent[holding_trap.trap_level])) +"%"
+	if holding_trap.trap_level < 2:
+		selected_mudcost_cd_value_label.visible = true
+		selected_mudcost_cd_value_label.text = str(holding_trap.trap_cost[holding_trap.trap_level+1])
+		selected_mud_speed_reduce_value_label_2.visible = true
+		selected_mud_speed_reduce_value_label_2.text = str(int(100*holding_trap.speed_reduce_percent[holding_trap.trap_level+1])) +"%"
+	else:
+		selected_mudcost_cd_value_label.visible = false
+		selected_mud_speed_reduce_value_label_2.visible = false

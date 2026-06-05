@@ -4,6 +4,7 @@ extends Camera3D
 @export var single_point: PackedScene
 @export var layer_nodes : Array[Node3D]
 
+@onready var UserInt = get_tree().get_first_node_in_group("UI")
 @onready var gridmap = get_tree().get_first_node_in_group("gridmap")
 @onready var level: Node3D = $".."
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
@@ -38,6 +39,8 @@ var mask_Traps = 1
 var mask_Ability = 5
 var mask_Select_Traps = 7
 
+var holding_trap: Node3D
+
 var Layer_pos := [Vector3(10,22.5,10),Vector3(2.5,-14.5,2.5)]
 var Layer_size := [11.0,16.0]
 
@@ -64,7 +67,7 @@ func _process(delta: float) -> void:
 		elif collider is CSGPolygon3D:
 			csgpoly3d_collision(collider)
 		elif collider is Node3D:
-			print(collider)
+			Node3d_collision(collider)
 	else:
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
@@ -80,7 +83,17 @@ func _input(event: InputEvent) -> void:
 		check_cancel_select()
 		check_change_layer()
 
-func csgpoly3d_collision(collider) -> void:
+func Node3d_collision(collider: Node3D) -> void:
+	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+	if Input.is_action_just_pressed("click"):
+		if collider.get_parent() != holding_trap:
+			if holding_trap:
+				holding_trap.deselected()
+				holding_trap = null
+		holding_trap = collider.get_parent()
+		UserInt.show_selected_trap(holding_trap)
+
+func csgpoly3d_collision(collider: CSGPolygon3D) -> void:
 	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
 	if Input.is_action_pressed("click"):  #&& trap selected from UI.
 		if selected_Ability:
@@ -185,8 +198,8 @@ func check_for_arrow_trap(cell) -> Array:
 func check_cancel_select() -> void:
 	if Input.is_action_just_pressed("CancelSelection"):
 			end_select_trap_ability_check()
-			looking_4_selectable_traps()
 			ui.close_info_windows()
+			looking_4_selectable_traps()
 
 func check_change_layer() -> void:
 	if Input.is_action_just_pressed("Layer_1"):
@@ -345,6 +358,9 @@ func end_select_trap_ability_check() -> void:
 	selected_Trap = null
 	ray_cast_3d.collision_mask = mask_reset
 	get_tree().call_group("example", "queue_free")
+	if holding_trap:
+		holding_trap.deselected()
+		holding_trap = null
 
 func looking_4_selectable_traps() -> void:
 	ray_cast_3d.set_collision_mask_value(mask_Select_Traps,true)
