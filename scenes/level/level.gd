@@ -9,22 +9,23 @@ var layers :=3
 @export var mines_L3 :Array[Path3D]
 
 @onready var enemy_manager: Node3D = $EnemyManager
+@onready var ladder_layer_2_sprite_mesh_instance: SpriteMeshInstance = $ladders/LadderLayer2SpriteMeshInstance
+@onready var ladder_layer_3_sprite_mesh_instance: SpriteMeshInstance = $ladders/LadderLayer3SpriteMeshInstance
 
-var all_mines :Array
-
+var all_mines: Array
+var max_gold_on_layer: Array[int]
+var current_gold_on_layer: Array[int]
+ 
 var floor_cells: Array[Vector3i] = []
 var floor_items: Array[int] = []
 var floor_all_cells: Array[Array]
 var floor_all_items: Array[Array]
 
-
-
-
-
-
-
 func _ready() -> void:
 	all_mines = [mines_L1, mines_L2, mines_L3]
+	max_gold_on_layer.resize(all_mines.size()) # Sets the size
+	max_gold_on_layer.fill(0)
+	
 	floor_all_cells.resize(all_mines.size())
 	floor_all_items.resize(all_mines.size())
 	place_mining_goblins()
@@ -38,6 +39,7 @@ func _ready() -> void:
 				floor_all_items[i-1].append(gridmap.get_cell_item(cell))
 	hide_floor()
 	show_floor(layer_unlocked)
+	get_max_gold()
 
 func hide_floor() -> void:
 	for i in floor_all_cells.size():
@@ -48,6 +50,10 @@ func show_floor(layer) -> void:
 	if layer_unlocked <= layers:
 		for i in range(floor_all_cells[layer-1].size()):
 			gridmap.set_cell_item(floor_all_cells[layer-1][i], floor_all_items[layer-1][i])
+	if layer == 2:
+		ladder_layer_2_sprite_mesh_instance.visible = true
+	elif layer == 3:
+		ladder_layer_3_sprite_mesh_instance.visible = true
 
 func show_unlocked_mines() -> void:
 	if layer_unlocked <= layers:
@@ -62,7 +68,7 @@ func check_layer_complete() -> void:
 	show_unlocked_mines()
 	show_floor(layer_unlocked)
 	place_mining_goblins()
-	enemy_manager.update_diff_curve()
+	get_max_gold()
 	if layer_unlocked > layers:
 		get_tree().paused = true
 		print("game over")
@@ -71,3 +77,13 @@ func place_mining_goblins() -> void:
 	if layer_unlocked <= layers:
 		for i in all_mines[layer_unlocked-1]:
 			i.place_mining_gob()
+
+func get_max_gold() -> void:
+	for i in all_mines[layer_unlocked-1]:
+		max_gold_on_layer[layer_unlocked-1] += i.max_gold
+
+func get_current_gold() -> float:
+	var total_gold_on_layer: float = 0.0
+	for i in all_mines[layer_unlocked-1]:
+		total_gold_on_layer += i.current_gold
+	return total_gold_on_layer

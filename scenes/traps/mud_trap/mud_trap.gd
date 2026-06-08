@@ -5,7 +5,7 @@ extends "res://scenes/traps/mud_trap/mud_trap_base.gd"
 @onready var find_enemy_area_3d: Area3D = $FindEnemyArea3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-var speed_reduce_percent := [0.4,0.6,0.8] # -40% speed
+@export var speed_reduce_percent := [0.4,0.6,0.8] #  % as a decimal
 
 var enemies_on_trap: Array = []
 var trap_level := 0

@@ -218,10 +218,10 @@ _data = {
 &"placed": SubResource("Animation_t7575")
 }
 
-[node name="ArrowTrap" unique_id=1486655462 instance=ExtResource("1_plpxn")]
+[node name="ArrowTrap" unique_id=1486655462 groups=["arrowtrapwinfo"] instance=ExtResource("1_plpxn")]
 script = ExtResource("2_ixn2o")
-trap_cost = [50, 100, 200]
-arrow_damage = [10, 16, 22]
+trap_cost = [18, 27, 35]
+arrow_damage = [18, 25, 29]
 arrow_fire_rate = [0.5, 0.4, 0.3]
 
 [node name="SelectMeArea3D" type="Area3D" parent="." index="5" unique_id=666844352]

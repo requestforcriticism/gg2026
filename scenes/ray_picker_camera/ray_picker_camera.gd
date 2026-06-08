@@ -203,19 +203,9 @@ func check_cancel_select() -> void:
 			looking_4_selectable_traps()
 
 func check_change_layer() -> void:
-	if Input.is_action_just_pressed("Layer_1"):
-		camera_on_layer = 1
+	if Input.is_action_just_pressed("toggle_layers"):
+		camera_on_layer = (camera_on_layer) % level.layer_unlocked + 1
 		change_layer_stuff()
-	elif level.layer_unlocked >=2 && Input.is_action_just_pressed("Layer_2"):
-		camera_on_layer = 2
-		change_layer_stuff()
-	elif level.layer_unlocked >=3 && Input.is_action_just_pressed("Layer_3"):
-		camera_on_layer = 3
-		change_layer_stuff()
-	elif level.layer_unlocked >=4 && Input.is_action_just_pressed("Layer_4"):
-		pass
-	elif Input.is_action_just_pressed("Layer_5"):
-		pass
 
 func change_layer_stuff() -> void:
 	camera_moving_zoom = false

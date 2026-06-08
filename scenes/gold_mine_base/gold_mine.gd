@@ -6,7 +6,7 @@ extends Path3D
 
 @export var max_gold: int = 1000
 
-@onready var level: Node3D = $"../.."
+@onready var level = get_tree().get_first_node_in_group("level")
 
 var closing := true 
 
@@ -28,7 +28,8 @@ func _physics_process(delta: float) -> void:
 
 func mine_empty():
 	$goldnode.visible = false
-	$Hole.visible = true
+	if !get_parent().is_in_group("layer3"):
+		$Hole.visible = true
 	$Label3D.visible = false
 	closing = false
 	level.check_layer_complete()

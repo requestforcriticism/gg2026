@@ -10,8 +10,8 @@ func _physics_process(delta: float) -> void:
 func _on_area_entered(area: Area3D) -> void:
 	if area.is_in_group("enemy"):
 		if area.get_parent().items_purchased[1]:
-			area.get_parent().current_health -= floori(damage/2)
-			area.get_parent().damage_taken[1] += floori(damage/2)
+			area.get_parent().current_health -= floor(damage/2)
+			area.get_parent().damage_taken[1] += floor(damage/2)
 			area.get_parent().damage_taken[2] += (1.0-area.get_parent().slowed_perc) * damage/2.0
 		else:
 			area.get_parent().current_health -= damage

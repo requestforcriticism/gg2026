@@ -76,7 +76,8 @@ _data = {
 
 [node name="Mud_trap" unique_id=305420928 groups=["mudtrapwinfo"] instance=ExtResource("1_pq6p4")]
 script = ExtResource("2_2krap")
-trap_cost = [49, 100, 200]
+trap_cost = [15, 22, 33]
+speed_reduce_percent = [0.3, 0.5, 0.7]
 
 [node name="FindEnemyArea3D" parent="." index="1" unique_id=12138510]
 monitoring = false

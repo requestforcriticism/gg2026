@@ -36,8 +36,8 @@ func spike_buildup_passive_damage() -> void:
 	for i in enemies_on_trap:
 		if i:
 			if i.items_purchased[0]:
-				i.current_health -= floori(passive_spike_buildup_damage[trap_level]/2)
-				i.damage_taken[0] += floori(passive_spike_buildup_damage[trap_level]/2)
+				i.current_health -= floor(passive_spike_buildup_damage[trap_level]/2)
+				i.damage_taken[0] += floor(passive_spike_buildup_damage[trap_level]/2)
 				i.damage_taken[2] += (1.0-i.slowed_perc) * passive_spike_buildup_damage[trap_level]/2.0
 			else:
 				i.current_health -= passive_spike_buildup_damage[trap_level]
@@ -50,8 +50,8 @@ func spike_thrust() -> void:
 	for i in enemies_on_trap:
 		if i:
 			if i.items_purchased[0]:
-				i.current_health -= floori(spike_thrust_damage[trap_level]/2)
-				i.damage_taken[0] += floori(spike_thrust_damage[trap_level]/2)
+				i.current_health -= floor(spike_thrust_damage[trap_level]/2)
+				i.damage_taken[0] += floor(spike_thrust_damage[trap_level]/2)
 			else:
 				i.current_health -= spike_thrust_damage[trap_level]
 				i.damage_taken[0] += spike_thrust_damage[trap_level]

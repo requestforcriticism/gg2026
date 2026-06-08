@@ -29,7 +29,6 @@
 [ext_resource type="Texture2D" uid="uid://cf506iuq0fxdk" path="res://assets/visual/ui/keyboard_1.png" id="18_dcdsw"]
 [ext_resource type="Texture2D" uid="uid://by2p3wx3m7umu" path="res://assets/visual/ui/keyboard_2.png" id="20_0x7qu"]
 [ext_resource type="Texture2D" uid="uid://cvnq4gd68a138" path="res://assets/visual/ui/keyboard_3.png" id="22_cgdo4"]
-[ext_resource type="PackedScene" uid="uid://dax8c54rgnld1" path="res://scenes/traps/arrow_trap/arrow_trap_base.tscn" id="25_0x7qu"]
 [ext_resource type="Texture2D" uid="uid://duq05tatx2w2g" path="res://assets/visual/misc/icon_scroll_letter_0.png" id="25_cgdo4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqdvs"]
@@ -119,12 +118,20 @@ monitorable = false
 [node name="CollisionShape3D" parent="trap_info/SpikeTrapinfo/SelectMeArea3D" index="0" unique_id=959129409]
 disabled = true
 
-[node name="ArrowTrapBaseinfo" parent="trap_info" unique_id=1486655462 instance=ExtResource("25_0x7qu")]
+[node name="ArrowTrapBaseinfo" parent="trap_info" unique_id=1486655462 instance=ExtResource("4_1w675")]
 process_mode = 4
 visible = false
 
+[node name="SelectMeArea3D" parent="trap_info/ArrowTrapBaseinfo" index="5" unique_id=666844352]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" parent="trap_info/ArrowTrapBaseinfo/SelectMeArea3D" index="0" unique_id=1384813755]
+disabled = true
+
 [node name="MudTrapinfo" parent="trap_info" unique_id=305420928 instance=ExtResource("6_ojaxh")]
 visible = false
+speed_reduce_percent = [0.4, 0.6, 0.8]
 
 [node name="FindEnemyArea3D" parent="trap_info/MudTrapinfo" index="1" unique_id=12138510]
 monitorable = false

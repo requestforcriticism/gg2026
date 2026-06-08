@@ -4,7 +4,7 @@ extends Node3D
 @export var tank_enemy_scene: PackedScene
 @export var fast_enemy_scene: PackedScene
 
-@export var difficulty_curve: Curve
+@export var difficulty_curves: Array[Curve]
 
 @export var base_enemy_base_speed := 2.0
 @export var base_enemy_max_health := 50
@@ -47,7 +47,8 @@ func spawn_base_enemy() -> void:
 	var new_enemy = base_enemy_scene.instantiate()
 	new_enemy.offset_value = randf_range(-offset,offset)
 	new_enemy.base_speed = base_enemy_base_speed
-	new_enemy.max_health = base_enemy_max_health * (1+level.layer_unlocked)
+	new_enemy.max_health = base_enemy_max_health * difficulty_curves[level.layer_unlocked-1].sample(sample_range())
+	print(new_enemy.max_health)
 	new_enemy.mining_rate = base_enemy_mining_rate
 	new_enemy.base_max_gold_capacity = base_enemy_base_max_gold_capacity
 	new_enemy.stunned_length = base_enemy_stunned_length
@@ -58,7 +59,7 @@ func spawn_tank_enemy() -> void:
 	var new_enemy = tank_enemy_scene.instantiate()
 	new_enemy.offset_value = randf_range(-offset,offset)
 	new_enemy.base_speed = base_enemy_base_speed
-	new_enemy.max_health = tank_enemy_max_health
+	new_enemy.max_health = tank_enemy_max_health * difficulty_curves[level.layer_unlocked-1].sample(sample_range())
 	new_enemy.mining_rate = tank_enemy_mining_rate
 	new_enemy.base_max_gold_capacity = tank_enemy_base_max_gold_capacity
 	new_enemy.stunned_length = tank_enemy_stunned_length
@@ -69,12 +70,12 @@ func spawn_fast_enemy() -> void:
 	var new_enemy = fast_enemy_scene.instantiate()
 	new_enemy.offset_value = randf_range(-offset,offset)
 	new_enemy.base_speed = fast_enemy_base_speed
-	new_enemy.max_health = fast_enemy_max_health
+	new_enemy.max_health = fast_enemy_max_health * difficulty_curves[level.layer_unlocked-1].sample(sample_range())
 	new_enemy.mining_rate = fast_enemy_mining_rate
 	new_enemy.base_max_gold_capacity = fast_enemy_base_max_gold_capacity
 	new_enemy.stunned_length = fast_enemy_stunned_length
 	
 	enemy_path_l_1.add_child(new_enemy)
 
-func update_diff_curve() -> void:
-	difficulty_curve
+func sample_range() -> float:
+	return (1.0 - (level.get_current_gold() / level.max_gold_on_layer[level.layer_unlocked - 1]))

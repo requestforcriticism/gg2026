@@ -80,7 +80,7 @@ top_radius = 0.1
 bottom_radius = 0.1
 height = 0.02
 
-[node name="ArrowTrapBase" type="Node3D" unique_id=1486655462 groups=["arrow", "arrowtrapwinfo", "trap"]]
+[node name="ArrowTrapBase" type="Node3D" unique_id=1486655462 groups=["arrow", "trap"]]
 script = ExtResource("1_x4lbm")
 trap_cost = null
 arrow_scene = ExtResource("2_x4lbm")

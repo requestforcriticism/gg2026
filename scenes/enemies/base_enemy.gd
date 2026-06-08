@@ -47,7 +47,6 @@ var items_purchased: Array = [0,0,0,0,0,0]
 @onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
 @onready var find_dirt_block_area_3d: Area3D = $FindDirtBlockArea3D
 
-
 var current_health: float:
 	set(health_in):
 		if current_health > 0:
@@ -160,6 +159,8 @@ func do_state_stuff(delta) -> void:
 				dropped_gold_bag.position.y = 1.25
 			dropped_gold_bag.visible = true
 		if progress_ratio == 0.0:
+			if get_parent().my_going_back[0] == null:
+				return
 			if get_parent().my_going_back[0].is_in_group("enemy_camp"):
 				current_base_speed = 0.0
 				current_speed = current_base_speed
