@@ -9,7 +9,10 @@ func move_me_to_next_path() -> void:
 		if i.get_class() == "PathFollow3D":
 			if i.progress_ratio == 1.0:
 				if my_going_forward_nextpath:
-					i.reparent(my_going_forward_nextpath.pick_random())
+					var forward_path: Path3D = my_going_forward_nextpath.pick_random()
+					if forward_path == null:
+						print(self)
+					i.reparent(forward_path)
 				else:
 					print("Might be the end of the game.")
 			elif i.progress_ratio == 0.0:

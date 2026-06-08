@@ -32,7 +32,7 @@ func mine_empty():
 	$Label3D.visible = false
 	closing = false
 	level.check_layer_complete()
-	
+
 func move_me_to_next_path() -> void:
 	for i in get_children():
 		if i.is_in_group("enemy"):

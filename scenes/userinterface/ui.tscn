@@ -107,7 +107,6 @@ process_mode = 4
 visible = false
 
 [node name="InitialdetectArea3D" parent="trap_info/SpikeTrapinfo" index="1" unique_id=1843298355]
-monitoring = false
 monitorable = false
 
 [node name="CollisionShape3D" parent="trap_info/SpikeTrapinfo/InitialdetectArea3D" index="0" unique_id=294820398]
@@ -128,7 +127,6 @@ visible = false
 visible = false
 
 [node name="FindEnemyArea3D" parent="trap_info/MudTrapinfo" index="1" unique_id=12138510]
-monitoring = false
 monitorable = false
 
 [node name="CollisionShape3D" parent="trap_info/MudTrapinfo/FindEnemyArea3D" index="0" unique_id=1438138683]
@@ -445,7 +443,7 @@ label_settings = SubResource("LabelSettings_lox5b")
 
 [node name="BoulderStunValueLabel" type="Label" parent="TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1121751681]
 layout_mode = 2
-text = "1 sec"
+text = "0.5 - 2 sec"
 label_settings = SubResource("LabelSettings_lox5b")
 
 [node name="WallInfoContainer" type="PanelContainer" parent="TrapAbilityOption" unique_id=1018652447]
@@ -608,9 +606,17 @@ layout_mode = 2
 text = "11"
 label_settings = ExtResource("17_yffys")
 
-[node name="SelectedspikeButton" type="Button" parent="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer" unique_id=1542462893]
+[node name="HBoxContainer" type="HBoxContainer" parent="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer" unique_id=1403769498]
+layout_mode = 2
+alignment = 1
+
+[node name="SelectedspikeButton" type="Button" parent="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1542462893]
 layout_mode = 2
 text = "Upgrade Trap"
+
+[node name="SellspikeButton" type="Button" parent="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=27917964]
+layout_mode = 2
+text = "Sell Trap: 99 Gold"
 
 [node name="SelectedArrowInfoContainer" type="PanelContainer" parent="TrapAbilityOption" unique_id=1264506030]
 visible = false
@@ -706,9 +712,17 @@ layout_mode = 2
 text = "20"
 label_settings = ExtResource("17_yffys")
 
-[node name="SelectedArrowButton" type="Button" parent="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer" unique_id=1315901538]
+[node name="HBoxContainer" type="HBoxContainer" parent="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer" unique_id=1204207360]
+layout_mode = 2
+alignment = 1
+
+[node name="SelectedArrowButton" type="Button" parent="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1315901538]
 layout_mode = 2
 text = "Upgrade Trap"
+
+[node name="SellArrowButton" type="Button" parent="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1715637183]
+layout_mode = 2
+text = "Sell Trap: 99 Gold"
 
 [node name="SelectedMudInfoContainer" type="PanelContainer" parent="TrapAbilityOption" unique_id=889483853]
 visible = false
@@ -784,9 +798,17 @@ layout_mode = 2
 text = "40%"
 label_settings = ExtResource("17_yffys")
 
-[node name="SelectedMudButton" type="Button" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer" unique_id=1364160738]
+[node name="HBoxContainer" type="HBoxContainer" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer" unique_id=1599208618]
+layout_mode = 2
+alignment = 1
+
+[node name="SelectedMudButton" type="Button" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1364160738]
 layout_mode = 2
 text = "Upgrade Trap"
+
+[node name="SellMudButton" type="Button" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=434553831]
+layout_mode = 2
+text = "Sell Trap: 99 Gold"
 
 [node name="AbilityOptions" type="HBoxContainer" parent="TrapAbilityOption" unique_id=1879207190]
 layout_mode = 2
@@ -1200,9 +1222,12 @@ layout_mode = 2
 text = "Stolen from Humans: 0"
 label_settings = SubResource("LabelSettings_eugoy")
 
-[connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/SelectedspikeButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/SelectedArrowButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/SelectedMudButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedspikeButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellspikeButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedArrowButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellArrowButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedMudButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellMudButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton" to="." method="_on_boulder_ability_button_pressed"]
 [connection signal="timeout" from="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityCooldownTimer" to="." method="_on_boulder_ability_colldown_timer_timeout"]
 [connection signal="pressed" from="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton" to="." method="_on_wall_ability_button_pressed"]

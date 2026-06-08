@@ -17,6 +17,8 @@ signal ability_select(A2d)
 @onready var bankquota = get_tree().get_first_node_in_group("bankandquota")
 @onready var quota = get_tree().get_first_node_in_group("quota")
 @onready var stolen = get_tree().get_first_node_in_group("enemy_camp")
+@onready var gridmap = get_tree().get_first_node_in_group("gridmap")
+@onready var level = get_tree().get_first_node_in_group("level")
 
 @onready var spike_trapinfo: Node3D = $trap_info/SpikeTrapinfo
 @onready var arrow_trap_baseinfo: Node3D = $trap_info/ArrowTrapBaseinfo
@@ -52,7 +54,7 @@ var holding_trap: Node3D
 func _ready() -> void:
 	set_gold_label(bankquota.gold)
 	set_stolen_label(stolen.stolen_gold)
-	set_quota_label(bankquota.earned_for_quota, bankquota.current_quota)
+	set_quota_label(bankquota.earned_for_quota, bankquota.quota[level.layer_unlocked-1])
 	spikecost_label.text = str(spike_trapinfo.trap_cost[0])
 	arrowcost_label.text = str(arrow_trap_baseinfo.trap_cost[0])
 	mudcost_label.text = str(mud_trapinfo.trap_cost[0])
@@ -173,7 +175,6 @@ func _on_boulder_ability_button_pressed() -> void:
 func set_boulder_info(level:int) -> void:
 	bouldercost_cd_value_label.text = str(ability_cooldown) + " Sec"
 	boulder_damage_value_label.text = str(boulder_ability_baseinfo.damage[0]) #only one value
-	boulder_stun_value_label.text = str(boulder_ability_baseinfo.stun_time[0]) #only one value
 
 @onready var cost_cd_value_label: Label = $TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer/costCDValueLabel
 @onready var hp_value_label: Label = $TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer/HPValueLabel
@@ -261,13 +262,15 @@ func show_selected_trap(new_holding_trap: Node3D) -> void:
 @onready var selectedspike_cost_cd_label: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedspikeCostCDLabel
 @onready var selected_damage_passive_label_2: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedDamagePassiveLabel2
 @onready var selected_damage_thrust_label_2: Label = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedDamageThrustLabel2
-@onready var selectedspike_button: Button = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/SelectedspikeButton
+@onready var selectedspike_button: Button = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedspikeButton
+@onready var sellspike_button: Button = $TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellspikeButton
 
 func set_spike_upgrade_info(holding_trap: Node3D) -> void:
 	selected_spike_info_container.visible = true
 	selectedspike_level_value_label.text = str(holding_trap.trap_level+1)
 	selectedspike_damage_passive_value_label.text = str(holding_trap.passive_spike_buildup_damage[holding_trap.trap_level]) + " / 0.1 Sec"
 	selectedspike_damage_thrustvalue_label.text = str(holding_trap.spike_thrust_damage[holding_trap.trap_level])
+	sellspike_button.text = str("Sell Trap: ",int(ceil(holding_trap.trap_cost[holding_trap.trap_level]*0.75))," Gold" ) 
 	if holding_trap.trap_level < 2:
 		selectedspike_button.visible = true
 		selectedspike_cost_cd_label.visible = true
@@ -297,13 +300,15 @@ func set_spike_upgrade_info(holding_trap: Node3D) -> void:
 @onready var selected_arrow_cost_cd_label: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowCostCDLabel
 @onready var selected_arrow_fire_rate_label_2: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowFireRateLabel2
 @onready var selected_arrow_damage_label_2: Label = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedArrowDamageLabel2
-@onready var selected_arrow_button: Button = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/SelectedArrowButton
+@onready var selected_arrow_button: Button = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedArrowButton
+@onready var sell_arrow_button: Button = $TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellArrowButton
 
 func set_arrow_upgrade_info(holding_trap: Node3D) -> void:
 	selected_arrow_info_container.visible = true
 	selected_arrow_level_value_label.text = str(holding_trap.trap_level+1)
 	selected_arrow_fire_rate_value_label.text = str(1/holding_trap.arrow_fire_rate[holding_trap.trap_level]) + " Shots / Sec"
 	selected_arrow_damagevalue_label.text = str(holding_trap.arrow_damage[holding_trap.trap_level])
+	sell_arrow_button.text = str("Sell Trap: ",int(ceil(holding_trap.trap_cost[holding_trap.trap_level]*0.75))," Gold" ) 
 	if holding_trap.trap_level < 2:
 		selected_arrow_button.visible = true
 		selected_arrow_cost_cd_label.visible = true
@@ -330,12 +335,14 @@ func set_arrow_upgrade_info(holding_trap: Node3D) -> void:
 @onready var selected_mud_speed_reduce_value_label_2: Label = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedMudSpeedReduceValueLabel2
 @onready var selected_mud_cost_cd_label: Label = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedMudCostCDLabel
 @onready var selected_mud_speed_reduce_label_2: Label = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/GridContainer/SelectedMudSpeedReduceLabel2
-@onready var selected_mud_button: Button = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/SelectedMudButton
+@onready var selected_mud_button: Button = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedMudButton
+@onready var sell_mud_button: Button = $TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellMudButton
 
 func set_mud_upgrade_info(holding_trap: Node3D):
 	selected_mud_info_container.visible = true
 	selected_mud_level_value_label.text = str(holding_trap.trap_level+1)
 	selected_mud_speed_reduce_value_label.text = str(int(100*holding_trap.speed_reduce_percent[holding_trap.trap_level])) +"%"
+	sell_mud_button.text = str("Sell Trap: ",int(ceil(holding_trap.trap_cost[holding_trap.trap_level]*0.75))," Gold" ) 
 	if holding_trap.trap_level < 2:
 		selected_mud_cost_cd_label.visible = true
 		selected_mud_speed_reduce_label_2.visible = true
@@ -366,6 +373,13 @@ func _on_button_pressed() -> void:
 				selectedspike_button.self_modulate = Color.WHITE
 				selected_arrow_button.self_modulate = Color.WHITE
 				selected_mud_button.self_modulate = Color.WHITE
+
+func _on_sell_button_pressed() -> void:
+	if holding_trap:
+		bankquota.gold += ceil(holding_trap.trap_cost[holding_trap.trap_level]*0.75)
+		gridmap.set_cell_item(gridmap.local_to_map(holding_trap.position), 0)
+		holding_trap.queue_free()
+		close_info_windows()
 
 func flash_button(button_2_flash: Button) -> void:
 	button_2_flash.self_modulate = Color.RED

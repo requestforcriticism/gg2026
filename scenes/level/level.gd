@@ -1,6 +1,6 @@
 extends Node3D
 
-var layer_unlocked := 1
+var layer_unlocked :int = 1
 var layers :=3
 
 @export var gridmap: GridMap
@@ -8,12 +8,20 @@ var layers :=3
 @export var mines_L2 :Array[Path3D]
 @export var mines_L3 :Array[Path3D]
 
+@onready var enemy_manager: Node3D = $EnemyManager
+
 var all_mines :Array
 
 var floor_cells: Array[Vector3i] = []
 var floor_items: Array[int] = []
 var floor_all_cells: Array[Array]
 var floor_all_items: Array[Array]
+
+
+
+
+
+
 
 func _ready() -> void:
 	all_mines = [mines_L1, mines_L2, mines_L3]
@@ -37,12 +45,14 @@ func hide_floor() -> void:
 			gridmap.set_cell_item(cell, -1) # -1 is INVALID_CELL_ITEM
 
 func show_floor(layer) -> void:
-	for i in range(floor_all_cells[layer-1].size()):
-		gridmap.set_cell_item(floor_all_cells[layer-1][i], floor_all_items[layer-1][i])
+	if layer_unlocked <= layers:
+		for i in range(floor_all_cells[layer-1].size()):
+			gridmap.set_cell_item(floor_all_cells[layer-1][i], floor_all_items[layer-1][i])
 
 func show_unlocked_mines() -> void:
-	for i in all_mines[layer_unlocked-1]:
-		i.visible = true
+	if layer_unlocked <= layers:
+		for i in all_mines[layer_unlocked-1]:
+			i.visible = true
 
 func check_layer_complete() -> void:
 	for i in all_mines[layer_unlocked-1]:
@@ -52,8 +62,12 @@ func check_layer_complete() -> void:
 	show_unlocked_mines()
 	show_floor(layer_unlocked)
 	place_mining_goblins()
-	printt("layer_unlocked:", layer_unlocked)
+	enemy_manager.update_diff_curve()
+	if layer_unlocked > layers:
+		get_tree().paused = true
+		print("game over")
 
 func place_mining_goblins() -> void:
-	for i in all_mines[layer_unlocked-1]:
-		i.place_mining_gob()
+	if layer_unlocked <= layers:
+		for i in all_mines[layer_unlocked-1]:
+			i.place_mining_gob()

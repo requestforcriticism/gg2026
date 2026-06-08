@@ -114,8 +114,9 @@ material = SubResource("StandardMaterial3D_ywrp0")
 radius = 0.75
 height = 1.5
 
-[node name="MiningGoblin" type="PathFollow3D" unique_id=402463534]
+[node name="MiningGoblin" type="PathFollow3D" unique_id=402463534 node_paths=PackedStringArray("mining_timer")]
 script = ExtResource("1_dmqem")
+mining_timer = NodePath("MiningTimer")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=138348483]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.5, 0)

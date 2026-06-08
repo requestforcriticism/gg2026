@@ -13,7 +13,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	if area.is_in_group("enemy"):
-		area.get_parent().get_stunned(stun_time[0])
+		area.get_parent().get_stunned()
 		if area.get_parent().items_purchased[1]:
 			area.get_parent().current_health -= floori(damage[0]/2)
 			area.get_parent().damage_taken[3] += floori(damage[0]/2)

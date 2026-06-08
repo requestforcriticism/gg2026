@@ -244,7 +244,6 @@ func strafe_camera(delta) ->void:
 	if direction != Vector3.ZERO:
 		camera_moving_pos = false
 		global_translate(direction * camera_move_speed * delta)
-		print(global_position)
 		global_position.x = clamp(global_position.x, camera_strafe_values[camera_on_layer-1][0], camera_strafe_values[camera_on_layer-1][1])
 		global_position.z = clamp(global_position.z, camera_strafe_values[camera_on_layer-1][2], camera_strafe_values[camera_on_layer-1][3])
 

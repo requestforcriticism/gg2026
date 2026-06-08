@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bh5belcht22a2"]
 
-[ext_resource type="Script" uid="uid://chdkvcepffj22" path="res://scenes/abilities/Boulder/boulder_ability_base.gd" id="1_eli21"]
+[ext_resource type="Script" uid="uid://chdkvcepffj22" path="res://scenes/abilities/boulder/boulder_ability_base.gd" id="1_eli21"]
 [ext_resource type="Texture2D" uid="uid://48vrwbn4ri53" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_Color.png" id="2_eolnb"]
 [ext_resource type="Texture2D" uid="uid://c8dunaso4gl3q" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_AmbientOcclusion.png" id="3_elfqs"]
 [ext_resource type="Texture2D" uid="uid://dqpjhhum47bc2" path="res://assets/visual/mesh_assets/Rocks011_1K-PNG/Rocks011_1K-PNG_Displacement.png" id="4_ih5jo"]

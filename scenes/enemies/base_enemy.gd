@@ -5,9 +5,9 @@ extends PathFollow3D
 @export var base_speed := 2.0
 @export var offset_value := 0.0
 @export var max_health := 50
-@export var mining_rate := 1 #Number of seconds
-@export var return_gold_rate := .5 #Number of seconds
-@export var mining_amount_per_tick :=1
+@export var mining_rate := 1.0 #Number of seconds
+@export var return_gold_rate := 0.5 #Number of seconds
+@export var mining_amount_per_tick := 1
 @export var base_max_gold_capacity := 5
 @export var stunned_length := 1.0
 
@@ -88,12 +88,12 @@ func _physics_process(delta: float) -> void:
 	do_state_stuff(delta)
 	recover_speed()
 
-func get_stunned(stun_time:float) -> void:
+func get_stunned() -> void:
 	if state != ENEMY_STATE.RETURN_GOLD || state != ENEMY_STATE.MINING:
 		if items_purchased[3]:
-			stunned_timer.wait_time = stun_time/2.0
+			stunned_timer.wait_time = stunned_length/2.0
 		else:
-			stunned_timer.wait_time = stun_time
+			stunned_timer.wait_time = stunned_length
 		mining_timer.set_paused(true)
 		stunned_timer.start()
 		previous_state = state
@@ -104,6 +104,8 @@ func recover_speed() -> void:
 	slowed_perc = lerp(slowed_perc,1.0,.01)
 	current_speed = current_base_speed
 
+var wrong_track := false
+
 func do_state_stuff(delta) -> void:
 	if state == ENEMY_STATE.TRAVEL_IN:
 		progress += delta * current_speed
@@ -111,6 +113,13 @@ func do_state_stuff(delta) -> void:
 		animated_sprite_3d.play(figure_out_travel_animation())
 		animated_sprite_3d.visible = true
 		if progress_ratio == 1.0:
+			if get_parent().is_in_group("enemy_camp"):
+				print(self, " is trying to travel in the camp")
+				wrong_track = true
+				return
+			if wrong_track:
+				print("I got on the right track: ",get_parent() )
+				wrong_track = false
 			if get_parent().my_going_forward_mine:
 				if get_parent().my_going_forward_mine.current_gold > 0:
 					current_base_speed = 0.0
@@ -203,9 +212,9 @@ func figure_out_travel_animation() -> String:
 func figure_out_mining_animation() -> void:
 	if progress_ratio < 0.41:
 		if items_purchased[4]:
-			animated_sprite_3d.play("mining_right",2)
+			animated_sprite_3d.play("mining_right",2/mining_rate)
 		else:
-			animated_sprite_3d.play("mining_right")
+			animated_sprite_3d.play("mining_right",1/mining_rate)
 	elif progress_ratio > 0.59:
 		if items_purchased[4]:
 			animated_sprite_3d.play("mining_left",2)
@@ -280,6 +289,7 @@ func _on_return_gold_timer_timeout() -> void:
 		$MineGold.visible = false
 		return_gold_timer.stop()
 		rdy_to_leave = false
+		to_next_path()
 		state = ENEMY_STATE.TRAVEL_IN
 		find_dirt_block_area_3d.rotation.y = 0.0
 		find_dirt_block_area_3d.monitoring = true
@@ -287,7 +297,7 @@ func _on_return_gold_timer_timeout() -> void:
 		current_speed = current_base_speed
 		animated_sprite_3d.visible = false
 		progress_ratio = 0.0
-		to_next_path()
+		#to_next_path()
 
 func _on_death_timer_timeout() -> void:
 	call_deferred("queue_free")

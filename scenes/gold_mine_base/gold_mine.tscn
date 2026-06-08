@@ -23,7 +23,7 @@ top_radius = 0.8
 bottom_radius = 0.8
 height = 0.02
 
-[node name="GoldMine" type="Path3D" unique_id=430811579 groups=["environment"]]
+[node name="GoldMine" type="Path3D" unique_id=430811579 groups=["environment", "goldmine"]]
 curve = SubResource("Curve3D_ybl65")
 script = ExtResource("1_ybl65")
 mining_goblin_scene = ExtResource("2_3oexi")

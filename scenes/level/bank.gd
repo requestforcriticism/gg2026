@@ -2,8 +2,9 @@ extends Node
 
 @export var starting_gold := 98765
 @export var starting_gold_earned := 0
-@export var current_quota := 50
+@export var quota := [50,200,1000]
 
+@onready var level: Node3D = $".."
 @onready var ui: MarginContainer = $"../UI"
 
 var gold: int:
@@ -16,7 +17,7 @@ var earned_for_quota: int:
 	set(gold_in): 
 		earned_for_quota = max(gold_in,0)
 		if earned_for_quota:
-			ui.set_quota_label(earned_for_quota, current_quota)
+			ui.set_quota_label(earned_for_quota, quota[level.layer_unlocked-1])
 
 func _ready() -> void:
 	gold = starting_gold
