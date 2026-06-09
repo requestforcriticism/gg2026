@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://kwrjw1jyvfqd" path="res://scenes/traps/spike_trap/spike_trap_base.tscn" id="1_mxevx"]
 [ext_resource type="Script" uid="uid://b0onf4id2wuyc" path="res://scenes/traps/spike_trap/spike_trap.gd" id="2_b67sa"]
+[ext_resource type="AudioStream" uid="uid://b6hb1r7v4nwt0" path="res://assets/audio/trapsabilities/SWIPE Blade Chop Clang 01.ogg" id="3_bngrn"]
 
 [sub_resource type="Animation" id="Animation_mxevx"]
 length = 0.001
@@ -64,6 +65,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SpikeThrustAudioStreamPlayer3D:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_bngrn"]
@@ -184,6 +197,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpikeThrustAudioStreamPlayer3D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mxevx"]
 _data = {
@@ -237,6 +262,9 @@ visible = false
 transparency = 0.55
 cast_shadow = 0
 mesh = SubResource("BoxMesh_b67sa")
+
+[node name="SpikeThrustAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="6" unique_id=1626497513]
+stream = ExtResource("3_bngrn")
 
 [connection signal="area_entered" from="InitialdetectArea3D" to="." method="_on_initialdetect_area_3d_area_entered"]
 [connection signal="area_exited" from="InitialdetectArea3D" to="." method="_on_initialdetect_area_3d_area_exited"]

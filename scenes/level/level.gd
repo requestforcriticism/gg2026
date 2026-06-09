@@ -1,16 +1,18 @@
 extends Node3D
 
 var layer_unlocked :int = 1
-var layers :=3
+var layers :int =3
 
 @export var gridmap: GridMap
 @export var mines_L1 :Array[Path3D]
 @export var mines_L2 :Array[Path3D]
 @export var mines_L3 :Array[Path3D]
 
+@onready var ui: MarginContainer = $UI
 @onready var enemy_manager: Node3D = $EnemyManager
 @onready var ladder_layer_2_sprite_mesh_instance: SpriteMeshInstance = $ladders/LadderLayer2SpriteMeshInstance
 @onready var ladder_layer_3_sprite_mesh_instance: SpriteMeshInstance = $ladders/LadderLayer3SpriteMeshInstance
+@onready var bankand_quota: Node = $BankandQuota
 
 var all_mines: Array
 var max_gold_on_layer: Array[int]
@@ -65,10 +67,12 @@ func check_layer_complete() -> void:
 		if i.current_gold > 0:
 			return
 	layer_unlocked += 1
+	bankand_quota.reset_quota()
 	show_unlocked_mines()
 	show_floor(layer_unlocked)
 	place_mining_goblins()
 	get_max_gold()
+	ui.unlock_trapabilities()
 	if layer_unlocked > layers:
 		get_tree().paused = true
 		print("game over")

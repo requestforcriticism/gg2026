@@ -48,7 +48,6 @@ func spawn_base_enemy() -> void:
 	new_enemy.offset_value = randf_range(-offset,offset)
 	new_enemy.base_speed = base_enemy_base_speed
 	new_enemy.max_health = base_enemy_max_health * difficulty_curves[level.layer_unlocked-1].sample(sample_range())
-	print(new_enemy.max_health)
 	new_enemy.mining_rate = base_enemy_mining_rate
 	new_enemy.base_max_gold_capacity = base_enemy_base_max_gold_capacity
 	new_enemy.stunned_length = base_enemy_stunned_length

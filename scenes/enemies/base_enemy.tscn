@@ -9,7 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://bsq1n006qydu0" path="res://assets/visual/enemy_shop/icon_equip_shoes.png" id="8_saudc"]
 [ext_resource type="Texture2D" uid="uid://d2b84hjq5c687" path="res://assets/visual/enemy_shop/icon_equip_pickax.png" id="9_v35a0"]
 [ext_resource type="Texture2D" uid="uid://cks26qfueei0x" path="res://assets/visual/enemy_shop/icon_equip_helmet_1.png" id="10_qrxh2"]
+[ext_resource type="AudioStream" uid="uid://thme02da4nac" path="res://assets/audio/enemies/SoundsDigOnWall.wav" id="11_saudc"]
 [ext_resource type="Texture2D" uid="uid://cti1otggxkvq1" path="res://assets/visual/enemy_shop/icon_bag.png" id="11_tofne"]
+[ext_resource type="AudioStream" uid="uid://dmaylw1skp2do" path="res://assets/audio/enemies/voice_male_grunt_pain_14.wav" id="12_v35a0"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ylyo2"]
 direction = Vector3(0, 1, 0)
@@ -444,6 +446,13 @@ disabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90769273, 0)
 light_energy = 0.5
 shadow_enabled = true
+
+[node name="MiningAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=986799397]
+stream = ExtResource("11_saudc")
+max_polyphony = 5
+
+[node name="DeathAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=902396852]
+stream = ExtResource("12_v35a0")
 
 [connection signal="area_entered" from="FindDirtBlockArea3D" to="." method="_on_find_dirt_block_area_3d_area_entered"]
 [connection signal="area_exited" from="FindDirtBlockArea3D" to="." method="_on_find_dirt_block_area_3d_area_exited"]

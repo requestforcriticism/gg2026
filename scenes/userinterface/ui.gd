@@ -15,7 +15,7 @@ signal ability_select(A2d)
 @export var dirt_wall_ability_example: PackedScene
 
 @onready var bankquota = get_tree().get_first_node_in_group("bankandquota")
-@onready var quota = get_tree().get_first_node_in_group("quota")
+@onready var bankandquota = get_tree().get_first_node_in_group("bankandquota")
 @onready var stolen = get_tree().get_first_node_in_group("enemy_camp")
 @onready var gridmap = get_tree().get_first_node_in_group("gridmap")
 @onready var level = get_tree().get_first_node_in_group("level")
@@ -25,14 +25,14 @@ signal ability_select(A2d)
 @onready var mud_trapinfo: Node3D = $trap_info/MudTrapinfo
 @onready var boulder_ability_baseinfo: PathFollow3D = $trap_info/BoulderAbilityBaseinfo
 @onready var dirt_block_ability_baseinfo: Node3D = $trap_info/DirtBlock_ability_baseinfo
-@onready var spikecost_label: Label = $TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton/MarginContainer/CoinCost/spikecostLabel
-@onready var arrowcost_label: Label = $TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton/MarginContainer/CoinCost/arrowcostLabel
-@onready var mudcost_label: Label = $TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton/MarginContainer/CoinCost/mudcostLabel
+@onready var spikecost_label: Label = $TrapAbilityOption/TrapOptions/SpikeTrapContainer/SpikeTrapButton/MarginContainer/CoinCost/spikecostLabel
+@onready var arrowcost_label: Label = $TrapAbilityOption/TrapOptions/ArrowTrapContainer/ArrowTrapButton/MarginContainer/CoinCost/arrowcostLabel
+@onready var mudcost_label: Label = $TrapAbilityOption/TrapOptions/MudTrapContainer/MudTrapButton/MarginContainer/CoinCost/mudcostLabel
 
-@onready var boulder_ability_cooldown_timer: Timer = $TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityCooldownTimer
-@onready var bouldercooldown_label: Label = $TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton/MarginContainer/bouldercooldownLabel
-@onready var wall_ability_cooldown_timer: Timer = $TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityCooldownTimer
-@onready var wallcooldown_label: Label = $TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton/MarginContainer/wallcooldownLabel
+@onready var boulder_ability_cooldown_timer: Timer = $TrapAbilityOption/AbilityOptions/BoulderAbilityContainer/BoulderAbilityCooldownTimer
+@onready var bouldercooldown_label: Label = $TrapAbilityOption/AbilityOptions/BoulderAbilityContainer/BoulderAbilityButton/MarginContainer/bouldercooldownLabel
+@onready var wall_ability_cooldown_timer: Timer = $TrapAbilityOption/AbilityOptions/WallAbilityContainer/WallAbilityCooldownTimer
+@onready var wallcooldown_label: Label = $TrapAbilityOption/AbilityOptions/WallAbilityContainer/WallAbilityButton/MarginContainer/wallcooldownLabel
 
 @onready var gold_label: Label = $Gold_Quota/GoldLabel
 @onready var quota_label: Label = $Gold_Quota/QuotaLabel
@@ -43,6 +43,14 @@ signal ability_select(A2d)
 @onready var mud_info_container: PanelContainer = $TrapAbilityOption/MudInfoContainer
 @onready var boulder_info_container: PanelContainer = $TrapAbilityOption/BoulderInfoContainer
 @onready var wall_info_container: PanelContainer = $TrapAbilityOption/WallInfoContainer
+
+@onready var boulder_ability_container: VBoxContainer = $TrapAbilityOption/AbilityOptions/BoulderAbilityContainer
+@onready var wall_ability_container: VBoxContainer = $TrapAbilityOption/AbilityOptions/WallAbilityContainer
+@onready var spike_trap_container: VBoxContainer = $TrapAbilityOption/TrapOptions/SpikeTrapContainer
+@onready var arrow_trap_container: VBoxContainer = $TrapAbilityOption/TrapOptions/ArrowTrapContainer
+@onready var mud_trap_container: VBoxContainer = $TrapAbilityOption/TrapOptions/MudTrapContainer
+
+@onready var tab_layer_info: HBoxContainer = $TabLayerInfo
 
 var ability_cooldown := 15
 var boulder_cooldown :int
@@ -64,6 +72,25 @@ func _ready() -> void:
 	bouldercooldown_label.visible = false
 	wall_cooldown = ability_cooldown
 	wallcooldown_label.visible = false
+
+func _process(delta: float) -> void:
+	check_if_lost()
+	check_if_won()
+
+@onready var lose_game_audio_stream_player: AudioStreamPlayer = $LoseGameAudioStreamPlayer
+@onready var win_game_audio_stream_player: AudioStreamPlayer = $WinGameAudioStreamPlayer
+
+func check_if_lost() -> void:
+	if level.get_current_gold() < bankandquota.quota[level.layer_unlocked-1] - bankandquota.earned_for_quota:
+		print("you lose.")
+		lose_game_audio_stream_player.play()
+		get_tree().paused = true
+
+func check_if_won() -> void:
+	if level.layer_unlocked == level.layers:
+		if bankandquota.earned_for_quota >= bankandquota.quota[level.layer_unlocked-1]:
+			print("you win!")
+			win_game_audio_stream_player.play()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -91,10 +118,11 @@ func set_stolen_label(gold) -> void:
 @onready var spikecost_cd_value_label: Label = $TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/spikecostCDValueLabel
 @onready var spike_damage_passive_value_label: Label = $TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/spikeDamagePassiveValueLabel
 @onready var spike_damage_thrustvalue_label: Label = $TrapAbilityOption/SpikeInfoContainer/MarginContainer/VBoxContainer/GridContainer/spikeDamageThrustvalueLabel
-@onready var spike_trap_button: Button = $TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton
+@onready var spike_trap_button: Button = $TrapAbilityOption/TrapOptions/SpikeTrapContainer/SpikeTrapButton
 
 func _on_spike_trap_pressed() -> void:
 	close_info_windows()
+	trap_ability_select_audio_stream_player.play()
 	set_spike_info(1) # 1 is base level
 	spike_info_container.visible= true
 	
@@ -115,19 +143,21 @@ func set_spike_info(level:int) -> void:
 @onready var arrowcost_cd_value_label: Label = $TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/ArrowcostCDValueLabel
 @onready var arrow_fire_rate_value_label: Label = $TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/ArrowFireRateValueLabel
 @onready var arrow_damagevalue_label: Label = $TrapAbilityOption/ArrowInfoContainer/MarginContainer/VBoxContainer/GridContainer/ArrowDamagevalueLabel
-@onready var arrow_trap_button: Button = $TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton
+@onready var arrow_trap_button: Button = $TrapAbilityOption/TrapOptions/ArrowTrapContainer/ArrowTrapButton
 
 func _on_arrow_trap_button_pressed() -> void:
-	close_info_windows()
-	set_arrow_info(1) # 1 is base level
-	arrow_info_container.visible = true
-	
-	var temp_trap = arrow_trap.instantiate()
-	if bankquota.gold >= temp_trap.trap_cost[0]:
-		trap_select.emit(arrow_trap, arrow_trap_example)
-	else:
-		flash_button(arrow_trap_button)
-	temp_trap.queue_free()
+	if level.layer_unlocked > 1:
+		close_info_windows()
+		trap_ability_select_audio_stream_player.play()
+		set_arrow_info(1) # 1 is base level
+		arrow_info_container.visible = true
+		
+		var temp_trap = arrow_trap.instantiate()
+		if bankquota.gold >= temp_trap.trap_cost[0]:
+			trap_select.emit(arrow_trap, arrow_trap_example)
+		else:
+			flash_button(arrow_trap_button)
+		temp_trap.queue_free()
 
 func set_arrow_info(level:int) -> void:
 	arrow_level_value_label.text = str(level)
@@ -138,19 +168,21 @@ func set_arrow_info(level:int) -> void:
 @onready var mud_level_value_label: Label = $TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer/MudLevelValueLabel
 @onready var mudcost_cd_value_label: Label = $TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer/MudcostCDValueLabel
 @onready var mud_speed_reduce_value_label: Label = $TrapAbilityOption/MudInfoContainer/MarginContainer/VBoxContainer/GridContainer/MudSpeedReduceValueLabel
-@onready var mud_trap_button: Button = $TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton
+@onready var mud_trap_button: Button = $TrapAbilityOption/TrapOptions/MudTrapContainer/MudTrapButton
 
 func _on_mud_trap_button_pressed() -> void:
-	close_info_windows()
-	set_mud_info(1) # 1 is base level
-	mud_info_container.visible = true
-	
-	var temp_trap = mud_trap.instantiate()
-	if bankquota.gold >= temp_trap.trap_cost[0]:
-		trap_select.emit(mud_trap, mud_trap_example)
-	else:
-		flash_button(mud_trap_button)
-	temp_trap.queue_free()
+	if level.layer_unlocked > 2:
+		close_info_windows()
+		trap_ability_select_audio_stream_player.play()
+		set_mud_info(1) # 1 is base level
+		mud_info_container.visible = true
+		
+		var temp_trap = mud_trap.instantiate()
+		if bankquota.gold >= temp_trap.trap_cost[0]:
+			trap_select.emit(mud_trap, mud_trap_example)
+		else:
+			flash_button(mud_trap_button)
+		temp_trap.queue_free()
 	
 func set_mud_info(level:int) -> void:
 	mud_level_value_label.text = str(level)
@@ -161,16 +193,18 @@ func set_mud_info(level:int) -> void:
 @onready var bouldercost_cd_value_label: Label = $TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer/BouldercostCDValueLabel
 @onready var boulder_damage_value_label: Label = $TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer/BoulderDamageValueLabel
 @onready var boulder_stun_value_label: Label = $TrapAbilityOption/BoulderInfoContainer/MarginContainer/VBoxContainer/GridContainer/BoulderStunValueLabel
-@onready var boulder_ability_button: Button = $TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton
+@onready var boulder_ability_button: Button = $TrapAbilityOption/AbilityOptions/BoulderAbilityContainer/BoulderAbilityButton
 
 func _on_boulder_ability_button_pressed() -> void:
-	close_info_windows()
-	set_boulder_info(1) # 1 is base level
-	boulder_info_container.visible = true
-	if boulder_ready:
-		ability_select.emit(boulder_ability, boulder_ability_example)
-	else:
-		flash_button(boulder_ability_button)
+	if level.layer_unlocked > 1:
+		close_info_windows()
+		trap_ability_select_audio_stream_player.play()
+		set_boulder_info(1) # 1 is base level
+		boulder_info_container.visible = true
+		if boulder_ready:
+			ability_select.emit(boulder_ability, boulder_ability_example)
+		else:
+			flash_button(boulder_ability_button)
 
 func set_boulder_info(level:int) -> void:
 	bouldercost_cd_value_label.text = str(ability_cooldown) + " Sec"
@@ -178,10 +212,11 @@ func set_boulder_info(level:int) -> void:
 
 @onready var cost_cd_value_label: Label = $TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer/costCDValueLabel
 @onready var hp_value_label: Label = $TrapAbilityOption/WallInfoContainer/MarginContainer/VBoxContainer/GridContainer/HPValueLabel
-@onready var wall_ability_button: Button = $TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton
+@onready var wall_ability_button: Button = $TrapAbilityOption/AbilityOptions/WallAbilityContainer/WallAbilityButton
 
 func _on_wall_ability_button_pressed() -> void:
 	close_info_windows()
+	trap_ability_select_audio_stream_player.play()
 	wall_info_container.visible = true
 	if wall_ready:
 		trap_select.emit(dirt_wall_ability, dirt_wall_ability_example)
@@ -243,6 +278,9 @@ func close_info_windows() -> void:
 func show_selected_trap(new_holding_trap: Node3D) -> void:
 	holding_trap = new_holding_trap
 	close_info_windows()
+	print(holding_trap)
+	if holding_trap.is_in_group("dirtblock"):
+		return
 	holding_trap.selected()
 	if holding_trap.is_in_group("spike"):
 		set_spike_upgrade_info(holding_trap)
@@ -381,7 +419,19 @@ func _on_sell_button_pressed() -> void:
 		holding_trap.queue_free()
 		close_info_windows()
 
+@onready var trap_ability_select_audio_stream_player: AudioStreamPlayer = $TrapAbilitySelectAudioStreamPlayer
+@onready var wrong_ability_trap_select_audio_stream_player: AudioStreamPlayer = $WrongAbilityTrapSelectAudioStreamPlayer
+
 func flash_button(button_2_flash: Button) -> void:
 	button_2_flash.self_modulate = Color.RED
 	await get_tree().create_timer(0.05).timeout
 	button_2_flash.self_modulate = Color.WHITE
+	wrong_ability_trap_select_audio_stream_player.play()
+
+func unlock_trapabilities() -> void:
+	if level.layer_unlocked > 1:
+		tab_layer_info.visible = true
+		boulder_ability_container.visible = true
+		arrow_trap_container.visible = true
+	if level.layer_unlocked > 2:
+		mud_trap_container.visible = true

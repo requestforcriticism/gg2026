@@ -285,7 +285,7 @@ wait_time = 3.0
 autostart = true
 
 [node name="TankEnemySpawnTimer" type="Timer" parent="EnemyManager" unique_id=927760206]
-wait_time = 9.299999999999999
+wait_time = 9.3
 autostart = true
 
 [node name="FastEnemySpawnTimer" type="Timer" parent="EnemyManager" unique_id=2120781589]
@@ -296,8 +296,7 @@ autostart = true
 script = ExtResource("5_pe1ox")
 
 [node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("trap_ability_manager", "layer_nodes") instance=ExtResource("1_nbgty")]
-transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 5.5, -27, 5.5)
-size = 21.0
+transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 2.5, 5.5, 2.5)
 trap_ability_manager = NodePath("../TrapAbilityManager")
 single_point = ExtResource("7_m0bv2")
 layer_nodes = [NodePath("../Layer1"), NodePath("../Layer2"), NodePath("../Layer3")]
@@ -409,6 +408,7 @@ max_gold = 600
 
 [node name="MainMusicAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1571766899]
 stream = ExtResource("15_vrc4q")
+autoplay = true
 
 [node name="ladders" type="Node" parent="." unique_id=1453197181]
 

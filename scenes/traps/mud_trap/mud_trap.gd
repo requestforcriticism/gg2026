@@ -4,6 +4,7 @@ extends "res://scenes/traps/mud_trap/mud_trap_base.gd"
 
 @onready var find_enemy_area_3d: Area3D = $FindEnemyArea3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var mud_audio_stream_player_3d: AudioStreamPlayer3D = $MudAudioStreamPlayer3D
 
 @export var speed_reduce_percent := [0.4,0.6,0.8] #  % as a decimal
 
@@ -28,6 +29,7 @@ func _on_find_enemy_area_3d_area_entered(area: Area3D) -> void:
 	if area:
 		if area.is_in_group("enemy"):
 			enemies_on_trap.append(area.get_parent())
+			mud_audio_stream_player_3d.play()
 
 
 func _on_find_enemy_area_3d_area_exited(area: Area3D) -> void:

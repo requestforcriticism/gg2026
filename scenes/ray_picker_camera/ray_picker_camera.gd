@@ -27,7 +27,7 @@ var camera_moving_to :Vector3
 var camera_size_to :float
 var camera_move_speed := 10.0
 										#[min_x,max_x,min_z,max_z]
-var camera_strafe_values :Array[Array] = [[6.0,14.0,6.0,14.0]
+var camera_strafe_values :Array[Array] = [[-2.0,6.5,-2.0,6.5]
 										,[-3.5,8.5,-3.5,8.5]
 										,[-2.2,13.75,-2.2,13.75]]
 var size_min := 3.0
@@ -42,7 +42,7 @@ var mask_Select_Traps = 7
 
 var holding_trap: Node3D
 
-var Layer_pos := [Vector3(10,22.5,10),Vector3(2.5,-14.5,2.5),Vector3(5.5,-27,5.5)]
+var Layer_pos := [Vector3(2.5,5.5,2.5),Vector3(2.5,-14.5,2.5),Vector3(5.5,-27,5.5)]
 var Layer_size := [11.0,16.0,21.0]
 
 func _ready() -> void:
@@ -353,7 +353,8 @@ func end_select_trap_ability_check() -> void:
 	ray_cast_3d.collision_mask = mask_reset
 	get_tree().call_group("example", "queue_free")
 	if holding_trap:
-		holding_trap.deselected()
+		if !holding_trap.is_in_group("dirtblock"):
+			holding_trap.deselected()
 		holding_trap = null
 
 func looking_4_selectable_traps() -> void:

@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cugt4d6rr2yi5" path="res://scenes/enemies/base_enemy.tscn" id="1_ghw4b"]
 [ext_resource type="Texture2D" uid="uid://56rfj3j1ggea" path="res://assets/visual/enemies/Character07_sheet .png" id="2_rlqsf"]
+[ext_resource type="AudioStream" uid="uid://c6ywa0dmvu37" path="res://assets/audio/enemies/voice_female_a_hurt_pain_08.wav" id="3_ch7xw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ch7xw"]
 atlas = ExtResource("2_rlqsf")
@@ -235,7 +236,7 @@ animations = [{
 "speed": 6.0
 }]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_rlqsf"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_q327q"]
 viewport_path = NodePath("SubViewport")
 
 [node name="FastEnemy" unique_id=1227583054 instance=ExtResource("1_ghw4b")]
@@ -246,6 +247,9 @@ animation = &"walking_right"
 frame_progress = 0.9122998
 
 [node name="ShowProgressBar" parent="." index="11" unique_id=1948879998]
-texture = SubResource("ViewportTexture_rlqsf")
+texture = SubResource("ViewportTexture_q327q")
+
+[node name="DeathAudioStreamPlayer3D" parent="." index="15" unique_id=902396852]
+stream = ExtResource("3_ch7xw")
 
 [editable path="DroppedGoldBag"]

@@ -30,6 +30,11 @@
 [ext_resource type="Texture2D" uid="uid://by2p3wx3m7umu" path="res://assets/visual/ui/keyboard_2.png" id="20_0x7qu"]
 [ext_resource type="Texture2D" uid="uid://cvnq4gd68a138" path="res://assets/visual/ui/keyboard_3.png" id="22_cgdo4"]
 [ext_resource type="Texture2D" uid="uid://duq05tatx2w2g" path="res://assets/visual/misc/icon_scroll_letter_0.png" id="25_cgdo4"]
+[ext_resource type="Texture2D" uid="uid://bsnj64aftcoqw" path="res://assets/visual/ui/keyboard_tab.png" id="31_cy35d"]
+[ext_resource type="AudioStream" uid="uid://3q7tk8tchnns" path="res://assets/audio/ui/SoundsTrapButtonSelect.wav" id="32_mk402"]
+[ext_resource type="AudioStream" uid="uid://r4xq6nk40bf6" path="res://assets/audio/ui/SoundsWrongChoice.wav" id="33_v22we"]
+[ext_resource type="AudioStream" uid="uid://bm1kyq51llybj" path="res://assets/audio/ui/You died.wav" id="34_v22we"]
+[ext_resource type="AudioStream" uid="uid://2biu3wadsmf7" path="res://assets/audio/ui/Victory.wav" id="35_phpwu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqdvs"]
 font = ExtResource("14_euyg3")
@@ -76,6 +81,15 @@ font_size = 32
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cy35d"]
+load_path = "res://.godot/imported/Box.png-e5c207b71154241cd854176ebdce2d05.ctex"
+
+[sub_resource type="LabelSettings" id="LabelSettings_5olyy"]
+font = ExtResource("14_euyg3")
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
 [node name="UI" type="MarginContainer" unique_id=1166578692 groups=["UI"]]
 anchors_preset = 15
 anchor_right = 1.0
@@ -118,9 +132,16 @@ monitorable = false
 [node name="CollisionShape3D" parent="trap_info/SpikeTrapinfo/SelectMeArea3D" index="0" unique_id=959129409]
 disabled = true
 
+[node name="SpikeThrustAudioStreamPlayer3D" parent="trap_info/SpikeTrapinfo" index="6" unique_id=1626497513]
+stream = null
+volume_db = -80.0
+
 [node name="ArrowTrapBaseinfo" parent="trap_info" unique_id=1486655462 instance=ExtResource("4_1w675")]
 process_mode = 4
 visible = false
+
+[node name="ShootTimer" parent="trap_info/ArrowTrapBaseinfo" index="4" unique_id=1942908146]
+autostart = false
 
 [node name="SelectMeArea3D" parent="trap_info/ArrowTrapBaseinfo" index="5" unique_id=666844352]
 monitoring = false
@@ -145,6 +166,9 @@ monitorable = false
 
 [node name="CollisionShape3D" parent="trap_info/MudTrapinfo/SelectMeArea3D" index="0" unique_id=2039127399]
 disabled = true
+
+[node name="MudAudioStreamPlayer3D" parent="trap_info/MudTrapinfo" index="5" unique_id=2072218941]
+stream = null
 
 [node name="BoulderAbilityBaseinfo" parent="trap_info" unique_id=1459297515 instance=ExtResource("13_bgwt1")]
 process_mode = 4
@@ -240,7 +264,6 @@ text = "11"
 label_settings = SubResource("LabelSettings_lox5b")
 
 [node name="ArrowInfoContainer" type="PanelContainer" parent="TrapAbilityOption" unique_id=1668926850]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -820,23 +843,24 @@ text = "Sell Trap: 99 Gold"
 [node name="AbilityOptions" type="HBoxContainer" parent="TrapAbilityOption" unique_id=1879207190]
 layout_mode = 2
 
-[node name="BoulderAbility" type="VBoxContainer" parent="TrapAbilityOption/AbilityOptions" unique_id=1183415970]
+[node name="BoulderAbilityContainer" type="VBoxContainer" parent="TrapAbilityOption/AbilityOptions" unique_id=1183415970]
+visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TrapAbilityOption/AbilityOptions/BoulderAbility" unique_id=1293513503]
+[node name="Label" type="Label" parent="TrapAbilityOption/AbilityOptions/BoulderAbilityContainer" unique_id=1293513503]
 visible = false
 layout_mode = 2
 text = "Boulder"
 label_settings = SubResource("LabelSettings_jsawn")
 
-[node name="BoulderAbilityButton" type="Button" parent="TrapAbilityOption/AbilityOptions/BoulderAbility" unique_id=941844215]
+[node name="BoulderAbilityButton" type="Button" parent="TrapAbilityOption/AbilityOptions/BoulderAbilityContainer" unique_id=941844215]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 icon = ExtResource("4_kj22y")
 icon_alignment = 1
 expand_icon = true
 
-[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton" unique_id=1354248728]
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/AbilityOptions/BoulderAbilityContainer/BoulderAbilityButton" unique_id=1354248728]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -848,7 +872,7 @@ theme_override_constants/margin_top = -4
 theme_override_constants/margin_right = -4
 theme_override_constants/margin_bottom = -4
 
-[node name="numkey" type="TextureRect" parent="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton/MarginContainer" unique_id=2107382134]
+[node name="numkey" type="TextureRect" parent="TrapAbilityOption/AbilityOptions/BoulderAbilityContainer/BoulderAbilityButton/MarginContainer" unique_id=2107382134]
 self_modulate = Color(0.41981313, 0.41981313, 0.4198131, 1)
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -858,7 +882,7 @@ texture = ExtResource("13_7cvrb")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton/MarginContainer/numkey" unique_id=1842272396]
+[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/AbilityOptions/BoulderAbilityContainer/BoulderAbilityButton/MarginContainer/numkey" unique_id=1842272396]
 modulate = Color(1, 0.73333335, 0, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
@@ -873,32 +897,32 @@ texture = ExtResource("13_lox5b")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="bouldercooldownLabel" type="Label" parent="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton/MarginContainer" unique_id=1191057032]
+[node name="bouldercooldownLabel" type="Label" parent="TrapAbilityOption/AbilityOptions/BoulderAbilityContainer/BoulderAbilityButton/MarginContainer" unique_id=1191057032]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "99"
 label_settings = SubResource("LabelSettings_ojaxh")
 uppercase = true
 
-[node name="BoulderAbilityCooldownTimer" type="Timer" parent="TrapAbilityOption/AbilityOptions/BoulderAbility" unique_id=971589600]
+[node name="BoulderAbilityCooldownTimer" type="Timer" parent="TrapAbilityOption/AbilityOptions/BoulderAbilityContainer" unique_id=971589600]
 one_shot = true
 
-[node name="WallAbility" type="VBoxContainer" parent="TrapAbilityOption/AbilityOptions" unique_id=641371646]
+[node name="WallAbilityContainer" type="VBoxContainer" parent="TrapAbilityOption/AbilityOptions" unique_id=641371646]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TrapAbilityOption/AbilityOptions/WallAbility" unique_id=1521232535]
+[node name="Label" type="Label" parent="TrapAbilityOption/AbilityOptions/WallAbilityContainer" unique_id=1521232535]
 visible = false
 layout_mode = 2
 text = "Wall"
 
-[node name="WallAbilityButton" type="Button" parent="TrapAbilityOption/AbilityOptions/WallAbility" unique_id=39977316]
+[node name="WallAbilityButton" type="Button" parent="TrapAbilityOption/AbilityOptions/WallAbilityContainer" unique_id=39977316]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 icon = ExtResource("13_uqdvs")
 icon_alignment = 1
 expand_icon = true
 
-[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton" unique_id=1214306231]
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/AbilityOptions/WallAbilityContainer/WallAbilityButton" unique_id=1214306231]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -910,7 +934,7 @@ theme_override_constants/margin_top = -4
 theme_override_constants/margin_right = -4
 theme_override_constants/margin_bottom = -4
 
-[node name="numkey" type="TextureRect" parent="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton/MarginContainer" unique_id=839289417]
+[node name="numkey" type="TextureRect" parent="TrapAbilityOption/AbilityOptions/WallAbilityContainer/WallAbilityButton/MarginContainer" unique_id=839289417]
 self_modulate = Color(0.41981313, 0.41981313, 0.4198131, 1)
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -920,7 +944,7 @@ texture = ExtResource("13_7cvrb")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton/MarginContainer/numkey" unique_id=646691425]
+[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/AbilityOptions/WallAbilityContainer/WallAbilityButton/MarginContainer/numkey" unique_id=646691425]
 modulate = Color(1, 0.73333335, 0, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
@@ -935,14 +959,14 @@ texture = ExtResource("16_2507d")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="wallcooldownLabel" type="Label" parent="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton/MarginContainer" unique_id=577929542]
+[node name="wallcooldownLabel" type="Label" parent="TrapAbilityOption/AbilityOptions/WallAbilityContainer/WallAbilityButton/MarginContainer" unique_id=577929542]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "99"
 label_settings = SubResource("LabelSettings_ojaxh")
 uppercase = true
 
-[node name="WallAbilityCooldownTimer" type="Timer" parent="TrapAbilityOption/AbilityOptions/WallAbility" unique_id=1011656387]
+[node name="WallAbilityCooldownTimer" type="Timer" parent="TrapAbilityOption/AbilityOptions/WallAbilityContainer" unique_id=1011656387]
 one_shot = true
 
 [node name="TrapOptions" type="HBoxContainer" parent="TrapAbilityOption" unique_id=1145244194]
@@ -950,24 +974,24 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="SpikeTrap" type="VBoxContainer" parent="TrapAbilityOption/TrapOptions" unique_id=1790221442]
+[node name="SpikeTrapContainer" type="VBoxContainer" parent="TrapAbilityOption/TrapOptions" unique_id=1790221442]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TrapAbilityOption/TrapOptions/SpikeTrap" unique_id=1616566831]
+[node name="Label" type="Label" parent="TrapAbilityOption/TrapOptions/SpikeTrapContainer" unique_id=1616566831]
 visible = false
 layout_mode = 2
 text = "Spike Trap"
 label_settings = SubResource("LabelSettings_yqs5y")
 horizontal_alignment = 1
 
-[node name="SpikeTrapButton" type="Button" parent="TrapAbilityOption/TrapOptions/SpikeTrap" unique_id=1164616605]
+[node name="SpikeTrapButton" type="Button" parent="TrapAbilityOption/TrapOptions/SpikeTrapContainer" unique_id=1164616605]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 icon = ExtResource("1_eugoy")
 icon_alignment = 1
 expand_icon = true
 
-[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton" unique_id=2092726357]
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/TrapOptions/SpikeTrapContainer/SpikeTrapButton" unique_id=2092726357]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -979,7 +1003,7 @@ theme_override_constants/margin_top = -4
 theme_override_constants/margin_right = -4
 theme_override_constants/margin_bottom = -4
 
-[node name="CoinCost" type="TextureRect" parent="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton/MarginContainer" unique_id=1011616604]
+[node name="CoinCost" type="TextureRect" parent="TrapAbilityOption/TrapOptions/SpikeTrapContainer/SpikeTrapButton/MarginContainer" unique_id=1011616604]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -988,7 +1012,7 @@ texture = ExtResource("14_ys5vj")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="spikecostLabel" type="Label" parent="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton/MarginContainer/CoinCost" unique_id=642976048]
+[node name="spikecostLabel" type="Label" parent="TrapAbilityOption/TrapOptions/SpikeTrapContainer/SpikeTrapButton/MarginContainer/CoinCost" unique_id=642976048]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1006,7 +1030,7 @@ label_settings = SubResource("LabelSettings_dcdsw")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="numkey" type="TextureRect" parent="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton/MarginContainer" unique_id=1083655073]
+[node name="numkey" type="TextureRect" parent="TrapAbilityOption/TrapOptions/SpikeTrapContainer/SpikeTrapButton/MarginContainer" unique_id=1083655073]
 self_modulate = Color(0.41981313, 0.41981313, 0.4198131, 1)
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -1016,7 +1040,7 @@ texture = ExtResource("13_7cvrb")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton/MarginContainer/numkey" unique_id=662670685]
+[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/TrapOptions/SpikeTrapContainer/SpikeTrapButton/MarginContainer/numkey" unique_id=662670685]
 modulate = Color(1, 0.73333335, 0, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
@@ -1031,22 +1055,23 @@ texture = ExtResource("18_dcdsw")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ArrowTrap" type="VBoxContainer" parent="TrapAbilityOption/TrapOptions" unique_id=663043943]
+[node name="ArrowTrapContainer" type="VBoxContainer" parent="TrapAbilityOption/TrapOptions" unique_id=663043943]
+visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TrapAbilityOption/TrapOptions/ArrowTrap" unique_id=655114369]
+[node name="Label" type="Label" parent="TrapAbilityOption/TrapOptions/ArrowTrapContainer" unique_id=655114369]
 visible = false
 layout_mode = 2
 text = "Arrow Trap"
 
-[node name="ArrowTrapButton" type="Button" parent="TrapAbilityOption/TrapOptions/ArrowTrap" unique_id=1664267741]
+[node name="ArrowTrapButton" type="Button" parent="TrapAbilityOption/TrapOptions/ArrowTrapContainer" unique_id=1664267741]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 icon = ExtResource("15_lox5b")
 icon_alignment = 1
 expand_icon = true
 
-[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton" unique_id=1367280206]
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/TrapOptions/ArrowTrapContainer/ArrowTrapButton" unique_id=1367280206]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1058,7 +1083,7 @@ theme_override_constants/margin_top = -4
 theme_override_constants/margin_right = -4
 theme_override_constants/margin_bottom = -4
 
-[node name="CoinCost" type="TextureRect" parent="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton/MarginContainer" unique_id=1277176369]
+[node name="CoinCost" type="TextureRect" parent="TrapAbilityOption/TrapOptions/ArrowTrapContainer/ArrowTrapButton/MarginContainer" unique_id=1277176369]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -1067,7 +1092,7 @@ texture = ExtResource("14_ys5vj")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="arrowcostLabel" type="Label" parent="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton/MarginContainer/CoinCost" unique_id=1093373702]
+[node name="arrowcostLabel" type="Label" parent="TrapAbilityOption/TrapOptions/ArrowTrapContainer/ArrowTrapButton/MarginContainer/CoinCost" unique_id=1093373702]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1085,7 +1110,7 @@ label_settings = SubResource("LabelSettings_dcdsw")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="numkey" type="TextureRect" parent="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton/MarginContainer" unique_id=656904056]
+[node name="numkey" type="TextureRect" parent="TrapAbilityOption/TrapOptions/ArrowTrapContainer/ArrowTrapButton/MarginContainer" unique_id=656904056]
 self_modulate = Color(0.41981313, 0.41981313, 0.4198131, 1)
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -1095,7 +1120,7 @@ texture = ExtResource("13_7cvrb")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton/MarginContainer/numkey" unique_id=1126438158]
+[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/TrapOptions/ArrowTrapContainer/ArrowTrapButton/MarginContainer/numkey" unique_id=1126438158]
 modulate = Color(1, 0.73333335, 0, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
@@ -1110,22 +1135,23 @@ texture = ExtResource("20_0x7qu")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="MudTrap" type="VBoxContainer" parent="TrapAbilityOption/TrapOptions" unique_id=1676996586]
+[node name="MudTrapContainer" type="VBoxContainer" parent="TrapAbilityOption/TrapOptions" unique_id=1676996586]
+visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TrapAbilityOption/TrapOptions/MudTrap" unique_id=1322392016]
+[node name="Label" type="Label" parent="TrapAbilityOption/TrapOptions/MudTrapContainer" unique_id=1322392016]
 visible = false
 layout_mode = 2
 text = "Mud Trap"
 
-[node name="MudTrapButton" type="Button" parent="TrapAbilityOption/TrapOptions/MudTrap" unique_id=957133769]
+[node name="MudTrapButton" type="Button" parent="TrapAbilityOption/TrapOptions/MudTrapContainer" unique_id=957133769]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 icon = ExtResource("16_7cvrb")
 icon_alignment = 1
 expand_icon = true
 
-[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton" unique_id=500285789]
+[node name="MarginContainer" type="MarginContainer" parent="TrapAbilityOption/TrapOptions/MudTrapContainer/MudTrapButton" unique_id=500285789]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1137,7 +1163,7 @@ theme_override_constants/margin_top = -4
 theme_override_constants/margin_right = -4
 theme_override_constants/margin_bottom = -4
 
-[node name="CoinCost" type="TextureRect" parent="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton/MarginContainer" unique_id=2029390214]
+[node name="CoinCost" type="TextureRect" parent="TrapAbilityOption/TrapOptions/MudTrapContainer/MudTrapButton/MarginContainer" unique_id=2029390214]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -1146,7 +1172,7 @@ texture = ExtResource("14_ys5vj")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="mudcostLabel" type="Label" parent="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton/MarginContainer/CoinCost" unique_id=1596680452]
+[node name="mudcostLabel" type="Label" parent="TrapAbilityOption/TrapOptions/MudTrapContainer/MudTrapButton/MarginContainer/CoinCost" unique_id=1596680452]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1164,7 +1190,7 @@ label_settings = SubResource("LabelSettings_dcdsw")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="numkey" type="TextureRect" parent="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton/MarginContainer" unique_id=190711974]
+[node name="numkey" type="TextureRect" parent="TrapAbilityOption/TrapOptions/MudTrapContainer/MudTrapButton/MarginContainer" unique_id=190711974]
 self_modulate = Color(0.41981313, 0.41981313, 0.4198131, 1)
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -1174,7 +1200,7 @@ texture = ExtResource("13_7cvrb")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton/MarginContainer/numkey" unique_id=1678412690]
+[node name="TextureRect" type="TextureRect" parent="TrapAbilityOption/TrapOptions/MudTrapContainer/MudTrapButton/MarginContainer/numkey" unique_id=1678412690]
 modulate = Color(1, 0.73333335, 0, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
@@ -1229,19 +1255,74 @@ layout_mode = 2
 text = "Stolen from Humans: 0"
 label_settings = SubResource("LabelSettings_eugoy")
 
+[node name="TabLayerInfo" type="HBoxContainer" parent="." unique_id=892706487]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="numkey" type="TextureRect" parent="TabLayerInfo" unique_id=566446660]
+self_modulate = Color(0.41981313, 0.41981313, 0.4198131, 1)
+custom_minimum_size = Vector2(55, 42)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = SubResource("CompressedTexture2D_cy35d")
+expand_mode = 1
+
+[node name="TabTextureRect" type="TextureRect" parent="TabLayerInfo/numkey" unique_id=1256086380]
+self_modulate = Color(1, 0.73333335, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("31_cy35d")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="TabLayerInfo" unique_id=1370702540]
+layout_mode = 2
+text = "Cycle Layer"
+label_settings = SubResource("LabelSettings_5olyy")
+
+[node name="TrapAbilitySelectAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=422306593]
+stream = ExtResource("32_mk402")
+max_polyphony = 5
+
+[node name="WrongAbilityTrapSelectAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1878900571]
+stream = ExtResource("33_v22we")
+volume_db = -5.0
+pitch_scale = 2.0
+max_polyphony = 5
+
+[node name="LoseGameAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1899867657]
+process_mode = 3
+stream = ExtResource("34_v22we")
+
+[node name="WinGameAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1664510881]
+process_mode = 3
+stream = ExtResource("35_phpwu")
+
 [connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedspikeButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellspikeButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedArrowButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellArrowButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedMudButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellMudButton" to="." method="_on_sell_button_pressed"]
-[connection signal="pressed" from="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityButton" to="." method="_on_boulder_ability_button_pressed"]
-[connection signal="timeout" from="TrapAbilityOption/AbilityOptions/BoulderAbility/BoulderAbilityCooldownTimer" to="." method="_on_boulder_ability_colldown_timer_timeout"]
-[connection signal="pressed" from="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityButton" to="." method="_on_wall_ability_button_pressed"]
-[connection signal="timeout" from="TrapAbilityOption/AbilityOptions/WallAbility/WallAbilityCooldownTimer" to="." method="_on_wall_ability_cooldown_timer_timeout"]
-[connection signal="pressed" from="TrapAbilityOption/TrapOptions/SpikeTrap/SpikeTrapButton" to="." method="_on_spike_trap_pressed"]
-[connection signal="pressed" from="TrapAbilityOption/TrapOptions/ArrowTrap/ArrowTrapButton" to="." method="_on_arrow_trap_button_pressed"]
-[connection signal="pressed" from="TrapAbilityOption/TrapOptions/MudTrap/MudTrapButton" to="." method="_on_mud_trap_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/AbilityOptions/BoulderAbilityContainer/BoulderAbilityButton" to="." method="_on_boulder_ability_button_pressed"]
+[connection signal="timeout" from="TrapAbilityOption/AbilityOptions/BoulderAbilityContainer/BoulderAbilityCooldownTimer" to="." method="_on_boulder_ability_colldown_timer_timeout"]
+[connection signal="pressed" from="TrapAbilityOption/AbilityOptions/WallAbilityContainer/WallAbilityButton" to="." method="_on_wall_ability_button_pressed"]
+[connection signal="timeout" from="TrapAbilityOption/AbilityOptions/WallAbilityContainer/WallAbilityCooldownTimer" to="." method="_on_wall_ability_cooldown_timer_timeout"]
+[connection signal="pressed" from="TrapAbilityOption/TrapOptions/SpikeTrapContainer/SpikeTrapButton" to="." method="_on_spike_trap_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/TrapOptions/ArrowTrapContainer/ArrowTrapButton" to="." method="_on_arrow_trap_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/TrapOptions/MudTrapContainer/MudTrapButton" to="." method="_on_mud_trap_button_pressed"]
 
 [editable path="trap_info/SpikeTrapinfo"]
 [editable path="trap_info/ArrowTrapBaseinfo"]

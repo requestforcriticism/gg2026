@@ -4,6 +4,8 @@ extends Area3D
 @export var damage := 10
 @export var speed := 5.0
 
+@onready var arrow_hit_audio_stream_player_3d: AudioStreamPlayer3D = $ArrowHitAudioStreamPlayer3D
+
 func _physics_process(delta: float) -> void:
 	position += direction * delta * speed
 
@@ -22,4 +24,7 @@ func _on_area_entered(area: Area3D) -> void:
 	
 
 func _on_body_entered(body: Node3D) -> void:
+	arrow_hit_audio_stream_player_3d.play()
+
+func _on_arrow_hit_audio_stream_player_3d_finished() -> void:
 	queue_free()

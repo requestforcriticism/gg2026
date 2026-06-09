@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dgepflxo8l2u4" path="res://assets/visual/mesh_assets/Metal052C_1K-PNG/Metal052C_1K-PNG_Metalness.png" id="9_2tb7m"]
 [ext_resource type="Texture2D" uid="uid://bsyabkghmn6kx" path="res://assets/visual/mesh_assets/Metal052C_1K-PNG/Metal052C_1K-PNG_NormalGL.png" id="10_lo26f"]
 [ext_resource type="Texture2D" uid="uid://cnhbvrka0g7s5" path="res://assets/visual/mesh_assets/Metal052C_1K-PNG/Metal052C_1K-PNG_Roughness.png" id="11_y34ph"]
+[ext_resource type="AudioStream" uid="uid://5ehtulf4nef7" path="res://assets/audio/trapsabilities/SoundsArrowHit.wav" id="12_ytopj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nko60"]
 size = Vector3(0.4382763, 0.559, 0.2)
@@ -114,5 +115,10 @@ autostart = true
 libraries/ = SubResource("AnimationLibrary_ytopj")
 autoplay = &"spin"
 
+[node name="ArrowHitAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=937433924]
+stream = ExtResource("12_ytopj")
+max_polyphony = 10
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="ArrowHitAudioStreamPlayer3D" to="." method="_on_arrow_hit_audio_stream_player_3d_finished"]

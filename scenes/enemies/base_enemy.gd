@@ -46,6 +46,8 @@ var items_purchased: Array = [0,0,0,0,0,0]
 @onready var dropped_gold_bag: Node3D = $DroppedGoldBag
 @onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
 @onready var find_dirt_block_area_3d: Area3D = $FindDirtBlockArea3D
+@onready var mining_audio_stream_player_3d: AudioStreamPlayer3D = $MiningAudioStreamPlayer3D
+@onready var death_audio_stream_player_3d: AudioStreamPlayer3D = $DeathAudioStreamPlayer3D
 
 var current_health: float:
 	set(health_in):
@@ -63,6 +65,8 @@ var current_health: float:
 			if gold_in_bag != 0:
 				create_bag_to_drop()
 			animated_sprite_3d.play("die")
+			death_audio_stream_player_3d.pitch_scale = randf_range(0.7,1.3)
+			death_audio_stream_player_3d.play()
 			set_physics_process(false)
 			collision_shape_3d.set_deferred("disabled",true)
 			death_timer.start()
@@ -265,8 +269,10 @@ func _on_mining_timer_timeout() -> void:
 			current_speed = current_base_speed
 	elif state == ENEMY_STATE.MINING_DIRT_WALL:
 		if wall_2_destroy && wall_2_destroy.get_parent().current_health > 0:
-				wall_2_destroy.get_parent().current_health -= 1
-				damage_taken[4] += 1
+			if !mining_audio_stream_player_3d.is_playing():
+				mining_audio_stream_player_3d.play()
+			wall_2_destroy.get_parent().current_health -= 1
+			damage_taken[4] += 1
 		else:
 			if rdy_to_leave:
 				state = ENEMY_STATE.TRAVEL_OUT

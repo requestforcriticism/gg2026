@@ -1,10 +1,12 @@
 extends "res://scenes/abilities/Boulder/boulder_ability_base.gd"
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var boulder_placed_audio_stream_player_3d: AudioStreamPlayer3D = $BoulderPlacedAudioStreamPlayer3D
 
 func _ready() -> void:
 	progress_ratio = 1.0
 	animation_player.play("spin")
+	boulder_placed_audio_stream_player_3d.play()
 
 func _physics_process(delta: float) -> void:
 	progress -= delta * speed

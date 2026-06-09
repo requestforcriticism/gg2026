@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b6hb1r7v4nwt0"
+path="res://.godot/imported/SWIPE Blade Chop Clang 01.ogg-1e31667ee68bfb7d8cd82560e00ba90c.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/trapsabilities/SWIPE Blade Chop Clang 01.ogg"
+dest_files=["res://.godot/imported/SWIPE Blade Chop Clang 01.ogg-1e31667ee68bfb7d8cd82560e00ba90c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
