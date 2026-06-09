@@ -2,7 +2,7 @@ extends PathFollow3D
 
 @export var bag_to_drop_scene: PackedScene
 
-@export var base_speed := 2.0
+@export var base_speed :float = 2.0
 @export var offset_value := 0.0
 @export var max_health := 50
 @export var mining_rate := 1.0 #Number of seconds
@@ -76,7 +76,6 @@ var current_speed: float:
 		current_speed = speed_in * slowed_perc
 
 func _ready() -> void:
-	#Engine.time_scale = 2
 	max_gold_capacity = base_max_gold_capacity
 	current_base_speed = base_speed
 	current_speed = current_base_speed
@@ -111,6 +110,9 @@ var wrong_track := false
 
 func do_state_stuff(delta) -> void:
 	if state == ENEMY_STATE.TRAVEL_IN:
+		if get_parent().is_in_group("enemy_camp"):
+			await get_tree().create_timer(0.5)
+			to_next_path()
 		progress += delta * current_speed
 		h_offset = offset_value
 		animated_sprite_3d.play(figure_out_travel_animation())

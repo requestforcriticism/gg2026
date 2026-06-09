@@ -8,6 +8,8 @@ var layers :int =3
 @export var mines_L2 :Array[Path3D]
 @export var mines_L3 :Array[Path3D]
 
+@onready var storyui = get_tree().get_first_node_in_group("storyui")
+
 @onready var ui: MarginContainer = $UI
 @onready var enemy_manager: Node3D = $EnemyManager
 @onready var ladder_layer_2_sprite_mesh_instance: SpriteMeshInstance = $ladders/LadderLayer2SpriteMeshInstance
@@ -66,16 +68,23 @@ func check_layer_complete() -> void:
 	for i in all_mines[layer_unlocked-1]:
 		if i.current_gold > 0:
 			return
-	layer_unlocked += 1
+	if layer_unlocked < layers:
+		layer_unlocked += 1
+		if layer_unlocked == 2:
+			storyui.layer2_opened()
+		else:
+			new_layer()
+	else:
+		get_tree().paused = true
+		print("game over")
+
+func new_layer() -> void:
 	bankand_quota.reset_quota()
 	show_unlocked_mines()
 	show_floor(layer_unlocked)
 	place_mining_goblins()
 	get_max_gold()
 	ui.unlock_trapabilities()
-	if layer_unlocked > layers:
-		get_tree().paused = true
-		print("game over")
 
 func place_mining_goblins() -> void:
 	if layer_unlocked <= layers:

@@ -89,7 +89,8 @@ func Node3d_collision(collider: Node3D) -> void:
 	if Input.is_action_just_pressed("click"):
 		if collider.get_parent() != holding_trap:
 			if holding_trap:
-				holding_trap.deselected()
+				if !holding_trap.is_in_group("dirtblock"):
+					holding_trap.deselected()
 				holding_trap = null
 		holding_trap = collider.get_parent()
 		UserInt.show_selected_trap(holding_trap)
@@ -204,10 +205,10 @@ func check_cancel_select() -> void:
 
 func check_change_layer() -> void:
 	if Input.is_action_just_pressed("toggle_layers"):
-		camera_on_layer = (camera_on_layer) % level.layer_unlocked + 1
 		change_layer_stuff()
 
 func change_layer_stuff() -> void:
+	camera_on_layer = (camera_on_layer) % level.layer_unlocked + 1
 	camera_moving_zoom = false
 	camera_moving_pos = true
 	camera_moving_to = Layer_pos[camera_on_layer-1]

@@ -6,13 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://1psanef3pwka" path="res://scenes/enemy_camp/enemy_camp.tscn" id="1_sytrn"]
 [ext_resource type="Script" uid="uid://c73uxswnb38ot" path="res://scenes/level/bank.gd" id="1_vpf64"]
 [ext_resource type="PackedScene" uid="uid://bvfj4a27tv5xe" path="res://scenes/gold_mine_base/gold_mine.tscn" id="3_i166f"]
-[ext_resource type="Script" uid="uid://dlcf48e56hgfs" path="res://scenes/level/story_ui.gd" id="3_x4oov"]
-[ext_resource type="Texture2D" uid="uid://dgrpbki05atv5" path="res://assets/visual/ui/speechbox.png" id="4_ss4b2"]
 [ext_resource type="Script" uid="uid://do1n7nro3atrt" path="res://scenes/level/trap_ability_manager.gd" id="5_pe1ox"]
-[ext_resource type="Texture2D" uid="uid://dnltvf7rc4jlx" path="res://assets/visual/ui/orc_bg.png" id="5_qjqsm"]
-[ext_resource type="FontFile" uid="uid://dfdn7v8a7l5u1" path="res://assets/fonts/Macondo-Regular.ttf" id="6_0fkkc"]
 [ext_resource type="PackedScene" uid="uid://cjkoutg7xf7fv" path="res://scenes/enemies/tank_enemy.tscn" id="6_pm6rs"]
-[ext_resource type="FontFile" uid="uid://cdw4y5e8b80y7" path="res://assets/fonts/FreckleFace-Regular.ttf" id="7_0fkkc"]
 [ext_resource type="PackedScene" uid="uid://dh8lyi6jubehl" path="res://scenes/abilities/single_point_path_3d.tscn" id="7_m0bv2"]
 [ext_resource type="PackedScene" uid="uid://b7h1gv7mqk0k6" path="res://scenes/enemies/fast_enemy.tscn" id="7_vrc4q"]
 [ext_resource type="Script" uid="uid://6e5tpvsii3tm" path="res://scenes/level/enemy_manager.gd" id="8_pe1ox"]
@@ -42,32 +37,19 @@ sky = SubResource("Sky_i166f")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="LabelSettings" id="LabelSettings_3rml5"]
-font = ExtResource("6_0fkkc")
-font_size = 32
-font_color = Color(0, 0, 0, 1)
-outline_size = 6
-outline_color = Color(0.8535939, 0.5730105, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_wyi7n"]
-font = ExtResource("7_0fkkc")
-font_size = 28
-font_color = Color(0, 0, 0, 1)
-outline_size = 3
-
 [sub_resource type="Curve" id="Curve_fhw5o"]
-_limits = [1.0, 1.5, 0.0, 1.0]
-_data = [Vector2(0, 1), 0.0, 0.6860465, 0, 1, Vector2(1, 1.5), 1.0, 0.0, 0, 0]
+_limits = [1.0, 1.75, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.7341725, 0, 1, Vector2(1, 1.75), 1.4979106, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_xm880"]
-_limits = [1.5, 2.75, 0.0, 1.0]
-_data = [Vector2(0, 1.5), 0.0, 0.5, 0, 0, Vector2(1, 2.75), 1.9708493, 0.0, 0, 0]
+_limits = [1.75, 3.5, 0.0, 1.0]
+_data = [Vector2(0, 1.75), 0.0, 1.7500001, 0, 1, Vector2(1, 3.5), 1.7500001, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_vfold"]
-_limits = [2.5, 4.0, 0.0, 1.0]
-_data = [Vector2(0, 2.5), 0.0, 0.5, 0, 0, Vector2(1, 4), 1.9745026, 0.0, 0, 0]
+_limits = [3.5, 9.0, 0.0, 1.0]
+_data = [Vector2(0, 3.5), 0.0, 5.5, 0, 1, Vector2(1, 9), 5.5, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_ivku7"]
@@ -211,65 +193,13 @@ shadow_enabled = true
 [node name="BankandQuota" type="Node" parent="." unique_id=1521444107 groups=["bankandquota"]]
 script = ExtResource("1_vpf64")
 starting_gold = 35
-
-[node name="StoryUI2" type="CanvasLayer" parent="." unique_id=2035741995 node_paths=PackedStringArray("words_label")]
-process_mode = 3
-visible = false
-script = ExtResource("3_x4oov")
-words_label = NodePath("DialagueBoxTexture/WordsLabel")
-Start_Game_dialogue_lines = Array[String](["… thing… Is….?  I said is this thing on!? Ah, yes! PIPSQUEAK! Glad you’re finally awake. ", "I know things must be confusing for your little mind, so let me inform you.", " I’m Overseer Gobgob, the most rich and powerful of the Goblin Mining Elite!", "Did you really think I wouldn’t find out that it was you who played that prank on me during the last Goblin Holiday Social?"])
-
-[node name="DialagueBoxTexture" type="TextureRect" parent="StoryUI2" unique_id=1517754456]
-offset_left = 539.0
-offset_top = 207.0
-offset_right = 1323.0
-offset_bottom = 470.0
-scale = Vector2(0.75, 0.75)
-size_flags_horizontal = 8
-size_flags_vertical = 4
-texture = ExtResource("4_ss4b2")
-
-[node name="GobillionaireImage" type="TextureRect" parent="StoryUI2/DialagueBoxTexture" unique_id=592443303]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 4.999999
-offset_top = -26.5
-offset_right = 789.0
-offset_bottom = 639.5
-grow_vertical = 2
-scale = Vector2(0.2, 0.2)
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("5_qjqsm")
-stretch_mode = 4
-
-[node name="GolbillionaireNameLabel" type="Label" parent="StoryUI2/DialagueBoxTexture" unique_id=1238293226]
-layout_mode = 0
-offset_left = 95.0
-offset_top = 45.0
-offset_right = 384.0
-offset_bottom = 84.0
-text = "Overseer Gobillionaire"
-label_settings = SubResource("LabelSettings_3rml5")
-
-[node name="WordsLabel" type="Label" parent="StoryUI2/DialagueBoxTexture" unique_id=561315747]
-layout_mode = 0
-offset_left = 210.66666
-offset_top = 121.333336
-offset_right = 740.0
-offset_bottom = 232.33334
-text = "aksjdhnkajqhefiuhawqeiudfgnaikshefaiouhdsfkahsdklfjhiowehfzshdfjklhnweijkfhnakljsjklhaksjdhfkajlshdfkahsdkfjhaksldfhklajhsdfk"
-label_settings = SubResource("LabelSettings_wyi7n")
-autowrap_mode = 3
+quota = [35, 160, 850]
 
 [node name="UI" parent="." unique_id=1166578692 instance=ExtResource("9_sytrn")]
 offset_top = 8.0
 offset_bottom = 8.0
 
-[node name="EnemyManager" type="Node3D" parent="." unique_id=495787817 node_paths=PackedStringArray("enemy_path_l_1")]
+[node name="EnemyManager" type="Node3D" parent="." unique_id=495787817 node_paths=PackedStringArray("enemy_path_l_1") groups=["enemymanager"]]
 script = ExtResource("8_pe1ox")
 base_enemy_scene = ExtResource("9_m0bv2")
 tank_enemy_scene = ExtResource("6_pm6rs")
@@ -282,20 +212,20 @@ fast_enemy_spawn_rate = 13.1
 
 [node name="BaseEnemySpawnTimer" type="Timer" parent="EnemyManager" unique_id=1663667012]
 wait_time = 3.0
-autostart = true
 
 [node name="TankEnemySpawnTimer" type="Timer" parent="EnemyManager" unique_id=927760206]
 wait_time = 9.3
-autostart = true
 
 [node name="FastEnemySpawnTimer" type="Timer" parent="EnemyManager" unique_id=2120781589]
 wait_time = 7.7
-autostart = true
+
+[node name="SpawnTimer" type="Timer" parent="EnemyManager" unique_id=727588366]
+wait_time = 0.1
 
 [node name="TrapAbilityManager" type="Node3D" parent="." unique_id=556410210]
 script = ExtResource("5_pe1ox")
 
-[node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("trap_ability_manager", "layer_nodes") instance=ExtResource("1_nbgty")]
+[node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("trap_ability_manager", "layer_nodes") groups=["raypickercamera"] instance=ExtResource("1_nbgty")]
 transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 2.5, 5.5, 2.5)
 trap_ability_manager = NodePath("../TrapAbilityManager")
 single_point = ExtResource("7_m0bv2")
@@ -354,7 +284,7 @@ my_going_back = [NodePath("../../Layer1/Enemy2NextLayerL1Path")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -20, -3)
 visible = false
 my_going_back = [NodePath("../EnemyPathL2a"), NodePath("../EnemyPathL2b")]
-max_gold = 180
+max_gold = 225
 
 [node name="Enemy2NextLayerL2aPath" parent="Layer2" unique_id=1657065064 node_paths=PackedStringArray("my_going_forward_nextpath", "my_going_back") groups=["jumppath"] instance=ExtResource("13_pm6rs")]
 curve = SubResource("Curve3D_vrc4q")
@@ -440,8 +370,12 @@ transform = Transform3D(0.7071067, -0.35355338, 0.61237234, 0, 0.8660254, 0.4999
 mesh = SubResource("BoxMesh_mf35j")
 
 [connection signal="timeout" from="EnemyManager/BaseEnemySpawnTimer" to="EnemyManager" method="spawn_base_enemy"]
+[connection signal="timeout" from="EnemyManager/BaseEnemySpawnTimer" to="EnemyManager" method="_on_base_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="EnemyManager/TankEnemySpawnTimer" to="EnemyManager" method="spawn_tank_enemy"]
+[connection signal="timeout" from="EnemyManager/TankEnemySpawnTimer" to="EnemyManager" method="_on_tank_enemy_spawn_timer_timeout"]
+[connection signal="timeout" from="EnemyManager/FastEnemySpawnTimer" to="EnemyManager" method="_on_fast_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="EnemyManager/FastEnemySpawnTimer" to="EnemyManager" method="spawn_fast_enemy"]
+[connection signal="timeout" from="EnemyManager/SpawnTimer" to="EnemyManager" method="spawn_a_bunch_wtimer"]
 
 [editable path="Layer1/EnemyPathL1"]
 [editable path="Layer1/GoldMineL1"]

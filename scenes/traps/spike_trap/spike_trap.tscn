@@ -230,7 +230,7 @@ size = Vector3(2, 1, 2)
 
 [node name="SpikeTrap" unique_id=1269147494 groups=["spikewinfo"] instance=ExtResource("1_mxevx")]
 script = ExtResource("2_b67sa")
-trap_cost = [20, 30, 40]
+trap_cost = [20, 35, 50]
 passive_spike_buildup_damage = [2, 4, 6]
 spike_thrust_damage = [25, 40, 60]
 

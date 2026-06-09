@@ -20,6 +20,7 @@ signal ability_select(A2d)
 @onready var gridmap = get_tree().get_first_node_in_group("gridmap")
 @onready var level = get_tree().get_first_node_in_group("level")
 
+@onready var story_ui_2: CanvasLayer = $StoryUI2
 @onready var spike_trapinfo: Node3D = $trap_info/SpikeTrapinfo
 @onready var arrow_trap_baseinfo: Node3D = $trap_info/ArrowTrapBaseinfo
 @onready var mud_trapinfo: Node3D = $trap_info/MudTrapinfo
@@ -82,14 +83,14 @@ func _process(delta: float) -> void:
 
 func check_if_lost() -> void:
 	if level.get_current_gold() < bankandquota.quota[level.layer_unlocked-1] - bankandquota.earned_for_quota:
-		print("you lose.")
+		story_ui_2.lost_game_dialogue()
 		lose_game_audio_stream_player.play()
 		get_tree().paused = true
 
 func check_if_won() -> void:
 	if level.layer_unlocked == level.layers:
 		if bankandquota.earned_for_quota >= bankandquota.quota[level.layer_unlocked-1]:
-			print("you win!")
+			story_ui_2.won_game_dialogue()
 			win_game_audio_stream_player.play()
 
 func _input(event: InputEvent) -> void:
@@ -278,7 +279,6 @@ func close_info_windows() -> void:
 func show_selected_trap(new_holding_trap: Node3D) -> void:
 	holding_trap = new_holding_trap
 	close_info_windows()
-	print(holding_trap)
 	if holding_trap.is_in_group("dirtblock"):
 		return
 	holding_trap.selected()
@@ -435,3 +435,13 @@ func unlock_trapabilities() -> void:
 		arrow_trap_container.visible = true
 	if level.layer_unlocked > 2:
 		mud_trap_container.visible = true
+
+@onready var game_end: PanelContainer = $GameEnd
+@onready var win_lose_label: Label = $GameEnd/VBoxContainer/WinLoseLabel
+
+func end_game(result:String) -> void:
+	if result == "won":
+		win_lose_label.text = str("You Won")
+	elif result == "lost":
+		win_lose_label.text = str("You Lost")
+	game_end.visible = true

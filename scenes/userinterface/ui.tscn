@@ -35,6 +35,13 @@
 [ext_resource type="AudioStream" uid="uid://r4xq6nk40bf6" path="res://assets/audio/ui/SoundsWrongChoice.wav" id="33_v22we"]
 [ext_resource type="AudioStream" uid="uid://bm1kyq51llybj" path="res://assets/audio/ui/You died.wav" id="34_v22we"]
 [ext_resource type="AudioStream" uid="uid://2biu3wadsmf7" path="res://assets/audio/ui/Victory.wav" id="35_phpwu"]
+[ext_resource type="Script" uid="uid://mt0em4jsnjmx" path="res://scenes/userinterface/play_again_button.gd" id="36_fiavr"]
+[ext_resource type="Script" uid="uid://bjh77n30rl1xy" path="res://scenes/userinterface/exit_button.gd" id="36_io81c"]
+[ext_resource type="Script" uid="uid://dlcf48e56hgfs" path="res://scenes/level/story_ui.gd" id="38_573p1"]
+[ext_resource type="Texture2D" uid="uid://dgrpbki05atv5" path="res://assets/visual/ui/speechbox.png" id="39_1fhh8"]
+[ext_resource type="Texture2D" uid="uid://dnltvf7rc4jlx" path="res://assets/visual/ui/orc_bg.png" id="40_1jxq1"]
+[ext_resource type="Texture2D" uid="uid://cfjpo2as2fmx4" path="res://assets/visual/ui/h_warrior_male.png" id="41_1fhh8"]
+[ext_resource type="FontFile" uid="uid://cdw4y5e8b80y7" path="res://assets/fonts/FreckleFace-Regular.ttf" id="41_qx2aq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqdvs"]
 font = ExtResource("14_euyg3")
@@ -89,6 +96,31 @@ font = ExtResource("14_euyg3")
 font_size = 20
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_phpwu"]
+font = ExtResource("14_euyg3")
+font_size = 64
+font_color = Color(0, 0, 0, 1)
+outline_size = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_lgt16"]
+font = ExtResource("14_euyg3")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+outline_size = 6
+outline_color = Color(0.8535939, 0.5730105, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_573p1"]
+font = ExtResource("14_euyg3")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+outline_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_3lajm"]
+font = ExtResource("41_qx2aq")
+font_size = 28
+font_color = Color(0, 0, 0, 1)
+outline_size = 3
 
 [node name="UI" type="MarginContainer" unique_id=1166578692 groups=["UI"]]
 anchors_preset = 15
@@ -264,6 +296,7 @@ text = "11"
 label_settings = SubResource("LabelSettings_lox5b")
 
 [node name="ArrowInfoContainer" type="PanelContainer" parent="TrapAbilityOption" unique_id=1668926850]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -1310,6 +1343,134 @@ stream = ExtResource("34_v22we")
 process_mode = 3
 stream = ExtResource("35_phpwu")
 
+[node name="GameEnd" type="PanelContainer" parent="." unique_id=998052507]
+process_mode = 3
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="GameEnd" unique_id=18547641]
+layout_mode = 2
+color = Color(0.7151573, 0.47864348, 9.62615e-07, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameEnd" unique_id=1324511136]
+layout_mode = 2
+
+[node name="WinLoseLabel" type="Label" parent="GameEnd/VBoxContainer" unique_id=343507263]
+layout_mode = 2
+text = "You Won!"
+label_settings = SubResource("LabelSettings_phpwu")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameEnd/VBoxContainer" unique_id=580613325]
+layout_mode = 2
+
+[node name="PlayAgainButton" type="Button" parent="GameEnd/VBoxContainer/HBoxContainer" unique_id=2013877428]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Play Again"
+script = ExtResource("36_fiavr")
+
+[node name="ExitButton" type="Button" parent="GameEnd/VBoxContainer/HBoxContainer" unique_id=1216466509]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quit Game"
+script = ExtResource("36_io81c")
+
+[node name="StoryUI2" type="CanvasLayer" parent="." unique_id=1642078341 node_paths=PackedStringArray("words_label") groups=["storyui"]]
+process_mode = 3
+script = ExtResource("38_573p1")
+words_label = NodePath("DialagueBoxTexture/WordsLabel")
+Start_Game_dialogue_gob_lines = Array[String](["Good morning PIPSQUEAK! I’m Overseer Gobillionaire, the most rich and powerful of the Mine Goblin Co., and you are at my mercy!", "Did you really think I wouldn’t find out that it was you who played that prank on me during the last Goblin Holiday Social? ", "Now you’re here at our least productive mine serving as our business agent, and if you don’t make it profitable…", "You’ll be made into very productive Ogre food instead! Hahahahaha!!!", "Look at that, intruders have arrived! Those humans will clean you out if you don’t stop them. So make yourself useful!"])
+Start_Game_dialogue_human_lines = Array[String](["I’ve found it! The Broken Down, Cheap, Plundered Mine of No Value! They called me crazy!! ", "Now when my enemies - whom I’ve also told the location - arrive, they will see it indeed has no value - because I got it all!"])
+Start2_Game_dialogue_gob_lines = Array[String](["These humans are exactly why this mine is our least productive! The second it starts producing, they ransack it!", "Stop these humans! They’re the only thing more pathetic than you, pipsqueak."])
+Layer2_Game_dialogue_gob_lines = Array[String](["PIPSQUEAK! You’ve done the impossible!! You’ve made the mine profitable again! Well… I have to admit, I was wrong about you. ", "You showed me. That fulfills the terms of your contract, and you are free to go. I really do apologize."])
+Layer2b_Game_dialogue_gob_lines = Array[String](["HAHAHAHAHAHAHAHAHAHA!!!", "You fool!!! You really thought you were ever going to be free again?? You really ARE the perfect Goblin for that mine!! ", "Did you not read your new contract?? Under Section 528, subsection 12.5(b), and I quote, “Agent is assigned to mine…FOREVER!!!”", "We don’t remember how deep that mine goes… in fact, it could go on forever… guess you’ll have to find out, Pipsqueak! ", "Now, dear agent… GET BACK TO WORK!!!"])
+Lose_Game_dialogue_gob_lines = Array[String](["Just as I thought, Pipsqueak! Can't even do that right. Well, at least my pet Ogre will eat good tonight!"])
+Win_Game_dialogue_gob_lines = Array[String](["You win!", "I'm a goblin and you won!"])
+
+[node name="DialagueBoxTexture" type="TextureRect" parent="StoryUI2" unique_id=41534621]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -392.0
+offset_top = -263.0
+offset_right = 392.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("39_1fhh8")
+
+[node name="GobillionaireImage" type="TextureRect" parent="StoryUI2/DialagueBoxTexture" unique_id=1387860365]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 4.999999
+offset_top = -26.5
+offset_right = 789.0
+offset_bottom = 639.5
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("40_1jxq1")
+stretch_mode = 4
+
+[node name="GolbillionaireNameLabel" type="Label" parent="StoryUI2/DialagueBoxTexture" unique_id=940053204]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 45.0
+offset_right = 384.0
+offset_bottom = 84.0
+text = "Overseer Gobillionaire"
+label_settings = SubResource("LabelSettings_lgt16")
+
+[node name="HumanImage" type="TextureRect" parent="StoryUI2/DialagueBoxTexture" unique_id=80018394]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 17.333332
+offset_top = -26.166664
+offset_right = 801.3333
+offset_bottom = 639.8333
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("41_1fhh8")
+stretch_mode = 4
+
+[node name="HumanNameLabel" type="Label" parent="StoryUI2/DialagueBoxTexture" unique_id=660446096]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 45.0
+offset_right = 384.0
+offset_bottom = 84.0
+text = "Some Human"
+label_settings = SubResource("LabelSettings_573p1")
+
+[node name="WordsLabel" type="Label" parent="StoryUI2/DialagueBoxTexture" unique_id=704398814]
+layout_mode = 0
+offset_left = 206.66666
+offset_top = 121.333336
+offset_right = 754.6666
+offset_bottom = 232.33334
+text = "aksjdhnkajqhefiuhawqeiudfgnaikshefaiouhdsfkahsdklfjhiowehfzshdfjklhnweijkfhnakljsjklhaksjdhfkajlshdfkahsdkfjhaksldfhklajhsdfk"
+label_settings = SubResource("LabelSettings_3lajm")
+autowrap_mode = 3
+
+[node name="TabTimer" type="Timer" parent="StoryUI2" unique_id=1397361865]
+one_shot = true
+
 [connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedspikeButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellspikeButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedArrowButton" to="." method="_on_button_pressed"]
@@ -1323,6 +1484,9 @@ stream = ExtResource("35_phpwu")
 [connection signal="pressed" from="TrapAbilityOption/TrapOptions/SpikeTrapContainer/SpikeTrapButton" to="." method="_on_spike_trap_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/TrapOptions/ArrowTrapContainer/ArrowTrapButton" to="." method="_on_arrow_trap_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/TrapOptions/MudTrapContainer/MudTrapButton" to="." method="_on_mud_trap_button_pressed"]
+[connection signal="pressed" from="GameEnd/VBoxContainer/HBoxContainer/PlayAgainButton" to="GameEnd/VBoxContainer/HBoxContainer/PlayAgainButton" method="_on_pressed"]
+[connection signal="pressed" from="GameEnd/VBoxContainer/HBoxContainer/ExitButton" to="GameEnd/VBoxContainer/HBoxContainer/ExitButton" method="_on_pressed"]
+[connection signal="timeout" from="StoryUI2/TabTimer" to="StoryUI2" method="_on_tab_timer_timeout"]
 
 [editable path="trap_info/SpikeTrapinfo"]
 [editable path="trap_info/ArrowTrapBaseinfo"]
