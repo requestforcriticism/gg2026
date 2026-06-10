@@ -29,6 +29,7 @@ extends Node3D
 @export var fast_enemy_base_max_gold_capacity := 4
 @export var fast_enemy_stunned_length := 1.5
 
+@onready var bankandquota = get_tree().get_first_node_in_group("bankandquota")
 @onready var spawn_timer: Timer = $SpawnTimer
 @onready var base_enemy_spawn_timer: Timer = $BaseEnemySpawnTimer
 @onready var tank_enemy_spawn_timer: Timer = $TankEnemySpawnTimer
@@ -46,6 +47,7 @@ extends Node3D
 var temp_array: Array = []
 var spawn_counter: int
 var spawning_counter:Array[int]=[]
+var normal_mode_mult:float = .8
 
 func _ready() -> void:
 	base_enemy_spawn_timer.wait_time = base_enemy_spawn_rate
@@ -57,6 +59,25 @@ func _ready() -> void:
 	spawning_counter.append(group_spawn_L1.size())
 	spawning_counter.append(group_spawn_L2.size())
 	spawning_counter.append(group_spawn_L3.size())
+
+func normal_mode() -> void:
+	base_enemy_base_speed *= normal_mode_mult
+	base_enemy_max_health *= normal_mode_mult
+	base_enemy_mining_rate *= 1+(1 - normal_mode_mult)
+	base_enemy_base_max_gold_capacity = 4
+	base_enemy_stunned_length *= 1+(1 - normal_mode_mult)
+
+	tank_enemy_base_speed *= normal_mode_mult
+	tank_enemy_max_health *= normal_mode_mult
+	tank_enemy_mining_rate *= 1+(1 - normal_mode_mult)
+	tank_enemy_base_max_gold_capacity = 6
+	tank_enemy_stunned_length *= 1+(1 - normal_mode_mult)
+
+	fast_enemy_base_speed *= normal_mode_mult
+	fast_enemy_max_health *= normal_mode_mult
+	fast_enemy_mining_rate *= 1+(1 - normal_mode_mult)
+	fast_enemy_base_max_gold_capacity = 3
+	fast_enemy_stunned_length *= 1+(1 - normal_mode_mult)
 
 func _process(delta: float) -> void:
 	if level.layer_unlocked == 1:

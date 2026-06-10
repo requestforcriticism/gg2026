@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://dsiwbdnhgcd6t" path="res://scenes/userinterface/ui.tscn" id="9_sytrn"]
 [ext_resource type="PackedScene" uid="uid://d4bsq7oek6aom" path="res://scenes/level/enemy_path.tscn" id="13_pm6rs"]
 [ext_resource type="AudioStream" uid="uid://clddqwrbdnc7c" path="res://assets/audio/Level 1 - Rock.wav" id="15_vrc4q"]
+[ext_resource type="Script" uid="uid://dmj0qbvu17vl7" path="res://scenes/level/main_music_audio_stream_player.gd" id="16_b3up8"]
+[ext_resource type="AudioStream" uid="uid://dsqansw8cpcqx" path="res://assets/audio/Level 2 - Rock.wav" id="17_cqqhe"]
 [ext_resource type="Texture2D" uid="uid://dyxnopkkllh5u" path="res://assets/visual/misc/Fences (wood).png" id="21_a5iu8"]
 [ext_resource type="Script" uid="uid://xdmm7egms4uv" path="res://sprite_mesh/sprite_mesh_instance.gd" id="22_b3up8"]
 [ext_resource type="Script" uid="uid://onnxwjckopnl" path="res://sprite_mesh/sprite_mesh.gd" id="23_cqqhe"]
@@ -325,21 +327,27 @@ my_going_forward_mine = NodePath("../GoldMineL3b")
 curve = SubResource("Curve3D_xm880")
 my_going_forward_mine = NodePath("../GoldMineL3a")
 
-[node name="GoldMineL3a" parent="Layer3" unique_id=32221716 node_paths=PackedStringArray("my_going_back") instance=ExtResource("3_i166f")]
+[node name="GoldMineL3a" parent="Layer3" unique_id=32221716 node_paths=PackedStringArray("other_mines_on_layer", "my_going_back") instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -40, 5)
 visible = false
+other_mines_on_layer = [NodePath("../GoldMineL3b")]
 my_going_back = [NodePath("../EnemyPathL3a")]
 max_gold = 600
 
-[node name="GoldMineL3b" parent="Layer3" unique_id=1176244053 node_paths=PackedStringArray("my_going_back") instance=ExtResource("3_i166f")]
+[node name="GoldMineL3b" parent="Layer3" unique_id=1176244053 node_paths=PackedStringArray("other_mines_on_layer", "my_going_back") instance=ExtResource("3_i166f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -40, 3)
 visible = false
+other_mines_on_layer = [NodePath("../GoldMineL3a")]
 my_going_back = [NodePath("../EnemyPathL3b")]
 max_gold = 600
 
-[node name="MainMusicAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1571766899]
+[node name="NormalMainMusicAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1571766899 groups=["normalmusic"]]
 stream = ExtResource("15_vrc4q")
-autoplay = true
+script = ExtResource("16_b3up8")
+
+[node name="HardMainMusicAudioStreamPlayer2" type="AudioStreamPlayer" parent="." unique_id=1632573280 groups=["hardmusic"]]
+stream = ExtResource("17_cqqhe")
+script = ExtResource("16_b3up8")
 
 [node name="ladders" type="Node" parent="." unique_id=1453197181]
 
@@ -377,6 +385,8 @@ mesh = SubResource("BoxMesh_mf35j")
 [connection signal="timeout" from="EnemyManager/FastEnemySpawnTimer" to="EnemyManager" method="spawn_fast_enemy"]
 [connection signal="timeout" from="EnemyManager/FastEnemySpawnTimer" to="EnemyManager" method="_on_fast_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="EnemyManager/SpawnTimer" to="EnemyManager" method="spawn_a_bunch_wtimer"]
+[connection signal="finished" from="NormalMainMusicAudioStreamPlayer" to="NormalMainMusicAudioStreamPlayer" method="_on_finished"]
+[connection signal="finished" from="HardMainMusicAudioStreamPlayer2" to="HardMainMusicAudioStreamPlayer2" method="_on_finished"]
 
 [editable path="Layer1/EnemyPathL1"]
 [editable path="Layer1/GoldMineL1"]

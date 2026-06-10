@@ -43,6 +43,8 @@
 [ext_resource type="Texture2D" uid="uid://cfjpo2as2fmx4" path="res://assets/visual/ui/h_warrior_male.png" id="41_1fhh8"]
 [ext_resource type="FontFile" uid="uid://cdw4y5e8b80y7" path="res://assets/fonts/FreckleFace-Regular.ttf" id="41_qx2aq"]
 [ext_resource type="Script" uid="uid://d2uq5vev36c7p" path="res://scenes/userinterface/paused_info_panel_container.gd" id="43_1jxq1"]
+[ext_resource type="Texture2D" uid="uid://chwlwirh7h7du" path="res://assets/visual/ui/keyboard_escape.png" id="44_qx2aq"]
+[ext_resource type="Script" uid="uid://brylw0ij5mndi" path="res://scenes/userinterface/hard_mode_panel_container.gd" id="45_lgt16"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqdvs"]
 font = ExtResource("14_euyg3")
@@ -122,6 +124,142 @@ font = ExtResource("41_qx2aq")
 font_size = 28
 font_color = Color(0, 0, 0, 1)
 outline_size = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_qx2aq"]
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_lgt16"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:size_flags_horizontal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:size_flags_vertical")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PanelContainer:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PanelContainer:anchors_preset")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+
+[sub_resource type="Animation" id="Animation_3lajm"]
+resource_name = "setup"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:size_flags_horizontal")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:size_flags_vertical")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PanelContainer:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(2, 2), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PanelContainer:anchors_preset")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [8, 8, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mywt1"]
+_data = {
+&"RESET": SubResource("Animation_lgt16"),
+&"setup": SubResource("Animation_3lajm")
+}
 
 [node name="UI" type="MarginContainer" unique_id=1166578692 groups=["UI"]]
 process_mode = 3
@@ -1251,6 +1389,7 @@ expand_mode = 1
 stretch_mode = 4
 
 [node name="Gold_Quota" type="GridContainer" parent="." unique_id=1536439003]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
@@ -1345,6 +1484,11 @@ stream = ExtResource("34_v22we")
 process_mode = 3
 stream = ExtResource("35_phpwu")
 
+[node name="TalkingAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1474383991]
+stream = ExtResource("33_v22we")
+pitch_scale = 0.65
+max_polyphony = 5
+
 [node name="GameEnd" type="PanelContainer" parent="." unique_id=998052507]
 process_mode = 3
 visible = false
@@ -1393,6 +1537,7 @@ words_label = NodePath("DialagueBoxTexture/WordsLabel")
 Start_Game_dialogue_gob_lines = Array[String](["Good morning PIPSQUEAK! I’m Overseer Gobillionaire, the most rich and powerful of the Mine Goblin Co., and you are at my mercy!", "Did you really think I wouldn’t find out that it was you who played that prank on me during the last Goblin Holiday Social? ", "Now you’re here at our least productive mine serving as our business agent, and if you don’t make it profitable…", "You’ll be made into very productive Ogre food instead! Hahahahaha!!!", "Look at that, intruders have arrived! Those humans will clean you out if you don’t stop them. So make yourself useful!"])
 Start_Game_dialogue_human_lines = Array[String](["I’ve found it! The Broken Down, Cheap, Plundered Mine of No Value! They called me crazy!! ", "Now when my enemies - whom I’ve also told the location - arrive, they will see it indeed has no value - because I got it all!"])
 Start2_Game_dialogue_gob_lines = Array[String](["These humans are exactly why this mine is our least productive! The second it starts producing, they ransack it!", "Stop these humans! They’re the only thing more pathetic than you, pipsqueak."])
+Skip_Intro_Game_dialogue_gob_lines = Array[String](["Whatever!  Good luck playing without my tutelage!  Here's a final gift for ignoring me!"])
 Layer2_Game_dialogue_gob_lines = Array[String](["PIPSQUEAK! You’ve done the impossible!! You’ve made the mine profitable again! Well… I have to admit, I was wrong about you. ", "You showed me. That fulfills the terms of your contract, and you are free to go. I really do apologize."])
 Layer2b_Game_dialogue_gob_lines = Array[String](["HAHAHAHAHAHAHAHAHAHA!!!", "You fool!!! You really thought you were ever going to be free again?? You really ARE the perfect Goblin for that mine!! ", "Did you not read your new contract?? Under Section 528, subsection 12.5(b), and I quote, “Agent is assigned to mine…FOREVER!!!”", "We don’t remember how deep that mine goes… in fact, it could go on forever… guess you’ll have to find out, Pipsqueak! ", "Now, dear agent… GET BACK TO WORK!!!"])
 Lose_Game_dialogue_gob_lines = Array[String](["Just as I thought, Pipsqueak! Can't even do that right. Well, at least my pet Ogre will eat good tonight!"])
@@ -1415,7 +1560,6 @@ size_flags_vertical = 4
 texture = ExtResource("39_1fhh8")
 
 [node name="GobillionaireImage" type="TextureRect" parent="StoryUI2/DialagueBoxTexture" unique_id=1387860365]
-visible = false
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 4
@@ -1542,6 +1686,79 @@ text = "Restart Game"
 [node name="QuitButton" type="Button" parent="PausedInfoPanelContainer/MarginContainer/VBoxContainer" unique_id=1362307978]
 layout_mode = 2
 text = "Quit Game"
+
+[node name="SkipIntroPanelContainer" type="PanelContainer" parent="." unique_id=1886801192]
+visible = false
+modulate = Color(1, 1, 1, 0.3529412)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="SkipIntroPanelContainer" unique_id=1897468654]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SkipIntroPanelContainer/MarginContainer" unique_id=546816677]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="SkipIntroPanelContainer/MarginContainer/HBoxContainer" unique_id=1866224901]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+texture = ExtResource("44_qx2aq")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="SkipIntroPanelContainer/MarginContainer/HBoxContainer" unique_id=1369747312]
+layout_mode = 2
+text = "Hold to Skip Intro"
+
+[node name="HardModePanelContainer" type="Panel" parent="." unique_id=1102153326]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("45_lgt16")
+
+[node name="PanelContainer" type="PanelContainer" parent="HardModePanelContainer" unique_id=518902549]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.5
+offset_top = -16.5
+offset_right = 53.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(53.2258, 16.451614)
+
+[node name="TextureRect" type="TextureRect" parent="HardModePanelContainer/PanelContainer" unique_id=1955011335]
+self_modulate = Color(0.89424634, 0.5530359, 5.7756904e-07, 1)
+layout_mode = 2
+texture = ExtResource("13_7cvrb")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HardModePanelContainer/PanelContainer" unique_id=941851727]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="HardModePanelContainer/PanelContainer/MarginContainer" unique_id=978695323]
+layout_mode = 2
+text = "Hard Mode"
+label_settings = SubResource("LabelSettings_qx2aq")
+uppercase = true
+
+[node name="HardModeAnimationPlayer" type="AnimationPlayer" parent="HardModePanelContainer" unique_id=1200025350]
+libraries/ = SubResource("AnimationLibrary_mywt1")
 
 [connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedspikeButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellspikeButton" to="." method="_on_sell_button_pressed"]

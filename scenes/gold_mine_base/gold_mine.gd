@@ -1,11 +1,14 @@
 extends Path3D
 
+@export var other_mines_on_layer :Array[Path3D]
 @export var my_going_back :Array[Path3D]
 
 @export var mining_goblin_scene: PackedScene
 
 @export var max_gold: int = 1000
 
+@onready var bankquota = get_tree().get_first_node_in_group("bankandquota")
+@onready var ui = get_tree().get_first_node_in_group("UI")
 @onready var level = get_tree().get_first_node_in_group("level")
 
 var closing := true 
@@ -32,7 +35,21 @@ func mine_empty():
 		$Hole.visible = true
 	$Label3D.visible = false
 	closing = false
-	level.check_layer_complete()
+	if !check_if_more_money():
+		if bankquota.quota[level.layer_unlocked-1] >= bankquota.earned_for_quota:
+			ui.check_if_lost()
+		else:
+			level.check_layer_complete()
+
+func check_if_more_money() -> bool:
+	if other_mines_on_layer:
+		for i in other_mines_on_layer:
+			if i.current_gold > 0:
+				return true
+	return false
+	
+	
+			
 
 func move_me_to_next_path() -> void:
 	for i in get_children():

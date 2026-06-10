@@ -75,17 +75,16 @@ func _ready() -> void:
 	wallcooldown_label.visible = false
 
 func _process(delta: float) -> void:
-	check_if_lost()
 	check_if_won()
 
 @onready var lose_game_audio_stream_player: AudioStreamPlayer = $LoseGameAudioStreamPlayer
 @onready var win_game_audio_stream_player: AudioStreamPlayer = $WinGameAudioStreamPlayer
 
 func check_if_lost() -> void:
-	if level.get_current_gold() < bankandquota.quota[level.layer_unlocked-1] - bankandquota.earned_for_quota:
-		story_ui_2.lost_game_dialogue()
-		lose_game_audio_stream_player.play()
-		get_tree().paused = true
+	printt(bankandquota.quota[level.layer_unlocked-1],bankandquota.earned_for_quota)
+	story_ui_2.lost_game_dialogue()
+	lose_game_audio_stream_player.play()
+	get_tree().paused = true
 
 func check_if_won() -> void:
 	if level.layer_unlocked == level.layers:
@@ -442,7 +441,7 @@ func unlock_trapabilities() -> void:
 		mud_trap_container.visible = true
 
 @onready var game_end: PanelContainer = $GameEnd
-@onready var win_lose_label: Label = $GameEnd/VBoxContainer/WinLoseLabel
+@onready var win_lose_label: Label = $GameEnd/MarginContainer/VBoxContainer/WinLoseLabel
 
 func end_game(result:String) -> void:
 	if result == "won":

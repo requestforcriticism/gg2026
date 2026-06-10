@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dsqansw8cpcqx"
+path="res://.godot/imported/Level 2 - Rock.wav-95bb736a2efef910757018fe1667b432.sample"
+
+[deps]
+
+source_file="res://assets/audio/Level 2 - Rock.wav"
+dest_files=["res://.godot/imported/Level 2 - Rock.wav-95bb736a2efef910757018fe1667b432.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
