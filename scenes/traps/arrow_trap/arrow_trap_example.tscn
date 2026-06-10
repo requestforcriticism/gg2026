@@ -767,6 +767,7 @@ _data = {
 }
 
 [node name="ArrowTrapExample" unique_id=1486655462 groups=["example"] instance=ExtResource("1_6e368")]
+process_mode = 3
 script = ExtResource("2_wtewg")
 arrow_scene = ExtResource("3_ovvey")
 

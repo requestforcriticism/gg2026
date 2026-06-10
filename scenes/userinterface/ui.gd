@@ -122,17 +122,18 @@ func set_stolen_label(gold) -> void:
 @onready var spike_trap_button: Button = $TrapAbilityOption/TrapOptions/SpikeTrapContainer/SpikeTrapButton
 
 func _on_spike_trap_pressed() -> void:
-	close_info_windows()
-	trap_ability_select_audio_stream_player.play()
-	set_spike_info(1) # 1 is base level
-	spike_info_container.visible= true
-	
-	var temp_trap = spike_trap.instantiate()
-	if bankquota.gold >= temp_trap.trap_cost[0]:
-		trap_select.emit(spike_trap, spike_trap_example)
-	else:
-		flash_button(spike_trap_button)
-	temp_trap.queue_free()
+	if !story_ui_2.talking:
+		close_info_windows()
+		trap_ability_select_audio_stream_player.play()
+		set_spike_info(1) # 1 is base level
+		spike_info_container.visible= true
+		
+		var temp_trap = spike_trap.instantiate()
+		if bankquota.gold >= temp_trap.trap_cost[0]:
+			trap_select.emit(spike_trap, spike_trap_example)
+		else:
+			flash_button(spike_trap_button)
+		temp_trap.queue_free()
 
 func set_spike_info(level:int) -> void:
 	spike_level_value_label.text = str(level)
@@ -147,18 +148,19 @@ func set_spike_info(level:int) -> void:
 @onready var arrow_trap_button: Button = $TrapAbilityOption/TrapOptions/ArrowTrapContainer/ArrowTrapButton
 
 func _on_arrow_trap_button_pressed() -> void:
-	if level.layer_unlocked > 1:
-		close_info_windows()
-		trap_ability_select_audio_stream_player.play()
-		set_arrow_info(1) # 1 is base level
-		arrow_info_container.visible = true
-		
-		var temp_trap = arrow_trap.instantiate()
-		if bankquota.gold >= temp_trap.trap_cost[0]:
-			trap_select.emit(arrow_trap, arrow_trap_example)
-		else:
-			flash_button(arrow_trap_button)
-		temp_trap.queue_free()
+	if !story_ui_2.talking:
+		if level.layer_unlocked > 1:
+			close_info_windows()
+			trap_ability_select_audio_stream_player.play()
+			set_arrow_info(1) # 1 is base level
+			arrow_info_container.visible = true
+			
+			var temp_trap = arrow_trap.instantiate()
+			if bankquota.gold >= temp_trap.trap_cost[0]:
+				trap_select.emit(arrow_trap, arrow_trap_example)
+			else:
+				flash_button(arrow_trap_button)
+			temp_trap.queue_free()
 
 func set_arrow_info(level:int) -> void:
 	arrow_level_value_label.text = str(level)
@@ -172,18 +174,19 @@ func set_arrow_info(level:int) -> void:
 @onready var mud_trap_button: Button = $TrapAbilityOption/TrapOptions/MudTrapContainer/MudTrapButton
 
 func _on_mud_trap_button_pressed() -> void:
-	if level.layer_unlocked > 2:
-		close_info_windows()
-		trap_ability_select_audio_stream_player.play()
-		set_mud_info(1) # 1 is base level
-		mud_info_container.visible = true
-		
-		var temp_trap = mud_trap.instantiate()
-		if bankquota.gold >= temp_trap.trap_cost[0]:
-			trap_select.emit(mud_trap, mud_trap_example)
-		else:
-			flash_button(mud_trap_button)
-		temp_trap.queue_free()
+	if !story_ui_2.talking:
+		if level.layer_unlocked > 2:
+			close_info_windows()
+			trap_ability_select_audio_stream_player.play()
+			set_mud_info(1) # 1 is base level
+			mud_info_container.visible = true
+			
+			var temp_trap = mud_trap.instantiate()
+			if bankquota.gold >= temp_trap.trap_cost[0]:
+				trap_select.emit(mud_trap, mud_trap_example)
+			else:
+				flash_button(mud_trap_button)
+			temp_trap.queue_free()
 	
 func set_mud_info(level:int) -> void:
 	mud_level_value_label.text = str(level)
@@ -197,15 +200,16 @@ func set_mud_info(level:int) -> void:
 @onready var boulder_ability_button: Button = $TrapAbilityOption/AbilityOptions/BoulderAbilityContainer/BoulderAbilityButton
 
 func _on_boulder_ability_button_pressed() -> void:
-	if level.layer_unlocked > 1:
-		close_info_windows()
-		trap_ability_select_audio_stream_player.play()
-		set_boulder_info(1) # 1 is base level
-		boulder_info_container.visible = true
-		if boulder_ready:
-			ability_select.emit(boulder_ability, boulder_ability_example)
-		else:
-			flash_button(boulder_ability_button)
+	if !story_ui_2.talking:
+		if level.layer_unlocked > 1:
+			close_info_windows()
+			trap_ability_select_audio_stream_player.play()
+			set_boulder_info(1) # 1 is base level
+			boulder_info_container.visible = true
+			if boulder_ready:
+				ability_select.emit(boulder_ability, boulder_ability_example)
+			else:
+				flash_button(boulder_ability_button)
 
 func set_boulder_info(level:int) -> void:
 	bouldercost_cd_value_label.text = str(ability_cooldown) + " Sec"
@@ -216,13 +220,14 @@ func set_boulder_info(level:int) -> void:
 @onready var wall_ability_button: Button = $TrapAbilityOption/AbilityOptions/WallAbilityContainer/WallAbilityButton
 
 func _on_wall_ability_button_pressed() -> void:
-	close_info_windows()
-	trap_ability_select_audio_stream_player.play()
-	wall_info_container.visible = true
-	if wall_ready:
-		trap_select.emit(dirt_wall_ability, dirt_wall_ability_example)
-	else:
-		flash_button(wall_ability_button)
+	if !story_ui_2.talking:
+		close_info_windows()
+		trap_ability_select_audio_stream_player.play()
+		wall_info_container.visible = true
+		if wall_ready:
+			trap_select.emit(dirt_wall_ability, dirt_wall_ability_example)
+		else:
+			flash_button(wall_ability_button)
 
 func set_wall_info(level:int) -> void:
 	cost_cd_value_label.text = str(ability_cooldown) + " Sec"

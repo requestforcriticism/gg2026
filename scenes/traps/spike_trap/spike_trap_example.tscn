@@ -1704,6 +1704,7 @@ _data = {
 }
 
 [node name="SpikeTrapExample" unique_id=1269147494 groups=["example"] instance=ExtResource("1_g4xuw")]
+process_mode = 3
 script = ExtResource("2_mu8ov")
 
 [node name="InitialdetectArea3D" parent="." index="1" unique_id=1843298355]

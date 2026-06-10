@@ -4,9 +4,9 @@
 [ext_resource type="Script" uid="uid://ix702goahwvv" path="res://scenes/userinterface/ui.gd" id="1_yqs5y"]
 [ext_resource type="PackedScene" uid="uid://babrtpxq67wy3" path="res://scenes/traps/spike_trap/spike_trap.tscn" id="2_jsawn"]
 [ext_resource type="PackedScene" uid="uid://bo8fb3cpa4ctv" path="res://scenes/traps/spike_trap/spike_trap_example.tscn" id="3_8pgxs"]
-[ext_resource type="PackedScene" uid="uid://cchlnwmd6m3h3" path="res://scenes/abilities/boulder/boulder_ability.tscn" id="3_n3j8f"]
+[ext_resource type="PackedScene" uid="uid://cchlnwmd6m3h3" path="res://scenes/abilities/Boulder/boulder_ability.tscn" id="3_n3j8f"]
 [ext_resource type="PackedScene" uid="uid://05c0m4to0bjb" path="res://scenes/traps/arrow_trap/arrow_trap.tscn" id="4_1w675"]
-[ext_resource type="PackedScene" uid="uid://bregrm2e4ueyx" path="res://scenes/abilities/boulder/boulder_ability_example.tscn" id="4_bbqyl"]
+[ext_resource type="PackedScene" uid="uid://bregrm2e4ueyx" path="res://scenes/abilities/Boulder/boulder_ability_example.tscn" id="4_bbqyl"]
 [ext_resource type="Texture2D" uid="uid://7yjwb2g5o7r6" path="res://assets/visual/abilities/boulder.png" id="4_kj22y"]
 [ext_resource type="PackedScene" uid="uid://cgpwcn0dgut8a" path="res://scenes/traps/arrow_trap/arrow_trap_example.tscn" id="5_skj6d"]
 [ext_resource type="PackedScene" uid="uid://b117p353j0tq2" path="res://scenes/traps/mud_trap/mud_trap.tscn" id="6_ojaxh"]
@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cyaegfakaq4pr" path="res://scenes/abilities/dirkblock/dirt_block_ability_base_example.tscn" id="9_xo44p"]
 [ext_resource type="PackedScene" uid="uid://bv3uj2kr2etuj" path="res://scenes/abilities/dirkblock/dirt_block_ability.tscn" id="10_uqdvs"]
 [ext_resource type="Texture2D" uid="uid://dler84m75hq1p" path="res://assets/visual/ui/Box.png" id="13_7cvrb"]
-[ext_resource type="PackedScene" uid="uid://bh5belcht22a2" path="res://scenes/abilities/boulder/boulder_ability_base.tscn" id="13_bgwt1"]
+[ext_resource type="PackedScene" uid="uid://bh5belcht22a2" path="res://scenes/abilities/Boulder/boulder_ability_base.tscn" id="13_bgwt1"]
 [ext_resource type="Texture2D" uid="uid://bbmxcjgpfno3r" path="res://assets/visual/ui/keyboard_4.png" id="13_lox5b"]
 [ext_resource type="Texture2D" uid="uid://cv4c0upyax4sh" path="res://assets/visual/abilities/dirtwall.png" id="13_uqdvs"]
 [ext_resource type="PackedScene" uid="uid://bekowun0qq86y" path="res://scenes/abilities/dirkblock/dirt_block_ability_base.tscn" id="14_eucc2"]
@@ -42,6 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://dnltvf7rc4jlx" path="res://assets/visual/ui/orc_bg.png" id="40_1jxq1"]
 [ext_resource type="Texture2D" uid="uid://cfjpo2as2fmx4" path="res://assets/visual/ui/h_warrior_male.png" id="41_1fhh8"]
 [ext_resource type="FontFile" uid="uid://cdw4y5e8b80y7" path="res://assets/fonts/FreckleFace-Regular.ttf" id="41_qx2aq"]
+[ext_resource type="Script" uid="uid://d2uq5vev36c7p" path="res://scenes/userinterface/paused_info_panel_container.gd" id="43_1jxq1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqdvs"]
 font = ExtResource("14_euyg3")
@@ -123,6 +124,7 @@ font_color = Color(0, 0, 0, 1)
 outline_size = 3
 
 [node name="UI" type="MarginContainer" unique_id=1166578692 groups=["UI"]]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1354,24 +1356,31 @@ size_flags_vertical = 4
 layout_mode = 2
 color = Color(0.7151573, 0.47864348, 9.62615e-07, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameEnd" unique_id=1324511136]
+[node name="MarginContainer" type="MarginContainer" parent="GameEnd" unique_id=1361715339]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameEnd/MarginContainer" unique_id=1324511136]
 layout_mode = 2
 
-[node name="WinLoseLabel" type="Label" parent="GameEnd/VBoxContainer" unique_id=343507263]
+[node name="WinLoseLabel" type="Label" parent="GameEnd/MarginContainer/VBoxContainer" unique_id=343507263]
 layout_mode = 2
 text = "You Won!"
 label_settings = SubResource("LabelSettings_phpwu")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameEnd/VBoxContainer" unique_id=580613325]
+[node name="HBoxContainer" type="HBoxContainer" parent="GameEnd/MarginContainer/VBoxContainer" unique_id=580613325]
 layout_mode = 2
 
-[node name="PlayAgainButton" type="Button" parent="GameEnd/VBoxContainer/HBoxContainer" unique_id=2013877428]
+[node name="PlayAgainButton" type="Button" parent="GameEnd/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2013877428]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Play Again"
 script = ExtResource("36_fiavr")
 
-[node name="ExitButton" type="Button" parent="GameEnd/VBoxContainer/HBoxContainer" unique_id=1216466509]
+[node name="ExitButton" type="Button" parent="GameEnd/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1216466509]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Quit Game"
@@ -1469,7 +1478,70 @@ label_settings = SubResource("LabelSettings_3lajm")
 autowrap_mode = 3
 
 [node name="TabTimer" type="Timer" parent="StoryUI2" unique_id=1397361865]
+process_mode = 3
 one_shot = true
+
+[node name="PausedPanelContainer" type="PanelContainer" parent="." unique_id=1897959401]
+process_mode = 3
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="PausedPanelContainer" unique_id=1928450488]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("13_7cvrb")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="PausedPanelContainer" unique_id=1506564520]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PausedPanelContainer/MarginContainer" unique_id=1167968163]
+layout_mode = 2
+
+[node name="PausedLabel" type="Label" parent="PausedPanelContainer/MarginContainer/VBoxContainer" unique_id=1460070140]
+layout_mode = 2
+text = "Paused"
+
+[node name="PausedInfoPanelContainer" type="PanelContainer" parent="." unique_id=44806140]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+script = ExtResource("43_1jxq1")
+
+[node name="TextureRect" type="TextureRect" parent="PausedInfoPanelContainer" unique_id=1840935429]
+layout_mode = 2
+texture = ExtResource("13_7cvrb")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="PausedInfoPanelContainer" unique_id=694125598]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PausedInfoPanelContainer/MarginContainer" unique_id=964615867]
+layout_mode = 2
+
+[node name="TutorialButton" type="Button" parent="PausedInfoPanelContainer/MarginContainer/VBoxContainer" unique_id=905430695]
+layout_mode = 2
+text = "Game Info"
+
+[node name="RestartButton" type="Button" parent="PausedInfoPanelContainer/MarginContainer/VBoxContainer" unique_id=1361922207]
+layout_mode = 2
+text = "Restart Game"
+
+[node name="QuitButton" type="Button" parent="PausedInfoPanelContainer/MarginContainer/VBoxContainer" unique_id=1362307978]
+layout_mode = 2
+text = "Quit Game"
 
 [connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedspikeButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellspikeButton" to="." method="_on_sell_button_pressed"]
@@ -1484,9 +1556,11 @@ one_shot = true
 [connection signal="pressed" from="TrapAbilityOption/TrapOptions/SpikeTrapContainer/SpikeTrapButton" to="." method="_on_spike_trap_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/TrapOptions/ArrowTrapContainer/ArrowTrapButton" to="." method="_on_arrow_trap_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/TrapOptions/MudTrapContainer/MudTrapButton" to="." method="_on_mud_trap_button_pressed"]
-[connection signal="pressed" from="GameEnd/VBoxContainer/HBoxContainer/PlayAgainButton" to="GameEnd/VBoxContainer/HBoxContainer/PlayAgainButton" method="_on_pressed"]
-[connection signal="pressed" from="GameEnd/VBoxContainer/HBoxContainer/ExitButton" to="GameEnd/VBoxContainer/HBoxContainer/ExitButton" method="_on_pressed"]
+[connection signal="pressed" from="GameEnd/MarginContainer/VBoxContainer/HBoxContainer/PlayAgainButton" to="GameEnd/MarginContainer/VBoxContainer/HBoxContainer/PlayAgainButton" method="_on_pressed"]
+[connection signal="pressed" from="GameEnd/MarginContainer/VBoxContainer/HBoxContainer/ExitButton" to="GameEnd/MarginContainer/VBoxContainer/HBoxContainer/ExitButton" method="_on_pressed"]
 [connection signal="timeout" from="StoryUI2/TabTimer" to="StoryUI2" method="_on_tab_timer_timeout"]
+[connection signal="pressed" from="PausedInfoPanelContainer/MarginContainer/VBoxContainer/RestartButton" to="GameEnd/MarginContainer/VBoxContainer/HBoxContainer/PlayAgainButton" method="_on_pressed"]
+[connection signal="pressed" from="PausedInfoPanelContainer/MarginContainer/VBoxContainer/QuitButton" to="GameEnd/MarginContainer/VBoxContainer/HBoxContainer/ExitButton" method="_on_pressed"]
 
 [editable path="trap_info/SpikeTrapinfo"]
 [editable path="trap_info/ArrowTrapBaseinfo"]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bregrm2e4ueyx"]
 
-[ext_resource type="PackedScene" uid="uid://bh5belcht22a2" path="res://scenes/abilities/boulder/boulder_ability_base.tscn" id="1_ntnjq"]
-[ext_resource type="Script" uid="uid://ba2e3cvf05ogs" path="res://scenes/abilities/boulder/boulder_ability_example.gd" id="2_4gwwy"]
+[ext_resource type="PackedScene" uid="uid://bh5belcht22a2" path="res://scenes/abilities/Boulder/boulder_ability_base.tscn" id="1_ntnjq"]
+[ext_resource type="Script" uid="uid://ba2e3cvf05ogs" path="res://scenes/abilities/Boulder/boulder_ability_example.gd" id="2_4gwwy"]
 
 [sub_resource type="Animation" id="Animation_p65li"]
 length = 0.001
@@ -179,6 +179,7 @@ _data = {
 }
 
 [node name="BoulderAbilityExample" unique_id=1459297515 groups=["example"] instance=ExtResource("1_ntnjq")]
+process_mode = 3
 loop = true
 script = ExtResource("2_4gwwy")
 

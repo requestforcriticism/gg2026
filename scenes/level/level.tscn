@@ -226,6 +226,7 @@ wait_time = 0.1
 script = ExtResource("5_pe1ox")
 
 [node name="RayPickerCamera" parent="." unique_id=607457684 node_paths=PackedStringArray("trap_ability_manager", "layer_nodes") groups=["raypickercamera"] instance=ExtResource("1_nbgty")]
+process_mode = 3
 transform = Transform3D(0.7071068, -0.5996606, 0.3747095, 0, 0.52991927, 0.8480481, -0.7071068, -0.5996606, 0.3747095, 2.5, 5.5, 2.5)
 trap_ability_manager = NodePath("../TrapAbilityManager")
 single_point = ExtResource("7_m0bv2")
@@ -369,12 +370,12 @@ metadata/_custom_type_script = "uid://xdmm7egms4uv"
 transform = Transform3D(0.7071067, -0.35355338, 0.61237234, 0, 0.8660254, 0.49999997, -0.7071067, -0.35355338, 0.61237234, -14.633505, -40.74298, -17.15287)
 mesh = SubResource("BoxMesh_mf35j")
 
-[connection signal="timeout" from="EnemyManager/BaseEnemySpawnTimer" to="EnemyManager" method="spawn_base_enemy"]
 [connection signal="timeout" from="EnemyManager/BaseEnemySpawnTimer" to="EnemyManager" method="_on_base_enemy_spawn_timer_timeout"]
-[connection signal="timeout" from="EnemyManager/TankEnemySpawnTimer" to="EnemyManager" method="spawn_tank_enemy"]
+[connection signal="timeout" from="EnemyManager/BaseEnemySpawnTimer" to="EnemyManager" method="spawn_base_enemy"]
 [connection signal="timeout" from="EnemyManager/TankEnemySpawnTimer" to="EnemyManager" method="_on_tank_enemy_spawn_timer_timeout"]
-[connection signal="timeout" from="EnemyManager/FastEnemySpawnTimer" to="EnemyManager" method="_on_fast_enemy_spawn_timer_timeout"]
+[connection signal="timeout" from="EnemyManager/TankEnemySpawnTimer" to="EnemyManager" method="spawn_tank_enemy"]
 [connection signal="timeout" from="EnemyManager/FastEnemySpawnTimer" to="EnemyManager" method="spawn_fast_enemy"]
+[connection signal="timeout" from="EnemyManager/FastEnemySpawnTimer" to="EnemyManager" method="_on_fast_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="EnemyManager/SpawnTimer" to="EnemyManager" method="spawn_a_bunch_wtimer"]
 
 [editable path="Layer1/EnemyPathL1"]

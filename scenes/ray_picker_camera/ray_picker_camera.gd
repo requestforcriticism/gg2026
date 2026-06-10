@@ -54,7 +54,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if camera_moving_pos || camera_moving_zoom:
 		move_camera()
-	
 	strafe_camera(delta)
 	
 	mouse_raycast()
