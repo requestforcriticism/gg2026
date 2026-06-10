@@ -153,6 +153,13 @@ _data = {
 &"spot_avail": SubResource("Animation_wmcws")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x81c0"]
+albedo_color = Color(0.64238834, 0.6347684, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wmcws"]
+material = SubResource("StandardMaterial3D_x81c0")
+size = Vector3(0.25, 2, 2)
+
 [node name="DirtBlock_ability_base_example" unique_id=554376165 groups=["abilityholder", "example"] instance=ExtResource("1_0h5cw")]
 script = ExtResource("2_x81c0")
 
@@ -167,3 +174,8 @@ libraries/ = SubResource("AnimationLibrary_ilift")
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="3" unique_id=1565994455]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
 visible = false
+
+[node name="Available" type="MeshInstance3D" parent="." index="6" unique_id=441432281]
+transparency = 0.95
+cast_shadow = 0
+mesh = SubResource("BoxMesh_wmcws")

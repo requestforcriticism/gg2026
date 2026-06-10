@@ -47,7 +47,7 @@ extends Node3D
 var temp_array: Array = []
 var spawn_counter: int
 var spawning_counter:Array[int]=[]
-var normal_mode_mult:float = .8
+var normal_mode_mult:float = .9
 
 func _ready() -> void:
 	base_enemy_spawn_timer.wait_time = base_enemy_spawn_rate

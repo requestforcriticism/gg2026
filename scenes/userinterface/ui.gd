@@ -59,6 +59,7 @@ var boulder_ready :bool
 var wall_cooldown :int
 var wall_ready :bool
 var holding_trap: Node3D
+var won: bool = false
 
 func _ready() -> void:
 	set_gold_label(bankquota.gold)
@@ -75,22 +76,19 @@ func _ready() -> void:
 	wallcooldown_label.visible = false
 
 func _process(delta: float) -> void:
-	check_if_won()
-
-@onready var lose_game_audio_stream_player: AudioStreamPlayer = $LoseGameAudioStreamPlayer
-@onready var win_game_audio_stream_player: AudioStreamPlayer = $WinGameAudioStreamPlayer
+	if !won:
+		check_if_won()
 
 func check_if_lost() -> void:
 	printt(bankandquota.quota[level.layer_unlocked-1],bankandquota.earned_for_quota)
 	story_ui_2.lost_game_dialogue()
-	lose_game_audio_stream_player.play()
 	get_tree().paused = true
 
 func check_if_won() -> void:
 	if level.layer_unlocked == level.layers:
 		if bankandquota.earned_for_quota >= bankandquota.quota[level.layer_unlocked-1]:
+			won = true
 			story_ui_2.won_game_dialogue()
-			win_game_audio_stream_player.play()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -442,10 +440,14 @@ func unlock_trapabilities() -> void:
 
 @onready var game_end: PanelContainer = $GameEnd
 @onready var win_lose_label: Label = $GameEnd/MarginContainer/VBoxContainer/WinLoseLabel
+@onready var lose_game_audio_stream_player: AudioStreamPlayer = $LoseGameAudioStreamPlayer
+@onready var win_game_audio_stream_player: AudioStreamPlayer = $WinGameAudioStreamPlayer
 
 func end_game(result:String) -> void:
 	if result == "won":
 		win_lose_label.text = str("You Won")
+		win_game_audio_stream_player.play()
 	elif result == "lost":
 		win_lose_label.text = str("You Lost")
+		lose_game_audio_stream_player.play()
 	game_end.visible = true

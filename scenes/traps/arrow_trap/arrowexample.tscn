@@ -7,7 +7,11 @@ process_mode = 3
 collision_mask = 1
 
 [node name="stick" parent="." index="1" unique_id=1206906461]
+transparency = 0.7
 cast_shadow = 0
+
+[node name="arrowhead" parent="stick" index="0" unique_id=2010185549]
+transparency = 0.7
 
 [node name="ArrowHitAudioStreamPlayer3D" parent="." index="4" unique_id=937433924]
 stream = null

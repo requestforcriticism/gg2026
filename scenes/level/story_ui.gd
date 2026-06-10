@@ -136,7 +136,13 @@ func talking_func() -> void:
 			talking = false
 			raypickercamera.change_layer_stuff()
 			tab_timer.start()
-		elif current_dialogue == Start2_Game_dialogue_gob_lines || current_dialogue == Layer2b_Game_dialogue_gob_lines:
+		elif current_dialogue == Layer2b_Game_dialogue_gob_lines:
+			story_ui_2.visible = false
+			talking = false
+			intro = false
+			skip_intro_panel_container.visible = false
+			get_tree().paused = false
+		elif current_dialogue == Start2_Game_dialogue_gob_lines:
 			story_ui_2.visible = false
 			talking = false
 			intro = false

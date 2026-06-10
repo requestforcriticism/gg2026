@@ -41,6 +41,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Available:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_domub"]
 resource_name = "holder"
@@ -82,6 +94,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Available:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_kgwio"]
 resource_name = "spot_avail"
@@ -109,6 +133,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.7]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Available:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6ac0a"]
 _data = {
@@ -116,6 +152,13 @@ _data = {
 &"holder": SubResource("Animation_domub"),
 &"spot_avail": SubResource("Animation_kgwio")
 }
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_domub"]
+albedo_color = Color(0.64238834, 0.6347684, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kgwio"]
+material = SubResource("StandardMaterial3D_domub")
+size = Vector3(2, 2, 2)
 
 [node name="Mud_trap_base_example" unique_id=305420928 groups=["example"] instance=ExtResource("1_dv662")]
 process_mode = 3
@@ -133,3 +176,9 @@ libraries/ = SubResource("AnimationLibrary_6ac0a")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="3" unique_id=189170071]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
+
+[node name="Available" type="MeshInstance3D" parent="." index="4" unique_id=1521853370]
+visible = false
+transparency = 0.95
+cast_shadow = 0
+mesh = SubResource("BoxMesh_kgwio")

@@ -43,6 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://cfjpo2as2fmx4" path="res://assets/visual/ui/h_warrior_male.png" id="41_1fhh8"]
 [ext_resource type="FontFile" uid="uid://cdw4y5e8b80y7" path="res://assets/fonts/FreckleFace-Regular.ttf" id="41_qx2aq"]
 [ext_resource type="Script" uid="uid://d2uq5vev36c7p" path="res://scenes/userinterface/paused_info_panel_container.gd" id="43_1jxq1"]
+[ext_resource type="Texture2D" uid="uid://b6icspah1jpr5" path="res://assets/visual/ui/mouse_left.png" id="43_3lajm"]
 [ext_resource type="Texture2D" uid="uid://chwlwirh7h7du" path="res://assets/visual/ui/keyboard_escape.png" id="44_qx2aq"]
 [ext_resource type="Script" uid="uid://brylw0ij5mndi" path="res://scenes/userinterface/hard_mode_panel_container.gd" id="45_lgt16"]
 
@@ -201,10 +202,10 @@ tracks/0/path = NodePath(".:size_flags_horizontal")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [4]
+"values": [4, 8]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -252,7 +253,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [8, 8, 7]
+"values": [8, 8, 3]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mywt1"]
@@ -1078,6 +1079,7 @@ label_settings = SubResource("LabelSettings_ojaxh")
 uppercase = true
 
 [node name="BoulderAbilityCooldownTimer" type="Timer" parent="TrapAbilityOption/AbilityOptions/BoulderAbilityContainer" unique_id=971589600]
+process_mode = 1
 one_shot = true
 
 [node name="WallAbilityContainer" type="VBoxContainer" parent="TrapAbilityOption/AbilityOptions" unique_id=641371646]
@@ -1140,6 +1142,7 @@ label_settings = SubResource("LabelSettings_ojaxh")
 uppercase = true
 
 [node name="WallAbilityCooldownTimer" type="Timer" parent="TrapAbilityOption/AbilityOptions/WallAbilityContainer" unique_id=1011656387]
+process_mode = 1
 one_shot = true
 
 [node name="TrapOptions" type="HBoxContainer" parent="TrapAbilityOption" unique_id=1145244194]
@@ -1496,16 +1499,18 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ColorRect" type="ColorRect" parent="GameEnd" unique_id=18547641]
+[node name="BGTextureRect" type="TextureRect" parent="GameEnd" unique_id=902405976]
+self_modulate = Color(3.4255767, 2.3808537, 0, 1)
 layout_mode = 2
-color = Color(0.7151573, 0.47864348, 9.62615e-07, 1)
+texture = ExtResource("13_7cvrb")
+expand_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="GameEnd" unique_id=1361715339]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameEnd/MarginContainer" unique_id=1324511136]
 layout_mode = 2
@@ -1541,7 +1546,7 @@ Skip_Intro_Game_dialogue_gob_lines = Array[String](["Whatever!  Good luck playin
 Layer2_Game_dialogue_gob_lines = Array[String](["PIPSQUEAK! You’ve done the impossible!! You’ve made the mine profitable again! Well… I have to admit, I was wrong about you. ", "You showed me. That fulfills the terms of your contract, and you are free to go. I really do apologize."])
 Layer2b_Game_dialogue_gob_lines = Array[String](["HAHAHAHAHAHAHAHAHAHA!!!", "You fool!!! You really thought you were ever going to be free again?? You really ARE the perfect Goblin for that mine!! ", "Did you not read your new contract?? Under Section 528, subsection 12.5(b), and I quote, “Agent is assigned to mine…FOREVER!!!”", "We don’t remember how deep that mine goes… in fact, it could go on forever… guess you’ll have to find out, Pipsqueak! ", "Now, dear agent… GET BACK TO WORK!!!"])
 Lose_Game_dialogue_gob_lines = Array[String](["Just as I thought, Pipsqueak! Can't even do that right. Well, at least my pet Ogre will eat good tonight!"])
-Win_Game_dialogue_gob_lines = Array[String](["You win!", "I'm a goblin and you won!"])
+Win_Game_dialogue_gob_lines = Array[String](["W…well look at that, you can do something useful! ", "Tell you what… take a little…break. On me, as a congrats.", "I promise you, we’re just getting started."])
 
 [node name="DialagueBoxTexture" type="TextureRect" parent="StoryUI2" unique_id=41534621]
 anchors_preset = 7
@@ -1620,6 +1625,39 @@ offset_bottom = 232.33334
 text = "aksjdhnkajqhefiuhawqeiudfgnaikshefaiouhdsfkahsdklfjhiowehfzshdfjklhnweijkfhnakljsjklhaksjdhfkajlshdfkahsdkfjhaksldfhklajhsdfk"
 label_settings = SubResource("LabelSettings_3lajm")
 autowrap_mode = 3
+
+[node name="MouseBGTextureRect" type="TextureRect" parent="StoryUI2/DialagueBoxTexture" unique_id=955601937]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -41.333313
+offset_top = -44.33333
+offset_right = 2.666687
+offset_bottom = 7.666687
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("13_7cvrb")
+expand_mode = 1
+
+[node name="MouseTextureRect" type="TextureRect" parent="StoryUI2/DialagueBoxTexture/MouseBGTextureRect" unique_id=1292689778]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("43_3lajm")
+stretch_mode = 4
 
 [node name="TabTimer" type="Timer" parent="StoryUI2" unique_id=1397361865]
 process_mode = 3
