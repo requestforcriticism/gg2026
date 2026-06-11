@@ -18,11 +18,16 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	reorg_children()
 
-func move_me_to_next_path() -> void:
-	for i in get_children():
-		if i.is_in_group("enemy"):
-			if !i.rdy_to_leave:
-				i.reparent(my_going_forward_first_path)
+func move_me_to_next_path(enemy_to_move:PathFollow3D) -> void:
+	if enemy_to_move.is_in_group("enemy"):
+		if !enemy_to_move.rdy_to_leave:
+			enemy_to_move.reparent(my_going_forward_first_path)
+
+#func move_me_to_next_path() -> void:
+	#for i in get_children():
+		#if i.is_in_group("enemy"):
+			#if !i.rdy_to_leave:
+				#i.reparent(my_going_forward_first_path)
 
 func reorg_children()-> void:
 	if get_children():

@@ -223,6 +223,7 @@ wait_time = 7.7
 
 [node name="SpawnTimer" type="Timer" parent="EnemyManager" unique_id=727588366]
 wait_time = 0.1
+one_shot = true
 
 [node name="TrapAbilityManager" type="Node3D" parent="." unique_id=556410210]
 script = ExtResource("5_pe1ox")
@@ -343,10 +344,12 @@ max_gold = 600
 
 [node name="NormalMainMusicAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1571766899 groups=["normalmusic"]]
 stream = ExtResource("15_vrc4q")
+volume_db = -3.0
 script = ExtResource("16_b3up8")
 
 [node name="HardMainMusicAudioStreamPlayer2" type="AudioStreamPlayer" parent="." unique_id=1632573280 groups=["hardmusic"]]
 stream = ExtResource("17_cqqhe")
+volume_db = -3.0
 script = ExtResource("16_b3up8")
 
 [node name="ladders" type="Node" parent="." unique_id=1453197181]

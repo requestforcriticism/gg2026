@@ -188,10 +188,16 @@ func do_state_stuff(delta) -> void:
 		print("Something messed up.")
 
 func to_next_path() -> void:
-	self.get_parent().move_me_to_next_path()
+	self.get_parent().move_me_to_next_path(self)
+	
+#func to_next_path() -> void:
+	#self.get_parent().move_me_to_next_path(self)
 
 func to_next_goldmine() -> void:
-	self.get_parent().move_me_to_goldmine()
+	self.get_parent().move_me_to_goldmine(self)
+	
+#func to_next_goldmine() -> void:
+	#self.get_parent().move_me_to_goldmine()
 
 func leave() -> void:
 	if state == ENEMY_STATE.TRAVEL_IN || state == ENEMY_STATE.TRAVEL_OUT:

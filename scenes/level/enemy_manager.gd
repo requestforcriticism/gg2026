@@ -109,7 +109,8 @@ func spawn_a_bunch_setup(input_2_spawn:Array) -> void:
 	spawn_timer.start()
 
 func spawn_a_bunch_wtimer() -> void:
-	spawn_timer.wait_time = randi_range(0.2,0.8)
+	spawn_timer.wait_time = randf_range(0.1,0.3)
+	spawn_timer.start()
 	if temp_array[spawn_counter-1] == "base":
 		spawn_base_enemy()
 	elif temp_array[spawn_counter-1] == "tank":

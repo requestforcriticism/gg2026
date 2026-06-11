@@ -47,15 +47,19 @@ func check_if_more_money() -> bool:
 			if i.current_gold > 0:
 				return true
 	return false
-	
-	
-			
 
-func move_me_to_next_path() -> void:
-	for i in get_children():
-		if i.is_in_group("enemy"):
-			if i.rdy_to_leave:
-				i.reparent(my_going_back.pick_random())
+
+func move_me_to_next_path(enemy_to_move:PathFollow3D) -> void:
+	if enemy_to_move.is_in_group("enemy"):
+		if enemy_to_move.rdy_to_leave:
+			enemy_to_move.reparent(my_going_back.pick_random())
+
+#func move_me_to_next_path() -> void:
+	#for i in get_children():
+		#if i.is_in_group("enemy"):
+			#if i.rdy_to_leave:
+				#i.reparent(my_going_back.pick_random())
+
 
 func place_mining_gob()-> void:
 	var new_mine_gob = mining_goblin_scene.instantiate()
