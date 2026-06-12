@@ -327,7 +327,7 @@ visible = false
 [node name="ShootTimer" parent="trap_info/ArrowTrapBaseinfo" index="4" unique_id=1942908146]
 autostart = false
 
-[node name="SelectMeArea3D" parent="trap_info/ArrowTrapBaseinfo" index="5" unique_id=666844352]
+[node name="SelectMeArea3D" parent="trap_info/ArrowTrapBaseinfo" index="6" unique_id=666844352]
 monitoring = false
 monitorable = false
 
@@ -1548,7 +1548,6 @@ max_polyphony = 5
 [node name="WrongAbilityTrapSelectAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1878900571]
 stream = ExtResource("33_v22we")
 volume_db = -5.0
-pitch_scale = 2.0
 max_polyphony = 5
 
 [node name="LoseGameAudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1899867657]

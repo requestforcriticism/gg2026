@@ -20,6 +20,7 @@ signal ability_select(A2d)
 @onready var gridmap = get_tree().get_first_node_in_group("gridmap")
 @onready var level = get_tree().get_first_node_in_group("level")
 
+@onready var tutorial_panel_container: PanelContainer = $TutorialPanelContainer
 @onready var story_ui_2: CanvasLayer = $StoryUI2
 @onready var spike_trapinfo: Node3D = $trap_info/SpikeTrapinfo
 @onready var arrow_trap_baseinfo: Node3D = $trap_info/ArrowTrapBaseinfo
@@ -273,6 +274,7 @@ func close_info_windows() -> void:
 	selected_spike_info_container.visible = false
 	selected_arrow_info_container.visible = false
 	selected_mud_info_container.visible = false
+	tutorial_panel_container.visible = false
 
 @onready var selected_spike_info_container: PanelContainer = $TrapAbilityOption/SelectedSpikeInfoContainer
 @onready var selected_arrow_info_container: PanelContainer = $TrapAbilityOption/SelectedArrowInfoContainer
@@ -349,7 +351,7 @@ func set_spike_upgrade_info(holding_trap: Node3D) -> void:
 func set_arrow_upgrade_info(holding_trap: Node3D) -> void:
 	selected_arrow_info_container.visible = true
 	selected_arrow_level_value_label.text = str(holding_trap.trap_level+1)
-	selected_arrow_fire_rate_value_label.text = str(1/holding_trap.arrow_fire_rate[holding_trap.trap_level]) + " Shots / Sec"
+	selected_arrow_fire_rate_value_label.text = str(1/holding_trap.arrow_fire_rate[holding_trap.trap_level]).left(4) + " Shots / Sec"
 	selected_arrow_damagevalue_label.text = str(holding_trap.arrow_damage[holding_trap.trap_level])
 	sell_arrow_button.text = str("Sell Trap: ",int(ceil(holding_trap.trap_cost[holding_trap.trap_level]*0.75))," Gold" ) 
 	sell_arrow_button_2.text = sell_arrow_button.text
@@ -361,7 +363,7 @@ func set_arrow_upgrade_info(holding_trap: Node3D) -> void:
 		selected_arrowcost_cd_value_label.visible = true
 		selected_arrowcost_cd_value_label.text = str(holding_trap.trap_cost[holding_trap.trap_level+1])
 		selected_arrow_fire_rate_value_label_2.visible = true
-		selected_arrow_fire_rate_value_label_2.text = str(1/holding_trap.arrow_fire_rate[holding_trap.trap_level+1]) + " Shots / Sec"
+		selected_arrow_fire_rate_value_label_2.text = str(1/holding_trap.arrow_fire_rate[holding_trap.trap_level+1]).left(4) + " Shots / Sec"
 		selected_arrow_damagevalue_label_2.visible = true
 		selected_arrow_damagevalue_label_2.text = str(holding_trap.arrow_damage[holding_trap.trap_level+1])
 	else:
@@ -434,6 +436,8 @@ func flash_button(button_2_flash: Button) -> void:
 	button_2_flash.self_modulate = Color.RED
 	await get_tree().create_timer(0.05).timeout
 	button_2_flash.self_modulate = Color.WHITE
+	wrong_ability_trap_select_audio_stream_player.pitch_scale = 1.0
+	wrong_ability_trap_select_audio_stream_player.volume_db = 0.0
 	wrong_ability_trap_select_audio_stream_player.play()
 
 func unlock_trapabilities() -> void:

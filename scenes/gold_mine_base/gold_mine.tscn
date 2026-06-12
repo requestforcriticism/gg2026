@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://n12eq4segd0l" path="res://scenes/gold_mine_base/gold_mine.gd" id="1_ybl65"]
 [ext_resource type="PackedScene" uid="uid://dqyjlngoh1e5p" path="res://scenes/goblins/mining_goblin.tscn" id="2_3oexi"]
+[ext_resource type="Texture2D" uid="uid://bjhmyg62u5rpl" path="res://assets/visual/mesh_assets/Metal034_1K-PNG/Metal034_1K-PNG_Color.png" id="3_vhqwt"]
+[ext_resource type="Texture2D" uid="uid://cen543ml5burd" path="res://assets/visual/mesh_assets/Metal034_1K-PNG/Metal034_1K-PNG_Displacement.png" id="4_jneuu"]
+[ext_resource type="Texture2D" uid="uid://dv4xih8gl54am" path="res://assets/visual/mesh_assets/Metal034_1K-PNG/Metal034_1K-PNG_Metalness.png" id="5_4qya1"]
+[ext_resource type="Texture2D" uid="uid://bppitqge4klew" path="res://assets/visual/mesh_assets/Metal034_1K-PNG/Metal034_1K-PNG_NormalGL.png" id="6_5gd0h"]
+[ext_resource type="Texture2D" uid="uid://b6rbq2r6f0xwr" path="res://assets/visual/mesh_assets/Metal034_1K-PNG/Metal034_1K-PNG_Roughness.png" id="7_4gd6c"]
 
 [sub_resource type="Curve3D" id="Curve3D_ybl65"]
 _data = {
@@ -10,9 +15,29 @@ _data = {
 }
 point_count = 4
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x2ff0"]
-albedo_color = Color(0.9254902, 0.6156863, 0, 1)
-refraction_enabled = true
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rma1p"]
+albedo_texture = ExtResource("3_vhqwt")
+metallic = 1.0
+metallic_texture = ExtResource("5_4qya1")
+roughness_texture = ExtResource("7_4gd6c")
+normal_enabled = true
+normal_texture = ExtResource("6_5gd0h")
+heightmap_enabled = true
+heightmap_texture = ExtResource("4_jneuu")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_23hm7"]
+material = SubResource("StandardMaterial3D_rma1p")
+top_radius = 0.1
+bottom_radius = 0.28
+height = 0.7
+radial_segments = 8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8gpc2"]
+material = SubResource("StandardMaterial3D_rma1p")
+top_radius = 0.05
+bottom_radius = 0.07
+height = 0.3
+radial_segments = 7
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3oexi"]
 albedo_color = Color(0, 0, 0, 1)
@@ -23,17 +48,176 @@ top_radius = 0.8
 bottom_radius = 0.8
 height = 0.02
 
+[sub_resource type="Animation" id="Animation_vhqwt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpotLight3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.8, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpotLight3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.61086524, 1.5707964, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jneuu"]
+resource_name = "movinglight"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpotLight3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 1), Vector3(0.71, 1, 0.71), Vector3(1, 1, 0), Vector3(0.71, 1, -0.71), Vector3(0, 1, -1), Vector3(-0.71, 1, -0.71), Vector3(-1, 1, 0), Vector3(-0.71, 1, 0.71)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpotLight3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.61086524, 0, 0), Vector3(-0.61086524, 1.5707964, 0), Vector3(-0.61086524, 3.1415927, 0), Vector3(-0.61086524, 4.712389, 0), Vector3(-0.61086524, 6.2831855, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4qya1"]
+_data = {
+&"RESET": SubResource("Animation_vhqwt"),
+&"movinglight": SubResource("Animation_jneuu")
+}
+
 [node name="GoldMine" type="Path3D" unique_id=430811579 groups=["environment", "goldmine"]]
 curve = SubResource("Curve3D_ybl65")
 script = ExtResource("1_ybl65")
 mining_goblin_scene = ExtResource("2_3oexi")
 
-[node name="goldnode" type="CSGCylinder3D" parent="." unique_id=371313065]
+[node name="GoldBase" type="MeshInstance3D" parent="." unique_id=953511343]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
-use_collision = true
-radius = 0.25
-height = 0.7
-material = SubResource("StandardMaterial3D_x2ff0")
+mesh = SubResource("CylinderMesh_23hm7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GoldBase" unique_id=1655640799]
+transform = Transform3D(0.7934914, -0.6085814, 0, 0.6085814, 0.7934914, 0, 0, 0, 1, -0.15661104, 0.047903895, 0)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="GoldBase" unique_id=1808699682]
+transform = Transform3D(0.7934914, -0.6085814, 0, 0.6085814, 0.7934914, 0, 0, 0, 1, 0.11451605, 0.094653726, 0.06796464)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="GoldBase" unique_id=1593829355]
+transform = Transform3D(-0.31065357, 0.23826091, -0.9201772, 0.6085814, 0.7934914, 0, 0.7301527, -0.56000274, -0.3915021, -0.057850763, 0.094653726, 0.1331788)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="GoldBase" unique_id=332029880]
+transform = Transform3D(0.5868019, 0.8074597, -0.060599104, 0.3500579, -0.18548758, 0.91817963, 0.73015267, -0.5600027, -0.39150208, -0.057850763, 0.13699943, 0.04737979)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="GoldBase" unique_id=1808019357]
+transform = Transform3D(0.5868019, 0.8074597, -0.060599104, 0.3500579, -0.18548758, 0.91817963, 0.73015267, -0.5600027, -0.39150208, 0.07426633, -0.16995147, -0.12785622)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="GoldBase" unique_id=1705094380]
+transform = Transform3D(0.7872334, -0.47296855, -0.39568183, 0.08069296, -0.55713016, 0.8264954, -0.6113526, -0.68257356, -0.40042636, -0.036346726, 0.27391043, -0.07860884)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="GoldBase" unique_id=1023022411]
+transform = Transform3D(-0.25235742, 0.12697122, -0.9592676, 0.8237675, -0.49191797, -0.28182244, -0.5076642, -0.8613334, 0.019544253, 0.08387932, -0.14919418, 0.12884519)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="GoldBase" unique_id=1502021022]
+transform = Transform3D(-0.25235742, 0.12697122, -0.9592676, 0.8237675, -0.49191797, -0.28182244, -0.5076642, -0.8613334, 0.019544253, 0.021521598, 0.21010521, 0.013065547)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="GoldBase" unique_id=2019567956]
+transform = Transform3D(0.8568872, -0.47090518, -0.20974424, 0.18997005, -0.08978277, 0.9776761, -0.479224, -0.87760335, 0.0125240125, 0.056607306, 0.21010521, 0.013065547)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="GoldBase" unique_id=1938576747]
+transform = Transform3D(-0.45272446, -0.8657714, 0.21326162, -0.8738089, 0.4783961, 0.08715472, -0.17747962, -0.14689295, -0.9731002, -0.055613823, 0.29542843, 0.013065547)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="GoldBase" unique_id=2016969985]
+transform = Transform3D(-0.42999253, -0.67647064, -0.5979086, -0.8738089, 0.4783961, 0.08715472, 0.22707912, 0.5599333, -0.7968123, -0.055613823, -0.07576403, 0.21752694)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="GoldBase" unique_id=576603565]
+transform = Transform3D(0.4519113, 0.86509335, -0.2176921, -0.873809, 0.47839612, 0.08715473, 0.17954022, 0.15083548, 0.97211856, 0.0034898743, -0.022369266, 0.14169985)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="GoldBase" unique_id=1141935477]
+transform = Transform3D(0.43339083, 0.68489456, 0.5857409, -0.8738089, 0.47839612, 0.08715472, -0.22052392, -0.549597, 0.8057987, 0.1814799, -0.22510886, 0.06537229)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="GoldBase" unique_id=2005847988]
+transform = Transform3D(-0.15027744, -0.09521276, -0.98404837, -0.8738089, 0.4783961, 0.08715472, 0.46246624, 0.87296736, -0.15508914, 0.017026111, 0.09505877, 0.06537229)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D15" type="MeshInstance3D" parent="GoldBase" unique_id=1180990158]
+transform = Transform3D(-0.3373911, -0.46739137, -0.8171371, -0.8738089, 0.47839615, 0.08715472, 0.35017937, 0.7434264, -0.56981647, -0.20629095, -0.19098854, 0.06537229)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D16" type="MeshInstance3D" parent="GoldBase" unique_id=1096438188]
+transform = Transform3D(0.029580414, 0.2311933, -0.97245777, -0.87380904, 0.4783962, 0.087154746, 0.48536938, 0.8471642, 0.21617055, -0.079958305, -0.19098854, 0.22173882)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D17" type="MeshInstance3D" parent="GoldBase" unique_id=692191346]
+transform = Transform3D(0.3423926, 0.7325721, -0.58830667, -0.87380904, 0.4783962, 0.087154746, 0.34529084, 0.4842269, 0.8039273, 0.12762879, -0.19098854, 0.1907298)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D18" type="MeshInstance3D" parent="GoldBase" unique_id=1360600306]
+transform = Transform3D(-0.39645097, 0.81193143, 0.42848, -0.89342344, -0.23382366, -0.38356438, -0.21123868, -0.5348779, 0.81809723, 0.09040849, 0.14403242, -0.032892585)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D19" type="MeshInstance3D" parent="GoldBase" unique_id=291183725]
+transform = Transform3D(-0.12929149, 0.95156837, -0.2789296, -0.89342344, -0.2338237, -0.38356435, -0.43020797, 0.19961151, 0.88038427, 0.113445505, -0.012920499, -0.032892585)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D20" type="MeshInstance3D" parent="GoldBase" unique_id=1896733918]
+transform = Transform3D(-0.032690465, 0.8854304, -0.46362087, -0.9143684, 0.1608063, 0.37158167, 0.40356287, 0.4360677, 0.8043524, 0.09726687, -0.104531646, 0.09123629)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D21" type="MeshInstance3D" parent="GoldBase" unique_id=1480937722]
+transform = Transform3D(0.40490866, 0.897787, -0.17328519, -0.8769954, 0.43494716, 0.20420957, 0.25870675, 0.06928468, 0.9634681, 0.09726687, 0.2480962, 0.013450235)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D22" type="MeshInstance3D" parent="GoldBase" unique_id=654810793]
+transform = Transform3D(0.46964043, 0.6860674, 0.5556532, -0.8769955, 0.43494722, 0.20420958, -0.10157785, -0.58320963, 0.8059455, 0.09726687, -0.07289407, -0.071096875)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D23" type="MeshInstance3D" parent="GoldBase" unique_id=600098265]
+transform = Transform3D(0.46232146, 0.8796123, 0.11198956, -0.87699544, 0.4349472, 0.20420955, 0.13091597, -0.19262412, 0.9725004, 0.09726687, -0.23110351, -0.071096875)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D24" type="MeshInstance3D" parent="GoldBase" unique_id=1234839888]
+transform = Transform3D(0.4623214, 0.87961227, 0.11198957, -0.12039758, -0.06285585, 0.99073386, 0.8785012, -0.47152114, 0.07684332, 0.022679225, 0.21084848, 0.004924178)
+mesh = SubResource("CylinderMesh_8gpc2")
+
+[node name="MeshInstance3D25" type="MeshInstance3D" parent="GoldBase" unique_id=384098698]
+transform = Transform3D(0.4623214, 0.87961227, 0.11198957, -0.5490108, 0.38313285, -0.74283034, -0.6963096, 0.2819437, 0.6600467, 0.08378591, 0.06084004, 0.026423842)
+mesh = SubResource("CylinderMesh_8gpc2")
 
 [node name="Label3D" type="Label3D" parent="." unique_id=472663612]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0038360357, 1.2113186, 0)
@@ -46,3 +230,12 @@ uppercase = true
 [node name="Hole" type="MeshInstance3D" parent="." unique_id=739736863]
 visible = false
 mesh = SubResource("CylinderMesh_3oexi")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=508031953]
+transform = Transform3D(-4.371139e-08, -0.57357645, 0.81915206, 0, 0.81915206, 0.57357645, -1, 2.5071824e-08, -3.5806274e-08, 0, 0.8, 1)
+spot_range = 1.221
+spot_angle = 23.64
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=97694288]
+libraries/ = SubResource("AnimationLibrary_4qya1")
+autoplay = &"movinglight"

@@ -85,6 +85,8 @@ func _ready() -> void:
 	mining_timer.wait_time = mining_rate
 	return_gold_timer.wait_time = return_gold_rate
 	stunned_timer.wait_time = stunned_length
+	show_purchased_items()
+	
 
 func _physics_process(delta: float) -> void:
 	do_state_stuff(delta)
@@ -298,6 +300,7 @@ func _on_return_gold_timer_timeout() -> void:
 		mine_gold.mine_gold() #play animation
 		if gold_in_bag == 0:
 			stolen.purchase_items(self,returned_gold,current_health,max_health,damage_taken,get_index_4_sorted_array(),items_purchased)
+			
 			returned_gold = 0
 			show_purchased_items()
 	else:

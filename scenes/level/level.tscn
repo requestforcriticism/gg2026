@@ -207,6 +207,7 @@ base_enemy_scene = ExtResource("9_m0bv2")
 tank_enemy_scene = ExtResource("6_pm6rs")
 fast_enemy_scene = ExtResource("7_vrc4q")
 difficulty_curves = Array[Curve]([SubResource("Curve_fhw5o"), SubResource("Curve_xm880"), SubResource("Curve_vfold")])
+starting_item_threshold = Array[int]([50, 150, 400, 8000, 900, 1000])
 enemy_path_l_1 = NodePath("../Layer1/EnemyPathL1")
 base_enemy_spawn_rate = 4.1
 tank_enemy_spawn_rate = 23.7

@@ -80,6 +80,10 @@ top_radius = 0.1
 bottom_radius = 0.1
 height = 0.02
 
+[sub_resource type="BoxMesh" id="BoxMesh_evlf7"]
+material = SubResource("StandardMaterial3D_ga2ha")
+size = Vector3(1.58, 0.01, 1.58)
+
 [node name="ArrowTrapBase" type="Node3D" unique_id=1486655462 groups=["arrow", "trap"]]
 script = ExtResource("1_x4lbm")
 trap_cost = null
@@ -201,5 +205,9 @@ top_level = true
 
 [node name="ShootTimer" type="Timer" parent="." unique_id=1942908146]
 wait_time = 0.5
+
+[node name="MiddleFloor" type="MeshInstance3D" parent="." unique_id=871758899]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005, 0)
+mesh = SubResource("BoxMesh_evlf7")
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

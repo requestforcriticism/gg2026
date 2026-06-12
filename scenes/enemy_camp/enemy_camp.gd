@@ -2,9 +2,12 @@ extends Path3D
 
 @export var my_going_forward_first_path :Path3D
 
-@export var starting_stolen_gold := 0
+@export var starting_stolen_gold:int = 0
 
 @onready var ui: MarginContainer = $"../UI"
+
+var total_items_purchased: Array = [10,10,10,10,10,10]
+var sum_total_items:int = 60
 
 var stolen_gold: int:
 	set(gold_in):
@@ -46,31 +49,43 @@ func purchase_items(enemy:Object,gold_earned:int,current_hp:float,max_hp:int, da
 			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
 		elif !items_purchased[dam_take_index.find(4)] && gold_earned >=3:
 			enemy.items_purchased[dam_take_index.find(4)] = 1
+			total_items_purchased[dam_take_index.find(4)] += 1
+			sum_total_items += 1
 			gold_earned -= 3
 			check_4_pike(enemy, dam_take_index.find(4))
 			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
 		elif !items_purchased[dam_take_index.find(3)] && gold_earned >=3:
 			enemy.items_purchased[dam_take_index.find(3)] = 1
+			total_items_purchased[dam_take_index.find(3)] += 1
+			sum_total_items += 1
 			gold_earned -= 3
 			check_4_pike(enemy, dam_take_index.find(3))
 			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
 		elif !items_purchased[dam_take_index.find(2)] && gold_earned >=3:
 			enemy.items_purchased[dam_take_index.find(2)] = 1
+			total_items_purchased[dam_take_index.find(2)] += 1
+			sum_total_items += 1
 			gold_earned -= 3
 			check_4_pike(enemy, dam_take_index.find(2))
 			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
 		elif !items_purchased[dam_take_index.find(1)] && gold_earned >=3:
 			enemy.items_purchased[dam_take_index.find(1)] = 1
+			total_items_purchased[dam_take_index.find(1)] += 1
+			sum_total_items += 1
 			gold_earned -= 3
 			check_4_pike(enemy, dam_take_index.find(1))
 			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
 		elif !items_purchased[dam_take_index.find(0)] && gold_earned >=3:
 			enemy.items_purchased[dam_take_index.find(0)] = 1
+			total_items_purchased[dam_take_index.find(0)] += 1
+			sum_total_items += 1
 			gold_earned -= 3
 			check_4_pike(enemy, dam_take_index.find(0))
 			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)
 		elif !items_purchased[5] && gold_earned >=3:
 			enemy.items_purchased[5] = 1
+			total_items_purchased[5] += 1
+			sum_total_items += 1
 			gold_earned -= 3
 			enemy.purchased_bag()
 			purchase_items(enemy,gold_earned,current_hp,max_hp, damage_taken,dam_take_index, items_purchased)	

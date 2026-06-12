@@ -111,6 +111,30 @@ tracks/7/keys = {
 "update": 0,
 "values": [Vector3(0, -1.5707964, 0)]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("MiddleFloor:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.035, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("MiddleFloor:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.5707964, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_t7575"]
 resource_name = "placed"
@@ -211,6 +235,30 @@ tracks/7/keys = {
 "update": 0,
 "values": [Vector3(0, -1.5707964, 0), Vector3(1.4835298, -1.5707964, 0), Vector3(1.6580628, -1.5707964, 0.08726646), Vector3(1.4835298, -1.5707964, 0), Vector3(1.6580628, -1.5707964, -0.08726646), Vector3(0, -1.5707964, 0)]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("MiddleFloor:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.035, 0), Vector3(0, 0.102, 0), Vector3(0, 0.005, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("MiddleFloor:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.08726646, 0, 0), Vector3(-0.08726646, 0, 0.08726646), Vector3(0.08726646, 0, -0.08726646), Vector3(-0.08726646, 0, -0.04363323), Vector3(0, 0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yeo20"]
 _data = {
@@ -227,7 +275,10 @@ arrow_fire_rate = [0.5, 0.4, 0.3]
 [node name="ShootTimer" parent="." index="4" unique_id=1942908146]
 autostart = true
 
-[node name="SelectMeArea3D" type="Area3D" parent="." index="5" unique_id=666844352]
+[node name="MiddleFloor" parent="." index="5" unique_id=871758899]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, -1.035, 0)
+
+[node name="SelectMeArea3D" type="Area3D" parent="." index="6" unique_id=666844352]
 collision_layer = 64
 collision_mask = 0
 
@@ -235,12 +286,12 @@ collision_mask = 0
 shape = SubResource("BoxShape3D_ixn2o")
 debug_color = Color(0.92969745, 0.26607504, 0, 0.41960785)
 
-[node name="SelectedMesh" type="MeshInstance3D" parent="." index="6" unique_id=710943542]
+[node name="SelectedMesh" type="MeshInstance3D" parent="." index="7" unique_id=710943542]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 visible = false
 transparency = 0.55
 cast_shadow = 0
 mesh = SubResource("BoxMesh_t7575")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7" unique_id=676781837]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8" unique_id=676781837]
 libraries/ = SubResource("AnimationLibrary_yeo20")

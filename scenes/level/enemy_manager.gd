@@ -6,6 +6,8 @@ extends Node3D
 
 @export var difficulty_curves: Array[Curve]
 
+@export var starting_item_threshold: Array[int] = [1,2,3,4,5,6]
+
 											#[Base,Tank,Fast]
 @export var group_spawn_L1: Array[Array] = [[4,1,1]]
 @export var group_spawn_L2: Array[Array] = [[7,2,2],[6,2,2],[5,1,1]]
@@ -29,6 +31,7 @@ extends Node3D
 @export var fast_enemy_base_max_gold_capacity := 4
 @export var fast_enemy_stunned_length := 1.5
 
+@onready var enemycamp = get_tree().get_first_node_in_group("enemy_camp")
 @onready var bankandquota = get_tree().get_first_node_in_group("bankandquota")
 @onready var spawn_timer: Timer = $SpawnTimer
 @onready var base_enemy_spawn_timer: Timer = $BaseEnemySpawnTimer
@@ -135,7 +138,7 @@ func spawn_base_enemy() -> void:
 	new_enemy.mining_rate = base_enemy_mining_rate
 	new_enemy.base_max_gold_capacity = base_enemy_base_max_gold_capacity
 	new_enemy.stunned_length = base_enemy_stunned_length
-
+	new_enemy.items_purchased = starting_items()
 	enemy_path_l_1.add_child(new_enemy)
 
 func spawn_tank_enemy() -> void:
@@ -146,7 +149,7 @@ func spawn_tank_enemy() -> void:
 	new_enemy.mining_rate = tank_enemy_mining_rate
 	new_enemy.base_max_gold_capacity = tank_enemy_base_max_gold_capacity
 	new_enemy.stunned_length = tank_enemy_stunned_length
-	
+	new_enemy.items_purchased = starting_items()
 	enemy_path_l_1.add_child(new_enemy)
 
 func spawn_fast_enemy() -> void:
@@ -157,7 +160,7 @@ func spawn_fast_enemy() -> void:
 	new_enemy.mining_rate = fast_enemy_mining_rate
 	new_enemy.base_max_gold_capacity = fast_enemy_base_max_gold_capacity
 	new_enemy.stunned_length = fast_enemy_stunned_length
-	
+	new_enemy.items_purchased = starting_items()
 	enemy_path_l_1.add_child(new_enemy)
 
 func spawn_starting_base_enemy() -> void:
@@ -168,11 +171,41 @@ func spawn_starting_base_enemy() -> void:
 	new_enemy.mining_rate = base_enemy_mining_rate
 	new_enemy.base_max_gold_capacity = 1
 	new_enemy.stunned_length = base_enemy_stunned_length
-
+	new_enemy.items_purchased = starting_items()
 	enemy_path_l_1.add_child(new_enemy)
 
 func sample_range() -> float:
 	return (1.0 - (level.get_current_gold() / level.max_gold_on_layer[level.layer_unlocked - 1]))
+
+func starting_items() -> Array:
+	var tempitempurch = enemycamp.total_items_purchased.duplicate(true)
+	var totitems = enemycamp.sum_total_items
+	var number_of_start_items:int = 0
+	var items2purchase:Array[int] =[0,0,0,0,0,0]
+	for i in range(0,starting_item_threshold.size()):
+		if enemycamp.stolen_gold >= starting_item_threshold[i]:
+			number_of_start_items += 1
+		else:
+			break
+	
+	var randint
+	for k in range(0,number_of_start_items):
+		randint = randi_range(1,totitems)
+		for j in range(0,starting_item_threshold.size()):
+			randint -= tempitempurch[j]
+			if randint <= 0:
+				totitems -= tempitempurch[j]
+				tempitempurch[j] = 0
+				items2purchase[j] = 1
+				break
+	
+	return items2purchase
+
+func sum_array(array_2_sum:Array) -> int:
+	var total:int = 0
+	for number in array_2_sum:
+		total += number
+	return total
 
 func _on_base_enemy_spawn_timer_timeout() -> void:
 	base_enemy_spawn_timer.wait_time = base_enemy_spawn_rate/difficulty_curves[level.layer_unlocked-1].sample(sample_range())

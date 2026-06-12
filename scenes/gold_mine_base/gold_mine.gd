@@ -7,6 +7,7 @@ extends Path3D
 
 @export var max_gold: int = 1000
 
+@onready var gold_base: MeshInstance3D = $GoldBase
 @onready var bankquota = get_tree().get_first_node_in_group("bankandquota")
 @onready var ui = get_tree().get_first_node_in_group("UI")
 @onready var level = get_tree().get_first_node_in_group("level")
@@ -30,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	reorg_children()
 
 func mine_empty():
-	$goldnode.visible = false
+	gold_base.visible = false
 	if !get_parent().is_in_group("layer3"):
 		$Hole.visible = true
 	$Label3D.visible = false
