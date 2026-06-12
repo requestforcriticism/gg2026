@@ -4,6 +4,7 @@ extends Camera3D
 @export var single_point: PackedScene
 @export var layer_nodes : Array[Node3D]
 
+@onready var storyui = get_tree().get_first_node_in_group("storyui")
 @onready var UserInt = get_tree().get_first_node_in_group("UI")
 @onready var gridmap = get_tree().get_first_node_in_group("gridmap")
 @onready var level: Node3D = $".."
@@ -52,6 +53,8 @@ func _ready() -> void:
 	size = Layer_size[0]
 
 func _process(delta: float) -> void:
+	if storyui.talking:
+			return
 	if camera_moving_pos || camera_moving_zoom:
 		move_camera()
 	strafe_camera(delta)
@@ -72,6 +75,8 @@ func _process(delta: float) -> void:
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
 func _input(event: InputEvent) -> void:
+	if storyui.talking:
+			return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			zoom("in")
@@ -208,6 +213,15 @@ func check_change_layer() -> void:
 
 func change_layer_stuff() -> void:
 	camera_on_layer = (camera_on_layer) % level.layer_unlocked + 1
+	camera_moving_zoom = false
+	camera_moving_pos = true
+	camera_moving_to = Layer_pos[camera_on_layer-1]
+	camera_size_to = Layer_size[camera_on_layer-1]
+	end_select_trap_ability_check()
+	looking_4_selectable_traps()
+
+func change_to_specific_layer(layer_to_change_to: int) -> void:
+	camera_on_layer = layer_to_change_to
 	camera_moving_zoom = false
 	camera_moving_pos = true
 	camera_moving_to = Layer_pos[camera_on_layer-1]

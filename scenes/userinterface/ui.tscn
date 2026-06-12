@@ -31,6 +31,8 @@
 [ext_resource type="Texture2D" uid="uid://cvnq4gd68a138" path="res://assets/visual/ui/keyboard_3.png" id="22_cgdo4"]
 [ext_resource type="Texture2D" uid="uid://duq05tatx2w2g" path="res://assets/visual/misc/icon_scroll_letter_0.png" id="25_cgdo4"]
 [ext_resource type="Texture2D" uid="uid://bsnj64aftcoqw" path="res://assets/visual/ui/keyboard_tab.png" id="31_cy35d"]
+[ext_resource type="Texture2D" uid="uid://b7i4bp11w7dtr" path="res://assets/visual/enemies/Character11_sheet.png" id="31_mywt1"]
+[ext_resource type="Texture2D" uid="uid://be4c1ch81733t" path="res://assets/visual/misc/icon_coins_pouch.png" id="32_j41vc"]
 [ext_resource type="AudioStream" uid="uid://3q7tk8tchnns" path="res://assets/audio/ui/SoundsTrapButtonSelect.wav" id="32_mk402"]
 [ext_resource type="AudioStream" uid="uid://r4xq6nk40bf6" path="res://assets/audio/ui/SoundsWrongChoice.wav" id="33_v22we"]
 [ext_resource type="AudioStream" uid="uid://bm1kyq51llybj" path="res://assets/audio/ui/You died.wav" id="34_v22we"]
@@ -46,6 +48,11 @@
 [ext_resource type="Texture2D" uid="uid://b6icspah1jpr5" path="res://assets/visual/ui/mouse_left.png" id="43_3lajm"]
 [ext_resource type="Texture2D" uid="uid://chwlwirh7h7du" path="res://assets/visual/ui/keyboard_escape.png" id="44_qx2aq"]
 [ext_resource type="Script" uid="uid://brylw0ij5mndi" path="res://scenes/userinterface/hard_mode_panel_container.gd" id="45_lgt16"]
+[ext_resource type="Script" uid="uid://doj0sr78g0gmr" path="res://scenes/userinterface/tutorial_button.gd" id="47_38dkw"]
+[ext_resource type="Texture2D" uid="uid://ck201fx2d628f" path="res://assets/visual/ui/Exkillvate Tutorial 1.png" id="49_s30mw"]
+[ext_resource type="Texture2D" uid="uid://dr60girntt0wc" path="res://assets/visual/ui/Exkillvate Tutorial 2.png" id="50_g1aya"]
+[ext_resource type="Script" uid="uid://cj82nmiqopqxg" path="res://scenes/userinterface/previous_button.gd" id="51_nd1ej"]
+[ext_resource type="Script" uid="uid://du8otyhtmtp8f" path="res://scenes/userinterface/exit_window_button.gd" id="52_588p2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqdvs"]
 font = ExtResource("14_euyg3")
@@ -91,6 +98,10 @@ font = ExtResource("14_euyg3")
 font_size = 32
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j41vc"]
+atlas = ExtResource("31_mywt1")
+region = Rect2(9, 6, 14, 18)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cy35d"]
 load_path = "res://.godot/imported/Box.png-e5c207b71154241cd854176ebdce2d05.ctex"
@@ -732,19 +743,34 @@ expand_mode = 3
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 12
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer" unique_id=265541772]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer" unique_id=77485035]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer" unique_id=965914257]
+layout_mode = 2
+alignment = 1
+
+[node name="SellspikeButton2" type="Button" parent="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2030658277]
+self_modulate = Color(1, 0.33999997, 0.33999997, 0)
+layout_mode = 2
+disabled = true
+text = "Sell Trap: 99 Gold"
+
+[node name="NameLabel" type="Label" parent="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=77485035]
 layout_mode = 2
 text = "Spike Trap"
 label_settings = SubResource("LabelSettings_uqdvs")
 horizontal_alignment = 1
+
+[node name="SellspikeButton" type="Button" parent="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=27917964]
+self_modulate = Color(1, 0.33999997, 0.33999997, 1)
+layout_mode = 2
+text = "Sell Trap: 99 Gold"
 
 [node name="GridContainer" type="GridContainer" parent="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer" unique_id=369128607]
 layout_mode = 2
@@ -818,10 +844,6 @@ alignment = 1
 layout_mode = 2
 text = "Upgrade Trap"
 
-[node name="SellspikeButton" type="Button" parent="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=27917964]
-layout_mode = 2
-text = "Sell Trap: 99 Gold"
-
 [node name="SelectedArrowInfoContainer" type="PanelContainer" parent="TrapAbilityOption" unique_id=1264506030]
 visible = false
 layout_mode = 2
@@ -838,19 +860,34 @@ expand_mode = 3
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 12
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer" unique_id=1416512230]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer" unique_id=986523292]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer" unique_id=10591493]
+layout_mode = 2
+alignment = 1
+
+[node name="SellArrowButton2" type="Button" parent="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=547988315]
+self_modulate = Color(1, 0.33999997, 0.33999997, 0)
+layout_mode = 2
+disabled = true
+text = "Sell Trap: 99 Gold"
+
+[node name="NameLabel" type="Label" parent="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=986523292]
 layout_mode = 2
 text = "Arrow Trap"
 label_settings = SubResource("LabelSettings_uqdvs")
 horizontal_alignment = 1
+
+[node name="SellArrowButton" type="Button" parent="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1715637183]
+self_modulate = Color(1, 0.33999997, 0.33999997, 1)
+layout_mode = 2
+text = "Sell Trap: 99 Gold"
 
 [node name="GridContainer" type="GridContainer" parent="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer" unique_id=648946224]
 layout_mode = 2
@@ -924,10 +961,6 @@ alignment = 1
 layout_mode = 2
 text = "Upgrade Trap"
 
-[node name="SellArrowButton" type="Button" parent="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1715637183]
-layout_mode = 2
-text = "Sell Trap: 99 Gold"
-
 [node name="SelectedMudInfoContainer" type="PanelContainer" parent="TrapAbilityOption" unique_id=889483853]
 visible = false
 layout_mode = 2
@@ -944,19 +977,34 @@ expand_mode = 3
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer" unique_id=1856259614]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer" unique_id=2126175228]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer" unique_id=920728976]
+layout_mode = 2
+alignment = 1
+
+[node name="SellMudButton2" type="Button" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=435808366]
+self_modulate = Color(1, 0.33999997, 0.33999997, 0)
+layout_mode = 2
+disabled = true
+text = "Sell Trap: 99 Gold"
+
+[node name="NameLabel" type="Label" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2126175228]
 layout_mode = 2
 text = "Mud Trap"
 label_settings = SubResource("LabelSettings_uqdvs")
 horizontal_alignment = 1
+
+[node name="SellMudButton" type="Button" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=434553831]
+self_modulate = Color(1, 0.33999997, 0.33999997, 1)
+layout_mode = 2
+text = "Sell Trap: 99 Gold"
 
 [node name="GridContainer" type="GridContainer" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer" unique_id=1714079540]
 layout_mode = 2
@@ -1009,10 +1057,6 @@ alignment = 1
 [node name="SelectedMudButton" type="Button" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1364160738]
 layout_mode = 2
 text = "Upgrade Trap"
-
-[node name="SellMudButton" type="Button" parent="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=434553831]
-layout_mode = 2
-text = "Sell Trap: 99 Gold"
 
 [node name="AbilityOptions" type="HBoxContainer" parent="TrapAbilityOption" unique_id=1879207190]
 layout_mode = 2
@@ -1423,13 +1467,41 @@ text = "0/99999"
 label_settings = SubResource("LabelSettings_eugoy")
 
 [node name="HumanStole" type="VBoxContainer" parent="." unique_id=707950647]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="StolenLabel" type="Label" parent="HumanStole" unique_id=249605056]
+[node name="HBoxContainer" type="HBoxContainer" parent="HumanStole" unique_id=2073887078]
 layout_mode = 2
-text = "Stolen from Humans: 0"
+
+[node name="HumanTextureRect" type="TextureRect" parent="HumanStole/HBoxContainer" unique_id=1910755368]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = SubResource("AtlasTexture_j41vc")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="CoinTextureRect" type="TextureRect" parent="HumanStole/HBoxContainer/HumanTextureRect" unique_id=2014658947]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -35.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("32_j41vc")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="StolenLabel" type="Label" parent="HumanStole/HBoxContainer" unique_id=249605056]
+layout_mode = 2
+text = "0"
 label_settings = SubResource("LabelSettings_eugoy")
 
 [node name="TabLayerInfo" type="HBoxContainer" parent="." unique_id=892706487]
@@ -1537,14 +1609,16 @@ script = ExtResource("36_io81c")
 
 [node name="StoryUI2" type="CanvasLayer" parent="." unique_id=1642078341 node_paths=PackedStringArray("words_label") groups=["storyui"]]
 process_mode = 3
+visible = false
 script = ExtResource("38_573p1")
 words_label = NodePath("DialagueBoxTexture/WordsLabel")
 Start_Game_dialogue_gob_lines = Array[String](["Good morning PIPSQUEAK! I’m Overseer Gobillionaire, the most rich and powerful of the Mine Goblin Co., and you are at my mercy!", "Did you really think I wouldn’t find out that it was you who played that prank on me during the last Goblin Holiday Social? ", "Now you’re here at our least productive mine serving as our business agent, and if you don’t make it profitable…", "You’ll be made into very productive Ogre food instead! Hahahahaha!!!", "Look at that, intruders have arrived! Those humans will clean you out if you don’t stop them. So make yourself useful!"])
 Start_Game_dialogue_human_lines = Array[String](["I’ve found it! The Broken Down, Cheap, Plundered Mine of No Value! They called me crazy!! ", "Now when my enemies - whom I’ve also told the location - arrive, they will see it indeed has no value - because I got it all!"])
-Start2_Game_dialogue_gob_lines = Array[String](["These humans are exactly why this mine is our least productive! The second it starts producing, they ransack it!", "Stop these humans! They’re the only thing more pathetic than you, pipsqueak."])
+Start2_Game_dialogue_gob_lines = Array[String](["These humans are exactly why this mine is our least productive! The second it starts producing, they ransack it!", "Stop these humans! They’re the only thing more pathetic than you, pipsqueak.", "Does this confuse you, Pipsqueak? Forget how to do your job? Just hit the esc button or spacebar and click tutorial"])
 Skip_Intro_Game_dialogue_gob_lines = Array[String](["Whatever!  Good luck playing without my tutelage!  Here's a final gift for ignoring me!"])
 Layer2_Game_dialogue_gob_lines = Array[String](["PIPSQUEAK! You’ve done the impossible!! You’ve made the mine profitable again! Well… I have to admit, I was wrong about you. ", "You showed me. That fulfills the terms of your contract, and you are free to go. I really do apologize."])
 Layer2b_Game_dialogue_gob_lines = Array[String](["HAHAHAHAHAHAHAHAHAHA!!!", "You fool!!! You really thought you were ever going to be free again?? You really ARE the perfect Goblin for that mine!! ", "Did you not read your new contract?? Under Section 528, subsection 12.5(b), and I quote, “Agent is assigned to mine…FOREVER!!!”", "We don’t remember how deep that mine goes… in fact, it could go on forever… guess you’ll have to find out, Pipsqueak! ", "Now, dear agent… GET BACK TO WORK!!!"])
+Layer3_Game_dialogue_gob_lines = Array[String](["Look at you, big shot! Well we just discovered 2 more nodes. Let’s see your smug look defending both."])
 Lose_Game_dialogue_gob_lines = Array[String](["Just as I thought, Pipsqueak! Can't even do that right. Well, at least my pet Ogre will eat good tonight!"])
 Win_Game_dialogue_gob_lines = Array[String](["W…well look at that, you can do something useful! ", "Tell you what… take a little…break. On me, as a congrats.", "I promise you, we’re just getting started."])
 
@@ -1715,7 +1789,8 @@ layout_mode = 2
 
 [node name="TutorialButton" type="Button" parent="PausedInfoPanelContainer/MarginContainer/VBoxContainer" unique_id=905430695]
 layout_mode = 2
-text = "Game Info"
+text = "Tutorial Info"
+script = ExtResource("47_38dkw")
 
 [node name="RestartButton" type="Button" parent="PausedInfoPanelContainer/MarginContainer/VBoxContainer" unique_id=1361922207]
 layout_mode = 2
@@ -1798,12 +1873,73 @@ uppercase = true
 [node name="HardModeAnimationPlayer" type="AnimationPlayer" parent="HardModePanelContainer" unique_id=1200025350]
 libraries/ = SubResource("AnimationLibrary_mywt1")
 
+[node name="TutorialPanelContainer" type="PanelContainer" parent="." unique_id=135532040]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BGTextureRect" type="TextureRect" parent="TutorialPanelContainer" unique_id=1453634533]
+layout_mode = 2
+texture = ExtResource("13_7cvrb")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialPanelContainer" unique_id=671383488]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialPanelContainer/MarginContainer" unique_id=1982702681]
+layout_mode = 2
+
+[node name="Tut1TextureRect" type="TextureRect" parent="TutorialPanelContainer/MarginContainer/VBoxContainer" unique_id=367374544]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
+texture = ExtResource("49_s30mw")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Tut2TextureRect" type="TextureRect" parent="TutorialPanelContainer/MarginContainer/VBoxContainer" unique_id=510064620]
+visible = false
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
+texture = ExtResource("50_g1aya")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TutorialPanelContainer/MarginContainer/VBoxContainer" unique_id=1675349525]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="PreviousButton" type="Button" parent="TutorialPanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1059410074]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Previous"
+script = ExtResource("51_nd1ej")
+
+[node name="ExitWindowButton" type="Button" parent="TutorialPanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2073620418]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Exit"
+script = ExtResource("52_588p2")
+
+[node name="NextButton" type="Button" parent="TutorialPanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1983592679]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Next"
+
+[connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2/SellspikeButton2" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2/SellspikeButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedspikeButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="TrapAbilityOption/SelectedSpikeInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellspikeButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2/SellArrowButton2" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2/SellArrowButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedArrowButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="TrapAbilityOption/SelectedArrowInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellArrowButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2/SellMudButton2" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer2/SellMudButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SelectedMudButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="TrapAbilityOption/SelectedMudInfoContainer/MarginContainer/VBoxContainer/HBoxContainer/SellMudButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="TrapAbilityOption/AbilityOptions/BoulderAbilityContainer/BoulderAbilityButton" to="." method="_on_boulder_ability_button_pressed"]
 [connection signal="timeout" from="TrapAbilityOption/AbilityOptions/BoulderAbilityContainer/BoulderAbilityCooldownTimer" to="." method="_on_boulder_ability_colldown_timer_timeout"]
 [connection signal="pressed" from="TrapAbilityOption/AbilityOptions/WallAbilityContainer/WallAbilityButton" to="." method="_on_wall_ability_button_pressed"]
@@ -1814,8 +1950,12 @@ libraries/ = SubResource("AnimationLibrary_mywt1")
 [connection signal="pressed" from="GameEnd/MarginContainer/VBoxContainer/HBoxContainer/PlayAgainButton" to="GameEnd/MarginContainer/VBoxContainer/HBoxContainer/PlayAgainButton" method="_on_pressed"]
 [connection signal="pressed" from="GameEnd/MarginContainer/VBoxContainer/HBoxContainer/ExitButton" to="GameEnd/MarginContainer/VBoxContainer/HBoxContainer/ExitButton" method="_on_pressed"]
 [connection signal="timeout" from="StoryUI2/TabTimer" to="StoryUI2" method="_on_tab_timer_timeout"]
+[connection signal="pressed" from="PausedInfoPanelContainer/MarginContainer/VBoxContainer/TutorialButton" to="PausedInfoPanelContainer/MarginContainer/VBoxContainer/TutorialButton" method="_on_pressed"]
 [connection signal="pressed" from="PausedInfoPanelContainer/MarginContainer/VBoxContainer/RestartButton" to="GameEnd/MarginContainer/VBoxContainer/HBoxContainer/PlayAgainButton" method="_on_pressed"]
 [connection signal="pressed" from="PausedInfoPanelContainer/MarginContainer/VBoxContainer/QuitButton" to="GameEnd/MarginContainer/VBoxContainer/HBoxContainer/ExitButton" method="_on_pressed"]
+[connection signal="pressed" from="TutorialPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PreviousButton" to="TutorialPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PreviousButton" method="_on_pressed"]
+[connection signal="pressed" from="TutorialPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ExitWindowButton" to="TutorialPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ExitWindowButton" method="_on_pressed"]
+[connection signal="pressed" from="TutorialPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="TutorialPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PreviousButton" method="_on_pressed"]
 
 [editable path="trap_info/SpikeTrapinfo"]
 [editable path="trap_info/ArrowTrapBaseinfo"]

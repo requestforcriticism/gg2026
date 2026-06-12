@@ -17,6 +17,7 @@ extends CanvasLayer
 @onready var skip_intro_panel_container: PanelContainer = $"../SkipIntroPanelContainer"
 @onready var hard_mode_panel_container: Panel = $"../HardModePanelContainer"
 @onready var gold_quota: GridContainer = $"../Gold_Quota"
+@onready var human_stole: VBoxContainer = $"../HumanStole"
 
 @export var Start_Game_dialogue_gob_lines: Array[String] = ["Hi","How are you?", "Bye"]
 @export var Start_Game_dialogue_human_lines: Array[String] = ["Hi","How are you?", "Bye"]
@@ -26,6 +27,8 @@ extends CanvasLayer
 
 @export var Layer2_Game_dialogue_gob_lines: Array[String] = ["Hi","How are you?", "Bye"]
 @export var Layer2b_Game_dialogue_gob_lines: Array[String] = ["Hi","How are you?", "Bye"]
+
+@export var Layer3_Game_dialogue_gob_lines: Array[String] = ["Hi","How are you?", "Bye"]
 
 @export var Lose_Game_dialogue_gob_lines: Array[String] = ["Hi","How are you?", "Bye"]
 @export var Win_Game_dialogue_gob_lines: Array[String] = ["Hi","How are you?", "Bye"]
@@ -123,6 +126,7 @@ func talking_func() -> void:
 			ui.set_gold_label(bankquota.gold)
 			ui.set_quota_label(bankquota.earned_for_quota, bankquota.quota[level.layer_unlocked-1])
 			gold_quota.visible = true
+			human_stole.visible = true
 			hardmusic.play()
 		elif current_dialogue == Win_Game_dialogue_gob_lines:
 			story_ui_2.visible = false
@@ -132,9 +136,15 @@ func talking_func() -> void:
 			story_ui_2.visible = false
 			talking = false
 			ui.end_game("lost")
+		elif current_dialogue == Layer3_Game_dialogue_gob_lines:
+			story_ui_2.visible = false
+			talking = false
+			intro = false
+			skip_intro_panel_container.visible = false
+			get_tree().paused = false
 		elif current_dialogue == Layer2_Game_dialogue_gob_lines:
 			talking = false
-			raypickercamera.change_layer_stuff()
+			raypickercamera.change_to_specific_layer(2)
 			tab_timer.start()
 		elif current_dialogue == Layer2b_Game_dialogue_gob_lines:
 			story_ui_2.visible = false
@@ -153,6 +163,7 @@ func talking_func() -> void:
 			ui.set_gold_label(bankquota.gold)
 			ui.set_quota_label(bankquota.earned_for_quota, bankquota.quota[level.layer_unlocked-1])
 			gold_quota.visible = true
+			human_stole.visible = true
 			normalmusic.play()
 		elif current_dialogue == Start_Game_dialogue_human_lines:
 			current_dialogue = Start2_Game_dialogue_gob_lines
@@ -171,8 +182,15 @@ func layer2_opened() -> void:
 	dialogue_index = 0
 	talking_func()
 
+func layer3_opened() -> void:
+	raypickercamera.change_to_specific_layer(3)
+	tab_timer.start()
+
 func _on_tab_timer_timeout() -> void:
-	current_dialogue = Layer2b_Game_dialogue_gob_lines
+	if current_dialogue == Layer2_Game_dialogue_gob_lines:
+		current_dialogue = Layer2b_Game_dialogue_gob_lines
+	elif current_dialogue == Layer2b_Game_dialogue_gob_lines:
+		current_dialogue = Layer3_Game_dialogue_gob_lines
 	talking = true
 	dialogue_index = 0
 	talking_func()

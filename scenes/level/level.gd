@@ -72,8 +72,11 @@ func check_layer_complete() -> void:
 		layer_unlocked += 1
 		if layer_unlocked == 2:
 			storyui.layer2_opened()
+		elif layer_unlocked == 3:
+			storyui.layer3_opened()
 		else:
-			new_layer()
+			print("no 4th floor")
+			#new_layer()
 	else:
 		get_tree().paused = true
 		print("game over")
